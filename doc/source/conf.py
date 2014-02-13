@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# linux-system-collectd documentation build configuration file, created by
+# Pack Pack linux-system-collectd documentation build configuration file, created by
 # sphinx-quickstart on Wed Feb 12 23:27:40 2014.
 #
 # This file is execfile()d with the current directory set to its
@@ -48,7 +48,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'linux-system-collectd'
+project = u'Pack Pack linux-system-collectd'
 copyright = u'2014, Thibault Cohen'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -231,7 +231,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'pack_name', u'linux-system-collectd Documentation',
+    ('index', 'pack_name', u'Pack Pack linux-system-collectd Documentation',
      [u'Thibault Cohen'], 1)
 ]
 
@@ -245,7 +245,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'pack_name', u'linux-system-collectd Documentation',
+  ('index', 'pack_name', u'Pack Pack linux-system-collectd Documentation',
    u'Thibault Cohen', 'pack_name', 'One line description of project.',
    'Miscellaneous'),
 ]
@@ -266,13 +266,13 @@ texinfo_documents = [
 # -- Options for Epub output ----------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = u'linux-system-collectd'
+epub_title = u'Pack Pack linux-system-collectd'
 epub_author = u'Thibault Cohen'
 epub_publisher = u'Thibault Cohen'
 epub_copyright = u'2014, Thibault Cohen'
 
 # The basename for the epub file. It defaults to the project name.
-#epub_basename = u'linux-system-collectd'
+#epub_basename = u'Pack Pack linux-system-collectd'
 
 # The HTML theme for the epub output. Since the default themes are not optimized
 # for small screen space, using the same theme for HTML and epub output is
