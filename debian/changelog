@@ -1,0 +1,5 @@
+linux-system-collectd (20140213-1) stable; urgency=medium
+
+  * First commit
+
+ -- Thibault Cohen <thibault.cohen@savoirfairelinux.com>  Thu, 13 Feb 2014 10:44:01 -0500
