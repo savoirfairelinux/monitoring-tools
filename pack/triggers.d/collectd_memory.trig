@@ -1,0 +1,91 @@
+#!/usr/bin/env python
+try:
+    def readable(octets):
+        units = ['K', 'M', 'G', 'T', 'P']
+        unit = 'B'
+        for i, u in enumerate(units):
+            if octets >= 1024:
+                octets = octets / 1024.0
+                unit = units[i]
+            else:
+                break
+        return octets, unit
+
+
+    exit_code_output = {0: 'OK',
+                        1: 'WARNING',
+                        2: 'CRITICAL',
+                        3: 'UNKNOWN',
+                       }
+    exit_code = 0
+    # Get threshold
+    data = {}
+
+    data['used_warn_p'] = self.host.customs.get('_MEMORY_USED_WARN', None)
+    data['used_crit_p'] = self.host.customs.get('_MEMORY_USED_CRIT', None)
+    if data['used_warn_p'] and data['used_crit_p']:
+        data['used_warn_p'] = float(data['used_warn_p'])
+        data['used_crit_p'] = float(data['used_crit_p'])
+        data['available_warn_p'] = 100 - data['used_warn_p']
+        data['available_crit_p'] = 100 - data['used_crit_p']
+    else:
+        data['available_warn_p'] = self.host.customs.get('_MEMORY_FREE_WARN', None)
+        data['available_crit_p'] = self.host.customs.get('_MEMORY_FREE_CRIT', None)
+        if data['available_warn_p'] and data['available_crit_p']:
+            data['available_warn_p'] = float(data['available_warn_p'])
+            data['available_crit_p'] = float(data['available_crit_p'])
+            data['used_warn_p'] = 100 - data['available_warn_p']
+            data['used_crit_p'] = 100 - data['available_crit_p']
+
+    # Get perfs
+    data['unused'] = float(perf(self, 'memory-free'))
+    # TODO: What is 'reserved' ???
+    data['cached'] = float(perf(self, 'memory-cached'))
+    data['buffered'] = float(perf(self, 'memory-buffered'))
+    data['used'] = float(perf(self, 'memory-used'))
+    data['total'] = data['unused'] + data['used'] + data['buffered'] + data['cached']
+    data['available'] = data['unused'] + data['buffered'] + data['cached']
+    data['used_p'] = data['used'] * 100 / data['total']
+    data['available_p'] = data['available'] * 100 / data['total']
+
+    # Transform threshold
+    if data['used_warn_p']:
+        data['used_warn'] = data['used_warn_p'] * data['total'] / 100.0
+        data['used_crit'] = data['used_crit_p'] * data['total'] / 100.0
+        data['available_warn'] = data['available_warn_p'] * data['total'] / 100.0
+        data['available_crit'] = data['available_crit_p'] * data['total'] / 100.0
+
+    # Prepare output
+    if data['used_warn_p']:
+        perf_data = ("available=%(available)dbytes;%(available_warn)d;%(available_crit)d;0;%(total)d "
+                     "used=%(used)dbytes;%(used_warn)d;%(used_crit)d;0;%(total)d "
+                     "unused=%(unused)dbytes;;;0;%(total)d "
+                     "cached=%(cached)dbytes;;;0;%(total)d "
+                     "buffered=%(buffered)dbytes;;;0;%(total)d " % data)
+    else:
+        perf_data = ("available=%(available)dbytes;;;0;%(total)d "
+                     "used=%(used)dbytes;;;0;%(total)d "
+                     "unused=%(unused)dbytes;;;0;%(total)d "
+                     "cached=%(cached)dbytes;;;0;%(total)d "
+                     "buffered=%(buffered)dbytes;;;0;%(total)d " % data)
+
+    data['h_available'], data['h_available_u'] = readable(data['available']) 
+    data['h_used'], data['h_used_u'] = readable(data['used']) 
+    data['h_total'], data['h_total_u'] = readable(data['total']) 
+    output = "Memory used: %(h_used)0.2f%(h_used_u)s/%(h_total)0.2f%(h_total_u)s (Available: %(h_available)0.2f%(h_available_u)s)" % data
+
+    # Get status
+    if data['used_warn_p']:
+        if data['available_p'] < data['available_crit_p']:
+            exit_code = 2
+        elif data['available_p'] < data['available_warn_p']:
+            exit_code = 1
+
+    # Finish output
+    output = " - ".join((exit_code_output[exit_code], output))
+
+    # Set ouput
+    set_value(self, output, perf_data, exit_code)
+
+except Exception, e:
+    set_value(self, "UNKNOWN: Trigger error: " + str(e), "", 3)
