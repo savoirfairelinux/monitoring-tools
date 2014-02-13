@@ -3,7 +3,7 @@
 #
 %define raw_name    check_template
 %define name        check-template
-%define version     20140212
+%define version     20140213
 %define release     1
 %define install_folder /usr/lib/
 
@@ -51,5 +51,5 @@ rm -rf $RPM_BUILD_ROOT
 %doc
 
 %changelog
-* Wed Feb 12 2014 Thibault Cohen <thibault.cohen@savoirfairelinux.com>
+* Thu Feb 13 2014 Thibault Cohen <thibault.cohen@savoirfairelinux.com>
 - Initial Release

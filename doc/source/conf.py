@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# Pack: linux-system-collectd documentation build configuration file, created by
-# sphinx-quickstart on Wed Feb 12 23:37:49 2014.
+# Pack __pack_name__ documentation build configuration file, created by
+# sphinx-quickstart on Thu Feb 13 09:24:38 2014.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -49,7 +49,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Pack: linux-system-collectd'
+project = u'Pack __pack_name__'
 copyright = u'2014, Thibault Cohen'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -182,7 +182,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'Packlinux-system-collectddoc'
+htmlhelp_basename = 'Pack__pack_name__doc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -202,7 +202,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'Packlinux-system-collectd.tex', u'Pack: \\textless{}linux-system-collectd\\textgreater{} Documentation',
+  ('index', 'Pack__pack_name__.tex', u'Pack \\_\\_linux-system-collectd\\_\\_ Documentation',
    u'\\textless{}author\\_name\\textgreater{}', 'manual'),
 ]
 
@@ -232,7 +232,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'packlinux-system-collectd', u'Pack: linux-system-collectd Documentation',
+    ('index', 'pack__pack_name__', u'Pack __pack_name__ Documentation',
      [u'Thibault Cohen'], 1)
 ]
 
@@ -246,8 +246,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'Packlinux-system-collectd', u'Pack: linux-system-collectd Documentation',
-   u'Thibault Cohen', 'Packlinux-system-collectd', 'One line description of project.',
+  ('index', 'Pack__pack_name__', u'Pack __pack_name__ Documentation',
+   u'Thibault Cohen', 'Pack__pack_name__', 'One line description of project.',
    'Miscellaneous'),
 ]
 
@@ -267,13 +267,13 @@ texinfo_documents = [
 # -- Options for Epub output ----------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = u'Pack: linux-system-collectd'
+epub_title = u'Pack __pack_name__'
 epub_author = u'Thibault Cohen'
 epub_publisher = u'Thibault Cohen'
 epub_copyright = u'2014, Thibault Cohen'
 
 # The basename for the epub file. It defaults to the project name.
-#epub_basename = u'Pack: linux-system-collectd'
+#epub_basename = u'Pack __pack_name__'
 
 # The HTML theme for the epub output. Since the default themes are not optimized
 # for small screen space, using the same theme for HTML and epub output is
