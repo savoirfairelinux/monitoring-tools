@@ -1,8 +1,8 @@
 #
 # Example spec file for cdplayer app...
 #
-%define raw_name    linux-system-collectd
-%define name        linux-system-collectd
+%define raw_name    check_template
+%define name        check-template
 %define version     20140212
 %define release     1
 %define install_folder /usr/lib/
@@ -11,7 +11,7 @@ Name:       %{name}
 Version:    %{version}
 Release:    %{release}.%{dist}
 License: GPL v3
-Summary: Shinken plugin from SFL. linux-system-collectd
+Summary: Shinken plugin from SFL. Linux passive checks based on Collectd
 Group: Networking/Other
 Source: http://monitoring.savoirfairelinux.com/%{name}.tar.gz
 URL: http://monitoring.savoirfairelinux.com/
@@ -22,7 +22,7 @@ BuildRoot:  %{_tmppath}/%{name}-%{version}
 #Requires: python, python-dlnetsnmp
 
 %description 
-Shinken plugin from SFL. linux-system-collectd
+Shinken plugin from SFL. Linux passive checks based on Collectd
 
 %prep
 %setup -q -n %{raw_name}
@@ -38,7 +38,7 @@ exit 0
 %{__rm} -rf %{buildroot}
 %{__install} -d -m 755 %{buildroot}/%{_libdir}/shinken/plugins/
 %{__install} -d -m 755 %{buildroot}/%{_bindir}
-%{__cp} -pr linux-system-collectd.py %{buildroot}/%{_libdir}/shinken/packs/linux-system-collectd.py
+<install>
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -47,7 +47,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(0644, shinken, shinken, 0755)
 %{_libdir}/shinken/
 %defattr(0755, shinken, shinken, 0755)
-%{_libdir}/shinken/packs/linux-system-collectd.py
+<files>
 %doc
 
 %changelog

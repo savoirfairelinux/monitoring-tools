@@ -17,3 +17,4 @@ debian/*/
 debian/*.debhelper.log
 debian/*.substvars
 test/devices/*.dbm
+doc/build
