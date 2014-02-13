@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Pack linux-system-collectd documentation build configuration file, created by
-# sphinx-quickstart on Thu Feb 13 09:24:38 2014.
+# sphinx-quickstart on Thu Feb 13 09:50:04 2014.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -203,7 +203,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
   ('index', 'Packlinux-system-collectd.tex', u'Pack linux-system-collectd Documentation',
-   u'\\textless{}author\\_name\\textgreater{}', 'manual'),
+   u'\\_\\_author\\_name\\_\\_', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
