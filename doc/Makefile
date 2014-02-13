@@ -85,17 +85,17 @@ qthelp:
 	@echo
 	@echo "Build finished; now you can run "qcollectiongenerator" with the" \
 	      ".qhcp project file in $(BUILDDIR)/qthelp, like this:"
-	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/Packpack_name.qhcp"
+	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/Packlinux-system-collectd.qhcp"
 	@echo "To view the help file:"
-	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/Packpack_name.qhc"
+	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/Packlinux-system-collectd.qhc"
 
 devhelp:
 	$(SPHINXBUILD) -b devhelp $(ALLSPHINXOPTS) $(BUILDDIR)/devhelp
 	@echo
 	@echo "Build finished."
 	@echo "To view the help file:"
-	@echo "# mkdir -p $$HOME/.local/share/devhelp/Packpack_name"
-	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/Packpack_name"
+	@echo "# mkdir -p $$HOME/.local/share/devhelp/Packlinux-system-collectd"
+	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/Packlinux-system-collectd"
 	@echo "# devhelp"
 
 epub:

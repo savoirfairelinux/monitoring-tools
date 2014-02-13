@@ -182,7 +182,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'Packpack_namedoc'
+htmlhelp_basename = 'Packlinux-system-collectddoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -202,7 +202,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'Packpack_name.tex', u'Pack: \\textless{}pack\\_name\\textgreater{} Documentation',
+  ('index', 'Packlinux-system-collectd.tex', u'Pack: \\textless{}pack\\_name\\textgreater{} Documentation',
    u'\\textless{}author\\_name\\textgreater{}', 'manual'),
 ]
 
@@ -246,8 +246,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'Packpack_name', u'Pack: linux-system-collectd Documentation',
-   u'Thibault Cohen', 'Packpack_name', 'One line description of project.',
+  ('index', 'Packlinux-system-collectd', u'Pack: linux-system-collectd Documentation',
+   u'Thibault Cohen', 'Packlinux-system-collectd', 'One line description of project.',
    'Miscellaneous'),
 ]
 
