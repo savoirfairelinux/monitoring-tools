@@ -202,8 +202,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'Packlinux-system-collectd.tex', u'Pack linux-system-collectd Documentation',
-   u'\\_\\_author\\_name\\_\\_', 'manual'),
+  ('index', 'Packlinux-system-collectd.tex', u'Pack \\_\\_linux-system-collectd\\_\\_ Documentation',
+   u'Thibault Cohen', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
