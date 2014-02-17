@@ -1,0 +1,5 @@
+generic-dhcp (20140217-1) stable; urgency=medium
+
+  * First commit
+
+ -- Thibault Cohen <thibault.cohen@savoirfairelinux.com>  Mon, 17 Feb 2014 15:32:49 -0500

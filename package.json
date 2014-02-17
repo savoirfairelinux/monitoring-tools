@@ -1,0 +1,24 @@
+{
+	"name": "generic-dhcp",
+	"types": ["pack"],
+	"version": "1.0",
+	"homepage": "https://projects.savoirfairelinux.com/projects/sfl-shinken-packs",
+	"author": "Thibault Cohen",
+	"description": "DHCP active checks with DHCP requests",
+	"contributors": [
+	  {
+		"name": "Thibault Cohen",
+		"email": "thibault.cohen@savoirfairelinux.com"
+	  },
+	],
+	"repository": "http://projects.savoirfairelinux.com:sfl-shinken-packs--generic-dhcp.git",
+	"keywords": [
+	  "pack",
+	  "generic-dhcp"
+	  
+	],
+	"dependencies": {
+	  "shinken": ">=1.4"
+	},
+	"license": "GPL"
+}
