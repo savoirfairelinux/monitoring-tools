@@ -13,7 +13,7 @@ Contents:
 
    installation
    dependencies
-   howuseit
+   howtouseit
 
 
 Indices and tables

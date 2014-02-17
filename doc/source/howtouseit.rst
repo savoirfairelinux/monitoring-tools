@@ -1,5 +1,5 @@
-How use it
-==========
+How to use it
+=============
 
 
 Settings
