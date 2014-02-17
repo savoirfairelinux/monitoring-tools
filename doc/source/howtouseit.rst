@@ -7,83 +7,37 @@ Settings
 
 This is the list of settings which can be redefined in the host definition
 
-_LOAD_WARN
-----------
 
-:type:              3 comma-separated integer
-:description:       Load warning threshold (ie: 7,6,5)
+_LDAPBASE
+---------
 
+:type:              string
+:description:       The read snmp community allowed on the linux server
 
-_LOAD_CRIT
-----------
+_DOMAIN
+-------
 
-:type:              3 comma-separated integer",
-:description:        Load critical threshold (ie: 10,9,8)"
+:type:              string
+:description:       The read snmp community allowed on the linux server
 
+_DOMAINUSERSHORT
+----------------
 
-_STORAGE_USED_WARN
-------------------
+:type:              string
+:description:       Short name (without the domain) of the user to query the server. Should have rights on the WMI tables for reading
 
-:type:              percent
-:description:       Warning level for used storage space
+_DOMAINUSER
+-----------
 
+:type:              string
+:description:       Full name of the user to query. Is by default DOMAIN\\USERSHORT
 
-_STORAGE_USED_CRIT
-------------------
+_DOMAINPASSWORD
+---------------
 
-:type:              percent
-:description:       Critical level for used storage space
-
-
-_PROCESS_CRON_MIN_WARN
-----------------------
-
-:type:              integer
-:description:       Min number of cron processs, warning threshold
-
-
-
-_PROCESS_RSYSLOGD_MIN_WARN
---------------------------
-
-:type:              integer
-:description:       Min number of rsyslog processs, warning threshold
-
-
-_PROCESS_RSYSLOGD_MIN_CRIT
---------------------------
-
-:type:              integer
-:description:       Min number of rsyslog processs, critical threshold
-
-
-_PROCESS_OSSEC_MIN_WARN
------------------------
-
-:type:              integer
-:description:       Min number of ossec processs, warning threshold
-
-
-_PROCESS_OSSEC_MIN_CRIT
------------------------
-
-:type:              integer
-:description:       Min number of ossec processs, critical threshold
-
+:type:              string
+:description:       Password for the user that will launch the query
 
 Triggers
 ~~~~~~~~
-
-This is the list of triggers used in the pack :
-
-* collectd_cpu.trig
-* collectd_df.trig
-* collectd_disk.trig
-* collectd_interface.trig
-* collectd_load.trig
-* collectd_memory.trig
-* collectd_processes.trig
-* collectd_swap.trig
-* collectd_users.trig
-
 
