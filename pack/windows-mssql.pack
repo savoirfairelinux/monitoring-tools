@@ -5,94 +5,137 @@
 
 "path":"databases/",
 
-# NEXT LINES ARE SAMPLES: YOU CAN DELETE IT
 "macros":{
-         "_SNMPCOMMUNITY":          {"type": "string",
-                                     "description": "The read snmp community allowed on the linux server",
-                                    },
+         "_MSSQL_CONNECTION_CRIT": {"type":"string",
+                             "description":"Time to connect to the server"
+                             },
+         " _MSSQL_CONNECTION_WARN": {"type":"string",
+                             "description":"Time to connect to the server"
+                             },
+         "_MSSQL_CONNECTED_USERS_CRIT": {"type":"string",
+                             "description":"Number of currently connected users"
+                             },
+         " _MSSQL_CONNECTED_USERS_WARN": {"type":"string",
+                             "description":"Number of currently connected users"
+                             },
+         "_MSSQL_CPU_BUSY_CRIT": {"type":"percent",
+                             "description":"Cpu busy in percent"
+                             },
+         " _MSSQL_CPU_BUSY_WARN": {"type":"percent",
+                             "description":"Cpu busy in percent"
+                             },
+         "_MSSQL_IO_BUSY_CRIT": {"type":"percent",
+                             "description":"IO busy in percent"
+                             },
+         " _MSSQL_IO_BUSY_WARN": {"type":"percent",
+                             "description":"IO busy in percent"
+                             },
+         "_MSSQL_FULL_SCANS_CRIT": {"type":"string",
+                             "description":"Full table scans per second"
+                             },
+         " _MSSQL_FULL_SCANS_WARN": {"type":"string",
+                             "description":"Full table scans per second"
+                             },
+         "_MSSQL_TRANSACTIONS_CRIT": {"type":"string",
+                             "description":"Transactions per second per database"
+                             },
+         " _MSSQL_TRANSACTIONS_WARN": {"type":"string",
+                             "description":"Transactions per second per database"
+                             },
+         "_MSSQL_BATCH_REQUESTS_CRIT": {"type":"string",
+                             "description":"Batch requests per second"
+                             },
+         " _MSSQL_BATCH_REQUESTS_WARN": {"type":"string",
+                             "description":"Batch requests per second"
+                             },
+         "_MSSQL_LATCHES_WAITS_CRIT": {"type":"string",
+                             "description":"Number of latch requests that could not be granted immediately"
+                             },
+         " _MSSQL_LATCHES_WAITS_WARN": {"type":"string",
+                             "description":"Number of latch requests that could not be granted immediately"
+                             },
+         "_MSSQL_LATCHES_WAIT_TIME_CRIT": {"type":"string",
+                             "description":"Average time for a latch to wait before the request is met"
+                             },
+         " _MSSQL_LATCHES_WAIT_TIME_WARN": {"type":"string",
+                             "description":"Average time for a latch to wait before the request is met"
+                             },
+         "_MSSQL_LOCKS_WAITS_CRIT": {"type":"string",
+                             "description":"The number of locks per second that had to wait"
+                             },
+         " _MSSQL_LOCKS_WAITS_WARN": {"type":"string",
+                             "description":"The number of locks per second that had to wait"
+                             },
+         "_MSSQL_LOCKS_TIMEOUTS_CRIT": {"type":"string",
+                             "description":"The number of locks per second that timed out"
+                             },
+         " _MSSQL_LOCKS_TIMEOUTS_WARN": {"type":"string",
+                             "description":"The number of locks per second that timed out"
+                             },
+         "_MSSQL_LOCKS_DEADLOCKS_CRIT": {"type":"string",
+                             "description":"The number of deadlocks per second"
+                             },
+         " _MSSQL_LOCKS_DEADLOCKS_WARN": {"type":"string",
+                             "description":"The number of deadlocks per second"
+                             },
+         "_MSSQL_SQL_RECOMPILATIONS_CRIT": {"type":"string",
+                             "description":"Re-Compilations per second"
+                             },
+         " _MSSQL_SQL_RECOMPILATIONS_WARN": {"type":"string",
+                             "description":"Re-Compilations per second"
+                             },
+         "_MSSQL_SQL_INITCOMPILATIONS_CRIT": {"type":"string",
+                             "description":"Initial compilations per second"
+                             },
+         " _MSSQL_SQL_INITCOMPILATIONS_WARN": {"type":"string",
+                             "description":"Initial compilations per second"
+                             },
+         "_MSSQL_TOTAL_SERVER_MEMORY_CRIT": {"type":"string",
+                             "description":"The amount of memory that SQL Server has allocated to it"
+                             },
+         " _MSSQL_TOTAL_SERVER_MEMORY_WARN": {"type":"string",
+                             "description":"The amount of memory that SQL Server has allocated to it"
+                             },
+         "_MSSQL_MEM_POOL_DATA_BUFFER_HIT_RATIO_CRIT": {"type":"string",
+                             "description":"Data Buffer Cache Hit Ratio"
+                             },
+         " _MSSQL_MEM_POOL_DATA_BUFFER_HIT_RATIO_WARN": {"type":"string",
+                             "description":"Data Buffer Cache Hit Ratio"
+                             },
+         "_MSSQL_LAZY_WRITES_CRIT": {"type":"string",
+                             "description":"Lazy writes per second"
+                             },
+         " _MSSQL_LAZY_WRITES_WARN": {"type":"string",
+                             "description":"Lazy writes per second"
+                             },
+         "_MSSQL_PAGE_LIFE_EXPECTANCY_CRIT": {"type":"string",
+                             "description":"Seconds a page is kept in memory before being flushed"
+                             },
+         " _MSSQL_PAGE_LIFE_EXPECTANCY_WARN": {"type":"string",
+                             "description":"Seconds a page is kept in memory before being flushed"
+                             },
+         "_MSSQL_FREE_LIST_STALLS_CRIT": {"type":"string",
+                             "description":"Requests per second that had to wait for a free page"
+                             },
+         " _MSSQL_FREE_LIST_STALLS_WARN": {"type":"string",
+                             "description":"Requests per second that had to wait for a free page"
+                             },
+         "_MSSQL_CHECKPOINT_PAGES_CRIT": {"type":"string",
+                             "description":"Dirty pages flushed to disk per second. usually by a checkpoint"
+                             },
+         " _MSSQL_CHECKPOINT_PAGES_WARN": {"type":"string",
+                             "description":"Dirty pages flushed to disk per second. usually by a checkpoint"
+                             },
+         "_MSSQL_DATABASE_BACKUP_AGE_CRIT": {"type":"string",
+                             "description":"Elapsed time (in hours) since a database was last backed up"
+                             },
+         " _MSSQL_DATABASE_BACKUP_AGE_WARN": {"type":"string",
+                             "description":"Elapsed time (in hours) since a database was last backed up"
+                             },
+         " _MSSQL_DATABASE_BACKUP_AGE_EXCLUDED": {"type":"string",
+                             "description":"Database to be excluded from backup age check"
+                             }
+         }
 
-         "_LOAD_WARN":              {"type": "string",
-                                     "description": "Value for starting warning state for the load average at 1m,5m,15m",
-                                    },
 
-         "_LOAD_CRIT":              {"type": "string",
-                                     "description": "Value for starting critical state for the load average at 1m,5m,15m",
-                                    },
-
-         "_STORAGE_WARN":           {"type": "percent",
-                                     "description": "Warning level for used disk space",
-                                    },
-
-         "_STORAGE_CRIT":           {"type": "percent",
-                                     "description": "Critical level for used disk space",
-                                    },
-
-         "_CPU_WARN":               {"type": "percent",
-                                     "description": "Warning level for the CPU usage",
-                                    },
-
-         "_CPU_CRIT":               {"type": "percent",
-                                     "description": "Critical level for the CPU usage",
-                                    },
-
-         "_MEMORY_WARN":            {"type": "doublepercent",
-                                     "description": "Physical memory and swap warning level",
-                                    },
-
-         "_MEMORY_CRIT":            {"type": "doublepercent",
-                                     "description": "Physical memory and swap critical level",
-                                    },
-
-         "_NET_IFACES":             {"type": "regex pattern",
-                                     "description": "Pattern that will match ethernet device name. Default: en\d+",
-                                    },
-
-         "_NET_WARN":               {"type": "6 comma-separated integer",
-                                     "description": "6 integer as to be specified in_Mbps,out_Mbps,err_in,err_out,discard_in,discard_out. Default: 90,90,0,0,0,0",
-                                    },
-
-         "_NET_CRIT":               {"type": "6 comma-separated integer",
-                                     "description": "6 integer as to be specified in_Mbps,out_Mbps,err_in,err_out,discard_in,discard_out. Default: 0,0,0,0,0,0",
-                                    },
-
-         "_CHKLOG_CONF":            {"type": "absolute path",
-                                     "description": "absolute path to checklog conf file. Default: /usr/local/shinken/libexec/logFiles_linux.conf",
-                                    },
-
-         "_FORMS_LISTENER_PORT":    {"type": "Port number",
-                                     "description": "Forms Listener Port",
-                                    },
-
-         "_FORMS_AVERAGE_MEM_WARN": {"type": "Number of Mo",
-                                     "description": "Warning threshold. Average memory usage of all process forms",
-                                    },
-
-         "_FORMS_AVERAGE_MEM_CRIT": {"type": "Number of Mo",
-                                     "description": "Critical threshold. Average memory usage of all process forms",
-                                    },
-
-         "_FORMS_MAX_MEM_WARN":     {"type": "Number of Mo",
-                                     "description": "Warning threshold. Max memory usage of all process forms",
-                                    },
-
-         "_FORMS_MAX_MEM_CRIT":     {"type": "Number of Mo",
-                                      "description": "Critical threshold. Max memory usage of all process forms",
-                                    },
-
-         "_FORMS_MIN_WARN":         {"type": "Number",
-                                     "description": "Number min of sessions forms generating a warning alert",
-                                    },
-
-         "_FORMS_MAX_WARN":         {"type": "Number",
-                                     "description": "Number max of sessions forms generating a warning alert",
-                                    },
-
-         "_FORMS_MIN_CRIT":         {"type": "Number",
-                                     "description": "Number min of sessions forms generating a critical alert",
-                                    },
-
-         "_FORMS_MAX_CRIT":         {"type": "Number",
-                                     "description": "Number max of sessions forms generating a critical alert",
-                                    },
-        }
 }
