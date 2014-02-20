@@ -1,0 +1,24 @@
+{
+	"name": "generic-carbon-tcp",
+	"types": ["pack"],
+	"version": "1.0",
+	"homepage": "https://projects.savoirfairelinux.com/projects/sfl-shinken-packs",
+	"author": "Thibault Cohen",
+	"description": "Carbon active checks with TCP requests",
+	"contributors": [
+	  {
+		"name": "Thibault Cohen",
+		"email": "thibault.cohen@savoirfairelinux.com"
+	  },
+	],
+	"repository": "http://projects.savoirfairelinux.com:sfl-shinken-packs--generic-carbon-tcp.git",
+	"keywords": [
+	  "pack",
+	  "generic-carbon-tcp"
+	  
+	],
+	"dependencies": {
+	  "shinken": ">=1.4"
+	},
+	"license": "GPL"
+}
