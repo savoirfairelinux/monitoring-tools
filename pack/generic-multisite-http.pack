@@ -3,7 +3,7 @@
 
 "description":"CheckMK Multisite active checks with HTTP requests",
 
-"path":"<pack_path>/",
+"path":"websites/",
 
 # NEXT LINES ARE SAMPLES: YOU CAN DELETE IT
 "macros":{
