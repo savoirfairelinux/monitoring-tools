@@ -1,7 +1,7 @@
 {
 "name":"generic-repodeb-http",
 
-"description":"<description>",
+"description":"Debian and Ubuntu repository active checks with HTTP requests",
 
 "path":"services/",
 

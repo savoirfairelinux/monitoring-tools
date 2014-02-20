@@ -9,4 +9,4 @@ Homepage: http://www.savoirfairelinux.com
 Package: check-template
 Architecture: any
 #Depends: python, python-dlnetsnmp
-Description: Shinken plugin from SFL. <description>
+Description: Shinken plugin from SFL. Debian and Ubuntu repository active checks with HTTP requests

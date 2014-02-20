@@ -11,7 +11,7 @@ Name:       %{name}
 Version:    %{version}
 Release:    %{release}.%{dist}
 License: GPL v3
-Summary: Shinken plugin from SFL. <description>
+Summary: Shinken plugin from SFL. Debian and Ubuntu repository active checks with HTTP requests
 Group: Networking/Other
 Source: http://monitoring.savoirfairelinux.com/%{name}.tar.gz
 URL: http://monitoring.savoirfairelinux.com/
@@ -22,7 +22,7 @@ BuildRoot:  %{_tmppath}/%{name}-%{version}
 #Requires: python, python-dlnetsnmp
 
 %description 
-Shinken plugin from SFL. <description>
+Shinken plugin from SFL. Debian and Ubuntu repository active checks with HTTP requests
 
 %prep
 %setup -q -n %{raw_name}
