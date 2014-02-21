@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Welcome to Pack generic-ssh's documentation!
-==============================================
+============================================
 
 Contents:
 
