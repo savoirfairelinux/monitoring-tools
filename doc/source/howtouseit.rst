@@ -2,11 +2,29 @@ How to use it
 =============
 
 
+Templates
+~~~~~~~~~
+
+generic-ldap
+~~~~~~~~~~~~
+
+Use this template to monitoring a standard LDAP server.
+
+generic-ldap3
+~~~~~~~~~~~~~
+
+Use this template to monitoring a LDAP3 server.
+
+generic-ldaps
+~~~~~~~~~~~~~
+
+Use this template to monitoring a LDAPS server.
+
+
 Settings
 ~~~~~~~~
 
 This is the list of settings which can be redefined in the host definition
-
 
 _LDAPBASE
 ---------
