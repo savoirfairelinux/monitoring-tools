@@ -8,7 +8,7 @@ Shinken Modules
 Plugins
 ~~~~~~~
 
-check_dhcp
+check_http
 ----------
 
 This pack will create services which need the following plugin:
