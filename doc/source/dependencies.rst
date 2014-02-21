@@ -21,7 +21,7 @@ or
 
 ::
 
-  /usr/lib/64nagios/plugins/check_mssql_health
+  /usr/lib64/nagios/plugins/check_mssql_health
 
 
 This plugin is available here : http://labs.consol.de/lang/en/nagios/check_mssql_health/
