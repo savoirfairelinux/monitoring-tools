@@ -20,4 +20,3 @@ _GRAPHITEPASSWORD
 :type:              string
 :description:       The Graphite password admin login
 
-
