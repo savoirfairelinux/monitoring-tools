@@ -91,5 +91,3 @@ This is the list of triggers used in the pack :
 * collectd_processes.trig
 * collectd_swap.trig
 * collectd_users.trig
-
-
