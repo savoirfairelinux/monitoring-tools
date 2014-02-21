@@ -14,7 +14,8 @@
 	"repository": "http://projects.savoirfairelinux.com:sfl-shinken-packs--generic-multisite-http.git",
 	"keywords": [
 	  "pack",
-	  "generic-multisite-http"
+	  "generic-multisite-http",
+      "multisite",
 	  
 	],
 	"dependencies": {

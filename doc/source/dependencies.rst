@@ -19,7 +19,9 @@ This pack will create services which need the following plugin:
 
 or
 
-  /usr/lib/64nagios/plugins/check_http
+::
+
+  /usr/lib64/nagios/plugins/check_http
 
 
 Network
