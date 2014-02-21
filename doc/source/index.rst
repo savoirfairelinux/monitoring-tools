@@ -1,9 +1,9 @@
-.. Pack generic-dhcp documentation master file, created by
+.. Pack generic-ssh documentation master file, created by
    sphinx-quickstart on Thu Feb 13 09:50:04 2014.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Pack generic-dhcp's documentation!
+Welcome to Pack generic-ssh's documentation!
 ==============================================
 
 Contents:
