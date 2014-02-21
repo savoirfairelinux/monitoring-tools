@@ -29,4 +29,4 @@ Network
 
 This pack will create services which need the following protocol :
 
-* UDP 3389 from Poller to monitored client
+* TCP 3389 from Poller to monitored client
