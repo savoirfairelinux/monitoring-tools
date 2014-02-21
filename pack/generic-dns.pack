@@ -6,5 +6,11 @@
 "path":"services/",
 
 "macros":{
+         "_DNSHOSTNAME":        {"type": "string",
+                                 "description": "Hostname to resolve",
+                                },
+         "_DNSEXPECTEDRESULT":   {"type": "string",
+                                 "description": "Address expected returned by the DNS server",
+                                },
         }
 }
