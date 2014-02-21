@@ -1,7 +1,6 @@
 Dependencies
 ============
 
-
 Shinken Modules
 ~~~~~~~~~~~~~~~
 
@@ -19,7 +18,9 @@ This pack will create services which need the following plugin:
 
 or
 
-  /usr/lib/64nagios/plugins/check_x224
+::
+
+  /usr/lib64/nagios/plugins/check_x224
 
 
 
