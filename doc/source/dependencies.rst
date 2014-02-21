@@ -8,33 +8,24 @@ Shinken Modules
 Plugins
 ~~~~~~~
 
-check_dhcp
+check_http
 ----------
 
 This pack will create services which need the following plugin:
 
 ::
 
-  /usr/lib/nagios/plugins/check_dhcp
+  /usr/lib/nagios/plugins/check_http
 
 or
 
-  /usr/lib/64nagios/plugins/check_dhcp
-
-The plugin permissions should be:
-
 ::
 
-  -rwsr-xr-x root root check_dhcp
-
-If not, you can fix it with
-
-  sudo chown root: /usr/lib/nagios/plugins/check_dhcp
-  sudo chmod u+s /usr/lib/nagios/plugins/check_dhcp
+  /usr/lib64/nagios/plugins/check_http
 
 Network
 ~~~~~~~
 
 This pack will create services which need the following protocol :
 
-* UDP 67 and 68 from Poller to monitored client
+* TCP 80 and/or 443 from Poller to monitored client
