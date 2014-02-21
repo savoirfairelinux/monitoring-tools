@@ -19,7 +19,9 @@ This pack will create services which need the following plugin:
 
 or
 
-  /usr/lib/64nagios/plugins/check_ldap
+::
+
+  /usr/lib64/nagios/plugins/check_ldap
 
 check_ldaps
 -----------
@@ -32,7 +34,9 @@ This pack will create services which need the following plugin:
 
 or
 
-  /usr/lib/64nagios/plugins/check_ldaps
+::
+
+  /usr/lib64/nagios/plugins/check_ldaps
 
 check_tcp
 -----------
@@ -45,7 +49,9 @@ This pack will create services which need the following plugin:
 
 or
 
-  /usr/lib/64nagios/plugins/check_tcp
+::
+
+  /usr/lib64/nagios/plugins/check_tcp
 
 
 Network
