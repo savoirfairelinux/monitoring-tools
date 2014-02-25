@@ -49,10 +49,10 @@ try:
     exit_codes = []
     for df in df_names:
         data['df'] = df
-        data['free'] = float(raw_perf_datas.get('df_complex-%(df)s-free' % data))
+        data['free'] = float(raw_perf_datas.get('df_complex-%(df)s-free' % data).value)
         # TODO: What is 'reserved' ???
-        data['reserved'] = float(raw_perf_datas.get('df_complex-%(df)s-reserved' % data))
-        data['used'] = float(raw_perf_datas.get('df_complex-%(df)s-used' % data))
+        data['reserved'] = float(raw_perf_datas.get('df_complex-%(df)s-reserved' % data).value)
+        data['used'] = float(raw_perf_datas.get('df_complex-%(df)s-used' % data).value)
         data['total'] = data['free'] + data['reserved'] + data['used']
         data['used_p'] = data['used'] * 100 / data['total']
         data['free_p'] = data['free'] * 100 / data['total']

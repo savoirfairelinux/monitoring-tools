@@ -34,14 +34,14 @@ try:
     outputs =[]
     for cpu in cpu_names:
         data['cpu'] = cpu
-        data['user'] = float(raw_perf_datas.get('cpu-%(cpu)s-user' % data))
-        data['irq'] = float(raw_perf_datas.get('cpu-%(cpu)s-interrupt' % data))
-        data['steal'] = float(raw_perf_datas.get('cpu-%(cpu)s-steal' % data))
-        data['nice'] = float(raw_perf_datas.get('cpu-%(cpu)s-nice' % data))
-        data['system'] = float(raw_perf_datas.get('cpu-%(cpu)s-system' % data))
-        data['wait'] = float(raw_perf_datas.get('cpu-%(cpu)s-wait' % data))
-        data['softirq'] = float(raw_perf_datas.get('cpu-%(cpu)s-softirq' % data))
-        data['idle'] = float(raw_perf_datas.get('cpu-%(cpu)s-idle' % data))
+        data['user'] = float(raw_perf_datas.get('cpu-%(cpu)s-user' % data).value)
+        data['irq'] = float(raw_perf_datas.get('cpu-%(cpu)s-interrupt' % data).value)
+        data['steal'] = float(raw_perf_datas.get('cpu-%(cpu)s-steal' % data).value)
+        data['nice'] = float(raw_perf_datas.get('cpu-%(cpu)s-nice' % data).value)
+        data['system'] = float(raw_perf_datas.get('cpu-%(cpu)s-system' % data).value)
+        data['wait'] = float(raw_perf_datas.get('cpu-%(cpu)s-wait' % data).value)
+        data['softirq'] = float(raw_perf_datas.get('cpu-%(cpu)s-softirq' % data).value)
+        data['idle'] = float(raw_perf_datas.get('cpu-%(cpu)s-idle' % data).value)
         # Prepare output
         perf_datas.append("'cpu_%(cpu)s_user=%(user)0.2fs/s;;;0' "
                           "'cpu_%(cpu)s_irq=%(irq)0.2fs/s;;;0' "

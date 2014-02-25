@@ -14,14 +14,14 @@ try:
     
     for disk in disk_names:
         data['disk'] = disk
-        data['disk_time_written'] = float(raw_perf_datas.get('disk_time-%(disk)s_0' % data))
-        data['disk_time_read'] = float(raw_perf_datas.get('disk_time-%(disk)s_1' % data))
-        data['disk_merged_written'] = float(raw_perf_datas.get('disk_merged-%(disk)s_0' % data))
-        data['disk_merged_read'] = float(raw_perf_datas.get('disk_merged-%(disk)s_1' % data))
-        data['disk_ops_written'] = float(raw_perf_datas.get('disk_ops-%(disk)s_0' % data))
-        data['disk_ops_read'] = float(raw_perf_datas.get('disk_ops-%(disk)s_1' % data))
-        data['disk_octets_written'] = float(raw_perf_datas.get('disk_octets-%(disk)s_0' % data))
-        data['disk_octets_read'] = float(raw_perf_datas.get('disk_octets-%(disk)s_1' % data))
+        data['disk_time_written'] = float(raw_perf_datas.get('disk_time-%(disk)s_0' % data).value)
+        data['disk_time_read'] = float(raw_perf_datas.get('disk_time-%(disk)s_1' % data).value)
+        data['disk_merged_written'] = float(raw_perf_datas.get('disk_merged-%(disk)s_0' % data).value)
+        data['disk_merged_read'] = float(raw_perf_datas.get('disk_merged-%(disk)s_1' % data).value)
+        data['disk_ops_written'] = float(raw_perf_datas.get('disk_ops-%(disk)s_0' % data).value)
+        data['disk_ops_read'] = float(raw_perf_datas.get('disk_ops-%(disk)s_1' % data).value)
+        data['disk_octets_written'] = float(raw_perf_datas.get('disk_octets-%(disk)s_0' % data).value)
+        data['disk_octets_read'] = float(raw_perf_datas.get('disk_octets-%(disk)s_1' % data).value)
         # Prepare output
         perf_datas.append("'%(disk)s_disk_time_written=%(disk_time_written)0.2fs/s;;;0' "
                           "'%(disk)s_disk_time_read=%(disk_time_read)0.2fs/s;;;0' "
