@@ -3,7 +3,7 @@
 
 "description":"Pack for NTP on linux with collectd",
 
-"path":"<pack_path>/",
+"path":"services/",
 
 # NEXT LINES ARE SAMPLES: YOU CAN DELETE IT
 "macros":{
