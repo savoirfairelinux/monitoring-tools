@@ -22,13 +22,13 @@ try:
     # Get perfs
     # TODO: Check why load-_0 and not load_0
     # Check the patch grouped_plugin in collectd_arbiter module
-    data['1'] = float(perf(self, 'load-_0'))
+    data['1'] = float(perf(self, 'load_0'))
     if isinstance(data['1'] , bool):
         raise "No perf data found"
-    data['5'] = float(perf(self, 'load-_1'))
+    data['5'] = float(perf(self, 'load_1'))
     if isinstance(data['5'] , bool):
         raise "No perf data found"
-    data['15'] = float(perf(self, 'load-_2'))
+    data['15'] = float(perf(self, 'load_2'))
     if isinstance(data['15'] , bool):
         raise "No perf data found"
 
