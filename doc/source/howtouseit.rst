@@ -35,3 +35,17 @@ _ESX_MEM_CRIT
 :description:       Level for ram usage
 
 
+_ESX_SWAP_WARN
+--------------
+
+:type:              percent
+:description:       Level for swap usage
+
+
+_ESX_SWAP_CRIT
+--------------
+
+:type:              percent
+:description:       Level for swap usage
+
+
