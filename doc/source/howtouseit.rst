@@ -27,3 +27,14 @@ _MULTISITE_URL
 :type:              string
 :description:       The Multisite URL. Default: /check_mk
 
+_MULTISITEWARN
+--------------
+
+:type:              Integer
+:description:       Warning threshold. Default: 3
+
+_MULTISITECRIT
+--------------
+
+:type:              Integer
+:description:       Warning threshold. Default: 5
