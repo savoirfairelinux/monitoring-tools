@@ -41,12 +41,12 @@ try:
         data['packets_in'] = float(raw_perf_datas.get('if_packets-%(if)s_0' % data).value)
         data['packets_out'] = float(raw_perf_datas.get('if_packets-%(if)s_1' % data).value)
         # Prepare output
-        perf_datas.append("'%(if)s_octets_in=%(octets_in)0.2fbit/s;;;0' "
-                          "'%(if)s_octets_out=%(octets_out)0.2fbit/s;;;0' "
-                          "'%(if)s_errors_in=%(errors_in)0.2ferror/s;;;0' "
-                          "'%(if)s_errors_out=%(errors_out)0.2ferror/s;;;0' "
-                          "'%(if)s_packets_in=%(packets_in)0.2fpacket/s;;;0' "
-                          "'%(if)s_packets_out=%(packets_out)0.2fpacket/s;;;0' " % data)
+        perf_datas.append("'%(if)s_octets_in'=%(octets_in)0.2fbit/s;;;0 "
+                          "'%(if)s_octets_out'=%(octets_out)0.2fbit/s;;;0 "
+                          "'%(if)s_errors_in'=%(errors_in)0.2ferror/s;;;0 "
+                          "'%(if)s_errors_out'=%(errors_out)0.2ferror/s;;;0 "
+                          "'%(if)s_packets_in'=%(packets_in)0.2fpacket/s;;;0 "
+                          "'%(if)s_packets_out'=%(packets_out)0.2fpacket/s;;;0 " % data)
         data['if'] = data['if'].capitalize()
         data['h_octets_in'], data['h_octets_in_u'] = readable(data['octets_in'])
         data['h_octets_out'], data['h_octets_out_u'] = readable(data['octets_out'])

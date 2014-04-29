@@ -43,14 +43,14 @@ try:
         data['softirq'] = float(raw_perf_datas.get('cpu-%(cpu)s-softirq' % data).value)
         data['idle'] = float(raw_perf_datas.get('cpu-%(cpu)s-idle' % data).value)
         # Prepare output
-        perf_datas.append("'cpu_%(cpu)s_user=%(user)0.2fs/s;;;0' "
-                          "'cpu_%(cpu)s_irq=%(irq)0.2fs/s;;;0' "
-                          "'cpu_%(cpu)s_steal=%(steal)0.2fmerged ops/s;;;0' "
-                          "'cpu_%(cpu)s_nice=%(nice)0.2fmerged ops/s;;;0' "
-                          "'cpu_%(cpu)s_system=%(system)0.2fops/s;;;0' "
-                          "'cpu_%(cpu)s_wait=%(wait)0.2fops/s;;;0' "
-                          "'cpu_%(cpu)s_softirq=%(softirq)0.2fbytes/s;;;0' "
-                          "'cpu_%(cpu)s_idle=%(idle)0.2fbytes/s;;;0' " % data)
+        perf_datas.append("cpu_%(cpu)s_user=%(user)0.2fs/s;;;0 "
+                          "cpu_%(cpu)s_irq=%(irq)0.2fs/s;;;0 "
+                          "cpu_%(cpu)s_steal=%(steal)0.2fmerged_ops/s;;;0 "
+                          "cpu_%(cpu)s_nice=%(nice)0.2fmerged_ops/s;;;0 "
+                          "cpu_%(cpu)s_system=%(system)0.2fops/s;;;0 "
+                          "cpu_%(cpu)s_wait=%(wait)0.2fops/s;;;0 "
+                          "cpu_%(cpu)s_softirq=%(softirq)0.2fbytes/s;;;0 "
+                          "cpu_%(cpu)s_idle=%(idle)0.2fbytes/s;;;0 " % data)
         outputs.append("CPU-%(cpu)s: (%(idle)0.2f;%(nice)0.2f;%(user)0.2f;%(wait)0.2f;%(system)0.2f;%(softirq)0.2f;%(irq)0.2f;%(steal)0.2f)" % data)
 
     # Set ouput
