@@ -1,0 +1,24 @@
+{
+	"name": "windows-system-collectd",
+	"types": ["pack"],
+	"version": "1.0",
+	"homepage": "https://projects.savoirfairelinux.com/projects/sfl-shinken-packs",
+	"author": "Sebastien Coavoux",
+	"description": "Pack to monitor windows with collectd",
+	"contributors": [
+	  {
+		"name": "Sebastien Coavoux",
+		"email": "sebastien.coavoux@savoirfairelinux.com"
+	  },
+	],
+	"repository": "http://projects.savoirfairelinux.com:sfl-shinken-packs--windows-system-collectd.git",
+	"keywords": [
+	  "pack",
+	  "windows-system-collectd"
+	  
+	],
+	"dependencies": {
+	  "shinken": ">=1.4"
+	},
+	"license": "GPL"
+}
