@@ -1,0 +1,24 @@
+{
+	"name": "linux-saltminion-collectd",
+	"types": ["pack"],
+	"version": "1.0",
+	"homepage": "https://projects.savoirfairelinux.com/projects/sfl-shinken-packs",
+	"author": "Sebastien Coavoux",
+	"description": "Pack to monitor the salt minion service on a linux",
+	"contributors": [
+	  {
+		"name": "Sebastien Coavoux",
+		"email": "sebastien.coavoux@savoirfairelinux.com"
+	  },
+	],
+	"repository": "http://projects.savoirfairelinux.com:sfl-shinken-packs--linux-saltminion-collectd.git",
+	"keywords": [
+	  "pack",
+	  "linux-saltminion-collectd"
+	  
+	],
+	"dependencies": {
+	  "shinken": ">=1.4"
+	},
+	"license": "GPL"
+}
