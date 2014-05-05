@@ -7,61 +7,33 @@ Settings
 
 This is the list of settings which can be redefined in the host definition
 
-_LOAD_WARN
-----------
-
-:type:              3 comma-separated integer
-:description:       Load warning threshold (ie: 7,6,5)
-
-
-_LOAD_CRIT
-----------
-
-:type:              3 comma-separated integer",
-:description:        Load critical threshold (ie: 10,9,8)"
-
-
-_STORAGE_USED_WARN
-------------------
-
-:type:              percent
-:description:       Warning level for used storage space
-
-
-_STORAGE_USED_CRIT
-------------------
-
-:type:              percent
-:description:       Critical level for used storage space
-
-
-_PROCESS_CRON_MIN_WARN
+_TIME_OFFSET_WARN
 ----------------------
 
 :type:              integer
-:description:       Min number of cron processs, warning threshold
+:description:       offset warning threshold
 
 
 
-_PROCESS_RSYSLOGD_MIN_WARN
+_TIME_OFFSET_CRIT
 --------------------------
 
 :type:              integer
-:description:       Min number of rsyslog processs, warning threshold
+:description:       offset critical threshold
 
 
-_PROCESS_RSYSLOGD_MIN_CRIT
+_TIME_DISPERSION_WARN
 --------------------------
 
 :type:              integer
-:description:       Min number of rsyslog processs, critical threshold
+:description:       dispersion warning threshold
 
 
-_PROCESS_OSSEC_MIN_WARN
+_TIME_DISPERSION_CRIT
 -----------------------
 
 :type:              integer
-:description:       Min number of ossec processs, warning threshold
+:description:       dispersion critical threshold
 
 
 _PROCESS_OSSEC_MIN_CRIT
@@ -76,14 +48,6 @@ Triggers
 
 This is the list of triggers used in the pack :
 
-* collectd_cpu.trig
-* collectd_df.trig
-* collectd_disk.trig
-* collectd_interface.trig
-* collectd_load.trig
-* collectd_memory.trig
-* collectd_processes.trig
-* collectd_swap.trig
-* collectd_users.trig
+* collectd_ntpd.trig
 
 
