@@ -29,4 +29,4 @@ Network
 
 This pack will create services which need the following protocol :
 
-* TCP and UDP : 1645, 1646, 1812, 1813 from Poller to monitored client
+* UDP : 1645 or 1812 from Poller to monitored client

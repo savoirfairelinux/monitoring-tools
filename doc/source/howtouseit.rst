@@ -7,83 +7,29 @@ Settings
 
 This is the list of settings which can be redefined in the host definition
 
-_LOAD_WARN
-----------
+_RADIUSUSER
+---------------
 
-:type:              3 comma-separated integer
-:description:       Load warning threshold (ie: 7,6,5)
-
-
-_LOAD_CRIT
-----------
-
-:type:              3 comma-separated integer",
-:description:        Load critical threshold (ie: 10,9,8)"
+:type:              string
+:description:       The Radius user login. Default: steve
 
 
-_STORAGE_USED_WARN
+_RADIUSPASSWORD
 ------------------
 
-:type:              percent
-:description:       Warning level for used storage space
+:type:              string
+:description:       The Radius password login. Default: testing
 
 
-_STORAGE_USED_CRIT
-------------------
+_RADIUSFILE
+------------
 
-:type:              percent
-:description:       Critical level for used storage space
-
-
-_PROCESS_CRON_MIN_WARN
-----------------------
-
-:type:              integer
-:description:       Min number of cron processs, warning threshold
+:type:              string
+:description:       The Radius config file path. Default: /etc/radiusclient-ng/radiusclient.conf
 
 
-
-_PROCESS_RSYSLOGD_MIN_WARN
---------------------------
+_RADIUSPORT
+------------
 
 :type:              integer
-:description:       Min number of rsyslog processs, warning threshold
-
-
-_PROCESS_RSYSLOGD_MIN_CRIT
---------------------------
-
-:type:              integer
-:description:       Min number of rsyslog processs, critical threshold
-
-
-_PROCESS_OSSEC_MIN_WARN
------------------------
-
-:type:              integer
-:description:       Min number of ossec processs, warning threshold
-
-
-_PROCESS_OSSEC_MIN_CRIT
------------------------
-
-:type:              integer
-:description:       Min number of ossec processs, critical threshold
-
-
-Triggers
-~~~~~~~~
-
-This is the list of triggers used in the pack :
-
-* collectd_cpu.trig
-* collectd_df.trig
-* collectd_disk.trig
-* collectd_interface.trig
-* collectd_load.trig
-* collectd_memory.trig
-* collectd_processes.trig
-* collectd_swap.trig
-* collectd_users.trig
-
-
+:description:       The Radius udp port to query. Default: 1812
