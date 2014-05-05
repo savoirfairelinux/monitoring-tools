@@ -36,12 +36,6 @@ _TIME_DISPERSION_CRIT
 :description:       dispersion critical threshold
 
 
-_PROCESS_OSSEC_MIN_CRIT
------------------------
-
-:type:              integer
-:description:       Min number of ossec processs, critical threshold
-
 
 Triggers
 ~~~~~~~~
