@@ -68,7 +68,7 @@ try:
 
     for d in data:
         if not d in ['ps_count_0', 'ps_count_1', 'warn', 'crit']:
-            perf_data += " %s=%d;;;"
+            perf_data += " %s=%d;;;" % (d, data[d])
 
     output = "Processes count: %(ps_count_0)d" % data
 
