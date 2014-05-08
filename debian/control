@@ -1,5 +1,5 @@
 Source: check-template
-Maintainer: Sebastien Coavoux <sebastien.coavoux@savoirfairelinux.com>
+Maintainer: Thibault Cohen <thibault.cohen@savoirfairelinux.com>
 Section: misc
 Priority: optional
 Standards-Version: 114-6847372-1
@@ -9,4 +9,4 @@ Homepage: http://www.savoirfairelinux.com
 Package: check-template
 Architecture: any
 #Depends: python, python-dlnetsnmp
-Description: Shinken plugin from SFL. Pack to monitor the active directory services on a windows
+Description: Shinken plugin from SFL. Passive check for Active Directory

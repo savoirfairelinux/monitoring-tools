@@ -1,9 +1,9 @@
 {
 "name":"windows-ad-collectd",
 
-"description":"Pack to monitor the active directory services on a windows",
+"description":"Passive check for Active Directory",
 
-"path":"services/",
+"path":"generic/",
 
 # NEXT LINES ARE SAMPLES: YOU CAN DELETE IT
 "macros":{
