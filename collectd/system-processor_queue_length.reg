@@ -1,0 +1,9 @@
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{DA818D6A-AB7A-44D1-A118-030599A36237}]
+"SetInstance"="none"
+"TypeInstance"=""
+"Type"="current"
+"PluginInstance"="processor_queue_length"
+"Plugin"="system"
+"Host"="AD20088"
+"PDHCounterPath"="\\Système\\Longueur de la file du processeur"
+

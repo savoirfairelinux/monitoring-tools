@@ -1,0 +1,28 @@
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH]
+"Enabled"="true"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Graphite]
+"Enabled"="true"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Graphite\{CD391AEE-4753-4D15-B6F6-E499CDE20B08}]
+"Prefix"="prefix"
+"StoreRates"="true"
+"AlwaysAppendDS"="true"
+"SeparateInstances"="true"
+"Service"="2003"
+"Node"="192.168.50.204"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Network\192.168.50.204]
+"Port"="25826"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Network]
+"Enabled"="true"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Processes]
+"Enabled"="true"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv]
+"PluginDir"="C:\\Program Files\\SSC Serv\\plugins"
+"Hostname"="AD20088"
+"Interval"="10"
+

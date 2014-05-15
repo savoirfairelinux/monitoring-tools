@@ -1,0 +1,5 @@
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Interface]
+"Enabled"="true"
+"CollectOctets"="true"
+"CollectPackets"="true"
+

@@ -1,0 +1,9 @@
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{5C5E7683-DD91-4763-A27D-E6C3B93738EB}]
+"SetInstance"="none"
+"TypeInstance"=""
+"Type"="current"
+"PluginInstance"="pagefaults"
+"Plugin"="memory"
+"Host"="AD20088"
+"PDHCounterPath"="\\Mémoire\\Défauts de page/s"
+

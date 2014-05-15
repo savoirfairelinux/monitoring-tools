@@ -1,0 +1,7 @@
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Df\IgnoreList]
+"Action"="Collect"
+"Selection"=hex(7):43,00,3a,00,5c,00,00,00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Df]
+"Enabled"="true"
+

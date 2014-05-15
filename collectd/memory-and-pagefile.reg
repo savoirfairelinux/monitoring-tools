@@ -1,0 +1,4 @@
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Memory]
+"Enabled"="true"
+"Pagefile"="true"
+

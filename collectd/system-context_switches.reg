@@ -1,0 +1,9 @@
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{42324D7A-6E43-4B28-B2E3-E5197A25B877}]
+"SetInstance"="none"
+"TypeInstance"=""
+"Type"="current"
+"PluginInstance"="context_switches"
+"Plugin"="system"
+"Host"="AD20088"
+"PDHCounterPath"="\\Système\\Changements de contexte/s"
+

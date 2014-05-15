@@ -1,0 +1,9 @@
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{A4182C51-56A0-40B5-9192-C1F6B59444B8}]
+"SetInstance"="none"
+"TypeInstance"=""
+"Type"="current"
+"PluginInstance"="disk_queue_length"
+"Plugin"="system"
+"Host"="AD20088"
+"PDHCounterPath"="\\Disque physique(_Total)\\Taille de file d’attente du disque actuelle"
+
