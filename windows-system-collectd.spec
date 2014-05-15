@@ -3,7 +3,7 @@
 #
 %define raw_name    check_template
 %define name        check-template
-%define version     20140502
+%define version     20140515
 %define release     1
 %define install_folder /usr/lib/
 
@@ -11,7 +11,7 @@ Name:       %{name}
 Version:    %{version}
 Release:    %{release}.%{dist}
 License: GPL v3
-Summary: Shinken plugin from SFL. Pack to monitor windows with collectd
+Summary: Shinken plugin from SFL. Passive check for Windows using collectd
 Group: Networking/Other
 Source: http://monitoring.savoirfairelinux.com/%{name}.tar.gz
 URL: http://monitoring.savoirfairelinux.com/
@@ -22,7 +22,7 @@ BuildRoot:  %{_tmppath}/%{name}-%{version}
 #Requires: python, python-dlnetsnmp
 
 %description 
-Shinken plugin from SFL. Pack to monitor windows with collectd
+Shinken plugin from SFL. Passive check for Windows using collectd
 
 %prep
 %setup -q -n %{raw_name}
@@ -51,5 +51,5 @@ rm -rf $RPM_BUILD_ROOT
 %doc
 
 %changelog
-* Fri May 02 2014 Sebastien Coavoux <sebastien.coavoux@savoirfairelinux.com>
+* Thu May 15 2014 Thibault Cohen <thibault.cohen@savoirfairelinux.com>
 - Initial Release

@@ -1,0 +1,5 @@
+windows-system-collectd (20140515-1) stable; urgency=medium
+
+  * First commit
+
+ -- Thibault Cohen <thibault.cohen@savoirfairelinux.com>  Thu, 15 May 2014 14:16:26 -0400

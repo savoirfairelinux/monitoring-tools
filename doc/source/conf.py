@@ -50,7 +50,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Pack windows-system-collectd'
-copyright = u'2014, Sebastien Coavoux'
+copyright = u'2014, Thibault Cohen'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -203,7 +203,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
   ('index', 'Packwindows-system-collectd.tex', u'Pack windows-system-collectd Documentation',
-   u'Sebastien Coavoux', 'manual'),
+   u'Thibault Cohen', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -233,7 +233,7 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'packwindows-system-collectd', u'Pack windows-system-collectd Documentation',
-     [u'Sebastien Coavoux'], 1)
+     [u'Thibault Cohen'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -247,7 +247,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'Packwindows-system-collectd', u'Pack windows-system-collectd Documentation',
-   u'Sebastien Coavoux', 'Packwindows-system-collectd', 'One line description of project.',
+   u'Thibault Cohen', 'Packwindows-system-collectd', 'One line description of project.',
    'Miscellaneous'),
 ]
 
@@ -268,9 +268,9 @@ texinfo_documents = [
 
 # Bibliographic Dublin Core info.
 epub_title = u'Pack windows-system-collectd'
-epub_author = u'Sebastien Coavoux'
-epub_publisher = u'Sebastien Coavoux'
-epub_copyright = u'2014, Sebastien Coavoux'
+epub_author = u'Thibault Cohen'
+epub_publisher = u'Thibault Cohen'
+epub_copyright = u'2014, Thibault Cohen'
 
 # The basename for the epub file. It defaults to the project name.
 #epub_basename = u'Pack windows-system-collectd'

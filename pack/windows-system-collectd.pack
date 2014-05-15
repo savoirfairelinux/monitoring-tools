@@ -1,9 +1,9 @@
 {
 "name":"windows-system-collectd",
 
-"description":"Pack to monitor windows with collectd",
+"description":"Passive check for Windows using collectd",
 
-"path":"os/",
+"path":"generic/",
 
 # NEXT LINES ARE SAMPLES: YOU CAN DELETE IT
 "macros":{
