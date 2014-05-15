@@ -1,0 +1,9 @@
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{C55B6C4A-7F13-434F-A00D-95D248326D42}]
+"SetInstance"="none"
+"TypeInstance"="remaining"
+"Type"="current"
+"PluginInstance"="DRA_full_sync_objects"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Objets DRA entrants intégralement synchronisés restants"
+

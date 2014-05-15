@@ -1,0 +1,54 @@
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{00481E98-C193-4FDB-B97F-9CC7FC1CA883}]
+"SetInstance"="none"
+"TypeInstance"="updates_remaining_in_packet"
+"Type"="current"
+"PluginInstance"="DRA_objects"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Mises à jour d’objets DRA entrants restantes dans le paquet"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{1F99C02A-C47E-4756-92AF-C28667D7FB9B}]
+"SetInstance"="none"
+"TypeInstance"="outbound_per_s"
+"Type"="current"
+"PluginInstance"="DRA_objects"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Nb d’objets DRA sortants/s."
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{58722807-4A29-459C-90D5-A758DFE56076}]
+"SetInstance"="none"
+"TypeInstance"="outbound_filtered_per_s"
+"Type"="current"
+"PluginInstance"="DRA_objects"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Nb d’objets DRA sortants filtrés/s."
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{8900A153-D8FA-412E-AC27-47762E1C8733}]
+"SetInstance"="none"
+"TypeInstance"="inbound_applied_per_s"
+"Type"="current"
+"PluginInstance"="DRA_objects"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Nb d’objets DRA entrants appliqués/s."
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{CF2E2895-F5B9-433E-AC7C-6C016FFACAC9}]
+"SetInstance"="none"
+"TypeInstance"="inbound_filtered_per_s"
+"Type"="current"
+"PluginInstance"="DRA_objects"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Nb d’objets DRA entrants filtrés/s."
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{E7D1D341-F1E8-457A-8971-C05C83B4D2E4}]
+"SetInstance"="none"
+"TypeInstance"="inbound_per_s"
+"Type"="current"
+"PluginInstance"="DRA_objects"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Nb d’objets DRA entrants/s."
+

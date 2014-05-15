@@ -1,0 +1,18 @@
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{5B42C6D8-8D32-4BF4-BB61-5DD5FBCEAC4C}]
+"SetInstance"="none"
+"TypeInstance"="ntlm"
+"Type"="current"
+"PluginInstance"="authentication"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\Statistiques de sécurité au niveau du système\\Authentifications NTLM"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{7CD7BBE5-7C6C-4AA6-A69F-989F4D1D5F9D}]
+"SetInstance"="none"
+"TypeInstance"="kerberos"
+"Type"="current"
+"PluginInstance"="authentication"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\Statistiques de sécurité au niveau du système\\Authentifications Kerberos"
+

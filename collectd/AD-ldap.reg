@@ -1,0 +1,36 @@
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{3D120CE0-7733-4891-9A30-FCB44DED616F}]
+"SetInstance"="none"
+"TypeInstance"="ldap_searches_per_s"
+"Type"="current"
+"PluginInstance"="ldap"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Recherches LDAP/s."
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{5A58CA0C-7818-4717-A159-5512CE719F45}]
+"SetInstance"="none"
+"TypeInstance"="successfull_binds_per_s"
+"Type"="current"
+"PluginInstance"="ldap"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Nb de liaisons LDAP réussies/s."
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{5B5C6095-8C6E-4864-B6F1-BC48C7C20363}]
+"SetInstance"="none"
+"TypeInstance"="client_sessions"
+"Type"="current"
+"PluginInstance"="ldap"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Sessions client LDAP"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{C0683F10-D49F-4B7F-A3FA-68BDC4ABEA17}]
+"SetInstance"="none"
+"TypeInstance"="bind_time"
+"Type"="current"
+"PluginInstance"="ldap"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Durée de liaison LDAP"
+
