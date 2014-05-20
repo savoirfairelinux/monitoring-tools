@@ -12,14 +12,14 @@ _PROCESS_SALTMINION_MIN_WARN
 -----------------------------
 
 :type:              integer
-:description:       Min number of rsyslog processs, warning threshold
+:description:       Min number of salt minion, warning threshold
 
 
 _PROCESS_SALTMINION_MIN_CRIT
 -----------------------------
 
 :type:              integer
-:description:       Min number of rsyslog processs, critical threshold
+:description:       Min number of salt minion, critical threshold
 
 
 
