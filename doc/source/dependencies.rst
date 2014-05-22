@@ -12,7 +12,7 @@ This pack will create services which need the following modules :
 
 Here an example of a arbiter-collectd module config file:
 
-.. include:: examples/arbiter-collectd.cfg
+.. include:: examples/arbiter-collectd.cfg.example
 
 
 Plugins
