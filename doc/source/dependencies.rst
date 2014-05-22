@@ -5,38 +5,32 @@ Dependencies
 Shinken Modules
 ~~~~~~~~~~~~~~~
 
+This pack will create services which need the following modules :
+
+* Arbiter/Receiver : mod-collectd
+
+
+Here an example of a arbiter-collectd module config file:
+
+.. include:: examples/arbiter-collectd.cfg.example
+
+
 Plugins
 ~~~~~~~
 
-check_dhcp
-----------
-
-This pack will create services which need the following plugin:
-
-::
-
-  /usr/lib/nagios/plugins/check_dhcp
-
-or
-
-::
-
-  /usr/lib64/nagios/plugins/check_dhcp
-
-The plugin permissions should be:
-
-::
-
-  -rwsr-xr-x root root check_dhcp
-
-If not, you can fix it with
-
-  sudo chown root: /usr/lib/nagios/plugins/check_dhcp
-  sudo chmod u+s /usr/lib/nagios/plugins/check_dhcp
+This pack will create services which need the following plugins :
 
 Network
 ~~~~~~~
 
 This pack will create services which need the following protocol :
 
-* UDP 67 and 68 from Poller to monitored client
+* UDP 25826 from monitored client to the Arbiter/Receiver Collectd module
+
+
+Collectd
+~~~~~~~~
+
+Here an example of a collectd config file:
+
+.. include:: examples/collectd.conf
