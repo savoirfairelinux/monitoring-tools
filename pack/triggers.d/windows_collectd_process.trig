@@ -48,12 +48,12 @@ try:
 
     # Transform threshold
     if min_warn and min_crit:
-	data['warn'] = int(min_warn)
-	data['crit'] = int(min_crit)
+        data['warn'] = int(min_warn)
+        data['crit'] = int(min_crit)
         operator_name = 'le'
     elif max_warn and max_crit:
-	data['warn'] = int(max_warn)
-	data['crit'] = int(max_crit)
+        data['warn'] = int(max_warn)
+        data['crit'] = int(max_crit)
         operator_name = 'ge'
 
     # Prepare output

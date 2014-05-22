@@ -7,6 +7,7 @@ Settings
 
 This is the list of settings which can be redefined in the host definition
 
+
 _LOAD_WARN
 ----------
 
@@ -21,26 +22,11 @@ _LOAD_CRIT
 :description:        Load critical threshold (ie: 10,9,8)"
 
 
-_STORAGE_USED_WARN
-------------------
-
-:type:              percent
-:description:       Warning level for used storage space
-
-
-_STORAGE_USED_CRIT
-------------------
-
-:type:              percent
-:description:       Critical level for used storage space
-
-
 _PROCESS_CRON_MIN_WARN
 ----------------------
 
 :type:              integer
 :description:       Min number of cron processs, warning threshold
-
 
 
 _PROCESS_RSYSLOGD_MIN_WARN
@@ -76,14 +62,17 @@ Triggers
 
 This is the list of triggers used in the pack :
 
-* collectd_cpu.trig
-* collectd_df.trig
-* collectd_disk.trig
-* collectd_interface.trig
-* collectd_load.trig
-* collectd_memory.trig
-* collectd_processes.trig
-* collectd_swap.trig
-* collectd_users.trig
+* windows_collectd_counter.trig
+* windows_collectd_counter_multiple.trig
+* windows_collectd_cpu.trig
+* windows_collectd_df.trig
+* windows_collectd_disk.trig
+* windows_collectd_interface.trig
+* windows_collectd_memory.trig
+* windows_collectd_memory-pagefile.trig
+* windows-collectd_process.trig
+* windows-collectd_processes.trig
+* windows-collectd_service.trig
+* windows-collectd_users.trig
 
 
