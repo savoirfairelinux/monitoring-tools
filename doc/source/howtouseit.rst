@@ -7,83 +7,53 @@ Settings
 
 This is the list of settings which can be redefined in the host definition
 
-_LOAD_WARN
+_SMB_USER
 ----------
 
-:type:              3 comma-separated integer
-:description:       Load warning threshold (ie: 7,6,5)
+:type:              string
+:description:       Samba user (Usally from AD). Default : $DOMAINUSERSHORT$
 
 
-_LOAD_CRIT
-----------
+_SMB_PASSWORD
+--------------
 
-:type:              3 comma-separated integer",
-:description:        Load critical threshold (ie: 10,9,8)"
+:type:              string
+:description:       Samba password. Default : $DOMAINPASSWORD$
 
 
-_STORAGE_USED_WARN
+_SMB_DOMAIN
+------------
+
+:type:              string
+:description:       Samba domain. Default : $DOMAIN$
+
+
+_SMB_SHARED_DIR
 ------------------
 
-:type:              percent
-:description:       Warning level for used storage space
+:type:              string
+:description:       Samba shared directory. Default : Documents
 
 
-_STORAGE_USED_CRIT
-------------------
-
-:type:              percent
-:description:       Critical level for used storage space
-
-
-_PROCESS_CRON_MIN_WARN
-----------------------
+_SMB_TIME_WARN
+---------------
 
 :type:              integer
-:description:       Min number of cron processs, warning threshold
+:description:       Samba time warning threshold (s). Default 3
 
 
 
-_PROCESS_RSYSLOGD_MIN_WARN
---------------------------
-
-:type:              integer
-:description:       Min number of rsyslog processs, warning threshold
-
-
-_PROCESS_RSYSLOGD_MIN_CRIT
---------------------------
+_SMB_TIME_CRIT
+--------------
 
 :type:              integer
-:description:       Min number of rsyslog processs, critical threshold
+:description:       Samba time critical threshold (s). Default 5
 
 
-_PROCESS_OSSEC_MIN_WARN
------------------------
-
-:type:              integer
-:description:       Min number of ossec processs, warning threshold
-
-
-_PROCESS_OSSEC_MIN_CRIT
------------------------
+_SMB_TIMEOUT
+-------------
 
 :type:              integer
-:description:       Min number of ossec processs, critical threshold
-
-
-Triggers
-~~~~~~~~
-
-This is the list of triggers used in the pack :
-
-* collectd_cpu.trig
-* collectd_df.trig
-* collectd_disk.trig
-* collectd_interface.trig
-* collectd_load.trig
-* collectd_memory.trig
-* collectd_processes.trig
-* collectd_swap.trig
-* collectd_users.trig
+:description:       Samba time before timeout (s). Default 10
 
 
