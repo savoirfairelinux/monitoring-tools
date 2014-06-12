@@ -16,7 +16,7 @@ try:
 
     perf_data = ("ps_state=%(ps_state)d;;1;0;1" % data)
 
-    if data['ps_state'] == 0:
+    if data['ps_state'] == 1:
         state = "STARTED"
         exit_code = 0
     else:
