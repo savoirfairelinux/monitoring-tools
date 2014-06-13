@@ -21,6 +21,7 @@ try:
     # For each disk (sda, sda1, sda2, ...
     for disk in d
         data['disk'] = disk
+        data['clean_disk'] = disk.replace(" ", "_")
         # For each data ('disk_time', 'disk_merged', ...)
         for data_name in data_names:
             bad_data = False
@@ -34,7 +35,7 @@ try:
                     data['current_data'] = float(raw_perf_datas.get('%(name)s-%(disk)s_%(in_out_index)s' % data).value)
                     data['data_' + in_out] = data['current_data']
                     # Prepare perf data
-                    perf_datas.append('%(disk)s_%(name)s_%(in_out)s=%(current_data)0.2fs/s;;;0' % data)
+                    perf_datas.append('%(clean_disk)s_%(name)s_%(in_out)s=%(current_data)0.2fs/s;;;0' % data)
                 except:
                     # If we get an error, we just pass this data_name (IN and OUT are ignored)
                     bad_data = True
@@ -44,7 +45,7 @@ try:
                 continue
 
             # Prepare output
-            outputs.append( "%(disk)s_%(name)s=%(data_written)0.2f:%(data_read)0.2f(s/s) - " % data)
+            outputs.append( "%(clean_disk)s_%(name)s=%(data_written)0.2f:%(data_read)0.2f(s/s) - " % data)
 
     # Set ouput
     perf_data = " ".join(perf_datas)
