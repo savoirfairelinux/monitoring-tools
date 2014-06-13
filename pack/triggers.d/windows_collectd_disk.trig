@@ -4,8 +4,11 @@ try:
     exit_code = 0
     # Get perfs
     raw_perf_datas = allperfs(self)
-    disk_names = set([re.match('([^-]*)-(.*)_([^-]*)', metric_name).groups()[1]
-                      for metric_name in raw_perf_datas.keys()])
+
+    # TODO: merge disk_queue
+#    reg_disk_ql = re.compile('([^-]*)-(.*)')
+    disk_names = set([reg_disk.match(metric_name).groups()[1]
+                      for metric_name in raw_perf_datas.keys() if not metric_name.startswith("queue_length") ])
 
     perf_datas = []
     exit_codes = []
@@ -16,7 +19,7 @@ try:
     in_out_dict = {"written": 0, "read": 1}
 
     # For each disk (sda, sda1, sda2, ...
-    for disk in disk_names:
+    for disk in d
         data['disk'] = disk
         # For each data ('disk_time', 'disk_merged', ...)
         for data_name in data_names:
