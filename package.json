@@ -11,7 +11,7 @@
 		"email": "sebastien.coavoux@savoirfairelinux.com"
 	  },
 	],
-	"repository": "http://projects.savoirfairelinux.com:sfl-shinken-packs--generic-saltmaster-tcp.git",
+	"repository": "https://github.com/savoirfairelinux/pack-generic-saltmaster-tcp.git",
 	"keywords": [
 	  "pack",
 	  "generic-saltmaster-tcp"
