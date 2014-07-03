@@ -48,18 +48,10 @@ help:
 clean:
 	rm -rf $(BUILDDIR)/*
 
-retrieve_content:
-	cd .. && git submodule update --init
-	cd .. && git submodule foreach 'git fetch origin master && git checkout master && sleep 1'
-	cd .. && cp plugin-*/doc/*.rst doc/source/
-	cd .. && pwd && ls | grep plugin- | awk '{print "   "$$1}' >> doc/source/index.rst
-
-html: retrieve_content
+html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
-	git checkout source/index.rst
-	rm source/plugin-*.rst
 
 dirhtml:
 	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml
