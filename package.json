@@ -11,7 +11,7 @@
 		"email": "sebastien.coavoux@savoirfairelinux.com"
 	  },
 	],
-	"repository": "http://projects.savoirfairelinux.com:sfl-shinken-packs--linux-saltmaster-collectd.git",
+	"repository": "https://github.com/savoirfairelinux/pack-linux-saltmaster-collectd.git",
 	"keywords": [
 	  "pack",
 	  "linux-saltmaster-collectd"
