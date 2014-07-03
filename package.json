@@ -11,7 +11,7 @@
 		"email": "thibault.cohen@savoirfairelinux.com"
 	  },
 	],
-	"repository": "http://projects.savoirfairelinux.com:sfl-shinken-packs--windows-rdp.git",
+	"repository": "https://github.com/savoirfairelinux/pack-windows-rdp.git",
 	"keywords": [
 	  "pack",
 	  "windows-rdp"
