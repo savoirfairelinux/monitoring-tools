@@ -4,7 +4,7 @@ try:
     exit_code = 0
     # Get perfs
     raw_perf_datas = allperfs(self)
-    disk_names = set([re.match('([^-]*)-(.*)_([^-]*)', metric_name).groups()[1]
+    disk_names = set([re.match('([^-]*)-([0-9]+ [a-zA-Z]:)_([^-]*)', metric_name).groups()[1]
                       for metric_name in raw_perf_datas.keys()])
 
     perf_datas = []
@@ -18,6 +18,7 @@ try:
     # For each disk (sda, sda1, sda2, ...
     for disk in disk_names:
         data['disk'] = disk
+        data['disk_clean'] = re.sub(" ", "_", disk)
         # For each data ('disk_time', 'disk_merged', ...)
         for data_name in data_names:
             bad_data = False
@@ -31,7 +32,7 @@ try:
                     data['current_data'] = float(raw_perf_datas.get('%(name)s-%(disk)s_%(in_out_index)s' % data).value)
                     data['data_' + in_out] = data['current_data']
                     # Prepare perf data
-                    perf_datas.append('%(disk)s_%(name)s_%(in_out)s=%(current_data)0.2fs/s;;;0' % data)
+                    perf_datas.append('%(disk_clean)s_%(name)s_%(in_out)s=%(current_data)0.2fs/s;;;0' % data)
                 except:
                     # If we get an error, we just pass this data_name (IN and OUT are ignored)
                     bad_data = True
@@ -41,7 +42,7 @@ try:
                 continue
 
             # Prepare output
-            outputs.append( "%(disk)s_%(name)s=%(data_written)0.2f:%(data_read)0.2f(s/s) - " % data)
+            outputs.append( "%(disk_clean)s_%(name)s=%(data_written)0.2f:%(data_read)0.2f(s/s) - " % data)
 
     # Set ouput
     perf_data = " ".join(perf_datas)
