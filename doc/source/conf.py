@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Kaji documentation build configuration file, created by
+# sfl-shinken-plugins documentation build configuration file, created by
 # sphinx-quickstart on Mon Mar  3 22:35:35 2014.
 #
 # This file is execfile()d with the current directory set to its
