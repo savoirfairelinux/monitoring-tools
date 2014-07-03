@@ -11,7 +11,7 @@
 		"email": "sebastien.coavoux@savoirfairelinux.com"
 	  },
 	],
-	"repository": "http://projects.savoirfairelinux.com:sfl-shinken-packs--windows-sophos-collectd.git",
+	"repository": "https://github.com/savoirfairelinux/pack-windows-sophos-collectd.git",
 	"keywords": [
 	  "pack",
 	  "windows-sophos-collectd"
