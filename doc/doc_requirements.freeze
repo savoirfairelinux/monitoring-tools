@@ -1,0 +1,6 @@
+MarkupSafe==0.18
+Sphinx==1.2.2
+argparse==1.2.1
+docutils==0.11
+sphinx-rtd-theme==0.1.6
+wsgiref==0.1.2
