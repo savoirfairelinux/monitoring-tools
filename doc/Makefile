@@ -49,6 +49,7 @@ clean:
 	rm -rf $(BUILDDIR)/*
 
 retrieve_content:
+	cd .. && git submodule update --init
 	cd .. && git submodule foreach 'git fetch origin master && git checkout master && sleep 1'
 	cd .. && cp plugin-*/doc/*.rst doc/source/
 	cd .. && pwd && ls | grep plugin- | awk '{print "   "$$1}' >> doc/source/index.rst
