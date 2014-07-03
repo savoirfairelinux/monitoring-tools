@@ -19,7 +19,7 @@
         "email": "dessai.imrane@gmail.com"
       }
 	],
-	"repository": "http://projects.savoirfairelinux.com:sfl-shinken-packs--windows-mssql.git",
+	"repository": "https://github.com/savoirfairelinux/pack-windows-mssql.git",
 	"keywords": [
 	  "pack",
 	  "windows-mssql"
