@@ -11,7 +11,7 @@
 		"email": "thibault.cohen@savoirfairelinux.com"
 	  },
 	],
-	"repository": "http://projects.savoirfairelinux.com:sfl-shinken-packs--generic-dhcp.git",
+	"repository": "https://github.com/savoirfairelinux/pack-generic-dhcp.git",
 	"keywords": [
 	  "pack",
 	  "generic-dhcp"
