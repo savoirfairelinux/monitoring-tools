@@ -12,7 +12,7 @@
 		"email": "thibault.cohen@savoirfairelinux.com"
 	  },
 	],
-	"repository": "http://projects.savoirfairelinux.com:sfl-shinken-packs--linux-system-collectd.git",
+	"repository": "https://github.com/savoirfairelinux/pack-linux-system-collectd.git",
 	"keywords": [
 	  "pack",
 	  "linux-system-collectd"
