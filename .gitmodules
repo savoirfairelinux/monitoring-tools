@@ -65,4 +65,51 @@
 [submodule "plugin-check_printer_hp_2600n"]
 	path = plugin-check_printer_hp_2600n
 	url = git@github.com:savoirfairelinux/plugin-check_printer_hp_2600n.git
+[submodule "plugin-check_wanpipe"]
+	path = plugin-check_wanpipe
+	url = git@github.com:savoirfairelinux/plugin-check_wanpipe.git
+	branch = master
+[submodule "plugin-check_ups_powerware_sensor"]
+	path = plugin-check_ups_powerware_sensor
+	url = git@github.com:savoirfairelinux/plugin-check_ups_powerware_sensor.git
+	branch = master
+[submodule "plugin-check_tripplite_ups"]
+	path = plugin-check_tripplite_ups
+	url = git@github.com:savoirfairelinux/plugin-check_tripplite_ups.git
+	branch = master
+[submodule "plugin-check_toshiba_ups"]
+	path = plugin-check_toshiba_ups
+	url = git@github.com:savoirfairelinux/plugin-check_toshiba_ups.git
+	branch = master
+[submodule "plugin-check_spa2102"]
+	path = plugin-check_spa2102
+	url = git@github.com:savoirfairelinux/plugin-check_spa2102.git
+	branch = master
+[submodule "plugin-check_snmp_printer"]
+	path = plugin-check_snmp_printer
+	url = git@github.com:savoirfairelinux/plugin-check_snmp_printer.git
+	branch = master
+[submodule "plugin-check_snmp_int"]
+	path = plugin-check_snmp_int
+	url = git@github.com:savoirfairelinux/plugin-check_snmp_int.git
+	branch = master
+[submodule "plugin-check_smtp_success_ratio"]
+	path = plugin-check_smtp_success_ratio
+	url = git@github.com:savoirfairelinux/plugin-check_smtp_success_ratio.git
+	branch = master
+[submodule "plugin-check_site_health"]
+	path = plugin-check_site_health
+	url = git@github.com:savoirfairelinux/plugin-check_site_health.git
+	branch = master
+[submodule "plugin-check_samba"]
+	path = plugin-check_samba
+	url = git@github.com:savoirfairelinux/plugin-check_samba.git
+	branch = master
+[submodule "plugin-check_reactionner_health"]
+	path = plugin-check_reactionner_health
+	url = git@github.com:savoirfairelinux/plugin-check_reactionner_health.git
+	branch = master
+[submodule "plugin-check_rancid"]
+	path = plugin-check_rancid
+	url = git@github.com:savoirfairelinux/plugin-check_rancid.git
 	branch = master
