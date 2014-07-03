@@ -2,7 +2,7 @@
 	"name": "linux-system-collectd",
 	"types": ["pack"],
 	"version": "1.0",
-	"homepage": "https://projects.savoirfairelinux.com/projects/sfl-shinken-packs",
+	"homepage": "https://github.com/savoirfairelinux/sfl-shinken-packs",
 	"author": "Thibault Cohen",
     "description": "Standard linux collectd passive checks, like CPU, RAM and disk space. Checks are done by triggers on collected data. Started from collectd community module",
 	"description": "Linux passive checks based on Collectd",
