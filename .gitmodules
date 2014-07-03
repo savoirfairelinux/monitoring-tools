@@ -1,0 +1,68 @@
+[submodule "plugin-check_asterisk_cdr_status"]
+	path = plugin-check_asterisk_cdr_status
+	url = git@github.com:savoirfairelinux/plugin-check_asterisk_cdr_status.git
+	branch = master
+[submodule "plugin-check_bandwidth_usage"]
+	path = plugin-check_bandwidth_usage
+	url = git@github.com:savoirfairelinux/plugin-check_bandwidth_usage.git
+	branch = master
+[submodule "plugin-check_brother_toner_level"]
+	path = plugin-check_brother_toner_level
+	url = git@github.com:savoirfairelinux/plugin-check_brother_toner_level.git
+	branch = master
+[submodule "plugin-check_carp_by_ssh"]
+	path = plugin-check_carp_by_ssh
+	url = git@github.com:savoirfairelinux/plugin-check_carp_by_ssh.git
+	branch = master
+[submodule "plugin-check_ceilometer"]
+	path = plugin-check_ceilometer
+	url = git@github.com:savoirfairelinux/plugin-check_ceilometer.git
+	branch = master
+[submodule "plugin-check_cisco_ap"]
+	path = plugin-check_cisco_ap
+	url = git@github.com:savoirfairelinux/plugin-check_cisco_ap.git
+	branch = master
+[submodule "plugin-check_cpu"]
+	path = plugin-check_cpu
+	url = git@github.com:savoirfairelinux/plugin-check_cpu.git
+	branch = master
+[submodule "plugin-check_equallogic_stats"]
+	path = plugin-check_equallogic_stats
+	url = git@github.com:savoirfairelinux/plugin-check_equallogic_stats.git
+	branch = master
+[submodule "plugin-check_fake"]
+	path = plugin-check_fake
+	url = git@github.com:savoirfairelinux/plugin-check_fake.git
+	branch = master
+[submodule "plugin-check_libvirt_stats"]
+	path = plugin-check_libvirt_stats
+	url = git@github.com:savoirfairelinux/plugin-check_libvirt_stats.git
+	branch = master
+[submodule "plugin-check_linux_traffic"]
+	path = plugin-check_linux_traffic
+	url = git@github.com:savoirfairelinux/plugin-check_linux_traffic.git
+	branch = master
+[submodule "plugin-check_mem"]
+	path = plugin-check_mem
+	url = git@github.com:savoirfairelinux/plugin-check_mem.git
+	branch = master
+[submodule "plugin-check_mpt_status"]
+	path = plugin-check_mpt_status
+	url = git@github.com:savoirfairelinux/plugin-check_mpt_status.git
+	branch = master
+[submodule "plugin-check_openbsd_sysstats_byssh"]
+	path = plugin-check_openbsd_sysstats_byssh
+	url = git@github.com:savoirfairelinux/plugin-check_openbsd_sysstats_byssh.git
+	branch = master
+[submodule "plugin-check_openerp"]
+	path = plugin-check_openerp
+	url = git@github.com:savoirfairelinux/plugin-check_openerp.git
+	branch = master
+[submodule "plugin-check_poller2livestatus"]
+	path = plugin-check_poller2livestatus
+	url = git@github.com:savoirfairelinux/plugin-check_poller2livestatus.git
+	branch = master
+[submodule "plugin-check_printer_hp_2600n"]
+	path = plugin-check_printer_hp_2600n
+	url = git@github.com:savoirfairelinux/plugin-check_printer_hp_2600n.git
+	branch = master
