@@ -2,7 +2,7 @@
 	"name": "generic-repodeb-http",
 	"types": ["pack"],
 	"version": "1.0",
-	"homepage": "https://projects.savoirfairelinux.com/projects/sfl-shinken-packs",
+	"homepage": "https://github.com/savoirfairelinux/sfl-shinken-packs",
 	"author": "Thibault Cohen",
 	"description": "Debian and Ubuntu repository active checks with HTTP requests",
 	"contributors": [
