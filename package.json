@@ -11,7 +11,7 @@
 		"email": "thibault.cohen@savoirfairelinux.com"
 	  },
 	],
-	"repository": "http://projects.savoirfairelinux.com:sfl-shinken-packs--windows-ad-collectd.git",
+	"repository": "https://github.com/savoirfairelinux/pack-windows-ad-collectd.git",
 	"keywords": [
 	  "pack",
 	  "windows-ad-collectd"
