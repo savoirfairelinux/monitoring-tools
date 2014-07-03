@@ -2,7 +2,7 @@
 	"name": "generic-smb",
 	"types": ["pack"],
 	"version": "1.0",
-	"homepage": "https://projects.savoirfairelinux.com/projects/sfl-shinken-packs",
+	"homepage": "https://github.com/savoirfairelinux/sfl-shinken-packs",
 	"author": "Sebastien Coavoux",
 	"description": "Pack to monitor samba shared directory",
 	"contributors": [
