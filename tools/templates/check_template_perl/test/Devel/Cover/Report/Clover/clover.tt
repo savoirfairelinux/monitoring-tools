@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<coverage generated="[% generated | html_entity %]" clover="[% version | html_entity %]" >
+[%-
+  pj = project;
+  m  = project.metrics;
+%]
+    <project timestamp="[% generated | html_entity %]" name="[% pj.name | html_entity %]">
+        <metrics packages="[% m.packages %]" elements="[% m.elements %]" coveredelements="[% m.coveredelements %]" statements="[% m.statements %]" coveredstatements="[% m.coveredstatements %]" complexity="[% m.complexity %]" files="[% m.files %]" loc="[% m.loc %]" ncloc="[% m.ncloc %]" classes="[% m.classes %]" conditionals="[% m.conditionals %]" coveredconditionals="[% m.coveredconditionals %]" methods="[% m.methods %]" coveredmethods="[% m.coveredmethods %]"/>
+        [%- 
+            FOREACH package IN pj.packages;
+                SET p = package.metrics;
+        %]
+        <package name="[% package.name_dotted | html_entity %]">
+            <metrics elements="[% p.elements %]" coveredelements="[% p.coveredelements %]" statements="[% p.statements %]" coveredstatements="[% p.coveredstatements %]" complexity="[% p.complexity %]" files="[% p.files %]" loc="[% p.loc %]" ncloc="[% p.ncloc %]" classes="[% p.classes %]" conditionals="[% p.conditionals %]" coveredconditionals="[% p.coveredconditionals %]" methods="[% p.methods %]" coveredmethods="[% p.coveredmethods %]"/>
+            [%- FOREACH file IN package.files;
+                SET f = file.metrics;
+            %]
+            <file path="[% file.name | html_entity %]" name="[% file.name | html_entity %]">
+                <metrics elements="[% f.elements %]" coveredelements="[% f.coveredelements %]" statements="[% f.statements %]" coveredstatements="[% f.coveredstatements %]" complexity="[% f.complexity %]" loc="[% f.loc %]" ncloc="[% f.ncloc %]" classes="[% f.classes %]" conditionals="[% f.conditionals %]" coveredconditionals="[% f.coveredconditionals %]" methods="[% f.methods %]" coveredmethods="[% f.coveredmethods %]"/>
+                [%- FOREACH class IN file.classes;
+                    SET c = class.metrics;
+                %]
+                <class name="[% class.name_dotted | html_entity %]">
+                    <metrics elements="[% c.elements %]" coveredelements="[% c.coveredelements %]" statements="[% c.statements %]" coveredstatements="[% c.coveredstatements %]" complexity="[% c.complexity %]" loc="[% c.loc %]" ncloc="[% c.ncloc %]" conditionals="[% c.conditionals %]" coveredconditionals="[% c.coveredconditionals %]" methods="[% c.methods %]" coveredmethods="[% c.coveredmethods %]"/>
+                </class>
+                [%- END %]
+            </file>
+            [%- END %]
+        </package>
+        [%- END %]
+    </project>
+</coverage>
+

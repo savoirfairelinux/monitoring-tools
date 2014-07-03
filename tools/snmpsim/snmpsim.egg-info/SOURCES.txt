@@ -1,0 +1,16 @@
+CHANGES.txt
+LICENSE.txt
+MANIFEST.in
+README.txt
+mib2dev.py
+setup.cfg
+setup.py
+snmprec.py
+snmpsimd.py
+devices/localhost@public.snmprec
+snmpsim.egg-info/PKG-INFO
+snmpsim.egg-info/SOURCES.txt
+snmpsim.egg-info/dependency_links.txt
+snmpsim.egg-info/requires.txt
+snmpsim.egg-info/top_level.txt
+snmpsim.egg-info/zip-safe
