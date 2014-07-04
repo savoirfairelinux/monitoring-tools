@@ -1,5 +1,8 @@
+pack-generic-ldap
+================
+
 Dependencies
-============
+************
 
 
 Shinken Modules
@@ -64,13 +67,13 @@ This pack will create services which need the following protocol :
 
 
 Installation
-============
+************
 
 Copy the pack folder in the packs folder defined in shinken.cfg (`cfg_dir=packs`)
 
 
 How to use it
-=============
+*************
 
 
 Templates
