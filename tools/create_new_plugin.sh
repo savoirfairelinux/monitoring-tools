@@ -146,7 +146,7 @@ while [ "$plugin_type" != "python" ] &&
 do
   echo ""
   echo "What kind of plugin do you want to create:"
-  echo "python, shell, perl, c, java, php ?"
+  echo "python, shell, perl?"
   read plugin_type
 done
 
