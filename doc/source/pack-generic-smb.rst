@@ -1,3 +1,42 @@
+Dependencies
+============
+
+
+Shinken Modules
+~~~~~~~~~~~~~~~
+
+Plugins
+~~~~~~~
+
+check_samba
+------------
+
+This pack will create services which need the following plugin:
+
+::
+
+  /usr/lib/nagios/plugins/check_samba.py
+
+or
+
+::
+
+  /usr/lib64/nagios/plugins/check_samba.py
+
+
+
+Network
+~~~~~~~
+
+This pack will create services which need the following protocol :
+
+* TCP 139 from Poller to monitored client
+Installation
+============
+
+Copy the pack folder in the packs folder defined in shinken.cfg (`cfg_dir=packs`)
+
+
 How to use it
 =============
 
