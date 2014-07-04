@@ -33,7 +33,8 @@ Collectd
 
 Here an example of a collectd config file:
 
-.. include:: examples/collectd.confInstallation
+.. include:: examples/collectd.conf
+Installation
 ============
 
 Copy the pack folder in the packs folder defined in shinken.cfg (`cfg_dir=packs`)
