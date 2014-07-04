@@ -1,5 +1,8 @@
+pack-windows-ad-collectd
+================
+
 Dependencies
-============
+************
 
 
 Shinken Modules
@@ -42,13 +45,13 @@ This pack will create services which need the following protocol :
 * UDP 67 and 68 from Poller to monitored client
 
 Installation
-============
+************
 
 Copy the pack folder in the packs folder defined in shinken.cfg (`cfg_dir=packs`)
 
 
 How to use it
-=============
+*************
 
 
 Settings
