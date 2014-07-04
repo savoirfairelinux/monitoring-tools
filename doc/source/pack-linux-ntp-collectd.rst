@@ -19,7 +19,8 @@ Network
 
 This pack will create services which need the following protocol :
 
-* UDP 25826 from monitored client to the Arbiter/Receiver Collectd moduleInstallation
+* UDP 25826 from monitored client to the Arbiter/Receiver Collectd module
+Installation
 ============
 
 Copy the pack folder in the packs folder defined in shinken.cfg (`cfg_dir=packs`)
