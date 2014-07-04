@@ -194,7 +194,7 @@ fi
 git clone git@projects.savoirfairelinux.com:sfl-shinken-plugins--$plugin_name.git shinken-plugins-sfl/$plugin_name
 if [ $? -ne 0 ]
 then
-    echo "sfl-shinken-plugins--$plugin_name repository doesn't exists"
+    echo "sfl-shinken-plugins--$plugin_name repository doesn't exist"
     echo "Please create it in redmine"
     exit 1
 fi
@@ -304,7 +304,7 @@ then
     sed -i "s|<files>|%{_libdir}/shinken/plugins/$plugin_name.inc\n%{_libdir}/shinken/plugins/$plugin_name.sh|" $plugin_name.spec
 fi
 
-# We into the plugin dir
+# We are into the plugin dir
 git add .
 git commit -m "First commit for $plugin_name"
 git push origin master
