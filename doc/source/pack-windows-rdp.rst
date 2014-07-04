@@ -30,3 +30,16 @@ Network
 This pack will create services which need the following protocol :
 
 * TCP 3389 from Poller to monitored client
+Installation
+============
+
+Copy the pack folder in the packs folder defined in shinken.cfg (`cfg_dir=packs`)
+
+
+How to use it
+=============
+
+
+Settings
+~~~~~~~~
+
