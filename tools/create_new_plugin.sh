@@ -191,29 +191,31 @@ then
 fi
 
 # Create a new folder from template folder
-git clone git@projects.savoirfairelinux.com:sfl-shinken-plugins--$plugin_name.git shinken-plugins-sfl/$plugin_name
+mkdir plugin-$plugin_name
+
 if [ $? -ne 0 ]
 then
-    echo "sfl-shinken-plugins--$plugin_name repository doesn't exist"
-    echo "Please create it in redmine"
+    echo "$plugin_name folder already exists."
+    echo "Please choose another name."
     exit 1
 fi
 
-cp -r tools/templates/check_template_$plugin_type/* ./shinken-plugins-sfl/$plugin_name/
-cp -r tools/templates/packaging/deb/debian ./shinken-plugins-sfl/$plugin_name/
-cp -r tools/templates/gitignore ./shinken-plugins-sfl/$plugin_name/.gitignore
-cp -r tools/templates/general/* ./shinken-plugins-sfl/$plugin_name/
-cp tools/templates/packaging/rpm/check_template.spec ./shinken-plugins-sfl/$plugin_name/$plugin_name.spec
+cp -r tools/templates/check_template_$plugin_type/* ./plugin-$plugin_name/
+cp -r tools/templates/packaging/deb/debian ./plugin-$plugin_name/
+cp -r tools/templates/gitignore ./plugin-$plugin_name/.gitignore
+cp -r tools/templates/general/* ./plugin-$plugin_name/
+cp tools/templates/packaging/rpm/check_template.spec ./plugin-$plugin_name/$plugin_name.spec
+mv ./plugin-$plugin_name/doc/doc.rst ./plugin-$plugin_name/doc/plugin-$plugin_name.rst
 
 package_plugin_name=`echo "$plugin_name" |tr "_" "-" `
 #### PYTHON ####
 if [ "$plugin_type" = "python" ]
 then
-    mv ./shinken-plugins-sfl/$plugin_name/check_template_$plugin_type.py ./shinken-plugins-sfl/$plugin_name/$plugin_name.py
-    chmod +x ./shinken-plugins-sfl/$plugin_name/$plugin_name.py
-    mv ./shinken-plugins-sfl/$plugin_name/test/test_check_template_$plugin_type.py  ./shinken-plugins-sfl/$plugin_name/test/test_$plugin_name.py
+    mv ./plugin-$plugin_name/check_template_$plugin_type.py ./plugin-$plugin_name/$plugin_name.py
+    chmod +x ./plugin-$plugin_name/$plugin_name.py
+    mv ./plugin-$plugin_name/test/test_check_template_$plugin_type.py  ./plugin-$plugin_name/test/test_$plugin_name.py
     # Replace values in template
-    cd ./shinken-plugins-sfl/$plugin_name
+    cd ./plugin-$plugin_name
     $dch --package $package_plugin_name -M --create -D stable -v $date-1 "First commit"
     for f in `find . -type f`
     do
@@ -243,12 +245,12 @@ fi
 #### PERL ####
 if [ "$plugin_type" = "perl" ]
 then
-    mv ./shinken-plugins-sfl/$plugin_name/check_template_$plugin_type.pl ./shinken-plugins-sfl/$plugin_name/$plugin_name.pl
-    mv ./shinken-plugins-sfl/$plugin_name/check_template_$plugin_type.pm ./shinken-plugins-sfl/$plugin_name/$plugin_name.pm
-    mv ./shinken-plugins-sfl/$plugin_name/test/check_template_perl.t ./shinken-plugins-sfl/$plugin_name/test/$plugin_name.t
-    chmod +x ./shinken-plugins-sfl/$plugin_name/$plugin_name.pl
+    mv ./plugin-$plugin_name/check_template_$plugin_type.pl ./plugin-$plugin_name/$plugin_name.pl
+    mv ./plugin-$plugin_name/check_template_$plugin_type.pm ./plugin-$plugin_name/$plugin_name.pm
+    mv ./plugin-$plugin_name/test/check_template_perl.t ./plugin-$plugin_name/test/$plugin_name.t
+    chmod +x ./plugin-$plugin_name/$plugin_name.pl
     # Replace values in template
-    cd ./shinken-plugins-sfl/$plugin_name
+    cd ./plugin-$plugin_name
     $dch --package $package_plugin_name -M --create -D stable -v $date-1 "First commit"
     for f in `find . -type f`
     do
@@ -275,12 +277,12 @@ fi
 #### BASH ####
 if [ "$plugin_type" = "shell" ]
 then
-    mv ./shinken-plugins-sfl/$plugin_name/check_template_$plugin_type.sh ./shinken-plugins-sfl/$plugin_name/$plugin_name.sh
-    mv ./shinken-plugins-sfl/$plugin_name/check_template_$plugin_type.inc ./shinken-plugins-sfl/$plugin_name/$plugin_name.inc
-    mv ./shinken-plugins-sfl/$plugin_name/test/test_check_template_shell.sh ./shinken-plugins-sfl/$plugin_name/test/test_$plugin_name.sh
-    chmod +x ./shinken-plugins-sfl/$plugin_name/$plugin_name.sh
+    mv ./plugin-$plugin_name/check_template_$plugin_type.sh ./plugin-$plugin_name/$plugin_name.sh
+    mv ./plugin-$plugin_name/check_template_$plugin_type.inc ./plugin-$plugin_name/$plugin_name.inc
+    mv ./plugin-$plugin_name/test/test_check_template_shell.sh ./plugin-$plugin_name/test/test_$plugin_name.sh
+    chmod +x ./plugin-$plugin_name/$plugin_name.sh
     # Replace values in template
-    cd ./shinken-plugins-sfl/$plugin_name
+    cd ./plugin-$plugin_name
     $dch --package $package_plugin_name -M --create -D stable -v $date-1 "First commit"
     for f in `find . -type f`
     do
@@ -304,17 +306,7 @@ then
     sed -i "s|<files>|%{_libdir}/shinken/plugins/$plugin_name.inc\n%{_libdir}/shinken/plugins/$plugin_name.sh|" $plugin_name.spec
 fi
 
-# We are into the plugin dir
-git add .
-git commit -m "First commit for $plugin_name"
-git push origin master
-
 cd ../../
-# We are now at top level
-git submodule add git@projects.savoirfairelinux.com:sfl-shinken-plugins--$plugin_name.git shinken-plugins-sfl/$plugin_name 2>&1
-git commit -m "Adding $plugin_name to repo"
-git push origin master
-
 
 echo "============================================="
 echo "           Your plugin is ready !!!          "
