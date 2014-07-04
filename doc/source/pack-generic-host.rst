@@ -1,5 +1,8 @@
+pack-generic-host
+================
+
 Dependencies
-============
+************
 
 
 Shinken Modules
@@ -31,13 +34,13 @@ This pack will create services which need the following protocol :
 * ICMP
 
 Installation
-============
+************
 
 Copy the pack folder in the packs folder defined in shinken.cfg (`cfg_dir=packs`)
 
 
 How to use it
-=============
+*************
 
 
 Settings
