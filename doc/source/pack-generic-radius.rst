@@ -1,5 +1,8 @@
+pack-generic-radius
+================
+
 Dependencies
-============
+************
 
 
 Shinken Modules
@@ -32,7 +35,7 @@ This pack will create services which need the following protocol :
 * UDP : 1645 or 1812 from Poller to monitored client
 
 Installation
-============
+************
 
 On the poller side
 -------------------
@@ -51,7 +54,7 @@ The users file is used to define user/password credentials
 
 
 How to use it
-=============
+*************
 
 
 Settings
