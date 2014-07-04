@@ -6,5 +6,6 @@ sfl-shinken-plugins documentation
 
 .. toctree::
    :maxdepth: 2
+   :glob:
 
    plugin-*
