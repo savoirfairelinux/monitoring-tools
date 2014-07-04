@@ -1,4 +1,4 @@
 plugin-check_rancid
-================
-SFL Shinken plugins
-Static NRPE Agent
+===============================
+Shinken plugin from SFL.
+Check various things from a rancid repo depending on the mode.
