@@ -2,10 +2,6 @@
 	path = plugin-check_asterisk_cdr_status
 	url = git://github.com/savoirfairelinux/plugin-check_asterisk_cdr_status.git
 	branch = master
-[submodule "plugin-check_bandwidth_usage"]
-	path = plugin-check_bandwidth_usage
-	url = git://github.com/savoirfairelinux/plugin-check_bandwidth_usage.git
-	branch = master
 [submodule "plugin-check_brother_toner_level"]
 	path = plugin-check_brother_toner_level
 	url = git://github.com/savoirfairelinux/plugin-check_brother_toner_level.git
