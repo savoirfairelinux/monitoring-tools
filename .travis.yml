@@ -6,6 +6,8 @@ install:
   - pip install nose
   - sudo apt-get install -y libdevel-cover-perl libxslt1-dev zlib1g-dev
   # this is for python's lxml
+  - sudo apt-get install -y netcat-traditional
+  # for plugin-check_poller2livestatus
 script:
   - ./run_tests.sh
 
