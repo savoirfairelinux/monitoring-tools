@@ -14,10 +14,6 @@
 	path = plugin-check_ceilometer
 	url = git://github.com/savoirfairelinux/plugin-check_ceilometer.git
 	branch = master
-[submodule "plugin-check_cisco_ap"]
-	path = plugin-check_cisco_ap
-	url = git://github.com/savoirfairelinux/plugin-check_cisco_ap.git
-	branch = master
 [submodule "plugin-check_cpu"]
 	path = plugin-check_cpu
 	url = git://github.com/savoirfairelinux/plugin-check_cpu.git
