@@ -4,6 +4,7 @@ python:
   - "2.7"
 install:
   - pip install nose
+  - sudo apt-get install -y libdevel-cover-perl
 script:
   - ./run_tests.sh
 
