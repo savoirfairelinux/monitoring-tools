@@ -8,6 +8,8 @@ install:
   # this is for python's lxml
   - sudo apt-get install -y netcat-traditional
   # for plugin-check_poller2livestatus
+  - sudo apt-get install -y libvirt-bin libvirt-dev pkg-config
+  # for plugin-check_libvirt_stats
 script:
   - ./run_tests.sh
 
