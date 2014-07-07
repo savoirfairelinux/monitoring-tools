@@ -61,10 +61,6 @@
 	path = plugin-check_wanpipe
 	url = git://github.com/savoirfairelinux/plugin-check_wanpipe.git
 	branch = master
-[submodule "plugin-check_ups_powerware_sensor"]
-	path = plugin-check_ups_powerware_sensor
-	url = git://github.com/savoirfairelinux/plugin-check_ups_powerware_sensor.git
-	branch = master
 [submodule "plugin-check_tripplite_ups"]
 	path = plugin-check_tripplite_ups
 	url = git://github.com/savoirfairelinux/plugin-check_tripplite_ups.git
