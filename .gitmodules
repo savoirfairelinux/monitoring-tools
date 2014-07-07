@@ -22,10 +22,6 @@
 	path = plugin-check_cpu
 	url = git://github.com/savoirfairelinux/plugin-check_cpu.git
 	branch = master
-[submodule "plugin-check_equallogic_stats"]
-	path = plugin-check_equallogic_stats
-	url = git://github.com/savoirfairelinux/plugin-check_equallogic_stats.git
-	branch = master
 [submodule "plugin-check_fake"]
 	path = plugin-check_fake
 	url = git://github.com/savoirfairelinux/plugin-check_fake.git
