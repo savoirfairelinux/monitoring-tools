@@ -69,10 +69,6 @@
 	path = plugin-check_snmp_printer
 	url = git://github.com/savoirfairelinux/plugin-check_snmp_printer.git
 	branch = master
-[submodule "plugin-check_snmp_int"]
-	path = plugin-check_snmp_int
-	url = git://github.com/savoirfairelinux/plugin-check_snmp_int.git
-	branch = master
 [submodule "plugin-check_smtp_success_ratio"]
 	path = plugin-check_smtp_success_ratio
 	url = git://github.com/savoirfairelinux/plugin-check_smtp_success_ratio.git
