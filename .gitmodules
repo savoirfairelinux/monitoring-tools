@@ -65,10 +65,6 @@
 	path = plugin-check_tripplite_ups
 	url = git://github.com/savoirfairelinux/plugin-check_tripplite_ups.git
 	branch = master
-[submodule "plugin-check_toshiba_ups"]
-	path = plugin-check_toshiba_ups
-	url = git://github.com/savoirfairelinux/plugin-check_toshiba_ups.git
-	branch = master
 [submodule "plugin-check_spa2102"]
 	path = plugin-check_spa2102
 	url = git://github.com/savoirfairelinux/plugin-check_spa2102.git
