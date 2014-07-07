@@ -4,7 +4,8 @@ python:
   - "2.7"
 install:
   - pip install nose
-  - sudo apt-get install -y libdevel-cover-perl
+  - sudo apt-get install -y libdevel-cover-perl libxslt1-dev zlib1g-dev
+  # this is for python's lxml
 script:
   - ./run_tests.sh
 
