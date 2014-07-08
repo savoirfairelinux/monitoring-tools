@@ -20,6 +20,8 @@ install:
   - echo "deb http://ubuntu-cloud.archive.canonical.com/ubuntu precise-updates/icehouse main" | sudo tee -a /etc/apt/sources.list
   - sudo apt-get update -q
   - sudo apt-get install -y --force-yes libvirt-dev libvirt-bin
+  # libxml2 is broken on pypi
+  - sudo apt-get install -y python-libxml2
 script:
   - ./run_tests.sh
 
