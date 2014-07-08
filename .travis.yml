@@ -4,12 +4,19 @@ python:
   - "2.7"
 install:
   - pip install nose
-  - sudo apt-get install -y libdevel-cover-perl libxslt1-dev zlib1g-dev
+  
   # this is for python's lxml
-  - sudo apt-get install -y netcat-traditional
+  - sudo apt-get install -y libdevel-cover-perl libxslt1-dev zlib1g-dev
+  
   # for plugin-check_poller2livestatus
-  - sudo apt-get install -y libvirt-bin libvirt-dev pkg-config
-  # for plugin-check_libvirt_stats
+  - sudo apt-get install -y netcat-traditional
+  
+  # for plugin-check_libvirt_stats, a recent libvirt is available through backports
+  # (before travis-ci gets updated with Ubuntu 14.04)
+  - sudo apt-get install -y pkg-config
+  - yes | add-apt-repository cloud-archive:icehouse
+  - sudo apt-get update
+  - sudo apt-get install -i libvirt-dev libvirt-bin
 script:
   - ./run_tests.sh
 
