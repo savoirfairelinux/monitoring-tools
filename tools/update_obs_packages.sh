@@ -3,8 +3,8 @@
 #This is the sfl-shinken-plugins directory
 DIR=$(pwd)
 
-#Checkout the plugins
-#osc co home:ReAzem:sfl-shinken-plugins
+Checkout the plugins
+osc co home:ReAzem:sfl-shinken-plugins
 
 for plugin in `ls  | grep plugin-`
 do 
@@ -15,6 +15,8 @@ do
 	cd $DIR/$plugin
 	dpkg-buildpackage -us -uc -S	
 
+	#Copy the files
+	#mv ${DIR}/${plugin}*.tar.gz "${DIR}/home:ReAzem:sfl-shinken-plugins/${plugin}/"
 done
 
 # Add the changes and commit everything
