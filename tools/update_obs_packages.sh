@@ -28,5 +28,6 @@ do
 done
 
 # Add the changes and commit everything
+# cd ${DIR}
 #osc add home\:ReAzem\:sfl-shinken-plugins/plugin-*/*
 #osc ci home\:ReAzem\:sfl-shinken-plugins/ -m "Update plugins"
