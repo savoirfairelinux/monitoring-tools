@@ -49,10 +49,17 @@ try:
     exit_codes = []
     for df in df_names:
         data['df'] = df
-        data['free'] = float(raw_perf_datas.get('df_complex-%(df)s-free' % data).value)
-        # TODO: What is 'reserved' ???
-        data['reserved'] = float(raw_perf_datas.get('df_complex-%(df)s-reserved' % data).value)
-        data['used'] = float(raw_perf_datas.get('df_complex-%(df)s-used' % data).value)
+        bad_data = False
+        for name in ['free', 'reserved', 'used']:
+            try:
+                data[name] = float(raw_perf_datas.get('df_complex-%s-%s' % (df, name)))
+            except AttributeError:
+                # If we get an error, we just pass this data_name (IN and OUT are ignored)
+                bad_data = True
+
+        if bad_data:
+            continue
+
         data['total'] = data['free'] + data['reserved'] + data['used']
         data['used_p'] = data['used'] * 100 / data['total']
         data['free_p'] = data['free'] * 100 / data['total']
