@@ -1,5 +1,5 @@
 [submodule "plugin-check_asterisk_cdr_status"]
-	path = plugin-check-asterisk-cdr-status/
+	path = plugin-check-asterisk-cdr-status
 	url = git://github.com/savoirfairelinux/plugin-check_asterisk_cdr_status.git
 	branch = master
 [submodule "plugin-check_brother_toner_level"]
