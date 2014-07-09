@@ -3,8 +3,8 @@
 #This is the sfl-shinken-plugins directory
 DIR=$(pwd)
 
-Checkout the plugins
-osc co home:ReAzem:sfl-shinken-plugins
+#Checkout the plugins
+#osc co home:ReAzem:sfl-shinken-plugins
 
 for plugin in `ls  | grep plugin-`
 do 
