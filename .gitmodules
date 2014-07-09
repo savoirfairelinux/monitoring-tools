@@ -90,5 +90,5 @@
 	url = git://github.com/savoirfairelinux/plugin-check_rancid.git
 	branch = master
 [submodule "plugin-check_graphite_api"]
-	path = plugin-check_graphite_api
+	path = plugin-check-graphite-api
 	url = git://github.com/savoirfairelinux/plugin-check_graphite_api.git
