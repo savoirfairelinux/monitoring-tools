@@ -13,7 +13,15 @@ do
 	tar -czf $DIR/${plugin}_${date}.orig.tar.gz $DIR/$plugin --exclude=${plugin}/debian/* --exclude=${plugin}/.git* --exclude=${plugin}/test
 	#Build the package
 	cd $DIR/$plugin
-	dpkg-buildpackage -us -uc -S	
+        author=$(git log -n 1 --format=%aN)
+        export DEBFULLNAME=$author
+        email=$(git log -n 1 --format=%ae)
+        export DEBEMAIL=$email
+        msg=$(git log -n 1 --format=%s)
+        
+        dch $msg --no-auto-nmu
+        
+	dpkg-buildpackage -us -uc -S
 
 	#Copy the files
 	#mv ${DIR}/${plugin}*.tar.gz "${DIR}/home:ReAzem:sfl-shinken-plugins/${plugin}/"
