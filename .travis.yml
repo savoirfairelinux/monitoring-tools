@@ -1,4 +1,5 @@
 language: python
+
 python:
   - "2.6"
 #  - "2.7"
@@ -9,38 +10,40 @@ install:
   - pip install nose
   
   # this is for python's lxml
-  - sudo apt-get install -y libdevel-cover-perl libxslt1-dev zlib1g-dev
+  - sudo apt-get install libdevel-cover-perl libxslt1-dev zlib1g-dev
   
   # for plugin-check_poller2livestatus
-  - sudo apt-get install -y netcat-traditional
+  - sudo apt-get install netcat-traditional
   
   # this is for plugin-check_rancid
-  - sudo apt-get install -y python-svn
+  - sudo apt-get install python-svn
   
   # for plugin-check_libvirt_stats, a recent libvirt is available through backports
   # (before travis-ci gets updated with Ubuntu 14.04)
-  - sudo apt-get install -y pkg-config
+  - sudo apt-get install pkg-config
   - echo "deb http://ubuntu-cloud.archive.canonical.com/ubuntu precise-updates/icehouse main" | sudo tee -a /etc/apt/sources.list
   - sudo apt-get update -q
   - sudo apt-get install -y --force-yes libvirt-dev libvirt-bin
+ 
   # libxml2 is broken on pypi
-  - sudo apt-get install -y python-libxml2
+  - sudo apt-get install python-libxml2
 
 script:
-#  - make tests
-   - echo matthieu
+  - make tests
 
 notifications:
   email: false
 
 env:
   global:
+    # this is $OBS_PASSWORD
     - secure: "iIY2l0ygguNnRzLUEgcTOhSTS78gGs8hPOSxZwLrivmceTLtDvqB5aDpEOPSqWgAajC7eNxpkEvIwPPo//yQv8XIi76mcRKkk6rX1SxNtwOiWSS1SZkTwCass9i/y+853aAgmyYQq5Ivs7CoNZUbN0Dq9V/MkEWljR9yeWJREUM="
  
 after_success:
   - sudo apt-get install devscripts
+  
+  # we need osc>=0.143
   - 'wget http://mirrors.kernel.org/ubuntu/pool/universe/o/osc/osc_0.143.0-1_all.deb -P /tmp && sudo dpkg -i /tmp/osc_0.143.0-1_all.deb || : && sudo apt-get install -f'
-  - osc --version
+  
   - (echo [general] && echo apiurl = https://api.opensuse.org && echo && echo [https://api.opensuse.org] && echo user = ReAzem && echo pass = $OBS_PASSWORD) > ~/.oscrc
-  - osc ls
   - make deb && make obs
