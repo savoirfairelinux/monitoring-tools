@@ -38,5 +38,5 @@ env:
  
 after_success:
   - sudo apt-get install osc devscripts
-  - (echo [general] && echo [https://api.opensuse.org] && echo user = ReAzem && echo password = $OSC_PASSWORD) > ~/.oscrc
+  - (echo [general] && apiurl = https://api.opensuse.org && echo [https://api.opensuse.org] && echo user = ReAzem && echo pass = $OSC_PASSWORD) > ~/.oscrc
   - make deb && make obs
