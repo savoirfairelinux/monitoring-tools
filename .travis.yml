@@ -32,7 +32,7 @@ notifications:
 
 env:
   global:
-    - secure: "Wg5uWP0z3VWV/Zo3LTaNX1L0y2j09hNZQxjOtZsGv+aVNYrXVOlj8Qrk+QNHhpsg2BAljCmpuDCh54XV5f8eBIVNH+zDiw1QB6k7zQ62ZwViuIE5kpYc8HFZVRY7i7c5IRJ1+hp2VX7W7tvR4yU3dlWUwXlpcyW39epF4b7nsIo=" 
+    - secure: "BiqiWIRpj3mjTUKvz3CfsD0BTl1s730O/zcWBWnx4GK++K6/QrYckerAT3l8AI4ArYNspB1SCfl0/bZW3vPUeWZXxOQVN9YyloMyy7kOlonTMCfacgCR5ZXI5JorMyvmzt2RJnEmVLOnSejDo1MSHJfzoOWndORwFmcdVbfYXX0=" 
  
 after_success:
   - sudo apt-get install osc
