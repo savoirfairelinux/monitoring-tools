@@ -35,6 +35,6 @@ env:
     - secure: "BiqiWIRpj3mjTUKvz3CfsD0BTl1s730O/zcWBWnx4GK++K6/QrYckerAT3l8AI4ArYNspB1SCfl0/bZW3vPUeWZXxOQVN9YyloMyy7kOlonTMCfacgCR5ZXI5JorMyvmzt2RJnEmVLOnSejDo1MSHJfzoOWndORwFmcdVbfYXX0=" 
  
 after_success:
-  - sudo apt-get install osc
+  - sudo apt-get install osc devscripst
   - (echo [https://api.opensuse.org] && echo user = ReAzem && echo password = $OSC_PASSWORD) > ~/.oscrc
   - make deb && make obs
