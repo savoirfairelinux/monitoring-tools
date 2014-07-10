@@ -30,7 +30,7 @@ do
         
         dch $msg --no-auto-nmu --newversion 20140000-1
         
-	dpkg-buildpackage -us -uc -S
+	dpkg-buildpackage -us -uc -S --source-option=-Zgzip
         
         cd ..
 
