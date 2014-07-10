@@ -27,16 +27,18 @@ install:
   - sudo apt-get install -y python-libxml2
 
 script:
-  - make tests
+#  - make tests
+   - echo matthieu
 
 notifications:
   email: false
 
 env:
   global:
-    - secure: "BiqiWIRpj3mjTUKvz3CfsD0BTl1s730O/zcWBWnx4GK++K6/QrYckerAT3l8AI4ArYNspB1SCfl0/bZW3vPUeWZXxOQVN9YyloMyy7kOlonTMCfacgCR5ZXI5JorMyvmzt2RJnEmVLOnSejDo1MSHJfzoOWndORwFmcdVbfYXX0=" 
+    - secure: "C0vVa517y9sjxSzSBryBwtXblMqdN/knZ2q07cMWbWat0Mb/qbIfOLcehC1TYXJaKqEdj8XycfOg07utjrd9V+JengHmQQ2AW52r4JIXBzOn9j4F9JNBe2hkYRNvpBGvn/UTqH3z7go3tRoKQJOfQ+jKij/WdS4zEhz3TL+RCY8=" 
  
 after_success:
   - sudo apt-get install osc devscripts
   - (echo [general] && echo apiurl = https://api.opensuse.org && echo [https://api.opensuse.org] && echo user = ReAzem && echo pass = $OSC_PASSWORD) > ~/.oscrc
+  - cat ~/.oscrc
   - make deb && make obs
