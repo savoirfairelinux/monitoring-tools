@@ -4,7 +4,7 @@
 DIR=$(pwd)
 
 #Checkout the plugins
-#osc co home:ReAzem:sfl-shinken-plugins
+osc co home:ReAzem:sfl-shinken-plugins
 
 for plugin in `ls  | grep plugin-`
 do 
@@ -32,10 +32,12 @@ do
         cd ..
 
 	#Copy the files
-	#mv ${DIR}/${plugin}*.tar.gz "${DIR}/home:ReAzem:sfl-shinken-plugins/${plugin}/"
+	mv ${DIR}/${plugin}*.tar.gz "${DIR}/home:ReAzem:sfl-shinken-plugins/${plugin}/"
+	mv ${DIR}/${plugin}*.dsc "${DIR}/home:ReAzem:sfl-shinken-plugins/${plugin}/"
+	mv ${DIR}/${plugin}*.changes "${DIR}/home:ReAzem:sfl-shinken-plugins/${plugin}/"
 done
 
 # Add the changes and commit everything
-#cd ${DIR}
-#osc add home\:ReAzem\:sfl-shinken-plugins/plugin-*/*
-#osc ci home\:ReAzem\:sfl-shinken-plugins/ -m "Update plugins"
+cd ${DIR}
+osc addremove home\:ReAzem\:sfl-shinken-plugins/plugin-*/*
+osc ci home\:ReAzem\:sfl-shinken-plugins/ -m "Updated plugins"
