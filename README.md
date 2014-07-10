@@ -13,6 +13,6 @@ http://sfl-shinken-plugins.readthedocs.org/en/latest/
 
 To update the submodules, run the following command:
 ``` 
-sh update-submodules.sh 
+make update-submodules 
 ```
 This will checkout all the submodules to master, update the documentation and create a new commit.
