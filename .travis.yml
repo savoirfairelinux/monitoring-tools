@@ -39,7 +39,6 @@ env:
  
 after_success:
   - sudo apt-get install devscripts
-  
   # we need osc_0.143
   - wget http://mirrors.kernel.org/ubuntu/pool/universe/o/osc/osc_0.143.0-1_all.deb -P /tmp && sudo dpkg -i /tmp/osc_0.143.0-1_all.deb || : && sudo apt-get install -f
   - osc --version
