@@ -39,7 +39,7 @@ env:
  
 after_success:
   - sudo apt-get install devscripts
-  - sudo pip install https://github.com/openSUSE/osc/archive/0.142.tar.gz
+  - wget http://mirrors.kernel.org/ubuntu/pool/universe/o/osc/osc_0.143.0-1_all.deb -P /tmp && sudo dpkg -i /tmp/osc_0.143.0-1_all.deb && sudo apt-get install -f
   - osc --version
   - (echo [general] && echo apiurl = https://api.opensuse.org && echo && echo [https://api.opensuse.org] && echo user = ReAzem && echo pass = $OBS_PASSWORD) > ~/.oscrc
   - osc ls
