@@ -9,7 +9,7 @@ export GREP_OPTIONS=""
 #Checkout the plugins
 osc co home:ReAzem:sfl-shinken-plugins
 
-for plugin in `ls  | grep plugin-`
+for plugin in `ls -d plugin-*/ | tr -d '/'`
 do 
 	#Copy the files
 	mv ${DIR}/${plugin}*.tar.gz "${DIR}/home:ReAzem:sfl-shinken-plugins/${plugin}/"
