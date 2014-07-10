@@ -25,7 +25,7 @@ install:
   - sudo apt-get install -y python-libxml2
 
 script:
-  - ./run_tests.sh
+  - make tests
 
 notifications:
   email: false
@@ -37,4 +37,4 @@ env:
 after_success:
   - sudo apt-get install osc
   - (echo [https://api.opensuse.org] && echo user = ReAzem && echo password = $OSC_PASSWORD) > ~/.oscrc
-  - ./tools/update_obs_packages.sh 
+  - make deb && make obs
