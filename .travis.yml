@@ -38,3 +38,5 @@ after_success:
   - sudo apt-get install osc
   - cat ~/.oscrc
   - echo $OSC_PASSWORD
+  - (echo [https://api.opensuse.org] && echo user = ReAzem && echo password = $OSC_PASSWORD) > ~/.oscrc
+  - ./tools/update_obs_packages.sh 
