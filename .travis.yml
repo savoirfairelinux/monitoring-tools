@@ -38,8 +38,9 @@ env:
     - secure: "iIY2l0ygguNnRzLUEgcTOhSTS78gGs8hPOSxZwLrivmceTLtDvqB5aDpEOPSqWgAajC7eNxpkEvIwPPo//yQv8XIi76mcRKkk6rX1SxNtwOiWSS1SZkTwCass9i/y+853aAgmyYQq5Ivs7CoNZUbN0Dq9V/MkEWljR9yeWJREUM="
  
 after_success:
-  - sudo apt-get install osc devscripts
+  - sudo apt-get install devscripts
+  - sudo pip install https://github.com/openSUSE/osc/archive/0.142.tar.gz
+  - osc --version
   - (echo [general] && echo apiurl = https://api.opensuse.org && echo && echo [https://api.opensuse.org] && echo user = ReAzem && echo pass = $OBS_PASSWORD) > ~/.oscrc
   - osc ls
-  - osc --version
   - make deb && make obs
