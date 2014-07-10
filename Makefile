@@ -12,4 +12,6 @@ clean:
 	rm *.orig.tar.gz
 	rm *.dsc
 	rm *source.changes
+
+mrproper: clean
 	git submodule foreach git checkout .
