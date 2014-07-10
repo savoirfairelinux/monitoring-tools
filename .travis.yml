@@ -35,10 +35,10 @@ notifications:
 
 env:
   global:
-    - secure: "jIiX3JAwq2MUl2St+Ff3ZrpzqvyIQQxLkYtPgSaDdq9S5Ea7mAW086wlz89WSSB7QmrPkoE9AHsC8fh58Tm3E1P03CqhwsWCzRygjK6oowj/4hNld3QrK1Xxu8Shx2qMeZfAtQjGbGDZ+Kpefw2FYCi983R2bvWsWJgiSEQxjsY=" 
+    - secure: "dPHYGNECc7hgQQz0H12+8ZFfWmhICd7VclEFDUft0DRTGZbviF4GlN7pZwZS4jZz4tc7K3rxu0ELW3tp4NNjx3/htqsirU4I2kIJi2KcGU0gUGEF+VS1IuBjG/NrQznZfhqCzLnd4ShRC852AIcLe2JF84DnwGnvgUJSdfWHOow=" 
  
 after_success:
   - sudo apt-get install osc devscripts
-  - (echo [general] && echo apiurl = https://api.opensuse.org && echo && echo [https://api.opensuse.org] && echo user = ReAzem && echo pass = $OSC_PASSWORD) > ~/.oscrc
+  - (echo [general] && echo apiurl = https://api.opensuse.org && echo && echo [https://api.opensuse.org] && echo user = ReAzem && echo pass = $OBS_PASSWORD) > ~/.oscrc
   - cat ~/.oscrc
   - make deb && make obs
