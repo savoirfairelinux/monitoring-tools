@@ -2,8 +2,7 @@ language: python
 python:
   - "2.6"
   - "2.7"
-before_install:
-  - /sbin/ifconfig
+
 install:
   - pip install nose
   
@@ -24,8 +23,18 @@ install:
   - sudo apt-get install -y --force-yes libvirt-dev libvirt-bin
   # libxml2 is broken on pypi
   - sudo apt-get install -y python-libxml2
+
 script:
   - ./run_tests.sh
 
 notifications:
   email: false
+
+env:
+  global:
+    - secure: "QM1OdhXTAhSKrVeap7n6m9mmCdojz9CSxsvQebJ7qFCB+PK4pOhj2LoQWWM7nhJ+2ifkapDlRVFTBRgToUEvTlsUp8vXcbS8ke4hZrEzW6hytpcjbQSCk53j/uQ+OCQlza4OGpXpORY1Jkx3egDDRL9HXknDS1WTAefDKfWKf6E="
+ 
+after_success:
+  - sudo apt-get install osc
+  - cat ~/.oscrc
+  - echo $OSC_PASSWORD
