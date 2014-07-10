@@ -32,11 +32,10 @@ notifications:
 
 env:
   global:
-    - secure: "QM1OdhXTAhSKrVeap7n6m9mmCdojz9CSxsvQebJ7qFCB+PK4pOhj2LoQWWM7nhJ+2ifkapDlRVFTBRgToUEvTlsUp8vXcbS8ke4hZrEzW6hytpcjbQSCk53j/uQ+OCQlza4OGpXpORY1Jkx3egDDRL9HXknDS1WTAefDKfWKf6E="
+    - secure: "Wg5uWP0z3VWV/Zo3LTaNX1L0y2j09hNZQxjOtZsGv+aVNYrXVOlj8Qrk+QNHhpsg2BAljCmpuDCh54XV5f8eBIVNH+zDiw1QB6k7zQ62ZwViuIE5kpYc8HFZVRY7i7c5IRJ1+hp2VX7W7tvR4yU3dlWUwXlpcyW39epF4b7nsIo=" 
  
 after_success:
   - sudo apt-get install osc
-  - cat ~/.oscrc
   - echo $OSC_PASSWORD
   - (echo [https://api.opensuse.org] && echo user = ReAzem && echo password = $OSC_PASSWORD) > ~/.oscrc
   - ./tools/update_obs_packages.sh 
