@@ -3,20 +3,23 @@
 #This is the sfl-shinken-plugins directory
 DIR=$(pwd)
 
-# prevents grep from adding line numbers, etc
-export GREP_OPTIONS=""
+# Open Build Service repository
+OBS_REPO=home:ReAzem:sfl-shinken-plugins
 
 #Checkout the plugins
-osc co home:ReAzem:sfl-shinken-plugins
+osc co ${OBS_REPO}
+
+#Remove the old files
+rm ${DIR}/${OBS_REPO}/plugin-*/*
 
 for plugin in `ls -d plugin-*/ | tr -d '/'`
 do 
 	#Copy the files
-	mv ${DIR}/${plugin}*.tar.gz "${DIR}/home:ReAzem:sfl-shinken-plugins/${plugin}/"
-	mv ${DIR}/${plugin}*.dsc "${DIR}/home:ReAzem:sfl-shinken-plugins/${plugin}/"
-	mv ${DIR}/${plugin}*.changes "${DIR}/home:ReAzem:sfl-shinken-plugins/${plugin}/"
+	mv ${DIR}/${plugin}*.tar.gz ${DIR}/${OBS_REPO}/${plugin}/
+	mv ${DIR}/${plugin}*.dsc ${DIR}/${OBS_REPO}/${plugin}/
+	mv ${DIR}/${plugin}*.changes ${DIR}/${OBS_REPO}/${plugin}/
 done
 
 # Add the changes and commit everything
-osc addremove home\:ReAzem\:sfl-shinken-plugins/plugin-*/*
-osc ci home\:ReAzem\:sfl-shinken-plugins/ -m "Updated plugins"
+osc addremove ${OBS_REPO}/plugin-*/*
+osc ci ${OBS_REPO}/ -m "Updated plugins"
