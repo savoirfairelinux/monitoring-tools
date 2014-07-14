@@ -3,11 +3,11 @@
 #This is the sfl-shinken-plugins directory
 DIR=$(pwd)
 
-# prevents grep from adding line numbers, etc
-export GREP_OPTIONS=""
-
 #Checkout the plugins
 osc co home:ReAzem:sfl-shinken-plugins
+
+#Remove the old files
+rm ${DIR}/home:ReAzem:sfl-shinken-plugins/plugin-*/*
 
 for plugin in `ls -d plugin-*/ | tr -d '/'`
 do 
