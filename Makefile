@@ -16,6 +16,7 @@ clean:
 	rm -f *.dsc
 	rm -f *.changes
 	rm -f *.deb
+	rm -f plugin-*/debian/plugin-*/ -r
 	rm -rf "home:ReAzem:sfl-shinken-plugins"
 
 mrproper: clean
