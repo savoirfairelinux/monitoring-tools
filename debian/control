@@ -1,12 +1,16 @@
-Source: check-template
-Maintainer: Thibault Cohen <thibault.cohen@savoirfairelinux.com>
-Section: misc
+Source: pack-vmware-system-https
+Section: python
 Priority: optional
-Standards-Version: 114-6847372-1
-Build-Depends: debhelper (>= 7)
-Homepage: http://www.savoirfairelinux.com
+Maintainer: Thibault Cohen <thibault.cohen@savoirfairelinux.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+Homepage: https://github.com/savoirfairelinux/pack-vmware-system-https
+#Vcs-Git: git://git.debian.org/collab-maint/pack-vmware-system-https.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-vmware-system-https.git;a=summary
 
-Package: check-template
+Package: pack-vmware-system-https
 Architecture: any
-#Depends: python, python-dlnetsnmp
-Description: Shinken plugin from SFL. VMWare active checks with VMWare API requests
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: 
+ More information is available on Github:
+ https://github.com/savoirfairelinux/sfl-shinken-packs

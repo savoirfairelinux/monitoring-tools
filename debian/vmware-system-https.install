@@ -1,1 +1,3 @@
-vmware-system-https.py /usr/lib/shinken/packs/
+pack /etc/shinken/packs/vmware-system-https
+package.json /etc/shinken/packs/vmware-system-https
+share/* /var/lib/shinken/share
