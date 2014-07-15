@@ -1,5 +1,5 @@
-windows-system-collectd (20140515-1) stable; urgency=medium
+pack-windows-system-collectd (2014.07.15.10.15-1) unstable; urgency=low
 
-  * First commit
+  * Initial release
 
- -- Thibault Cohen <thibault.cohen@savoirfairelinux.com>  Thu, 15 May 2014 14:16:26 -0400
+ -- Thibault Cohen <thibault.cohen@savoirfairelinux.com>  Tue, 15 Jul 2014 10:15:53 -0400
