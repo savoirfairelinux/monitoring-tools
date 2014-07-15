@@ -1,1 +1,2 @@
-windows-sophos-mssql.py /usr/lib/shinken/packs/
+pack /etc/shinken/packs/windows-sophos-mssql
+package.json /etc/shinken/packs/windows-sophos-mssql
