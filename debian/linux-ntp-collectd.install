@@ -1,1 +1,2 @@
-linux-ntp-collectd.py /usr/lib/shinken/packs/
+pack /etc/shinken/packs/linux-ntp-collectd
+package.json /etc/shinken/packs/linux-ntp-collectd
