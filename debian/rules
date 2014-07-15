@@ -1,4 +1,11 @@
 #!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+#export DH_ALWAYS_EXCLUDE=collectd
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/default.mk
 
 %:
-	dh $@
+	dh $@ 
