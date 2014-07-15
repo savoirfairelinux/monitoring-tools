@@ -1,1 +1,2 @@
-generic-ssh.py /usr/lib/shinken/packs/
+pack /etc/shinken/packs/generic-ssh
+package.json /etc/shinken/packs/generic-ssh
