@@ -1,12 +1,16 @@
-Source: check-template
-Maintainer: Thibault Cohen <thibault.cohen@savoirfairelinux.com>
-Section: misc
+Source: pack-linux-system-collectd
+Section: python
 Priority: optional
-Standards-Version: 114-6847372-1
-Build-Depends: debhelper (>= 7)
-Homepage: http://www.savoirfairelinux.com
+Maintainer: Thibault Cohen <thibault.cohen@savoirfairelinux.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+Homepage: https://github.com/savoirfairelinux/pack-linux-system-collectd
+#Vcs-Git: git://git.debian.org/collab-maint/pack-linux-system-collectd.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-linux-system-collectd.git;a=summary
 
-Package: check-template
+Package: pack-linux-system-collectd
 Architecture: any
-#Depends: python, python-dlnetsnmp
-Description: Shinken plugin from SFL. Linux passive checks based on Collectd
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: 
+ More information is available on Github:
+ https://github.com/savoirfairelinux/sfl-shinken-packs
