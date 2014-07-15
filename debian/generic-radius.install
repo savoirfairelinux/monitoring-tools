@@ -1,1 +1,2 @@
-generic-radius.py /usr/lib/shinken/packs/
+pack /etc/shinken/packs/generic-radius
+package.json /etc/shinken/packs/generic-radius

@@ -1,12 +1,16 @@
-Source: check-template
-Maintainer: Sebastien Coavoux <sebastien.coavoux@savoirfairelinux.com>
-Section: misc
+Source: pack-generic-radius
+Section: python
 Priority: optional
-Standards-Version: 114-6847372-1
-Build-Depends: debhelper (>= 7)
-Homepage: http://www.savoirfairelinux.com
+Maintainer: Thibault Cohen <thibault.cohen@savoirfairelinux.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+Homepage: https://github.com/savoirfairelinux/pack-generic-radius
+#Vcs-Git: git://git.debian.org/collab-maint/pack-generic-radius.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-generic-radius.git;a=summary
 
-Package: check-template
+Package: pack-generic-radius
 Architecture: any
-#Depends: python, python-dlnetsnmp
-Description: Shinken plugin from SFL. Generic pack for radius check
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: :description:       The Radius udp port to query. Default: 1812
+ More information is available on Github:
+ https://github.com/savoirfairelinux/sfl-shinken-packs
