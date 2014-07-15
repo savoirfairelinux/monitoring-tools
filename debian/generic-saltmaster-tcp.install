@@ -1,1 +1,2 @@
-generic-saltmaster-tcp.py /usr/lib/shinken/packs/
+pack /etc/shinken/packs/generic-saltmaster-tcp
+package.json /etc/shinken/packs/generic-saltmaster-tcp
