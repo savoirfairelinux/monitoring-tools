@@ -1,1 +1,2 @@
-generic-carbon-tcp.py /usr/lib/shinken/packs/
+pack /etc/shinken/packs/generic-carbon-tcp
+package.json /etc/shinken/packs/generic-carbon-tcp
