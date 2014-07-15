@@ -15,6 +15,9 @@ do
     
     # And let's build the source package
     cd $plugin
-    dpkg-buildpackage -us -uc -S --source-option=-Zgzip
+    # -S builds only the source package, the binary one is done by OpenBuildService
+    # --ignore-bad-version skips the date check, because the files can be more recent
+    # than the last debian/changelog entry
+    dpkg-buildpackage -us -uc -S --source-option=-Zgzip --source-option=--ignore-bad-version
     cd ..
 done

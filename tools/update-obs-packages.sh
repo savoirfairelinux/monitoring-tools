@@ -18,8 +18,10 @@ do
 	mv ${DIR}/${plugin}*.tar.gz ${DIR}/${OBS_REPO}/${plugin}/
 	mv ${DIR}/${plugin}*.dsc ${DIR}/${OBS_REPO}/${plugin}/
 	mv ${DIR}/${plugin}*.changes ${DIR}/${OBS_REPO}/${plugin}/
+	
+	# Add the changes and commit
+	osc addremove ${DIR}/${OBS_REPO}/${plugin}/*
+	osc ci ${DIR}/${OBS_REPO}/${plugin} -m "Updated plugins"
 done
 
-# Add the changes and commit everything
-osc addremove ${OBS_REPO}/plugin-*/*
-osc ci ${OBS_REPO}/ -m "Updated plugins"
+
