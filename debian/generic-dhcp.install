@@ -1,1 +1,2 @@
-generic-dhcp.py /usr/lib/shinken/packs/
+pack /etc/shinken/packs/generic-dhcp
+package.json /etc/shinken/packs/generic-dhcp
