@@ -1,1 +1,2 @@
-generic-repodeb-http.py /usr/lib/shinken/packs/
+pack /etc/shinken/packs/generic-repodeb-http
+package.json /etc/shinken/packs/generic-repodeb-http
