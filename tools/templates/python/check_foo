@@ -1,0 +1,55 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Copyright (C) {{ year }}, {{ author_name }} <{{ author_email }}>
+
+from shinkenplugins import BasePlugin, PerfData, STATES
+
+class Plugin(BasePlugin):
+    NAME = '{{ name }}'
+    VERSION = '0.1'
+    DESCRIPTION = '{{ description }}'
+    AUTHOR = '{{ author_name }}'
+    EMAIL = '{{ author_email }}'
+    
+    ARGS = [ # Can't touch this:
+            ('h', 'help', 'display plugin help', False),
+            ('v', 'version', 'display plugin version number', False)
+             # Hammer time^W^W Add your plugin arguments here:
+             # ('short', 'long', 'description', 'does it expect a value?')
+            ('u', 'url', 'the url to data from', True),
+            ]
+    
+    def check_args(self, args):
+        # You can do your various arguments check here.
+        # If you don't need to check things, you can safely remove the method.
+        
+        if args.get('url') and not args['url'].startswith('http'):
+            return False, 'the url must be fetchable through http'
+        return True, None
+    
+    def run(self, args):
+        # Here is the core of the plugin.
+        # After doing your verifications, escape by doing:
+        # self.exit(return_code, 'return_message', *performance_data)
+        
+        p1 = PerfData('spam', 42, unit='%', warn=70, crit=90, min=0, max=100)
+        p2=  PerfData('eggs', 6, unit='%', warn=20, crit=30, min=0, max=100)
+        
+        self.exit(STATES.OK, "Everything was perfect", p1, p2)
+
+if __name__ == "__main__":
+    Plugin()
