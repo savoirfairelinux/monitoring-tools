@@ -1,5 +1,5 @@
-windows-mssql (20140219-1) stable; urgency=medium
+pack-windows-mssql (2014.07.15.10.15-1) unstable; urgency=low
 
-  * First commit
+  * Initial release
 
- -- Thibault Cohen <thibault.cohen@savoirfairelinux.com>  Wed, 19 Feb 2014 14:18:54 -0500
+ -- Thibault Cohen <thibault.cohen@savoirfairelinux.com>  Tue, 15 Jul 2014 10:15:53 -0400
