@@ -1,1 +1,2 @@
-generic-ldap.py /usr/lib/shinken/packs/
+pack /etc/shinken/packs/generic-ldap
+package.json /etc/shinken/packs/generic-ldap
