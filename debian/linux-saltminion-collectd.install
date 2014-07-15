@@ -1,1 +1,2 @@
-linux-saltminion-collectd.py /usr/lib/shinken/packs/
+pack /etc/shinken/packs/linux-saltminion-collectd
+package.json /etc/shinken/packs/linux-saltminion-collectd
