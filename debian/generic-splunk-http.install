@@ -1,1 +1,2 @@
-generic-splunk-http.py /usr/lib/shinken/packs/
+pack /etc/shinken/packs/generic-splunk-http
+package.json /etc/shinken/packs/generic-splunk-http

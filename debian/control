@@ -1,12 +1,16 @@
-Source: check-template
-Maintainer: Sebastien Coavoux <sebastien.coavoux@savoirfairelinux.com>
-Section: misc
+Source: pack-generic-splunk-http
+Section: python
 Priority: optional
-Standards-Version: 114-6847372-1
-Build-Depends: debhelper (>= 7)
-Homepage: http://www.savoirfairelinux.com
+Maintainer: Thibault Cohen <thibault.cohen@savoirfairelinux.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+Homepage: https://github.com/savoirfairelinux/pack-generic-splunk-http
+#Vcs-Git: git://git.debian.org/collab-maint/pack-generic-splunk-http.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-generic-splunk-http.git;a=summary
 
-Package: check-template
+Package: pack-generic-splunk-http
 Architecture: any
-#Depends: python, python-dlnetsnmp
-Description: Shinken plugin from SFL. Pack to monitor splunk http web page
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: 
+ More information is available on Github:
+ https://github.com/savoirfairelinux/sfl-shinken-packs
