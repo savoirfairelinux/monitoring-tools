@@ -12,7 +12,9 @@ osc co ${OBS_REPO}
 #Remove the old files
 rm ${DIR}/${OBS_REPO}/plugin-*/*
 
-for plugin in `ls -d plugin-*/ | tr -d '/'`
+# library + plugins
+# the library is found by ls thanks to the leading wildcard
+for plugin in `ls -d *plugin*/ | tr -d '/'`
 do 
 	#Copy the files
 	mv ${DIR}/${plugin}*.tar.gz ${DIR}/${OBS_REPO}/${plugin}/
