@@ -34,7 +34,7 @@ setup(
     name='shinkenplugins',
     version='0.1',
     packages=find_packages(),
-    install_requires=install_requires,
+    #install_requires=install_requires,
     #zip_safe=False,
     author="Matthieu Caneill",
     author_email="matthieu.caneill@savoirfairelinux.com",
