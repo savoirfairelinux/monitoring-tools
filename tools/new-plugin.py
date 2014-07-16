@@ -37,20 +37,18 @@ def main(args):
         print("The folder %s shouldn't exit" % target)
         sys.exit(1)
 
+    exec_name = args['name'].replace('-', '_')
     # we copy the needed files
     shutil.copytree(tdir, target, symlinks=True)
     
     shutil.move(os.path.join(target, 'check_foo'),
-                os.path.join(target, args['name']))
+                os.path.join(target, exec_name))
     
     shutil.move(os.path.join(target, 'test_check_foo.py'),
-                os.path.join(target, 'test_' + args['name'] + '.py'))
+                os.path.join(target, 'test_' + exec_name + '.py'))
     
-    shutil.move(os.path.join(target, 'debian', 'check_foo.install'),
-                os.path.join(target, 'debian',  args['name'] + '.install'))
-
-    os.symlink(args['name'],
-               os.path.join(target, args['name'] + '.py'))
+    os.symlink(exec_name,
+               os.path.join(target, exec_name + '.py'))
 
     # and feed them to jinja2
     loader = FileSystemLoader(target)
@@ -58,9 +56,11 @@ def main(args):
 
     # template variables
     tvars = dict(args)
+
+    tvars['exec_name'] = args['name'].replace('-', '_')
     now = datetime.now()
     tvars['year'] = now.year
-    tvars['date_long'] = '%s.%s.%s.%s.%s' % (now.year, now.month, now.day, now.hour, now.min)
+    tvars['date_long'] = '%s.%s.%s.%s.%s' % (now.year, now.month, now.day, now.hour, now.minute)
     tvars['date_rfc2822'] = email.utils.formatdate(time.mktime(now.timetuple()))
     
     
@@ -68,13 +68,19 @@ def main(args):
         output = env.get_template(template).render(tvars)
         with open(os.path.join(target, template), 'w') as f:
             f.write(output)
+
+    print('')
+    print('Your plugin is ready!')
+    print('You can now edit the files in plugin-%s' % args['name'])
     
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Create a new Shinken plugin.')
     required = [
         {'name': 'type', 'help': 'Type of plugin you want', 'choices': ['python', 'bash']},
-        {'name': 'name', 'help': 'The name of your plugin', 'choices': None},
+        {'name': 'name',
+         'help': 'The name of your plugin (should begin with check-, and use - instead of _)',
+         'choices': None},
         {'name': 'desc', 'help': 'The description of your plugin', 'choices': None},
         {'name': 'author_name', 'help': 'Your name', 'choices': None},
         {'name': 'author_email', 'help': 'Your email address', 'choices': None},
