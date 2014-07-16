@@ -1,0 +1,5 @@
+plugin-{{ name }} ({{ date_long }}-1) unstable; urgency=low
+
+  * Initial release
+
+ -- {{ author_name }} <{{ author_email }}>  {{ date_rfc2822 }}
