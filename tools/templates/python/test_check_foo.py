@@ -15,7 +15,7 @@
 
 # Copyright (C) {{ year }}, {{ author_name }} <{{ author_email }}>
 
-from {{ name }} import Plugin
+from {{ exec_name }} import Plugin
 
 from shinkenplugins import TestPlugin
 
@@ -23,7 +23,7 @@ class Test(TestPlugin):
     def test_version(self):
         args = ['-v']
         self.execute(Plugin, args, 3,
-                     'version ' + check_yolo.Plugin.VERSION)
+                     'version ' + Plugin.VERSION)
 
     def test_help(self):
         args = ['-h']
