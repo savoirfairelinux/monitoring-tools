@@ -46,6 +46,9 @@ def main(args):
     
     shutil.move(os.path.join(target, 'test_check_foo.py'),
                 os.path.join(target, 'test_' + exec_name + '.py'))
+
+    shutil.move(os.path.join(target, 'doc', 'plugin-check_foo.rst'),
+                os.path.join(target, 'doc', 'plugin-' + exec_name + '.rst'))
     
     os.symlink(exec_name,
                os.path.join(target, exec_name + '.py'))
