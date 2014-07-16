@@ -77,7 +77,7 @@ def main(args):
 def parse_args():
     parser = argparse.ArgumentParser(description='Create a new Shinken plugin.')
     required = [
-        {'name': 'type', 'help': 'Type of plugin you want', 'choices': ['python', 'bash']},
+        {'name': 'type', 'help': 'Type of plugin you want', 'choices': ['python',]},
         {'name': 'name',
          'help': 'The name of your plugin (should begin with check-, and use - instead of _)',
          'choices': None},
