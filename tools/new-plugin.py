@@ -74,8 +74,8 @@ def main(args):
     print('You can now edit the files in plugin-%s' % args['name'])
     print('')
     print('main python executable: %s' % exec_name)
-    print('tests suite: test_%s.py' % exec_name)
-    print('requirements: requirements.txt, debian/control')
+    print('tests suite:            test_%s.py' % exec_name)
+    print('requirements:           requirements.txt, debian/control')
     print('')
     print('Good luck, and thanks for playing!')
     
