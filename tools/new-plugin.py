@@ -21,7 +21,10 @@ import os
 import sys
 import argparse
 import shutil
-from datetime import date
+import email.utils
+import time
+from datetime import datetime
+
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -35,7 +38,19 @@ def main(args):
         sys.exit(1)
 
     # we copy the needed files
-    shutil.copytree(tdir, target)
+    shutil.copytree(tdir, target, symlinks=True)
+    
+    shutil.move(os.path.join(target, 'check_foo'),
+                os.path.join(target, args['name']))
+    
+    shutil.move(os.path.join(target, 'test_check_foo.py'),
+                os.path.join(target, 'test_' + args['name'] + '.py'))
+    
+    shutil.move(os.path.join(target, 'debian', 'check_foo.install'),
+                os.path.join(target, 'debian',  args['name'] + '.install'))
+
+    os.symlink(args['name'],
+               os.path.join(target, args['name'] + '.py'))
 
     # and feed them to jinja2
     loader = FileSystemLoader(target)
@@ -43,7 +58,11 @@ def main(args):
 
     # template variables
     tvars = dict(args)
-    tvars['year'] = date.today().year
+    now = datetime.now()
+    tvars['year'] = now.year
+    tvars['date_long'] = '%s.%s.%s.%s.%s' % (now.year, now.month, now.day, now.hour, now.min)
+    tvars['date_rfc2822'] = email.utils.formatdate(time.mktime(now.timetuple()))
+    
     
     for template in env.list_templates():
         output = env.get_template(template).render(tvars)
