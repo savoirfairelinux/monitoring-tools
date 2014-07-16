@@ -1,0 +1,14 @@
+Source: shinkenplugins
+Maintainer: Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
+Section: python
+Priority: optional
+Build-Depends: python-setuptools (>= 0.6b3), python-all (>= 2.6.6-3), debhelper (>= 9)
+Standards-Version: 3.9.1
+
+Package: python-shinkenplugins
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}
+Description: Shinken plugins wrapper library.
+ Library aimed to provide helpers around the creation of Shinken
+ plugins, and in particular their inputs and outputs. Less code,
+ less code duplication, less headache. More lolz.
