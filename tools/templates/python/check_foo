@@ -25,12 +25,12 @@ class Plugin(BasePlugin):
     AUTHOR = '{{ author_name }}'
     EMAIL = '{{ author_email }}'
     
-    ARGS = [ # Can't touch this:
+    ARGS = [# Can't touch this:
             ('h', 'help', 'display plugin help', False),
-            ('v', 'version', 'display plugin version number', False)
-             # Hammer time^W^W Add your plugin arguments here:
-             # ('short', 'long', 'description', 'does it expect a value?')
-            ('u', 'url', 'the url to data from', True),
+            ('v', 'version', 'display plugin version number', False),
+            # Hammer time^W^W Add your plugin arguments here:
+            # ('short', 'long', 'description', 'does it expect a value?')
+            ('u', 'url', 'the url to fetch data from', True),
             ]
     
     def check_args(self, args):
