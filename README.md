@@ -8,6 +8,16 @@ services, and which are not implemented in the usual plugins packages.
 
 ## Use
 
+### Installation
+The best way to install these plugins is through your package manager.
+
+#### For Debian
+```
+$ sudo apt-key add TODO
+$ sudo apt-get update
+$ sudo apt-get install plugin-<the plugin you want>
+```
+
 ### Documentation
 You can browse the online documentation at
 http://sfl-shinken-plugins.readthedocs.org/en/latest/
@@ -19,8 +29,29 @@ Debian repositories for all the plugins are found at the
 
 ## Contribute
 
-### Add a plugin
-Fill me.
+### Create a plugin
+To generate a plugin, you need to install jinja2, either by pip or via
+your package manager:
+```
+$ sudo pip install jinja2
+```
+or
+```
+$ sudo (apt-get|yum) install python-jinja2
+```
+Then
+```
+$ make new-plugin
+```
+To execute a plugin, you need to install the library
+shinkenplugins:
+```
+$ sudo pip install shinkenplugins
+```
+or for Debian and Ubuntu:
+```
+$ sudo apt-get install lib-shinkenplugins
+```
 
 ### Update the Debian packaging of a plugin
 After modifying files under debian/, you can add an entry in the
