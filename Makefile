@@ -23,6 +23,8 @@ clean:
 	rm -f plugin-*/debian/files
 	rm -f plugin-*/debian/*.debhelper.log
 	rm -f plugin-*/debian/*.substvars
+	rm -f shinkenplugins*.tar.xz
+	rm -f shinkenplugins*.build
 	rm -rf "home:ReAzem:sfl-shinken-plugins"
 
 mrproper: clean
