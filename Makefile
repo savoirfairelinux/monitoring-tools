@@ -10,6 +10,9 @@ update-submodules:
 obs:
 	tools/update-obs-packages.sh
 
+new-plugin:
+	tools/new-plugin.py
+
 clean:
 	rm -f *.debian.tar.gz
 	rm -f *.orig.tar.gz
