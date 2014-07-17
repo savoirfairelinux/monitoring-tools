@@ -151,7 +151,7 @@ class TestPlugin(unittest.TestCase):
     """
     A class to test plugin inputs/outputs.
     """
-    def execute(self, plugin, args, return_value, pattern):
+    def execute(self, plugin, args, return_value, pattern, debug=False):
         sys.argv = [sys.argv[0]]
         for arg in args:
             sys.argv.append(arg)
@@ -162,9 +162,13 @@ class TestPlugin(unittest.TestCase):
         try:
             plugin()
         except SystemExit, e:
+            sys.stdout = old_stdout
+            output = out.getvalue().strip()
+            
+            if debug:
+                print('Expected: %d, received: %d' % (return_value, e.code))
+                print('Expected output: %s, received: %s' % (pattern, output))
+                
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, return_value)
-            sys.stdout = old_stdout
-        
-        output = out.getvalue().strip()
-        assert re.search(pattern, output)
+            self.assertTrue(re.search(pattern, output))

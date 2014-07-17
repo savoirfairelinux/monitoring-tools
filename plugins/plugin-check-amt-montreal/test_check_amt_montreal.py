@@ -37,6 +37,8 @@ class Test(TestPlugin):
     #              ['your', 'list', 'of', 'arguments'],
     #              expected_return_value,
     #              'regex to check against the output')
+    # You can also add debug=True, to get useful information
+    # to debug your plugins
 
     def test_plugin(self):
         # TODO: manage our token, and get real data

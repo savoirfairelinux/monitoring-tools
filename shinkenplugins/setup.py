@@ -32,7 +32,7 @@ long_description = ('Library aimed to provide helpers around the creation of Shi
 
 setup(
     name='shinkenplugins',
-    version='0.1',
+    version='0.1.1',
     packages=find_packages(),
     #install_requires=install_requires,
     #zip_safe=False,
