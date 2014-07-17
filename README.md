@@ -9,11 +9,15 @@ services, and which are not implemented in the usual plugins packages.
 ## Use
 
 ### Installation
-The best way to install these plugins is through your package manager.
+The best way to install these plugins is through your package
+manager. You can browse all the package repositories on
+[Open Build Service project](https://build.opensuse.org/project/repositories/home:ReAzem:sfl-shinken-plugins).
 
-#### For Debian
+
+#### Debian
 ```
-$ sudo apt-key add TODO
+$ wget http://download.opensuse.org/repositories/home:/ReAzem:/sfl-shinken-plugins/Debian_7.0/Release.gpg
+$ sudo apt-key add - < Release.gpg
 $ sudo apt-get update
 $ sudo apt-get install plugin-<the plugin you want>
 ```
@@ -24,8 +28,6 @@ http://sfl-shinken-plugins.readthedocs.org/en/latest/
 
 ### Debian packages
 
-Debian repositories for all the plugins are found at the
-[Open Build Service project](https://build.opensuse.org/project/repositories/home:ReAzem:sfl-shinken-plugins).
 
 ## Contribute
 
