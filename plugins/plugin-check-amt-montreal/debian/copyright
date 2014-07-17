@@ -3,11 +3,11 @@ Upstream-Name: plugin-check-amt-montreal
 Source: <https://github.com/savoirfairelinux/plugin-check-amt-montreal>
 
 Files: *
-Copyright: Copyright (C) 2014 Matthieu Caneill
+Copyright: Copyright (C) 2014 Savoir-faire Linux, Inc.
 License: GPL-3.0+
 
 Files: debian/*
-Copyright: Copyright (C) 2014 Matthieu Caneill
+Copyright: Copyright (C) 2014 Savoir-faire Linux, Inc.
 License: GPL-3.0+
 
 License: GPL-3.0+
