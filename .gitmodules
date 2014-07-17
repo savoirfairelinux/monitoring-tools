@@ -1,68 +1,68 @@
 [submodule "plugin-check_asterisk_cdr_status"]
-	path = plugin-check-asterisk-cdr-status
+	path = plugins/plugin-check-asterisk-cdr-status
 	url = git://github.com/savoirfairelinux/plugin-check_asterisk_cdr_status.git
 	branch = master
 [submodule "plugin-check_brother_toner_level"]
-	path = plugin-check-brother-toner-level
+	path = plugins/plugin-check-brother-toner-level
 	url = git://github.com/savoirfairelinux/plugin-check_brother_toner_level.git
 	branch = master
 [submodule "plugin-check_carp_by_ssh"]
-	path = plugin-check-carp-by-ssh
+	path = plugins/plugin-check-carp-by-ssh
 	url = git://github.com/savoirfairelinux/plugin-check_carp_by_ssh.git
 	branch = master
 [submodule "plugin-check_ceilometer"]
-	path = plugin-check-ceilometer
+	path = plugins/plugin-check-ceilometer
 	url = git://github.com/savoirfairelinux/plugin-check_ceilometer.git
 	branch = master
 [submodule "plugin-check_cpu"]
-	path = plugin-check-cpu
+	path = plugins/plugin-check-cpu
 	url = git://github.com/savoirfairelinux/plugin-check_cpu.git
 	branch = master
 [submodule "plugin-check_fake"]
-	path = plugin-check-fake
+	path = plugins/plugin-check-fake
 	url = git://github.com/savoirfairelinux/plugin-check_fake.git
 	branch = master
 [submodule "plugin-check_libvirt_stats"]
-	path = plugin-check-libvirt-stats
+	path = plugins/plugin-check-libvirt-stats
 	url = git://github.com/savoirfairelinux/plugin-check_libvirt_stats.git
 	branch = master
 [submodule "plugin-check_linux_traffic"]
-	path = plugin-check-linux-traffic
+	path = plugins/plugin-check-linux-traffic
 	url = git://github.com/savoirfairelinux/plugin-check_linux_traffic.git
 	branch = master
 [submodule "plugin-check_mem"]
-	path = plugin-check-mem
+	path = plugins/plugin-check-mem
 	url = git://github.com/savoirfairelinux/plugin-check_mem.git
 	branch = master
 [submodule "plugin-check_mpt_status"]
-	path = plugin-check-mpt-status
+	path = plugins/plugin-check-mpt-status
 	url = git://github.com/savoirfairelinux/plugin-check_mpt_status.git
 	branch = master
 [submodule "plugin-check_openbsd_sysstats_byssh"]
-	path = plugin-check-openbsd-sysstats-byssh
+	path = plugins/plugin-check-openbsd-sysstats-byssh
 	url = git://github.com/savoirfairelinux/plugin-check_openbsd_sysstats_byssh.git
 	branch = master
 [submodule "plugin-check_openerp"]
-	path = plugin-check-openerp
+	path = plugins/plugin-check-openerp
 	url = git://github.com/savoirfairelinux/plugin-check_openerp.git
 	branch = master
 [submodule "plugin-check_poller2livestatus"]
-	path = plugin-check-poller2livestatus
+	path = plugins/plugin-check-poller2livestatus
 	url = git://github.com/savoirfairelinux/plugin-check_poller2livestatus.git
 	branch = master
 [submodule "plugin-check_printer_hp_2600n"]
-	path = plugin-check-printer-hp-2600n
+	path = plugins/plugin-check-printer-hp-2600n
 	url = git://github.com/savoirfairelinux/plugin-check_printer_hp_2600n.git
 [submodule "plugin-check_wanpipe"]
-	path = plugin-check-wanpipe
+	path = plugins/plugin-check-wanpipe
 	url = git://github.com/savoirfairelinux/plugin-check_wanpipe.git
 	branch = master
 [submodule "plugin-check_tripplite_ups"]
-	path = plugin-check-tripplite-ups
+	path = plugins/plugin-check-tripplite-ups
 	url = git://github.com/savoirfairelinux/plugin-check_tripplite_ups.git
 	branch = master
 [submodule "plugin-check_spa2102"]
-	path = plugin-check-spa2102
+	path = plugins/plugin-check-spa2102
 	url = git://github.com/savoirfairelinux/plugin-check_spa2102.git
 	branch = master
 [submodule "plugin-check_snmp_printer"]
@@ -70,25 +70,25 @@
 	url = git://github.com/savoirfairelinux/plugin-check_snmp_printer.git
 	branch = master
 [submodule "plugin-check_smtp_success_ratio"]
-	path = plugin-check-smtp-success-ratio
+	path = plugins/plugin-check-smtp-success-ratio
 	url = git://github.com/savoirfairelinux/plugin-check_smtp_success_ratio.git
 	branch = master
 [submodule "plugin-check_site_health"]
-	path = plugin-check-site-health
+	path = plugins/plugin-check-site-health
 	url = git://github.com/savoirfairelinux/plugin-check_site_health.git
 	branch = master
 [submodule "plugin-check_samba"]
-	path = plugin-check-samba
+	path = plugins/plugin-check-samba
 	url = git://github.com/savoirfairelinux/plugin-check_samba.git
 	branch = master
 [submodule "plugin-check_reactionner_health"]
-	path = plugin-check-reactionner-health
+	path = plugins/plugin-check-reactionner-health
 	url = git://github.com/savoirfairelinux/plugin-check_reactionner_health.git
 	branch = master
 [submodule "plugin-check_rancid"]
-	path = plugin-check-rancid
+	path = plugins/plugin-check-rancid
 	url = git://github.com/savoirfairelinux/plugin-check_rancid.git
 	branch = master
 [submodule "plugin-check_graphite_api"]
-	path = plugin-check-graphite-api
+	path = plugins/plugin-check-graphite-api
 	url = git://github.com/savoirfairelinux/plugin-check_graphite_api.git

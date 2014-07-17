@@ -2,8 +2,10 @@
 set -e
 export GREP_OPTIONS=""
 
-for folder in `ls -d plugin-check-*/`; do
-    cd $folder
+cd plugins
+
+for plugin in `ls -d */`; do
+    cd $plugin
     file="./test/jenkins/jenkins_unit_tests.sh"
     # workaround, as long as we still have these dirty jenkins scripts
     if [ -e $file ]

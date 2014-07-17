@@ -7,7 +7,7 @@ git add plugin-*
 
 # Update documentation
 rm doc/source/plugin-*.rst
-cp plugin-*/doc/*.rst doc/source/
+cp plugins/*/doc/*.rst doc/source/
 git add doc/source/*.rst
 
 git commit

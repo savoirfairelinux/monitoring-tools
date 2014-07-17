@@ -31,7 +31,7 @@ from jinja2 import Environment, FileSystemLoader
 def main(args):
     here = os.path.dirname(os.path.abspath(__file__))
     tdir = os.path.join(here, 'templates', args['type'])
-    target = os.path.join(os.path.dirname(here), 'plugin-' + args['name'])
+    target = os.path.join(os.path.dirname(here), 'plugins', 'plugin-' + args['name'])
     
     if os.path.exists(target):
         print("The folder %s shouldn't exit" % target)

@@ -7,7 +7,7 @@ deb: clean
 update-submodules:
 	tools/update-submodules.sh
 
-obs:
+obs: deb
 	tools/update-obs-packages.sh
 
 new-plugin:
@@ -19,10 +19,18 @@ clean:
 	rm -f *.dsc
 	rm -f *.changes
 	rm -f *.deb
-	rm -f plugin-*/debian/plugin-*/ -r
-	rm -f plugin-*/debian/files
-	rm -f plugin-*/debian/*.debhelper.log
-	rm -f plugin-*/debian/*.substvars
+
+	rm -f plugins/*.orig.tar.gz
+	rm -f plugins/*.debian.tar.gz
+	rm -f plugins/*.dsc
+	rm -f plugins/*.changes
+	rm -f plugins/*.deb
+
+	rm -f plugins/*/debian/plugin-*/ -r
+	rm -f plugins/*/debian/files
+	rm -f plugins/*/debian/*.debhelper.log
+	rm -f plugins/*/debian/*.substvars
+
 	rm -f shinkenplugins*.tar.xz
 	rm -f shinkenplugins*.build
 	rm -rf "home:ReAzem:sfl-shinken-plugins"

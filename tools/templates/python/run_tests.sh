@@ -4,5 +4,5 @@ rm -f env
 virtualenv env
 source env/bin/activate
 pip install -I nose
-pip install requirements.txt
+pip install -r requirements.txt
 nosetests

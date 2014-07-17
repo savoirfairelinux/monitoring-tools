@@ -14,7 +14,8 @@ $BUILD_PACKAGE
 cd ..
 
 # plugin packages
-for plugin in `ls -d plugin-check-*/ | tr -d '/'`
+cd plugins
+for plugin in `ls -d */ | tr -d '/'`
 do 
     # We extract the last version from the changelog
     version=$(cat $plugin/debian/changelog  | grep 'check-' | head -n 1 | awk '{print $2}' | tr -d '()' | cut -d '-' -f 1)
