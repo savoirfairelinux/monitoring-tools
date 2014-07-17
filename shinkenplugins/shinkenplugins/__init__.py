@@ -90,7 +90,7 @@ class BasePlugin(object):
         except getopt.GetoptError, err:
             print str(err)
             self.usage()
-            sys.exit(STATES.UNKNOWN, '')
+            sys.exit(STATES.UNKNOWN)
 
         args = {}
         short_args = ['-' + x[0] for x in expected]
