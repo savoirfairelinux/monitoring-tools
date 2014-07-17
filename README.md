@@ -83,7 +83,7 @@ This will build the .orig.tar.gz, .debian.tar.gz, .dsc, and .changes files.
 
 ### Push the debian source packages to Open Build Service
 ```
-make deb && make obs
+make obs
 ```
 This will checkout the OBS project and commit the new debian source
 package files. You must be a maintainer on the OBS project to
