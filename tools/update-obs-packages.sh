@@ -2,15 +2,24 @@
 
 # first arg: name of the obs package
 # second arg: path of the files
-function obs_push {
+function obs_push {	
+	OBS_CHECKSUM=$(shasum ${DIR}/${OBS_REPO}/$1/.osc/*.dsc | awk '{print $1}')
+	CURRENT_CHECKSUM=$(shasum $2*.dsc | awk '{print $1}')
+	echo OBS: $OBS_CHECKSUM
+	echo CURRENT: $CURRENT_CHECKSUM
+	
+	#Only update the files if the .dsc has changed.
+	if [[ $OBS_CHECKSUM != $CURRENT_CHECKSUM ]]
+	then
 	# Copy the files
 	mv $2*.tar.gz ${DIR}/${OBS_REPO}/$1/
 	mv $2*.dsc ${DIR}/${OBS_REPO}/$1/
 	mv $2*.changes ${DIR}/${OBS_REPO}/$1/
-
+	
 	# Add the changes and commit
 	osc addremove ${DIR}/${OBS_REPO}/$1/*
 	osc ci ${DIR}/${OBS_REPO}/$1 -m "Updated ${2}"
+	fi
 }
 
 
