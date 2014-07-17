@@ -3,7 +3,7 @@
 # Update submodules
 git submodule update --init
 git submodule foreach 'git checkout master && git pull origin master'
-git add plugin-*
+git add plugins/plugin-*
 
 # Update documentation
 rm doc/source/plugin-*.rst
