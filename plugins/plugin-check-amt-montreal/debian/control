@@ -1,0 +1,16 @@
+Source: plugin-check-amt-montreal
+Section: python
+Priority: optional
+Maintainer: Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: https://github.com/savoirfairelinux/plugin-check-amt-montreal
+Vcs-Git: git://anonscm.debian.org/collab-maint/plugin-check-amt-montreal.git
+Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-amt-montreal.git;a=summary
+
+Package: plugin-check-amt-montreal
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, shinkenplugins, python-protobuf
+Description: Checks the numbers of warnings reported by the AMT trains in the Montreal area.
+ More information is available on Github:
+ https://github.com/savoirfairelinux/sfl-shinken-plugins
