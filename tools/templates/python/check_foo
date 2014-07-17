@@ -21,7 +21,7 @@ from shinkenplugins import BasePlugin, PerfData, STATES
 class Plugin(BasePlugin):
     NAME = '{{ name }}'
     VERSION = '0.1'
-    DESCRIPTION = '{{ description }}'
+    DESCRIPTION = '{{ desc }}'
     AUTHOR = '{{ author_name }}'
     EMAIL = '{{ author_email }}'
     
