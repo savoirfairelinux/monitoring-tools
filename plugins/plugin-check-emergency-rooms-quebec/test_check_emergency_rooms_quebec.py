@@ -40,7 +40,7 @@ class Test(TestPlugin):
     # to debug your plugins
     
     def test_no_args(self):
-        self.execute(Plugin, [], 3, 'Arguments error: argument url is mandatory', debug=True)
+        self.execute(Plugin, [], 3, 'Arguments error: argument url is mandatory')
     
     def test_critical_output(self):
         args = ['-w', '-1', '-c', '-1',
@@ -48,4 +48,4 @@ class Test(TestPlugin):
                 '-f', '//td/div[text()="Total"]/../following-sibling::td[2]/div/text()',
                 '-o', '//td/div[text()="Total"]/../following-sibling::td[3]/div/text()']
         
-        self.execute(Plugin, args, 2, 'CRITICAL - [1-9]*%', debug=True)
+        self.execute(Plugin, args, 2, 'CRITICAL - [0-9]*%')
