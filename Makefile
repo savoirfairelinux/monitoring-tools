@@ -26,10 +26,14 @@ clean:
 	rm -f plugins/*.changes
 	rm -f plugins/*.deb
 
-	rm -f plugins/*/debian/plugin-*/ -r
+	rm -rf plugins/*/debian/plugin-*/
 	rm -f plugins/*/debian/files
 	rm -f plugins/*/debian/*.debhelper.log
 	rm -f plugins/*/debian/*.substvars
+	rm -rf plugins/*/*env*
+	rm -rf plugins/*/test/htmlcov
+	rm plugins/*/test/.coverage
+	rm plugins/*/test/total_coverage.txt
 
 	rm -f shinkenplugins*.tar.xz
 	rm -f shinkenplugins*.build
