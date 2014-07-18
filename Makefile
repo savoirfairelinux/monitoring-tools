@@ -1,7 +1,7 @@
 tests:
 	tools/run-tests.sh
 
-deb: mrproper
+deb: clean
 	tools/update-deb.sh
 
 update-submodules:

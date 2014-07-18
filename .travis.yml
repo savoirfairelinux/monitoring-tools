@@ -46,4 +46,4 @@ after_success:
   - 'wget http://mirrors.kernel.org/ubuntu/pool/universe/o/osc/osc_0.143.0-1_all.deb -P /tmp && sudo dpkg -i /tmp/osc_0.143.0-1_all.deb || : && sudo apt-get install -f'
   
   - (echo [general] && echo apiurl = https://api.opensuse.org && echo && echo [https://api.opensuse.org] && echo user = ReAzem && echo pass = $OBS_PASSWORD) > ~/.oscrc
-  - make obs
+  - make mrproper && make obs
