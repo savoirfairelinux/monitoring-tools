@@ -128,7 +128,7 @@ class BasePlugin(object):
             s_expected = ' <' + arg[1] + '>' if arg[3] else ''
             l_expected = '=' + arg[1].upper() if arg[3] else ''
             short += ' -' + arg[0] + s_expected
-            long_ += ' --' + arg[0] + ', --' + arg[1] + l_expected + '\n    ' + arg[2] + '\n'
+            long_ += ' -' + arg[0] + ', --' + arg[1] + l_expected + '\n    ' + arg[2] + '\n'
 
         print('%s %s' % (self.__class__.NAME, short))
         print('')
