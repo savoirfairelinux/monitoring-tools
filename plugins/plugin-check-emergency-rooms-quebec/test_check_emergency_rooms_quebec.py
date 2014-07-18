@@ -48,4 +48,4 @@ class Test(TestPlugin):
                 '-f', '//td/div[text()="Total"]/../following-sibling::td[2]/div/text()',
                 '-o', '//td/div[text()="Total"]/../following-sibling::td[3]/div/text()']
         
-        self.execute(Plugin, args, 2, 'CRITICAL - [1-9]*%')
+        self.execute(Plugin, args, 2, 'CRITICAL - [1-9]*%', debug=True)
