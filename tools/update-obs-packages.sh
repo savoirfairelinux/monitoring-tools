@@ -26,6 +26,8 @@ function obs_push {
 	# Add the changes and commit
 	osc addremove ${DIR}/${OBS_REPO}/$1/*
 	osc ci ${DIR}/${OBS_REPO}/$1 -m "Updated ${1}"
+	else
+	echo Skipping OBS upload...
 	fi
 }
 
