@@ -24,7 +24,7 @@ $ sudo apt-get install plugin-<the plugin you want>
 
 ### Documentation
 You can browse the online documentation at
-http://sfl-shinken-plugins.readthedocs.org/en/latest/
+http://sfl-shinken-plugins.readthedocs.org
 
 ## Contribute
 
