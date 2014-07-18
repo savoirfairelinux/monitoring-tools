@@ -1,0 +1,16 @@
+Source: plugin-check-quebecrencontrescom
+Section: python
+Priority: optional
+Maintainer: Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: https://github.com/savoirfairelinux/plugin-check-quebecrencontrescom
+Vcs-Git: git://anonscm.debian.org/collab-maint/plugin-check-quebecrencontrescom.git
+Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-quebecrencontrescom.git;a=summary
+
+Package: plugin-check-quebecrencontrescom
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins, python-lxml
+Description: Checks number of lonely hearts on quebecrencontres.com.
+ More information is available on Github:
+ https://github.com/savoirfairelinux/sfl-shinken-plugins
