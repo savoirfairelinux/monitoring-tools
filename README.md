@@ -26,9 +26,6 @@ $ sudo apt-get install plugin-<the plugin you want>
 You can browse the online documentation at
 http://sfl-shinken-plugins.readthedocs.org/en/latest/
 
-### Debian packages
-
-
 ## Contribute
 
 ### Create a plugin

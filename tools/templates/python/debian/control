@@ -10,7 +10,7 @@ Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-{{ name }}.git;a=s
 
 Package: plugin-{{ name }}
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, shinkenplugins
+Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins
 Description: {{ desc }}
  More information is available on Github:
  https://github.com/savoirfairelinux/sfl-shinken-plugins
