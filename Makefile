@@ -40,5 +40,5 @@ clean:
 	rm -rf "home:ReAzem:sfl-shinken-plugins"
 
 mrproper: clean
-	git submodule foreach git checkout .
-	git clean -d -x -f
+	git submodule 'foreach git checkout . && git clean -dxf'
+	git clean -dxf
