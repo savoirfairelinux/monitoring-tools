@@ -2,11 +2,15 @@
 
 # first arg: name of the obs package
 # second arg: path of the files
-function obs_push {	
+function obs_push {
+	# Checkout the package	
+	osc co ${OBS_REPO}/$1
+
+	# Calculate checksum of .dsc files
 	OBS_CHECKSUM=$(shasum ${DIR}/${OBS_REPO}/$1/*.dsc | awk '{print $1}')
 	CURRENT_CHECKSUM=$(shasum $2*.dsc | awk '{print $1}')
-	echo OBS: $OBS_CHECKSUM
-	echo CURRENT: $CURRENT_CHECKSUM
+	echo OBS CHECKSUM: $OBS_CHECKSUM
+	echo CURRENT CHECKSUM: $CURRENT_CHECKSUM
 	
 	#Only update the files if the .dsc has changed.
 	if [[ $OBS_CHECKSUM != $CURRENT_CHECKSUM ]]
@@ -31,9 +35,6 @@ DIR=$(pwd)
 
 # Open Build Service repository
 OBS_REPO=home:ReAzem:sfl-shinken-plugins
-
-# Checkout the plugins
-osc co ${OBS_REPO}
 
 # plugins
 for plugin in `(cd plugins && ls -d */ | tr -d '/')`
