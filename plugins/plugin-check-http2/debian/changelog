@@ -1,0 +1,5 @@
+plugin-check-http2 (2014.7.18.16.15-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>  Fri, 18 Jul 2014 20:15:01 -0000
