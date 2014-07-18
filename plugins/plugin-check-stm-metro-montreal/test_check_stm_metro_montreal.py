@@ -13,9 +13,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Copyright (C) 2014, Savoir-Faire Linux, Inc.
+# Copyright (C) 2014, Savoir-faire Linux, Inc.
+# Author Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
 
-from check_emergency_rooms_quebec import Plugin
+from check_stm_metro_montreal import Plugin
 
 from shinkenplugins import TestPlugin
 
@@ -38,14 +39,18 @@ class Test(TestPlugin):
     #              'regex to check against the output')
     # You can also add debug=True, to get useful information
     # to debug your plugins
-    
+
+    def test_ok(self):
+        args = ['-w', '42', '-c', '42']
+        self.execute(Plugin, args, 0, 'OK')
+
+    def test_warning(self):
+        args = ['-w', '0', '-c', '42']
+        self.execute(Plugin, args, 1, 'WARNING')
+
+    def test_critical(self):
+        args = ['-w', '0', '-c', '0']
+        self.execute(Plugin, args, 2, 'CRITICAL')
+
     def test_no_args(self):
-        self.execute(Plugin, [], 3, 'Arguments error: argument url is mandatory')
-    
-    def test_critical_output(self):
-        args = ['-w', '-1', '-c', '-1',
-                '-U', 'http://agence.santemontreal.qc.ca/fileadmin/asssm/rapports/urgence_quotidien_media.html',
-                '-f', '//td/div[text()="Total"]/../following-sibling::td[2]/div/text()',
-                '-o', '//td/div[text()="Total"]/../following-sibling::td[3]/div/text()']
-        
-        self.execute(Plugin, args, 2, 'CRITICAL - [0-9]*%')
+        self.execute(Plugin, [], 3, 'Arguments error: argument warning is mandatory')

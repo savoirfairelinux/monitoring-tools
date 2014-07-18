@@ -33,7 +33,6 @@ class Plugin(BasePlugin):
             ('u', 'url', 'the url to fetch data from', True),
             ('w', 'warning', 'Limit to result in a warning state', True),
             ('c', 'critical', 'Limit to result in a critical state', True),
-
             ]
     
     def check_args(self, args):
