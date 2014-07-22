@@ -6,15 +6,15 @@ function obs_push {
 	# Checkout the package	
 	osc co ${OBS_REPO}/$1
 
-	# Calculate checksum of .dsc files
-	OBS_CHECKSUM=$(shasum ${DIR}/${OBS_REPO}/$1/*.dsc | awk '{print $1}')
-	CURRENT_CHECKSUM=$(shasum $2/$1*.dsc | awk '{print $1}')
-	echo OBS CHECKSUM: $OBS_CHECKSUM
-	echo CURRENT CHECKSUM: $CURRENT_CHECKSUM
+	# Check if the OBS orig and the current orig are different
+	rm -rf /tmp/${1}_OBS_ORIG && mkdir /tmp/${1}_OBS_ORIG && tar -xf home:ReAzem:sfl-shinken-plugins/${1}/${1}*.orig.tar.gz -C /tmp/${1}_OBS_ORIG --force-local
+	diff -r plugins/${1}/ /tmp/${1}_OBS_ORIG/${1}/ --exclude=debian --exclude=.git*	
 	
-	#Only update the files if the .dsc has changed.
-	if [[ $OBS_CHECKSUM != $CURRENT_CHECKSUM ]]
+	#Only update the source has changed
+	if [ $? -ne 0 ]
 	then
+	echo Source has changed, uploading to obs...
+
 	# Remove the old files
 	rm ${DIR}/${OBS_REPO}/$1/*
 
