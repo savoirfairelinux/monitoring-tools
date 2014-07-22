@@ -8,7 +8,7 @@ function obs_push {
 
 	# Check if the OBS orig and the current orig are different
 	rm -rf /tmp/${1}_OBS_ORIG && mkdir /tmp/${1}_OBS_ORIG && tar -xf home:ReAzem:sfl-shinken-plugins/${1}/${1}*.orig.tar.gz -C /tmp/${1}_OBS_ORIG --force-local
-	diff -r plugins/${1}/ /tmp/${1}_OBS_ORIG/${1}/ --exclude=debian --exclude=.git*	
+	diff -r ${2}/${1}/ /tmp/${1}_OBS_ORIG/${1}/ --exclude=debian --exclude=.git*	
 	
 	#Only update the source has changed
 	if [ $? -ne 0 ]
