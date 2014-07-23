@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # first arg: name of the obs package
 # second arg: path of the source files
 function obs_push {
