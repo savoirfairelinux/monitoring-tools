@@ -95,3 +95,39 @@
 [submodule "packs/pack-generic-carbon-tcp"]
 	path = packs/pack-generic-carbon-tcp
 	url = https://github.com/savoirfairelinux/pack-generic-carbon-tcp.git
+[submodule "packs/pack-generic-dhcp"]
+	path = packs/pack-generic-dhcp
+	url = https://github.com/savoirfairelinux/pack-generic-dhcp.git
+[submodule "packs/pack-generic-dns"]
+	path = packs/pack-generic-dns
+	url = https://github.com/savoirfairelinux/pack-generic-dns.git
+[submodule "packs/pack-generic-graphite-http"]
+	path = packs/pack-generic-graphite-http
+	url = https://github.com/savoirfairelinux/pack-generic-graphite-http.git
+[submodule "packs/pack-generic-host"]
+	path = packs/pack-generic-host
+	url = https://github.com/savoirfairelinux/pack-generic-host.git
+[submodule "packs/pack-generic-ldap"]
+	path = packs/pack-generic-ldap
+	url = https://github.com/savoirfairelinux/pack-generic-ldap.git
+[submodule "packs/pack-generic-multisite-http"]
+	path = packs/pack-generic-multisite-http
+	url = https://github.com/savoirfairelinux/pack-generic-multisite-http.git
+[submodule "packs/pack-generic-radius"]
+	path = packs/pack-generic-radius
+	url = https://github.com/savoirfairelinux/pack-generic-radius.git
+[submodule "packs/pack-generic-repodeb-http"]
+	path = packs/pack-generic-repodeb-http
+	url = https://github.com/savoirfairelinux/pack-generic-repodeb-http.git
+[submodule "packs/pack-generic-saltmaster-tcp"]
+	path = packs/pack-generic-saltmaster-tcp
+	url = https://github.com/savoirfairelinux/pack-generic-saltmaster-tcp.git
+[submodule "packs/pack-generic-smb"]
+	path = packs/pack-generic-smb
+	url = https://github.com/savoirfairelinux/pack-generic-smb.git
+[submodule "packs/pack-generic-splunk-http"]
+	path = packs/pack-generic-splunk-http
+	url = https://github.com/savoirfairelinux/pack-generic-splunk-http.git
+[submodule "packs/pack-generic-ssh"]
+	path = packs/pack-generic-ssh
+	url = https://github.com/savoirfairelinux/pack-generic-ssh.git
