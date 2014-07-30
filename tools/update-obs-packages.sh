@@ -44,5 +44,11 @@ do
     obs_push $plugin plugins
 done
 
+# packs
+for pack in `(cd packs && ls -d */ | tr -d '/')`
+do
+    obs_push $pack packs
+done
+
 # library
 obs_push shinkenplugins .

@@ -31,3 +31,22 @@ do
     $BUILD_PACKAGE
     cd ..
 done
+cd ..
+
+# pack packages
+cd packs
+for pack in `ls -d */ | tr -d '/'`
+do
+    # Extract last version number
+    version=$(cat $pack/debian/changelog | grep 'pack-' | awk '{print $2}' | tr -d '()' | cut -d '-' -f 1)
+
+    # Create the "upstream source" archive
+    # If the directory contains a collectd directory: exclude it
+    tar -czf ${pack}_${version}.orig.tar.gz $pack/ --exclude=${pack}/debian/* --exclude=${pack}/.git*
+
+    # Build the source package
+    cd $pack
+    dpkg-buildpackage -us -uc -S --source-option=-Zgzip --source-option=--ignore-bad-version --source-option=-Icollectd
+    cd ..
+
+done
