@@ -131,3 +131,39 @@
 [submodule "packs/pack-generic-ssh"]
 	path = packs/pack-generic-ssh
 	url = https://github.com/savoirfairelinux/pack-generic-ssh.git
+[submodule "packs/pack-windows-system-collectd"]
+	path = packs/pack-windows-system-collectd
+	url = https://github.com/savoirfairelinux/pack-windows-system-collectd.git
+[submodule "packs/pack-windows-sophos-mssql"]
+	path = packs/pack-windows-sophos-mssql
+	url = https://github.com/savoirfairelinux/pack-windows-sophos-mssql.git
+[submodule "packs/pack-windows-sophos-collectd"]
+	path = packs/pack-windows-sophos-collectd
+	url = https://github.com/savoirfairelinux/pack-windows-sophos-collectd.git
+[submodule "packs/pack-windows-rdp"]
+	path = packs/pack-windows-rdp
+	url = https://github.com/savoirfairelinux/pack-windows-rdp.git
+[submodule "packs/pack-windows-mssql"]
+	path = packs/pack-windows-mssql
+	url = https://github.com/savoirfairelinux/pack-windows-mssql.git
+[submodule "packs/pack-windows-ad-collectd"]
+	path = packs/pack-windows-ad-collectd
+	url = https://github.com/savoirfairelinux/pack-windows-ad-collectd.git
+[submodule "packs/pack-vmware-system-https"]
+	path = packs/pack-vmware-system-https
+	url = https://github.com/savoirfairelinux/pack-vmware-system-https.git
+[submodule "packs/pack-linux-system-collectd"]
+	path = packs/pack-linux-system-collectd
+	url = https://github.com/savoirfairelinux/pack-linux-system-collectd.git
+[submodule "packs/pack-linux-saltminion-collectd"]
+	path = packs/pack-linux-saltminion-collectd
+	url = https://github.com/savoirfairelinux/pack-linux-saltminion-collectd.git
+[submodule "packs/pack-linux-saltmaster-collectd"]
+	path = packs/pack-linux-saltmaster-collectd
+	url = https://github.com/savoirfairelinux/pack-linux-saltmaster-collectd.git
+[submodule "packs/pack-linux-radius-collectd"]
+	path = packs/pack-linux-radius-collectd
+	url = https://github.com/savoirfairelinux/pack-linux-radius-collectd.git
+[submodule "packs/pack-linux-ntp-collectd"]
+	path = packs/pack-linux-ntp-collectd
+	url = https://github.com/savoirfairelinux/pack-linux-ntp-collectd.git
