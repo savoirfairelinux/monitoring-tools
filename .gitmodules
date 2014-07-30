@@ -92,3 +92,6 @@
 [submodule "plugin-check_graphite_api"]
 	path = plugins/plugin-check-graphite-api
 	url = git://github.com/savoirfairelinux/plugin-check_graphite_api.git
+[submodule "packs/pack-generic-carbon-tcp"]
+	path = packs/pack-generic-carbon-tcp
+	url = https://github.com/savoirfairelinux/pack-generic-carbon-tcp.git
