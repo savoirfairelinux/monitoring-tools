@@ -9,3 +9,4 @@ sfl-shinken-plugins documentation
    :glob:
 
    plugin-*
+   pack-*
