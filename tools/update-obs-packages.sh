@@ -37,7 +37,7 @@ function obs_push {
 DIR=$(pwd)
 
 # Open Build Service repository
-OBS_REPO=home:ReAzem:sfl-shinken-plugins
+OBS_REPO=home:sfl-monitoring:monitoring-tools
 
 # plugins
 for plugin in `(cd plugins && ls -d */ | tr -d '/')`
