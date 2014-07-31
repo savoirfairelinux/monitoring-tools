@@ -11,7 +11,7 @@ services, and which are not implemented in the usual plugins packages.
 ### Installation
 The best way to install these plugins is through your package
 manager. You can browse all the package repositories on
-[Open Build Service project](https://build.opensuse.org/project/repositories/home:ReAzem:sfl-shinken-plugins).
+[Open Build Service project](https://build.opensuse.org/project/repositories/home:sfl-monitoring:monitoring-tools).
 
 
 #### Debian
@@ -24,7 +24,7 @@ $ sudo apt-get install plugin-<the plugin you want>
 
 ### Documentation
 You can browse the online documentation at
-http://sfl-shinken-plugins.readthedocs.org
+http://sfl-monitoring-tools.readthedocs.org/
 
 ## Contribute
 
