@@ -22,6 +22,7 @@ function obs_push {
 	mv $2/$1*.tar.gz ${DIR}/${OBS_REPO}/$1/
 	mv $2/$1*.dsc ${DIR}/${OBS_REPO}/$1/
 	mv $2/$1*.changes ${DIR}/${OBS_REPO}/$1/
+	mv $2/$1*.diff.gz ${DIR}/${OBS_REPO}/$1/
 	
 	# Add the changes and commit
 	osc addremove ${DIR}/${OBS_REPO}/$1/*
@@ -36,7 +37,7 @@ function obs_push {
 DIR=$(pwd)
 
 # Open Build Service repository
-OBS_REPO=home:ReAzem:sfl-shinken-plugins
+OBS_REPO=home:sfl-monitoring:monitoring-tools
 
 # plugins
 for plugin in `(cd plugins && ls -d */ | tr -d '/')`
