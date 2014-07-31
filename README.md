@@ -1,5 +1,5 @@
-Shinken plugins
-===============
+Monitoring Tools
+================
 
 [![Build Status](https://travis-ci.org/savoirfairelinux/monitoring-tools.svg?branch=master)](https://travis-ci.org/savoirfairelinux/monitoring-tools)
 
