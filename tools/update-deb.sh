@@ -5,6 +5,9 @@ export GREP_OPTIONS=""
 
 set -e
 
+# -S builds only the source package, the binary one is done by OpenBuildService
+# --ignore-bad-version skips the date check, because the files can be more recent
+# than the last debian/changelog entry
 BUILD_PACKAGE="dpkg-buildpackage -us -uc -S --source-option=-Zgzip --source-option=--ignore-bad-version"
 
 # library package
@@ -25,9 +28,6 @@ do
     
     # And let's build the source package
     cd $plugin
-    # -S builds only the source package, the binary one is done by OpenBuildService
-    # --ignore-bad-version skips the date check, because the files can be more recent
-    # than the last debian/changelog entry
     $BUILD_PACKAGE
     cd ..
 done
