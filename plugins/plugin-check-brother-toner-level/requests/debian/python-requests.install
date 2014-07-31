@@ -1,0 +1,17 @@
+adapters.py     /usr/lib/shinken/plugins/requests
+api.py          /usr/lib/shinken/plugins/requests
+auth.py         /usr/lib/shinken/plugins/requests
+cacert.pem      /usr/lib/shinken/plugins/requests
+certs.py        /usr/lib/shinken/plugins/requests
+compat.py       /usr/lib/shinken/plugins/requests
+cookies.py      /usr/lib/shinken/plugins/requests
+exceptions.py   /usr/lib/shinken/plugins/requests
+hooks.py        /usr/lib/shinken/plugins/requests
+__init__.py     /usr/lib/shinken/plugins/requests
+models.py       /usr/lib/shinken/plugins/requests
+packages        /usr/lib/shinken/plugins/requests
+requests.spec   /usr/lib/shinken/plugins/requests
+sessions.py     /usr/lib/shinken/plugins/requests
+status_codes.py /usr/lib/shinken/plugins/requests
+structures.py   /usr/lib/shinken/plugins/requests
+utils.py        /usr/lib/shinken/plugins/requests

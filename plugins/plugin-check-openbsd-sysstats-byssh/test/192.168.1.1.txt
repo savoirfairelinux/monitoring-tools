@@ -1,0 +1,28 @@
+load averages:  0.08,  0.14,  0.10    matagami.sdbj.gouv.qc.ca 14:08:01
+41 processes:  40 idle, 1 on processor
+CPU states:  0.5% user,  0.0% nice,  0.5% system,  0.9% interrupt, 98.1% idle
+Memory: Real: 39M/103M act/tot  Free: 387M  Swap: 0K/0K used/tot
+
+  PID USERNAME PRI NICE  SIZE   RES STATE     WAIT      TIME    CPU COMMAND
+32627 root       2    0 3308K 2632K idle      select    1:21  0.00% sshd
+13619 _snmpd     2    0  524K 1068K sleep     kqread    1:07  0.00% snmpd
+19889 root       2    0 1284K 1932K sleep     select    0:15  0.00% sendmail
+26952 _pflogd    4    0  552K  424K sleep     bpf       0:11  0.00% pflogd
+25803 root       2    0 3404K 2628K sleep     select    0:05  0.00% sshd
+27581 root       2    0  844K 2280K sleep     select    0:04  0.00% ssh
+12089 root       2    0  736K 1240K sleep     select    0:04  0.00% sshd
+25055 root       2    0 3824K 2856K sleep     select    0:04  0.00% sshd
+32542 root       2    0 1112K 2628K sleep     select    0:03  0.00% ssh
+17301 _syslogd   2    0  404K  688K sleep     poll      0:01  0.00% syslogd
+10403 root       2    0 3320K 2604K sleep     select    0:01  0.00% sshd
+17704 root       2    0  844K 2276K sleep     select    0:01  0.00% ssh
+15788 root      10    0   32M   19M sleep     mfsidl    0:01  0.00% mount_mfs
+18761 root       2    0  464K  852K sleep     select    0:01  0.00% cron
+28617 root       2    0  928K 1756K sleep     poll      0:01  0.00% openvpn
+31336 _ntp       2    0  556K  952K sleep     poll      0:01  0.00% ntpd
+24910 _isakmpd   2    0 3168K 2788K idle      select    0:00  0.00% isakmpd
+14334 root       2    0 3204K 2524K idle      select    0:00  0.00% sshd
+
+
+
+

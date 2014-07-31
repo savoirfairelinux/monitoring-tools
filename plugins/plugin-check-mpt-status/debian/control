@@ -1,0 +1,16 @@
+Source: plugin-check-mpt-status
+Section: python
+Priority: optional
+Maintainer: Thibault Cohen <thibault.cohen@savoirfairelinux.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: https://github.com/savoirfairelinux/plugin-check-mpt-status
+#Vcs-Git: git://anonscm.debian.org/collab-maint/plugin-check-mpt-status.git
+#Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-mpt-status.git;a=summary
+
+Package: plugin-check-mpt-status
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Shinken plugin from SFL. Check mpt HW RAID controllers status
+ More information is available on Github:
+ https://github.com/savoirfairelinux/sfl-shinken-plugins

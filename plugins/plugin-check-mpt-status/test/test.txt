@@ -1,0 +1,5 @@
+ioc:0 vol_id:0 type:IM raidlevel:RAID-1 num_disks:2 size(GB):930 state: OPTIMAL flags: ENABLED
+ioc:0 phys_id:1 scsi_id:9 vendor:ATA      product_id:Hitachi HUA72101 revision:A74A size(GB):931 state: ONLINE flags: NONE sync_state: 100 ASC/ASCQ:0xff/0xff SMART ASC/ASCQ:0xff/0xff
+ioc:0 phys_id:0 scsi_id:1 vendor:ATA      product_id:Hitachi HUA72101 revision:A74A size(GB):931 state: ONLINE flags: NONE sync_state: 100 ASC/ASCQ:0xff/0xff SMART ASC/ASCQ:0xff/0xff
+scsi_id:1 100%
+scsi_id:0 100%

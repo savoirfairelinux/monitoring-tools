@@ -1,0 +1,3 @@
+check_samba /usr/lib/shinken/plugins
+nmb /usr/lib/shinken/plugins/
+smb /usr/lib/shinken/plugins/

@@ -1,0 +1,110 @@
+#!/bin/bash
+#
+#
+#     Copyright (C) 2012 Savoir-Faire Linux Inc. 
+#
+#     This program is free software; you can redistribute it and/or modify 
+#     it under the terms of the GNU General Public License as published by 
+#     the Free Software Foundation; either version 3 of the License, or 
+#     (at your option) any later version. 
+#
+#     This program is distributed in the hope that it will be useful, 
+#     but WITHOUT ANY WARRANTY; without even the implied warranty of 
+#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+#     GNU General Public License for more details. 
+#
+#     You should have received a copy of the GNU General Public License 
+#     along with this program; if not, write to the Free Software 
+#     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA. 
+#
+#     Projects :
+#               SFL Shinken plugins
+#
+#     File :
+#               runtests Launch unit tests
+#
+#
+#     Author: Thibault Cohen <thibault.cohen@savoirfairelinux.com> 
+#
+#
+
+TESTLIST=$1
+COVERAGE=$2
+PYLINT=$3
+PEP8=$4
+TESTLIST=$(readlink -f $TESTLIST)
+
+. env/bin/activate
+
+test "$COVERAGE" == "COVERAGE" || COVERAGE="NOCOVERAGE"
+test "$PYLINT" == "PYLINT" || PYLINT="NOPYLINT"
+test "$PEP8" == "PEP8" || PYLINT="NOPEP8"
+test "$PYTHONVERS" == "" && PYTHONVERS=27
+test "$PYTHONVERS" == "27" && PYTHONVERS=2.7.1
+test "$PYTHONVERS" == "26" && PYTHONVERS=2.6.6
+test "$PYTHONVERS" == "24" && PYTHONVERS=2.4.6
+
+
+DIR=$(cd $(dirname "$0"); pwd)
+cd ${DIR}/..
+echo `pwd`
+
+# Cleanup leftover files from former runs
+rm -f nosetests.xml
+test $COVERAGE == "COVERAGE" && rm -f coverage.xml
+test $COVERAGE == "COVERAGE" && rm -f .coverage
+
+function launch_and_assert {
+    SCRIPT=$1
+    if test $COVERAGE == "NOCOVERAGE"; then
+      #nosetests -v -s --with-xunit ./$SCRIPT --xunit-file=TEST-$SCRIPT.xml
+      nosetests -v --with-xunit ./$SCRIPT --xunit-file=TEST-$SCRIPT.xml
+    else
+      #nosetests -v -s --with-xunit --with-coverage ./$SCRIPT --xunit-file=TEST-$SCRIPT.xml
+      nosetests -v --with-xunit --with-coverage ./$SCRIPT --xunit-file=TEST-$SCRIPT.xml
+    fi
+    if [ $? != 0 ]
+	then
+	echo "Error : the test $SCRIPT failed"
+	exit 2
+    else
+	echo "test $SCRIPT succeeded, next one"
+    fi
+}
+
+while read tfile
+do
+  case ${tfile:0:1} in
+  "#") 
+       ;;
+  *)   launch_and_assert $tfile
+       ;;
+  esac
+done < $TESTLIST
+
+# Create the coverage file
+if test $COVERAGE == "COVERAGE"; then
+  echo merging coverage files
+  coverage xml
+  coverage html
+fi
+
+cd ..
+
+if test $PYLINT == "PYLINT"; then
+  echo checking the code with pylint
+  pylint --rcfile test/jenkins/pylint.rc check_fake > pylint.txt
+fi
+
+if test $PEP8 == "PEP8"; then
+  echo checking the code with pep8 --max-line-length=100
+  pep8 --max-line-length=100 check_fake > pep8.txt
+fi
+
+
+if test $COVERAGE == "COVERAGE" && test $PYLINT == "PYLINT" && test $PEP8 == "PEP8"; then
+  # this run's purpose was to collect metrics, so let jenkins think, it's ok
+  exit 0
+fi
+
+grep "pc_cov"  test/htmlcov/index.html |cut -d "<" -f 2 |cut -d ">" -f 2 > test/total_coverage.txt

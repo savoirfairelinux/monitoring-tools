@@ -1,0 +1,2 @@
+check_mem /usr/lib/shinken/plugins
+check_mem.pm /usr/lib/shinken/plugins

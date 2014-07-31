@@ -1,0 +1,12 @@
+Source: python-requests
+Maintainer: <author_name> <<author_email>>
+Section: misc
+Priority: optional
+Standards-Version: 114-6847372-1
+Build-Depends: debhelper (>= 7)
+Homepage: http://www.savoirfairelinux.com
+
+Package: python-requests
+Architecture: any
+Depends: python
+Description: Python requests SFL lib

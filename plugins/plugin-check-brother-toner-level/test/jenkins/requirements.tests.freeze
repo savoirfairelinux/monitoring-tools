@@ -1,0 +1,4 @@
+coverage
+lxml==3.0.1
+nose
+pep8

@@ -1,0 +1,16 @@
+Source: plugin-check-mem
+Section: python
+Priority: optional
+Maintainer: Thibault Cohen <thibault.cohen@savoirfairelinux.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: https://github.com/savoirfairelinux/plugin-check-mem
+#Vcs-Git: git://anonscm.debian.org/collab-maint/plugin-check-mem.git
+#Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-mem.git;a=summary
+
+Package: plugin-check-mem
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Shinken plugin from SFL. Plugin to check memory usage
+ More information is available on Github:
+ https://github.com/savoirfairelinux/sfl-shinken-plugins

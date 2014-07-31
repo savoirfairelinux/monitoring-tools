@@ -1,0 +1,2 @@
+python-ceilometerclient==1.0.10
+python-keystoneclient==0.8.0

@@ -1,0 +1,5 @@
+check_graphite_api
+
+This plugin is made to ensure data freshness into Graphite.
+
+Author: Sebastien Coavoux (sebastien.coavoux@savoirfairelinux.com)

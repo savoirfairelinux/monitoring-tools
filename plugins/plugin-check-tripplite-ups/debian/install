@@ -1,0 +1,2 @@
+check_tripplite_ups /usr/lib/shinken/plugins
+check_tripplite_ups.pm /usr/lib/shinken/plugins

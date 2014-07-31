@@ -1,0 +1,488 @@
+<html>
+<style>
+table.menu1 td {
+  font-family:	Verdana, Geneva, sans-serif;
+  font-size : 13px;
+  border: 0px solid;
+  color: blue;
+  white-space: nowrap;
+}
+table.menu1 td a {
+ color: darkblue;
+ text-decoration:	none;
+ cursor: hand;
+}
+table.stat th, table.stat td {
+  font-family:	Verdana, Geneva, sans-serif;
+  font-size : 11px;
+  color: blue;
+  border: 0px solid;
+  white-space: nowrap;
+}
+.inputw{
+  font-family:	Verdana, Geneva, sans-serif;
+  font-size : 11px;
+  border : 0px;
+  color : darkblue;
+}
+
+.inputc {
+  font-family:	Verdana, Geneva, sans-serif;
+  font-size : 11px;
+  border : 0px;
+  color : darkblue;
+}
+
+.swalft {
+  font-family : Arial;
+  font-size : 9px;
+  color : blue;
+}
+
+.swdlft {
+  font-family : Arial;
+  font-size : 9px;
+  color : black;
+}
+
+.labelft {
+  font-family:	Verdana, Geneva, sans-serif;
+  font-size : 12px;
+  color : #990000;
+}
+
+.cpft {
+  font-family : Arial;
+  font-size : 9px;
+  color : black;
+}
+
+.navbar .tab {
+	font-family:	Verdana, Geneva, sans-serif;
+	font-size:		12px;
+	display:		inline;
+	margin:			1px -5px 1px 5px;
+	float:			left;
+	padding:		3px 6px 3px 6px;
+	background:		rgb(234,242,255);
+	border:			1px solid;
+	border-color:	rgb(120,172,255);
+	border-left:	0;
+	border-bottom:	0;
+	border-top:		0;
+	
+	z-index:		1;
+	position:		relative;
+	top:			0;
+	font-weight:	normal;
+}
+.navbar .tab.selected {
+	border:			1px solid rgb(120,172,255);
+	border-bottom:	0;
+	z-index:		3;
+	padding:		2px 6px 11px 6px;
+	margin:			1px -6px -2px 0px;
+	top:			-2px;
+	background:		white;
+	font-weight:	bold;
+}
+.navbar .tab a {
+	font-family:	Verdana, Geneva, sans-serif;
+	font-size:			13px;
+	color:				rgb(153,0,0);
+	text-decoration:	none;
+	cursor:			    hand;
+}
+.navbar .hover a {
+	color:	rgb(0,73,150);
+}
+.tab-page {
+	clear:			both;
+	border:			1px solid rgb(120,172,255);
+	background:		White;
+	z-index:		2;
+	position:		relative;
+	top:			-2px;
+	color:			Blue;
+	font-family:	Verdana, Geneva, sans-serif;
+	font-size:		11px;
+	padding:		0px;
+	width:			100%;
+}
+.navbar {
+	z-index:		1;
+	white-space:	nowrap;
+	background:		rgb(234,242,255);
+	height:			30px;
+	width:			100%;
+}
+</style>
+
+<script type="text/javascript">
+var check = false; 
+var currentPage = null;
+var ns4 = false;
+var ie4 = false;
+var dom = false;
+var hideStr = "";
+var showStr = "";
+
+function init() 
+{
+  styleStr=".style.display";
+  hideStr="='none'";
+  showStr="='block'";
+  check = true; 
+  if (document.getElementById){
+    dom = true;
+  }
+  else if (document.all){
+    ie4 = true;
+  }
+  else if (document.layers) {  
+    ns4 = true;
+    styleStr=".visibility";  
+    hideStr="='hide'";
+    showStr="='show'";
+  }
+  else check=false;
+}
+
+function getAllTags(tags)
+{
+  if (check){
+    if (document.getElementsByTagName)
+      return document.getElementsByTagName(tags);
+    if (document.document.all)
+      return document.all.tags(tags);
+    if (document.layers)
+      return document.lalyers;
+    if (document.divs)
+      return document.divs;
+  }
+  return null;
+}
+
+function getElement(tabName)
+{
+  if (check){
+    if (dom)
+      return document.getElementById(tabName);
+    if (ie4)
+      return document.all[tabName];  
+    if (ns4)
+      return document.layers[tabName];
+  }
+  return null; 
+}
+
+
+function onMouseOver(tabName)
+{
+  var el;
+
+  el = getElement("nav"+tabName);
+  if (el==null)
+    return;
+
+  el.className = el.className + " hover";
+}
+
+function onMouseOut(tabName)
+{
+  var el;
+
+  el = getElement("nav"+tabName);
+  if (el==null)
+    return;
+  
+  el.className = el.className.replace(/ hover/g, "");
+}
+
+function showTab(tabName)
+{
+  var el;
+
+  el = getElement(tabName);
+  if (el==null)
+    return;
+	
+  eval("el"+styleStr+showStr);
+
+  el = getElement("nav"+tabName);
+  if (el==null)
+    return;
+
+  el.className = el.className.replace(/tab/g, "tab selected");
+}
+function hideTab(tabName) 
+{
+  var el;
+
+  el = getElement(tabName);
+  if (el==null)
+    return;
+	
+  eval("el"+styleStr+hideStr);
+
+  el = getElement("nav"+tabName);
+  if (el==null)
+    return;
+
+  el.className = el.className.replace(/ selected/g, "");
+}
+function switchPage(newpage) 
+{
+  if (currentPage!=null)
+	hideTab(currentPage);
+  currentPage=newpage;
+  showTab(newpage);
+}
+function hideOthers()
+{
+  var all; 
+  var i;
+  var first=1;
+
+  all = getAllTags("div");
+  if (all==null)
+    return;
+  for (i=0; i<all.length; i++){
+    if (all[i].className=="tab-page"){
+      if (first==1){
+	    first=0;
+        switchPage(all[i].id);
+      }
+	  else eval("all[i]"+styleStr+hideStr);
+    }
+  }
+}
+
+function onLoad()
+{
+  init();
+  hideOthers();
+}
+</script>
+
+  <head>
+    <title>Linksys SPA Configuration</title>
+  </head>
+  <body>
+    <center>
+<form action="bsipura.spa" method="POST">
+      <table border="0"  bgcolor="white" cellpadding="0" cellspacing="0" width="700">
+        <tr> <td align="right" valign="middle">
+<a href="http://www.linksys.com" target="linksys">
+<img width="100%" src="/spabanner.jpg" border="0" alt="Cisco-Linksys, LLC">
+<tr bgcolor=#eaf2ff><td>
+  
+<TABLE class="menu1" height="25" cellSpacing=0 cellPadding=0 width=100% bgColor=white border=0><TR align=center>
+<td width=130 bgColor=#cfcfcf><a href=../>Router</a>
+<TD width=1 bgColor=#808080><IMG height=1 alt="" width=1></TD><TD width=1 bgColor=#ffffff><IMG height=1 alt="" width=1></TD>
+<td width=130 bgColor=#eaf2ff><B>Voice</B><TD width=1 bgColor=#808080><IMG height=1 alt="" width=1></TD><TD width=1 bgColor=#ffffff><IMG height=1 alt="" width=1></TD>
+<td bgColor=#cfcfcf width=436>&nbsp;</table>
+<div class="navbar"><h2 class="tab" id="navInfo" onclick="switchPage('Info');"><a href="#" onmouseover="onMouseOver('Info');" onmouseout="onMouseOut('Info');" onclick="return false;">Info</a></h2><h2 class="tab" id="navSystem" onclick="switchPage('System');"><a href="#" onmouseover="onMouseOver('System');" onmouseout="onMouseOut('System');" onclick="return false;">System</a></h2><h2 class="tab" id="navUser 1" onclick="switchPage('User 1');"><a href="#" onmouseover="onMouseOver('User 1');" onmouseout="onMouseOut('User 1');" onclick="return false;">User 1</a></h2><h2 class="tab" id="navUser 2" onclick="switchPage('User 2');"><a href="#" onmouseover="onMouseOver('User 2');" onmouseout="onMouseOut('User 2');" onclick="return false;">User 2</a></h2><p align=right>                    <a href="/admin/voice/"><font class="swalft">Admin Login</font></a>                    <font class="swdlft">&nbsp;&nbsp;&nbsp;&nbsp</font><font class="swdlft">basic&nbsp;&nbsp;|&nbsp;&nbsp;                    </font><a href="advanced"><font class="swalft">advanced</font></a></p></div>
+<tr><td>  
+<div class="tab-page" id="Info"><BR><table class="stat" cellpadding="1" cellspacing="0" width="100%">
+<COLGROUP>
+<COL width=26% align="left"> 
+<COL align="left"> 
+<COL width=26% align="left"> 
+<COL align="left"></COLGROUP>
+<tr bgcolor="#d3d3d3"><td colspan="4">&nbsp;
+<tr bgcolor="#d3d3d3"><td align="left" colspan="4"><font class="labelft">Product Information</font>
+<tr bgcolor="#dcdcdc"><td>Product Name:<td><font color="darkblue">SPA-2102</font><td>Serial Number:<td><font color="darkblue">FM500JC87363</font>
+<tr bgcolor="#d3d3d3"><td>Software Version:<td><font color="darkblue">3.3.6</font><td>Hardware Version:<td><font color="darkblue">1.3.5(a)</font>
+<tr bgcolor="#dcdcdc"><td>MAC Address:<td><font color="darkblue">000E082A723D</font><td>Client Certificate:<td><font color="darkblue">Installed</font>
+<tr bgcolor="#d3d3d3"><td>Customization:<td><font color="darkblue">Open</font><td><td>
+<tr bgcolor="#dcdcdc"><td colspan="4">&nbsp;
+<tr bgcolor="#dcdcdc"><td align="left" colspan="4"><font class="labelft">System Status</font>
+<tr bgcolor="#d3d3d3"><td>Current Time:<td><font color="darkblue">4/18/2013 17:30:42</font><td>Elapsed Time:<td><font color="darkblue">82 days and 05:18:39</font>
+<tr bgcolor="#dcdcdc"><td>RTP Packets Sent:<td><font color="darkblue">0</font><td>RTP Bytes Sent:<td><font color="darkblue">0</font>
+<tr bgcolor="#d3d3d3"><td>RTP Packets Recv:<td><font color="darkblue">0</font><td>RTP Bytes Recv:<td><font color="darkblue">0</font>
+<tr bgcolor="#dcdcdc"><td>SIP Messages Sent:<td><font color="darkblue">124318</font><td>SIP Bytes Sent:<td><font color="darkblue">50951950</font>
+<tr bgcolor="#d3d3d3"><td>SIP Messages Recv:<td><font color="darkblue">123189</font><td>SIP Bytes Recv:<td><font color="darkblue">66025066</font>
+<tr bgcolor="#dcdcdc"><td>External IP:<td><font color="darkblue"></font><td><td>
+<tr bgcolor="#d3d3d3"><td colspan="4">&nbsp;
+<tr bgcolor="#d3d3d3"><td align="left" colspan="4"><font class="labelft">Line 1 Status</font>
+<tr bgcolor="#dcdcdc"><td>Hook State:<td><font color="darkblue">On</font><td>Registration State:<td><font color="darkblue">Registered</font>
+<tr bgcolor="#d3d3d3"><td>Last Registration At:<td><font color="darkblue">4/18/2013 17:29:47</font><td>Next Registration In:<td><font color="darkblue">3515 s</font>
+<tr bgcolor="#dcdcdc"><td>Message Waiting:<td><font color="darkblue">No</font><td>Call Back Active:<td><font color="darkblue">No</font>
+<tr bgcolor="#d3d3d3"><td>Last Called Number:<td><font color="darkblue"></font><td>Last Caller Number:<td><font color="darkblue"></font>
+<tr bgcolor="#dcdcdc"><td>Mapped SIP Port:<td><font color="darkblue"></font><td><td><font color="darkblue"></font>
+<tr bgcolor="#d3d3d3"><td>Call 1 State:<td><font color="darkblue">Idle</font><td>Call 2 State:<td><font color="darkblue">Idle</font>
+<tr bgcolor="#dcdcdc"><td>Call 1 Tone:<td><font color="darkblue">None</font><td>Call 2 Tone:<td><font color="darkblue">None</font>
+<tr bgcolor="#d3d3d3"><td>Call 1 Encoder:<td><font color="darkblue"></font><td>Call 2 Encoder:<td><font color="darkblue"></font>
+<tr bgcolor="#dcdcdc"><td>Call 1 Decoder:<td><font color="darkblue"></font><td>Call 2 Decoder:<td><font color="darkblue"></font>
+<tr bgcolor="#d3d3d3"><td>Call 1 FAX:<td><font color="darkblue"></font><td>Call 2 FAX:<td><font color="darkblue"></font>
+<tr bgcolor="#dcdcdc"><td>Call 1 Type:<td><font color="darkblue"></font><td>Call 2 Type:<td><font color="darkblue"></font>
+<tr bgcolor="#d3d3d3"><td>Call 1 Remote Hold:<td><font color="darkblue"></font><td>Call 2 Remote Hold:<td><font color="darkblue"></font>
+<tr bgcolor="#dcdcdc"><td>Call 1 Callback:<td><font color="darkblue"></font><td>Call 2 Callback:<td><font color="darkblue"></font>
+<tr bgcolor="#d3d3d3"><td>Call 1 Peer Name:<td><font color="darkblue"></font><td>Call 2 Peer Name:<td><font color="darkblue"></font>
+<tr bgcolor="#dcdcdc"><td>Call 1 Peer Phone:<td><font color="darkblue"></font><td>Call 2 Peer Phone:<td><font color="darkblue"></font>
+<tr bgcolor="#d3d3d3"><td>Call 1 Duration:<td><font color="darkblue"></font><td>Call 2 Duration:<td><font color="darkblue"></font>
+<tr bgcolor="#dcdcdc"><td>Call 1 Packets Sent:<td><font color="darkblue"></font><td>Call 2 Packets Sent:<td><font color="darkblue"></font>
+<tr bgcolor="#d3d3d3"><td>Call 1 Packets Recv:<td><font color="darkblue"></font><td>Call 2 Packets Recv:<td><font color="darkblue"></font>
+<tr bgcolor="#dcdcdc"><td>Call 1 Bytes Sent:<td><font color="darkblue"></font><td>Call 2 Bytes Sent:<td><font color="darkblue"></font>
+<tr bgcolor="#d3d3d3"><td>Call 1 Bytes Recv:<td><font color="darkblue"></font><td>Call 2 Bytes Recv:<td><font color="darkblue"></font>
+<tr bgcolor="#dcdcdc"><td>Call 1 Decode Latency:<td><font color="darkblue"></font><td>Call 2 Decode Latency:<td><font color="darkblue"></font>
+<tr bgcolor="#d3d3d3"><td>Call 1 Jitter:<td><font color="darkblue"></font><td>Call 2 Jitter:<td><font color="darkblue"></font>
+<tr bgcolor="#dcdcdc"><td>Call 1 Round Trip Delay:<td><font color="darkblue"></font><td>Call 2 Round Trip Delay:<td><font color="darkblue"></font>
+<tr bgcolor="#d3d3d3"><td>Call 1 Packets Lost:<td><font color="darkblue"></font><td>Call 2 Packets Lost:<td><font color="darkblue"></font>
+<tr bgcolor="#dcdcdc"><td>Call 1 Packet Error:<td><font color="darkblue"></font><td>Call 2 Packet Error:<td><font color="darkblue"></font>
+<tr bgcolor="#d3d3d3"><td>Call 1 Mapped RTP Port:<td><font color="darkblue"></font><td>Call 2 Mapped RTP Port:<td><font color="darkblue"></font>
+<tr bgcolor="#dcdcdc"><td colspan="4">&nbsp;
+<tr bgcolor="#dcdcdc"><td align="left" colspan="4"><font class="labelft">Line 2 Status</font>
+<tr bgcolor="#d3d3d3"><td>Hook State:<td><font color="darkblue">On</font><td>Registration State:<td><font color="darkblue">Not Registered</font>
+<tr bgcolor="#dcdcdc"><td>Last Registration At:<td><font color="darkblue"></font><td>Next Registration In:<td><font color="darkblue"></font>
+<tr bgcolor="#d3d3d3"><td>Message Waiting:<td><font color="darkblue">No</font><td>Call Back Active:<td><font color="darkblue">No</font>
+<tr bgcolor="#dcdcdc"><td>Last Called Number:<td><font color="darkblue"></font><td>Last Caller Number:<td><font color="darkblue"></font>
+<tr bgcolor="#d3d3d3"><td>Mapped SIP Port:<td><font color="darkblue"></font><td><td><font color="darkblue"></font>
+<tr bgcolor="#dcdcdc"><td>Call 1 State:<td><font color="darkblue">Idle</font><td>Call 2 State:<td><font color="darkblue">Idle</font>
+<tr bgcolor="#d3d3d3"><td>Call 1 Tone:<td><font color="darkblue">None</font><td>Call 2 Tone:<td><font color="darkblue">None</font>
+<tr bgcolor="#dcdcdc"><td>Call 1 Type:<td><font color="darkblue"></font><td>Call 2 Type:<td><font color="darkblue"></font>
+<tr bgcolor="#d3d3d3"><td>Call 1 Encoder:<td><font color="darkblue"></font><td>Call 2 Encoder:<td><font color="darkblue"></font>
+<tr bgcolor="#dcdcdc"><td>Call 1 Decoder:<td><font color="darkblue"></font><td>Call 2 Decoder:<td><font color="darkblue"></font>
+<tr bgcolor="#d3d3d3"><td>Call 1 FAX:<td><font color="darkblue"></font><td>Call 2 FAX:<td><font color="darkblue"></font>
+<tr bgcolor="#dcdcdc"><td>Call 1 Remote Hold:<td><font color="darkblue"></font><td>Call 2 Remote Hold:<td><font color="darkblue"></font>
+<tr bgcolor="#d3d3d3"><td>Call 1 Callback:<td><font color="darkblue"></font><td>Call 2 Callback:<td><font color="darkblue"></font>
+<tr bgcolor="#dcdcdc"><td>Call 1 Peer Name:<td><font color="darkblue"></font><td>Call 2 Peer Name:<td><font color="darkblue"></font>
+<tr bgcolor="#d3d3d3"><td>Call 1 Peer Phone:<td><font color="darkblue"></font><td>Call 2 Peer Phone:<td><font color="darkblue"></font>
+<tr bgcolor="#dcdcdc"><td>Call 1 Duration:<td><font color="darkblue"></font><td>Call 2 Duration:<td><font color="darkblue"></font>
+<tr bgcolor="#d3d3d3"><td>Call 1 Packets Sent:<td><font color="darkblue"></font><td>Call 2 Packets Sent:<td><font color="darkblue"></font>
+<tr bgcolor="#dcdcdc"><td>Call 1 Packets Recv:<td><font color="darkblue"></font><td>Call 2 Packets Recv:<td><font color="darkblue"></font>
+<tr bgcolor="#d3d3d3"><td>Call 1 Bytes Sent:<td><font color="darkblue"></font><td>Call 2 Bytes Sent:<td><font color="darkblue"></font>
+<tr bgcolor="#dcdcdc"><td>Call 1 Bytes Recv:<td><font color="darkblue"></font><td>Call 2 Bytes Recv:<td><font color="darkblue"></font>
+<tr bgcolor="#d3d3d3"><td>Call 1 Decode Latency:<td><font color="darkblue"></font><td>Call 2 Decode Latency:<td><font color="darkblue"></font>
+<tr bgcolor="#dcdcdc"><td>Call 1 Jitter:<td><font color="darkblue"></font><td>Call 2 Jitter:<td><font color="darkblue"></font>
+<tr bgcolor="#d3d3d3"><td>Call 1 Round Trip Delay:<td><font color="darkblue"></font><td>Call 2 Round Trip Delay:<td><font color="darkblue"></font>
+<tr bgcolor="#dcdcdc"><td>Call 1 Packets Lost:<td><font color="darkblue"></font><td>Call 2 Packets Lost:<td><font color="darkblue"></font>
+<tr bgcolor="#d3d3d3"><td>Call 1 Packet Error:<td><font color="darkblue"></font><td>Call 2 Packet Error:<td><font color="darkblue"></font>
+<tr bgcolor="#dcdcdc"><td>Call 1 Mapped RTP Port:<td><font color="darkblue"></font><td>Call 2 Mapped RTP Port:<td><font color="darkblue"></font></table> </div>
+<div class="tab-page" id="System"><BR><table class="stat" cellpadding="1" cellspacing="0" width="100%">
+<COLGROUP>
+<COL width=26% align="left"> 
+<COL align="left"> 
+<COL width=26% align="left"> 
+<COL align="left"></COLGROUP>
+<tr bgcolor="#d3d3d3"><td colspan="4">&nbsp;
+<tr bgcolor="#d3d3d3"><td align="left" colspan="4"><font class="labelft">System Configuration</font>
+<tr bgcolor="#dcdcdc"><td>User Password:<td><input class="inputc" size="20" name="P34415" value="" maxlength=255><td><td>
+<tr bgcolor="#d3d3d3"><td colspan="4">&nbsp;
+<tr bgcolor="#d3d3d3"><td align="left" colspan="4"><font class="labelft">Miscellaneous Settings</font></table> </div>
+<div class="tab-page" id="User 1"><BR><table class="stat" cellpadding="1" cellspacing="0" width="100%">
+<COLGROUP>
+<COL width=26% align="left"> 
+<COL align="left"> 
+<COL width=26% align="left"> 
+<COL align="left"></COLGROUP>
+<tr bgcolor="#d3d3d3"><td colspan="4">&nbsp;
+<tr bgcolor="#d3d3d3"><td align="left" colspan="4"><font class="labelft">Call Forward Settings</font>
+<tr bgcolor="#dcdcdc"><td>Cfwd All Dest:<td><input class="inputc" size="20" name="17775" value="" maxlength=2047><td>Cfwd Busy Dest:<td><input class="inputc" size="20" name="17711" value="" maxlength=2047>
+<tr bgcolor="#d3d3d3"><td>Cfwd No Ans Dest:<td><input class="inputw" size="20" name="17903" value="" maxlength=2047><td>Cfwd No Ans Delay:<td><input class="inputw" size="20" name="17839" value="20" maxlength=2047>
+<tr bgcolor="#dcdcdc"><td colspan="4">&nbsp;
+<tr bgcolor="#dcdcdc"><td align="left" colspan="4"><font class="labelft">Selective Call Forward Settings</font>
+<tr bgcolor="#d3d3d3"><td>Cfwd Sel1 Caller:<td><input class="inputw" size="20" name="20335" value="" maxlength=2047><td>Cfwd Sel1 Dest:<td><input class="inputw" size="20" name="19055" value="" maxlength=2047>
+<tr bgcolor="#dcdcdc"><td>Cfwd Sel2 Caller:<td><input class="inputc" size="20" name="20271" value="" maxlength=2047><td>Cfwd Sel2 Dest:<td><input class="inputc" size="20" name="18991" value="" maxlength=2047>
+<tr bgcolor="#d3d3d3"><td>Cfwd Sel3 Caller:<td><input class="inputw" size="20" name="20463" value="" maxlength=2047><td>Cfwd Sel3 Dest:<td><input class="inputw" size="20" name="19183" value="" maxlength=2047>
+<tr bgcolor="#dcdcdc"><td>Cfwd Sel4 Caller:<td><input class="inputc" size="20" name="20399" value="" maxlength=2047><td>Cfwd Sel4 Dest:<td><input class="inputc" size="20" name="19119" value="" maxlength=2047>
+<tr bgcolor="#d3d3d3"><td>Cfwd Sel5 Caller:<td><input class="inputw" size="20" name="19567" value="" maxlength=2047><td>Cfwd Sel5 Dest:<td><input class="inputw" size="20" name="19311" value="" maxlength=2047>
+<tr bgcolor="#dcdcdc"><td>Cfwd Sel6 Caller:<td><input class="inputc" size="20" name="19503" value="" maxlength=2047><td>Cfwd Sel6 Dest:<td><input class="inputc" size="20" name="19247" value="" maxlength=2047>
+<tr bgcolor="#d3d3d3"><td>Cfwd Sel7 Caller:<td><input class="inputw" size="20" name="19695" value="" maxlength=2047><td>Cfwd Sel7 Dest:<td><input class="inputw" size="20" name="19439" value="" maxlength=2047>
+<tr bgcolor="#dcdcdc"><td>Cfwd Sel8 Caller:<td><input class="inputc" size="20" name="19631" value="" maxlength=2047><td>Cfwd Sel8 Dest:<td><input class="inputc" size="20" name="19375" value="" maxlength=2047>
+<tr bgcolor="#d3d3d3"><td>Cfwd Last Caller:<td><input class="inputw" size="20" name="13935" value="" maxlength=2047><td>Cfwd Last Dest:<td><input class="inputw" size="20" name="12719" value="" maxlength=2047>
+<tr bgcolor="#dcdcdc"><td>Block Last Caller:<td><input class="inputc" size="20" name="13871" value="" maxlength=2047><td>Accept Last Caller:<td><input class="inputc" size="20" name="14063" value="" maxlength=2047>
+<tr bgcolor="#d3d3d3"><td colspan="4">&nbsp;
+<tr bgcolor="#d3d3d3"><td align="left" colspan="4"><font class="labelft">Supplementary Service Settings</font>
+<tr bgcolor="#dcdcdc"><td>CW Setting:<td><select class="inputc" name="12399"><option selected value="1">yes</option><option  value="0">no</option></select>
+<td>Block CID Setting:<td><select class="inputc" name="12335"><option  value="1">yes</option><option selected value="0">no</option></select>
+
+<tr bgcolor="#d3d3d3"><td>Block ANC Setting:<td><select class="inputw" name="12527"><option  value="1">yes</option><option selected value="0">no</option></select>
+<td>DND Setting:<td><select class="inputw" name="12463"><option  value="1">yes</option><option selected value="0">no</option></select>
+
+<tr bgcolor="#dcdcdc"><td>CID Setting:<td><select class="inputc" name="12655"><option selected value="1">yes</option><option  value="0">no</option></select>
+<td>CWCID Setting:<td><select class="inputc" name="12591"><option selected value="1">yes</option><option  value="0">no</option></select>
+
+<tr bgcolor="#d3d3d3"><td>Dist Ring Setting:<td><select class="inputw" name="12783"><option selected value="1">yes</option><option  value="0">no</option></select>
+<td>Message Waiting:<td><select class="inputw" name="10351"><option  value="1">yes</option><option selected value="0">no</option></select>
+
+<tr bgcolor="#dcdcdc"><td colspan="4">&nbsp;
+<tr bgcolor="#dcdcdc"><td align="left" colspan="4"><font class="labelft">Distinctive Ring Settings</font>
+<tr bgcolor="#d3d3d3"><td>Ring1 Caller:<td><input class="inputw" size="20" name="24175" value="" maxlength=2047><td>Ring2 Caller:<td><input class="inputw" size="20" name="24111" value="" maxlength=2047>
+<tr bgcolor="#dcdcdc"><td>Ring3 Caller:<td><input class="inputc" size="20" name="24303" value="" maxlength=2047><td>Ring4 Caller:<td><input class="inputc" size="20" name="24239" value="" maxlength=2047>
+<tr bgcolor="#d3d3d3"><td>Ring5 Caller:<td><input class="inputw" size="20" name="24431" value="" maxlength=2047><td>Ring6 Caller:<td><input class="inputw" size="20" name="24367" value="" maxlength=2047>
+<tr bgcolor="#dcdcdc"><td>Ring7 Caller:<td><input class="inputc" size="20" name="24559" value="" maxlength=2047><td>Ring8 Caller:<td><input class="inputc" size="20" name="24495" value="" maxlength=2047>
+<tr bgcolor="#d3d3d3"><td colspan="4">&nbsp;
+<tr bgcolor="#d3d3d3"><td align="left" colspan="4"><font class="labelft">Ring Settings</font>
+<tr bgcolor="#dcdcdc"><td>Default Ring:<td><select class="inputc" name="17263"><option value="1" selected>1</option><option value="2" >2</option><option value="3" >3</option><option value="4" >4</option><option value="5" >5</option><option value="6" >6</option><option value="7" >7</option><option value="8" >8</option></select><td>Default CWT:<td><select class="inputc" name="17199"><option value="1" selected>1</option><option value="2" >2</option><option value="3" >3</option><option value="4" >4</option><option value="5" >5</option><option value="6" >6</option><option value="7" >7</option><option value="8" >8</option></select>
+<tr bgcolor="#d3d3d3"><td>Hold Reminder Ring:<td><select class="inputw" name="17391"><option value="1" >1</option><option value="2" >2</option><option value="3" >3</option><option value="4" >4</option><option value="5" >5</option><option value="6" >6</option><option value="7" >7</option><option value="8" selected>8</option><option value="none" >none</option></select><td>Call Back Ring:<td><select class="inputw" name="17327"><option value="1" >1</option><option value="2" >2</option><option value="3" >3</option><option value="4" >4</option><option value="5" >5</option><option value="6" >6</option><option value="7" selected>7</option><option value="8" >8</option></select>
+<tr bgcolor="#dcdcdc"><td>Cfwd Ring Splash Len:<td><input class="inputc" size="20" name="14447" value="0" maxlength=2047><td>Cblk Ring Splash Len:<td><input class="inputc" size="20" name="14575" value="0" maxlength=2047>
+<tr bgcolor="#d3d3d3"><td>VMWI Ring Splash Len:<td><input class="inputw" size="20" name="14383" value="0" maxlength=2047><td><td></table> </div>
+<div class="tab-page" id="User 2"><BR><table class="stat" cellpadding="1" cellspacing="0" width="100%">
+<COLGROUP>
+<COL width=26% align="left"> 
+<COL align="left"> 
+<COL width=26% align="left"> 
+<COL align="left"></COLGROUP>
+<tr bgcolor="#d3d3d3"><td colspan="4">&nbsp;
+<tr bgcolor="#d3d3d3"><td align="left" colspan="4"><font class="labelft">Call Forward Settings</font>
+<tr bgcolor="#dcdcdc"><td>Cfwd All Dest:<td><input class="inputc" size="20" name="62831" value="" maxlength=2047><td>Cfwd Busy Dest:<td><input class="inputc" size="20" name="62767" value="" maxlength=2047>
+<tr bgcolor="#d3d3d3"><td>Cfwd No Ans Dest:<td><input class="inputw" size="20" name="62959" value="" maxlength=2047><td>Cfwd No Ans Delay:<td><input class="inputw" size="20" name="62895" value="20" maxlength=2047>
+<tr bgcolor="#dcdcdc"><td colspan="4">&nbsp;
+<tr bgcolor="#dcdcdc"><td align="left" colspan="4"><font class="labelft">Selective Call Forward Settings</font>
+<tr bgcolor="#d3d3d3"><td>Cfwd Sel1 Caller:<td><input class="inputw" size="20" name="65391" value="" maxlength=2047><td>Cfwd Sel1 Dest:<td><input class="inputw" size="20" name="64111" value="" maxlength=2047>
+<tr bgcolor="#dcdcdc"><td>Cfwd Sel2 Caller:<td><input class="inputc" size="20" name="65327" value="" maxlength=2047><td>Cfwd Sel2 Dest:<td><input class="inputc" size="20" name="64047" value="" maxlength=2047>
+<tr bgcolor="#d3d3d3"><td>Cfwd Sel3 Caller:<td><input class="inputw" size="20" name="65519" value="" maxlength=2047><td>Cfwd Sel3 Dest:<td><input class="inputw" size="20" name="64239" value="" maxlength=2047>
+<tr bgcolor="#dcdcdc"><td>Cfwd Sel4 Caller:<td><input class="inputc" size="20" name="65455" value="" maxlength=2047><td>Cfwd Sel4 Dest:<td><input class="inputc" size="20" name="64175" value="" maxlength=2047>
+<tr bgcolor="#d3d3d3"><td>Cfwd Sel5 Caller:<td><input class="inputw" size="20" name="64623" value="" maxlength=2047><td>Cfwd Sel5 Dest:<td><input class="inputw" size="20" name="64367" value="" maxlength=2047>
+<tr bgcolor="#dcdcdc"><td>Cfwd Sel6 Caller:<td><input class="inputc" size="20" name="64559" value="" maxlength=2047><td>Cfwd Sel6 Dest:<td><input class="inputc" size="20" name="64303" value="" maxlength=2047>
+<tr bgcolor="#d3d3d3"><td>Cfwd Sel7 Caller:<td><input class="inputw" size="20" name="64751" value="" maxlength=2047><td>Cfwd Sel7 Dest:<td><input class="inputw" size="20" name="64495" value="" maxlength=2047>
+<tr bgcolor="#dcdcdc"><td>Cfwd Sel8 Caller:<td><input class="inputc" size="20" name="64687" value="" maxlength=2047><td>Cfwd Sel8 Dest:<td><input class="inputc" size="20" name="64431" value="" maxlength=2047>
+<tr bgcolor="#d3d3d3"><td>Cfwd Last Caller:<td><input class="inputw" size="20" name="58991" value="" maxlength=2047><td>Cfwd Last Dest:<td><input class="inputw" size="20" name="57775" value="" maxlength=2047>
+<tr bgcolor="#dcdcdc"><td>Block Last Caller:<td><input class="inputc" size="20" name="58927" value="" maxlength=2047><td>Accept Last Caller:<td><input class="inputc" size="20" name="59119" value="" maxlength=2047>
+<tr bgcolor="#d3d3d3"><td colspan="4">&nbsp;
+<tr bgcolor="#d3d3d3"><td align="left" colspan="4"><font class="labelft">Supplementary Service Settings</font>
+<tr bgcolor="#dcdcdc"><td>CW Setting:<td><select class="inputc" name="57455"><option selected value="1">yes</option><option  value="0">no</option></select>
+<td>Block CID Setting:<td><select class="inputc" name="57391"><option  value="1">yes</option><option selected value="0">no</option></select>
+
+<tr bgcolor="#d3d3d3"><td>Block ANC Setting:<td><select class="inputw" name="57583"><option  value="1">yes</option><option selected value="0">no</option></select>
+<td>DND Setting:<td><select class="inputw" name="57519"><option  value="1">yes</option><option selected value="0">no</option></select>
+
+<tr bgcolor="#dcdcdc"><td>CID Setting:<td><select class="inputc" name="57711"><option selected value="1">yes</option><option  value="0">no</option></select>
+<td>CWCID Setting:<td><select class="inputc" name="57647"><option selected value="1">yes</option><option  value="0">no</option></select>
+
+<tr bgcolor="#d3d3d3"><td>Dist Ring Setting:<td><select class="inputw" name="57839"><option selected value="1">yes</option><option  value="0">no</option></select>
+<td>Message Waiting:<td><select class="inputw" name="55407"><option  value="1">yes</option><option selected value="0">no</option></select>
+
+<tr bgcolor="#dcdcdc"><td colspan="4">&nbsp;
+<tr bgcolor="#dcdcdc"><td align="left" colspan="4"><font class="labelft">Distinctive Ring Settings</font>
+<tr bgcolor="#d3d3d3"><td>Ring1 Caller:<td><input class="inputw" size="20" name="3695" value="" maxlength=2047><td>Ring2 Caller:<td><input class="inputw" size="20" name="3631" value="" maxlength=2047>
+<tr bgcolor="#dcdcdc"><td>Ring3 Caller:<td><input class="inputc" size="20" name="3823" value="" maxlength=2047><td>Ring4 Caller:<td><input class="inputc" size="20" name="3759" value="" maxlength=2047>
+<tr bgcolor="#d3d3d3"><td>Ring5 Caller:<td><input class="inputw" size="20" name="3951" value="" maxlength=2047><td>Ring6 Caller:<td><input class="inputw" size="20" name="3887" value="" maxlength=2047>
+<tr bgcolor="#dcdcdc"><td>Ring7 Caller:<td><input class="inputc" size="20" name="4079" value="" maxlength=2047><td>Ring8 Caller:<td><input class="inputc" size="20" name="4015" value="" maxlength=2047>
+<tr bgcolor="#d3d3d3"><td colspan="4">&nbsp;
+<tr bgcolor="#d3d3d3"><td align="left" colspan="4"><font class="labelft">Ring Settings</font>
+<tr bgcolor="#dcdcdc"><td>Default Ring:<td><select class="inputc" name="62319"><option value="1" selected>1</option><option value="2" >2</option><option value="3" >3</option><option value="4" >4</option><option value="5" >5</option><option value="6" >6</option><option value="7" >7</option><option value="8" >8</option></select><td>Default CWT:<td><select class="inputc" name="62255"><option value="1" selected>1</option><option value="2" >2</option><option value="3" >3</option><option value="4" >4</option><option value="5" >5</option><option value="6" >6</option><option value="7" >7</option><option value="8" >8</option></select>
+<tr bgcolor="#d3d3d3"><td>Hold Reminder Ring:<td><select class="inputw" name="62447"><option value="1" >1</option><option value="2" >2</option><option value="3" >3</option><option value="4" >4</option><option value="5" >5</option><option value="6" >6</option><option value="7" >7</option><option value="8" selected>8</option><option value="none" >none</option></select><td>Call Back Ring:<td><select class="inputw" name="62383"><option value="1" >1</option><option value="2" >2</option><option value="3" >3</option><option value="4" >4</option><option value="5" >5</option><option value="6" >6</option><option value="7" selected>7</option><option value="8" >8</option></select>
+<tr bgcolor="#dcdcdc"><td>Cfwd Ring Splash Len:<td><input class="inputc" size="20" name="59503" value="0" maxlength=2047><td>Cblk Ring Splash Len:<td><input class="inputc" size="20" name="59631" value="0" maxlength=2047>
+<tr bgcolor="#d3d3d3"><td>VMWI Ring Splash Len:<td><input class="inputw" size="20" name="59439" value="0" maxlength=2047><td><td></table> </div>
+
+<tr><td>
+<table width="100%">
+<tr><td align=right>
+<input type="reset" value="Undo All Changes">&nbsp;
+<td align=left>&nbsp;<input type="submit" value="Submit All Changes">
+</table>
+<tr><td align="left">
+                    <a href="/admin/voice/"><font class="swalft">Admin Login</font></a>                    <font class="swdlft">&nbsp;&nbsp;&nbsp;&nbsp</font><font class="swdlft">basic&nbsp;&nbsp;|&nbsp;&nbsp;                    </font><a href="advanced"><font class="swalft">advanced</font></a>
+<tr><td align="center"> <p class="cpft"><br><br>
+Copyright © 1992-2006 Cisco Systems, Inc. All Rights Reserved.</p>
+      </table>
+     </form>
+    </center>
+  </body>
+<script type="text/javascript">
+onLoad();
+</script>
+</html>

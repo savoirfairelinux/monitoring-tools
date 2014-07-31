@@ -1,0 +1,40 @@
+#!/bin/bash
+#
+#     Copyright (C) 2012 Savoir-Faire Linux Inc.
+#
+#     This program is free software; you can redistribute it and/or modify
+#     it under the terms of the GNU General Public License as published by
+#     the Free Software Foundation; either version 3 of the License, or
+#     (at your option) any later version.
+#
+#     This program is distributed in the hope that it will be useful,
+#     but WITHOUT ANY WARRANTY; without even the implied warranty of
+#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#     GNU General Public License for more details.
+#
+#     You should have received a copy of the GNU General Public License
+#     along with this program; if not, write to the Free Software
+#     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#     Projects :
+#               SFL Shinken plugins
+#
+#     File :
+#               runtests Launch unit tests
+#
+#
+#     Author: Thibault Cohen <thibault.cohen@savoirfairelinux.com> 
+#
+#
+
+cover -delete
+PERL5OPT=-MDevel::Cover=+ignore,/usr/bin/prove,utils.pm,test/.*\.t,-ignore,-db,cover_db,-coverage,statement,time prove --formatter=TAP::Formatter::JUnit test/check_mem.t > test/TEST-check_mem.xml
+PERL5LIB=test cover -report clover
+cover -report html
+echo `cover | grep Total |awk '{print $NF}'`% > test/total_coverage.txt
+sed -i '/<testsuites>/d' test/TEST-check_mem.xml
+sed -i '/<\/testsuites>/d' test/TEST-check_mem.xml
+mkdir -p test/htmlcov
+mv cover_db/*.html test/htmlcov
+mv cover_db/cover.css test/htmlcov
+mv test/htmlcov/coverage.html test/htmlcov/index.html

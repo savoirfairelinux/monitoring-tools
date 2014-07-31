@@ -1,0 +1,292 @@
+
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+
+
+<html>
+<head>
+
+  <script language="JavaScript1.2" src="/Static/setoptions.js">
+  </script>
+
+  <script language="JavaScript1.2" src="/Static/frame3b.js">
+
+
+  <!--  The frame3b.js file is included to satisfy accessibility requirements of shifting between frames in a window using the keyboard(without the use of a mouse).PRESS CTRL+j to go(jump) to the next frame. PRESS CTRL+t to go to the previous (top) frame.  -->
+  
+  </script>
+
+  <title>Device Status Info</title>
+  
+  <style type="text/css">
+    <!--
+      .oif  { font-family:Arial,Helvetica; font-size:9pt; font-weight: lighter; text-indent:12px; color:#3366cc;}
+      .hf { font-family:Arial,Helvetica; font-weight: lighter; font-size:18pt; color:#3366CC;}
+    -->
+  </style>
+</head>
+
+<body bgcolor="#ffffff" topmargin="15px" leftmargin="20px" rightmargin="20px" onload="changeBGandLoadHome('device_status_info','on','/SSI/device_status_info.htm','Info',0,'off');">
+
+<table  width ="100%" >
+  <tr>
+    <td nowrap="nowrap"  height="38px" valign="top"  align="left"   background="/Images/Blue_line_header.gif">
+      <font class="hf">
+      Device Status</font></td>
+  </tr>
+</table>
+
+
+
+<table  border="0" cellspacing="0" width="613" cellpadding="0" height="1">
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+  
+    <td  height="40" valign="top" width="613">Ready </td>
+  
+  </tr>
+
+  <tr>
+    <td width="613">
+
+      <table  width="613" border="0" cellpadding="0" cellspacing="0" valign="top" >
+        <tr>
+          <td width="45%" height="7">&nbsp;</td>
+          <td width="20%"height="7">&nbsp;</td>
+          <td height="7">&nbsp;</td>
+        </tr>    <!-- Start of line 2 - The Refresh Status, Go and Cancel buttons -->
+        <tr>
+          <td  ALIGN="CENTER">
+            <input type="button" value="Refresh Status" onclick="top.location.reload()" accesskey="r" />
+          </TD>
+          <td ALIGN="CENTER">
+
+            <form name="Go" method="post" action="/cgi-bin/device_status_info.htm">
+              <INPUT TYPE="HIDDEN" NAME="ID 62" value="1" >
+              <input name="go" type="image"  border="0" src="/Images/SelectButton.gif" align="left" >
+            </form>
+          </TD>
+          <td ALIGN="CENTER">
+            <form name="Cancel" method="post" action="/cgi-bin/device_status_info.htm">
+              <INPUT TYPE="HIDDEN" NAME="ID 63" value="1" >
+              <input name="Cancel" type="image"  border="0" src="/Images/CancelButton.gif" align="left" >
+            </form>
+          </td>
+
+        </tr>
+
+        <tr>
+          <td height="7"></td>
+        </tr>
+        <tr>
+          <td height="7"></td>
+        </tr>
+      </table>
+    </TD>
+  </TR>
+
+</table>
+<br>
+
+
+<table border="0" cellpadding="0" cellspacing="0" width="613" height="1">
+  <tr>
+    <td bgcolor="#3366CC"><b><font size="2" face="Helvetica,Arial" color="#FFFFFF">&nbsp;Supplies</font></b></td>
+  </tr>
+  <tr>
+    <td><font size="2" face="Helvetica,Arial">&nbsp;            </font></td>
+  </tr>
+</table>
+
+<table width="613" border="0">
+  <tr>
+    <td colspan="4"><b><font face="Helvetica,Arial" size="2">Toners: (% remaining)</font></b></td>
+  </tr>
+  <tr>
+    <td width="25%"><font face="Helvetica,Arial" size="1">BLACK CARTRIDGE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;84%</font></td>
+    <td width="25%"><font face="Helvetica,Arial" size="1">YELLOW CARTRIDGE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;89%</font></td>
+    <td width="25%"><font face="Helvetica,Arial" size="1">CYAN CARTRIDGE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;63%</font></td>
+    <td width="25%"><font face="Helvetica,Arial" size="1">MAGENTA CARTRIDGE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;89%</font></td>
+  </tr>
+  <tr>
+    <td width="25%">
+      <table border="1" cellspacing="0" width="100%">
+        <tr>
+          <td>
+            <table  border="0" cellspacing="0" width="84%" height="21" bgcolor="#000000">
+              <tr>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+
+    <td width="25%">
+      <table border="1" cellspacing="0" width="100%">
+        <tr>
+          <td>
+            <table  border="0" cellspacing="0" width="89%" height="21" bgcolor="#FFFF00">
+              <tr>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+    <td width="25%">
+      <table border="1" cellspacing="0" width="100%">
+        <tr>
+          <td>
+            <table  border="0" cellspacing="0" width="63%" height="21" bgcolor="#00FFFF">
+              <tr>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+    <td width="25%">
+      <table border="1" cellspacing="0" width="100%">
+        <tr>
+          <td>
+            <table  border="0" cellspacing="0" width="89%" height="21" bgcolor="#FF00FF">
+              <tr>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <TR>
+    <td>&nbsp;</td>
+  </TR>
+  
+  <tr>
+    <td colspan="4" align="center"><a href="javascript:changeBGandLoad('supply_status_info_menu', 'on', '/SSI/supply_status_info.htm', 'Info', 0, 'on');" style="font-family: Helvetica,Arial,'Sans Serif'; font-size: 10pt">
+      <u><font class="oif">Supplies Details</font></u></a></td>
+  </tr>
+  
+</table>
+
+<br>
+
+
+<table border="0" cellpadding="0" cellspacing="0" width="613" height="1">
+  <tr>
+    <td bgcolor="#3366CC"><b><font size="2" face="Helvetica,Arial" color="#FFFFFF">&nbsp;Network</font></b></td>
+  </tr>
+  <tr>
+    <td><font size="2" face="Helvetica,Arial">&nbsp;            </font></td>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="613">
+  <tr>
+    <td width="50%"><font size="2" face="Helvetica,Arial">IP Address:</font></td>
+    <td><font size="2" face="Helvetica,Arial">192.168.20.60</font></td>
+  </tr>
+  <tr>
+    <td width="50%"><font size="2" face="Helvetica,Arial">Host Name:</font></td>
+    <td><font size="2" face="Helvetica,Arial">NPID7BC29</font></td>
+  </tr>
+  <tr>
+    <td width="50%"><font size="2" face="Helvetica,Arial">Connection Active:</font></td>
+    <td><font size="2" face="Helvetica,Arial">Yes</font></td>
+  </tr>
+</table>
+<BR>
+
+
+<table border="0" cellpadding="0" cellspacing="0" width="613" height="1">
+  <tr>
+    <td bgcolor="#3366CC"><b><font size="2" face="Helvetica,Arial" color="#FFFFFF">&nbsp;Media</font></b></td>
+  </tr>
+  <tr>
+    <td><font size="2" face="Helvetica,Arial">&nbsp;            </font></td>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="613">
+  <tr>
+    <b>
+    <th id="Input/Output" style="font-family: Helvetica,Arial,'Sans Serif'; font-size: 10pt">Input/Output</th>
+    </b><b>
+    <th id="Size" style="font-family: Helvetica,Arial,'Sans Serif'; font-size: 10pt">Size</th>
+    </b><b>
+    <th id="Type" style="font-family: Helvetica,Arial,'Sans Serif'; font-size: 10pt">Type</th>
+    </b>
+  </tr>
+
+
+  <tr>
+    <td align="center" headers="Input/Output" style="font-family: Helvetica,Arial,'Sans Serif'; font-size: 10pt">&nbsp;Tray 2&nbsp;</td>
+
+    <td align="center" headers="Size" style="font-family: Helvetica,Arial,'Sans Serif'; font-size: 10pt">&nbsp;Any&nbsp;</td>
+
+    <td align="center" headers="Type" style="font-family: Helvetica,Arial,'Sans Serif'; font-size: 10pt">&nbsp;Any&nbsp;</td>
+
+  </tr>
+  
+</table>
+<BR>
+
+<table border="0" cellpadding="0" cellspacing="0" width="613" height="1">
+  <tr>
+    <td bgcolor="#3366CC"><b><font size="2" face="Helvetica,Arial" color="#FFFFFF">&nbsp;Product Information</font></b></td>
+  </tr>
+  <tr>
+    <td width="100%"><font size="2" face="Helvetica,Arial">&nbsp;            </font></td>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="613">
+  <tr>
+    <td width="50%"><font size="2" face="Helvetica,Arial">Product Name:</font></td>
+    <td><font size="2" face="Helvetica,Arial">HP Color LaserJet 2600n</font></td>
+  </tr>
+  <tr>
+    <td width="50%"><font size="2" face="Helvetica,Arial">Formatter Number:</font></td>
+    <td><font size="2" face="Helvetica,Arial">F93EZ5H</font></td>
+  </tr>
+  <tr>
+    <td width="50%"><font size="2" face="Helvetica,Arial">Product Serial Number:</font></td>
+    <td><font size="2" face="Helvetica,Arial">CNGC67T05M</font></td>
+  </tr>
+  <tr>
+    <td width="50%"><font size="2" face="Helvetica,Arial">Service ID:</font></td>
+    <td><font size="2" face="Helvetica,Arial">06293</font></td>
+  </tr>
+  <tr>
+    <td width="50%"><font size="2" face="Helvetica,Arial">Firmware Datecode:</font></td>
+    <td><font size="2" face="Helvetica,Arial">20050610</font></td>
+  </tr>
+  <tr>
+    <td width="50%"><font size="2" face="Helvetica,Arial">Total Memory:</font></td>
+    <td><font size="2" face="Helvetica,Arial">16 MBytes</font></td>
+  </tr>
+  <tr>
+    <td width="50%"><font size="2" face="Helvetica,Arial">Available Memory:</font></td>
+    <td><font size="2" face="Helvetica,Arial">13 MBytes</font></td>
+  </tr>
+  <tr>
+    <td width="50%"><font size="2" face="Helvetica,Arial">Max Monochrome Print Quality:</font></td>
+    <td><font size="2" face="Helvetica,Arial">HP ImageREt 2400</font></td>
+  </tr>
+  <tr>
+    <td width="50%"><font size="2" face="Helvetica,Arial">Max Color Print Quality:</font></td>
+    <td><font size="2" face="Helvetica,Arial">HP ImageREt 2400</font></td>
+  </tr>
+</table>
+<br>
+
+
+
+</body>
+</html>
+

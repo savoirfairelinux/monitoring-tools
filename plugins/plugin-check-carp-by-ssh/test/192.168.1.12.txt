@@ -1,0 +1,75 @@
+lo0: flags=8049<UP,LOOPBACK,RUNNING,MULTICAST> mtu 33200
+	priority: 0
+	groups: lo
+	inet 127.0.0.1 netmask 0xff000000
+	inet6 ::1 prefixlen 128
+	inet6 fe80::1%lo0 prefixlen 64 scopeid 0x6
+vr0: flags=8b43<UP,BROADCAST,RUNNING,PROMISC,ALLMULTI,SIMPLEX,MULTICAST> mtu 1500
+	lladdr 00:00:24:cd:82:38
+	priority: 0
+	media: Ethernet autoselect (100baseTX full-duplex)
+	status: active
+	inet6 fe80::200:24ff:fecd:8238%vr0 prefixlen 64 scopeid 0x1
+vr1: flags=8b43<UP,BROADCAST,RUNNING,PROMISC,ALLMULTI,SIMPLEX,MULTICAST> mtu 1500
+	lladdr 00:00:24:cd:82:39
+	priority: 0
+	media: Ethernet autoselect (100baseTX full-duplex)
+	status: active
+	inet6 fe80::200:24ff:fecd:8239%vr1 prefixlen 64 scopeid 0x2
+vr2: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	lladdr 00:00:24:cd:82:3a
+	description: LAN CARP
+	priority: 0
+	media: Ethernet autoselect (100baseTX full-duplex)
+	status: active
+	inet 192.168.1.10 netmask 0xffffff00 broadcast 192.168.1.255
+	inet6 fe80::200:24ff:fecd:823a%vr2 prefixlen 64 scopeid 0x3
+vr3: flags=8b43<UP,BROADCAST,RUNNING,PROMISC,ALLMULTI,SIMPLEX,MULTICAST> mtu 1500
+	lladdr 00:00:24:cd:82:3b
+	priority: 0
+	media: Ethernet autoselect (100baseTX full-duplex)
+	status: active
+	inet6 fe80::200:24ff:fecd:823b%vr3 prefixlen 64 scopeid 0x4
+enc0: flags=0<>
+	priority: 0
+	groups: enc
+	status: active
+tun0: flags=8051<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1500
+	priority: 0
+	groups: tun
+	status: active
+	inet 172.16.254.1 --> 172.16.254.2 netmask 0xffffffff
+pfsync0: flags=41<UP,RUNNING> mtu 1500
+	priority: 0
+	pfsync: syncdev: vr2 maxupd: 128 defer: off
+	groups: carp pfsync
+pflog0: flags=141<UP,RUNNING,PROMISC> mtu 33200
+	priority: 0
+	groups: pflog
+carp0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	lladdr 00:00:5e:00:01:01
+	description: CARP LAN Matagami
+	priority: 0
+	carp: BACKUP carpdev vr0 vhid 1 advbase 1 advskew 0
+	groups: carp
+	status: master
+	inet6 fe80::200:5eff:fe00:101%carp0 prefixlen 64 scopeid 0x7
+	inet 172.16.1.2 netmask 0xffffff00 broadcast 172.16.1.255
+carp1: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	lladdr 00:00:5e:00:01:02
+	description: CARP WAN Matagami
+	priority: 0
+	carp: BACKUP carpdev vr1 vhid 2 advbase 1 advskew 0
+	groups: carp egress
+	status: master
+	inet6 fe80::200:5eff:fe00:102%carp1 prefixlen 64 scopeid 0x8
+	inet 142.217.189.213 netmask 0xffffff80 broadcast 142.217.189.255
+carp2: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	lladdr 00:00:5e:00:01:03
+	description: CARP WAN Zimbra
+	priority: 0
+	carp: BACKUP carpdev vr3 vhid 3 advbase 1 advskew 0
+	groups: carp
+	status: master
+	inet6 fe80::200:5eff:fe00:103%carp2 prefixlen 64 scopeid 0x9
+	inet 142.217.189.178 netmask 0xffffff80 broadcast 142.217.189.255

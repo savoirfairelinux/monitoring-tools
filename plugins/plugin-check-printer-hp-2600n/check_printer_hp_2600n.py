@@ -1,0 +1,1 @@
+check_printer_hp_2600n

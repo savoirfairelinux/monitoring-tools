@@ -1,0 +1,2 @@
+check_libvirt_stats /usr/lib/shinken/plugins
+libvirtstat.py /usr/lib/shinken/plugins

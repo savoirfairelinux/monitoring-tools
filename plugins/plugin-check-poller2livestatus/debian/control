@@ -1,0 +1,16 @@
+Source: plugin-check-poller2livestatus
+Section: python
+Priority: optional
+Maintainer: Thibault Cohen <thibault.cohen@savoirfairelinux.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: https://github.com/savoirfairelinux/plugin-check-poller2livestatus
+#Vcs-Git: git://anonscm.debian.org/collab-maint/plugin-check-poller2livestatus.git
+#Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-poller2livestatus.git;a=summary
+
+Package: plugin-check-poller2livestatus
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Shinken plugin from SFL. Check Shinken from poller to livestatus module
+ More information is available on Github:
+ https://github.com/savoirfairelinux/sfl-shinken-plugins

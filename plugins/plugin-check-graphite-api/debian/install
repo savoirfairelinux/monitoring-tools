@@ -1,0 +1,1 @@
+check_graphite_api /usr/lib/shinken/plugins

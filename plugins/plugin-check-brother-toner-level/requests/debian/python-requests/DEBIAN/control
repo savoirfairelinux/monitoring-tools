@@ -1,0 +1,10 @@
+Package: python-requests
+Version: 20130218-3
+Architecture: amd64
+Maintainer: <author_name> <<author_email>>
+Installed-Size: 884
+Depends: python
+Section: misc
+Priority: optional
+Homepage: http://www.savoirfairelinux.com
+Description: Python requests SFL lib
