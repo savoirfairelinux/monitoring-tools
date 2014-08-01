@@ -10,7 +10,7 @@ Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-json-by-ec2-
 
 Package: plugin-check-json-by-ec2-tags
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins
+Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins, python-boto, python-requests
 Description: Runs check-json on all AWS ec2 instances with a particular tag.
  More information is available on Github:
  https://github.com/savoirfairelinux/sfl-shinken-plugins
