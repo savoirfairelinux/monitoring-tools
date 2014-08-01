@@ -2,8 +2,8 @@
 set -e
 export GREP_OPTIONS=""
 
+# Plugins
 cd plugins
-
 for plugin in `ls -d */`; do
     cd $plugin
     file="./test/jenkins/jenkins_unit_tests.sh"
@@ -16,3 +16,8 @@ for plugin in `ls -d */`; do
     fi
     cd ..
 done
+
+# shinkenplugins
+cd shinkenplugins
+./run_tests.sh
+cd ..
