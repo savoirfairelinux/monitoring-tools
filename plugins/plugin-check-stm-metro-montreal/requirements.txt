@@ -1,2 +1,2 @@
-shinkenplugins
+shinkenplugins>=0.1.2
 lxml
