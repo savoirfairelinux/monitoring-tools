@@ -1,0 +1,5 @@
+plugin-check-json-by-ec2-tags (2014.8.1.14.51-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Alexandre Viau <alexandre.viau@savoirfairelinux.com>  Fri, 01 Aug 2014 18:51:04 -0000
