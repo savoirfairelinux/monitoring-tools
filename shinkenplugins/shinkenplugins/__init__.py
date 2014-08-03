@@ -41,18 +41,19 @@ class PerfData(object):
     An object holding a plugin performance data, and whose string
     representation matches the one needed in a plugin output.
     """
-    def __init__(self, label, value, unit='', warn='', crit='', min='', max=''):
+    def __init__(self, label, value, unit='', warn='', crit='', min_='', max_=''):
         # if None is passed (coming e.g. from arg.get('warning'), makes sure
         # the empty string is used instead
-        unit = unit or ''
-        warn = warn or ''
-        crit = crit or ''
-        min = min or ''
-        max = max or ''
-        self.__dict__.update(locals())
+        self.label = label
+        self.value = value
+        self.unit = unit or ''
+        self.warn = warn or ''
+        self.crit = crit or ''
+        self.min_ = min_ or ''
+        self.max_ = max_ or ''
     
     def __repr__(self):
-        return ('%(label)s=%(value)s%(unit)s;%(warn)s;%(crit)s;%(min)s;%(max)s'
+        return ('%(label)s=%(value)s%(unit)s;%(warn)s;%(crit)s;%(min_)s;%(max_)s'
                 % self.__dict__)
 
 class BasePlugin(object):
