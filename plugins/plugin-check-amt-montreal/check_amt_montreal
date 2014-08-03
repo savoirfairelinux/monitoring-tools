@@ -81,7 +81,7 @@ class Plugin(BasePlugin):
         perfdata = PerfData('problems', nb,
                             warn=int(args['warning']),
                             crit=int(args['warning']),
-                            min=0)
+                            min_=0)
         
         if nb < int(args['warning']):
             self.exit(STATES.OK, 'OK - ' + message, perfdata)
