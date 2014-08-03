@@ -42,6 +42,11 @@ class PerfData(object):
     representation matches the one needed in a plugin output.
     """
     def __init__(self, label, value, unit='', warn='', crit='', min='', max=''):
+        unit = unit or ''
+        warn = warn or ''
+        crit = crit or ''
+        min = min or ''
+        max = max or ''
         self.__dict__.update(locals())
     
     def __repr__(self):
