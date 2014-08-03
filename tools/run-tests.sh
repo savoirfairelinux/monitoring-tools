@@ -16,6 +16,7 @@ for plugin in `ls -d */`; do
     fi
     cd ..
 done
+cd ..
 
 # shinkenplugins
 cd shinkenplugins
