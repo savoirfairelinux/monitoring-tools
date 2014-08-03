@@ -90,7 +90,7 @@ class Plugin(BasePlugin):
                 code = STATES.CRITICAL
             
             perfdata = PerfData('problems', len(problems), warn=args['warning'], crit=args['critical'],
-                                min=0, max=LINES_COUNT)
+                                min_=0, max_=LINES_COUNT)
             
             is_problems = len(problems) > 0
             final_msg = ('%(msg)s - %(problems)d problem%(plural)s %(list)s'
