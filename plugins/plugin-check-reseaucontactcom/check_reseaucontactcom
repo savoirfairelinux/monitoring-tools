@@ -78,8 +78,8 @@ class Plugin(BasePlugin):
                 
                 stats.append(result)
 
-            p1 = PerfData('members', stats[0], min=0)
-            p2 = PerfData('online', stats[1], min=0)
+            p1 = PerfData('members', stats[0], min_=0)
+            p2 = PerfData('online', stats[1], min_=0)
             self.exit(STATES.OK, 'OK - %d members, %d online' % tuple(stats), p1, p2)
 
         self.exit(STATES.UNKNOWN, 'Wrong data received: %s [...]' % html[:100])
