@@ -41,7 +41,7 @@ class PerfData(object):
     An object holding a plugin performance data, and whose string
     representation matches the one needed in a plugin output.
     """
-    def __init__(self, label, value, unit, warn, crit, min, max):
+    def __init__(self, label, value, unit='', warn='', crit='', min='', max=''):
         unit = unit or ''
         warn = warn or ''
         crit = crit or ''
