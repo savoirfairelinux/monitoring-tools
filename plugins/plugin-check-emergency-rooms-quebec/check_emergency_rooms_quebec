@@ -85,9 +85,9 @@ class Plugin(BasePlugin):
                 self.exit(STATES.UNKNOWN, 'Not integer (occupied stretchers): %s' % data2)
             
             result = 100 * data2 / data1
-            p1 = PerfData('functional_stretchers', data1, min=0)
-            p2 = PerfData('occupied_stretchers', data2, min=0)
-            p3 = PerfData('occupation', result, warn=args['warning'], crit=args['critical'], min=0, max=100)
+            p1 = PerfData('functional_stretchers', data1, min_=0)
+            p2 = PerfData('occupied_stretchers', data2, min_=0)
+            p3 = PerfData('occupation', result, warn=args['warning'], crit=args['critical'], min_=0, max_=100)
             
             if result < int(args['warning']):
                 self.exit(STATES.OK, 'OK - %d%%' % result, p1, p2, p3)
