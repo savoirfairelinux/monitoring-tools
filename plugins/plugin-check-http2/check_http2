@@ -76,7 +76,7 @@ class Plugin(BasePlugin):
         response_time = end - start
         perfdata = PerfData('response_time',
                             response_time.microseconds / 1000 + response_time.seconds * 1000,
-                            unit='ms', min=0)
+                            unit='ms', min_=0)
 
         if code < 400:
             self.exit(STATES.OK, 'OK - HTTP %s' % code, perfdata)
