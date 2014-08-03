@@ -88,10 +88,8 @@ class Plugin(BasePlugin):
 
         str_pb = 'problems' if problems >= 2 else 'problem'
 
-        perfdata = '%(unit)s=%(num)d;%(warning)s;%(critic)s;0;%(max)d'
-
-        p1 = PerfData('empty_stations', empty_stations, max=total)
-        p2 = PerfData('full_stations', full_stations, max=total)
+        p1 = PerfData('empty_stations', empty_stations, max_=total)
+        p2 = PerfData('full_stations', full_stations, max_=total)
         # no warning and critic, since the values we have are associated to empty+full
 
         if problems < int(args['warning']):
