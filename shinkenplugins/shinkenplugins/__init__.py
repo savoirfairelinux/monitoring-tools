@@ -42,6 +42,8 @@ class PerfData(object):
     representation matches the one needed in a plugin output.
     """
     def __init__(self, label, value, unit='', warn='', crit='', min='', max=''):
+        # if None is passed (coming e.g. from arg.get('warning'), makes sure
+        # the empty string is used instead
         unit = unit or ''
         warn = warn or ''
         crit = crit or ''
