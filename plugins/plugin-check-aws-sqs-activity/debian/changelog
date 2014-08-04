@@ -1,0 +1,5 @@
+plugin-check-aws-sqs-activity (2014.8.4.10.13-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Alexandre Viau <alexandre@alexandreviau.net>  Mon, 04 Aug 2014 14:13:12 -0000
