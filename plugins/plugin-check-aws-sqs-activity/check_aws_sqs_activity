@@ -33,21 +33,15 @@ class Plugin(BasePlugin):
             ('v', 'version', 'display plugin version number', False),
             # Hammer time^W^W Add your plugin arguments here:
             # ('short', 'long', 'description', 'does it expect a value?')
-            ('u', 'url', 'the url to fetch data from', True),
             ('k', 'acceskey', 'AWS Acces Key ID (optional)', True),
             ('s', 'secretkey', 'AWS Secret Key ID (optional)', True),
             ('q', 'queue', 'Name of the queue', True),
-            ('w', 'warning', 'Limit to result in a warning state', True),
-            ('c', 'critical', 'Limit to result in a critical state', True),
             ]
     
     def check_args(self, args):
         # You can do your various arguments check here.
         # If you don't need to check things, you can safely remove the method.
         
-        if args.get('url') and not args['url'].startswith('http'):
-            return False, 'the url must be fetchable through http'
-
         if not args.get('queue'):
             return False, 'you must specify a queue to monitor'
 
