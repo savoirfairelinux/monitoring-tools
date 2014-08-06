@@ -37,5 +37,5 @@ class TestShinkenPlugins(unittest.TestCase):
         self.assertEqual(perfdata.unit, '')
         self.assertEqual(perfdata.warn, '')
         self.assertEqual(perfdata.crit, '')
-        self.assertEqual(perfdata.min, '')
-        self.assertEqual(perfdata.max, '')
+        self.assertEqual(perfdata.min_, '')
+        self.assertEqual(perfdata.max_, '')
