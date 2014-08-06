@@ -80,7 +80,7 @@ class Plugin(BasePlugin):
                 6,
                 warn=args.get('warn'),
                 crit=args.get('crit'),
-                min=0,
+                min_=0,
             )
         )
 
