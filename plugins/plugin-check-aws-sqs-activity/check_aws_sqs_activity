@@ -95,7 +95,7 @@ class Plugin(BasePlugin):
             PerfData(
                 'NumberOfMessagesReceived',
                 number_msg_received,
-                min=0,
+                min_=0,
             )
         )
 
@@ -104,7 +104,7 @@ class Plugin(BasePlugin):
             PerfData(
                 'NumberOfMessagesDeleted',
                 number_msg_deleted,
-                min=0,
+                min_=0,
             )
         )
 
