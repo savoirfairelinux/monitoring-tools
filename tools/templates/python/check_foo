@@ -48,8 +48,8 @@ class Plugin(BasePlugin):
         # After doing your verifications, escape by doing:
         # self.exit(return_code, 'return_message', *performance_data)
         
-        p1 = PerfData('spam', 42, unit='%', warn=70, crit=90, min=0, max=100)
-        p2=  PerfData('eggs', 6, unit='%', warn=20, crit=30, min=0, max=100)
+        p1 = PerfData('spam', 42, unit='%', warn=70, crit=90, min_=0, max_=100)
+        p2=  PerfData('eggs', 6, unit='%', warn=20, crit=30, min_=0, max_=100)
         
         self.exit(STATES.OK, "Everything was perfect", p1, p2)
 
