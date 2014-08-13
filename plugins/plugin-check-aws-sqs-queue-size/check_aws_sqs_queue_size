@@ -77,10 +77,10 @@ class Plugin(BasePlugin):
         perf_data.append(
             PerfData(
                 'QueueLenght',
-                6,
+                queue_size,
                 warn=args.get('warn'),
                 crit=args.get('crit'),
-                min=0,
+                min_=0,
             )
         )
 
