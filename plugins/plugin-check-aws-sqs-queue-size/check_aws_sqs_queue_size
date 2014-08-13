@@ -85,11 +85,11 @@ class Plugin(BasePlugin):
         )
 
         if queue_size > args.get('critical'):
-            self.exit(STATES.CRITICAL, "CRITICAL", perf_data)
+            self.exit(STATES.CRITICAL, "CRITICAL", *perf_data)
         elif queue_size > args.get('warning'):
-            self.exit(STATES.WARNING, "WARNING", perf_data)
+            self.exit(STATES.WARNING, "WARNING", *perf_data)
         else:
-            self.exit(STATES.OK, "OK", perf_data)
+            self.exit(STATES.OK, "OK", *perf_data)
 
 if __name__ == "__main__":
     Plugin()

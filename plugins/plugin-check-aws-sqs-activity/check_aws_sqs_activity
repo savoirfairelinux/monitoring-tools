@@ -112,10 +112,10 @@ class Plugin(BasePlugin):
             self.exit(
                 STATES.CRITICAL,
                 "Queue %s is receiving messages but they are not being deleted" % args.get('queue'),
-                perf_data
+                *perf_data
             )
         else:
-            self.exit(STATES.OK, "OK", perf_data)
+            self.exit(STATES.OK, "OK", *perf_data)
 
 if __name__ == "__main__":
     Plugin()

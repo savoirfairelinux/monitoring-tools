@@ -118,11 +118,11 @@ class Plugin(BasePlugin):
         ]
 
         if args.get('critical') and highest_value > args.get('critical'):
-            self.exit(STATES.CRITICAL, "CRITICAL", performance_data)
+            self.exit(STATES.CRITICAL, "CRITICAL", *performance_data)
         elif args.get('warning') and highest_value > args.get('warning'):
-            self.exit(STATES.WARNING, "WARNING", performance_data)
+            self.exit(STATES.WARNING, "WARNING", *performance_data)
         else:
-            self.exit(STATES.OK, "OK", performance_data)
+            self.exit(STATES.OK, "OK", *performance_data)
 
 
 if __name__ == "__main__":
