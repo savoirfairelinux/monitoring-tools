@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 #
-#
+"""This plugin is made to test an x224 (RDP) service.
+"""
 #     Copyright (C) 2012 Savoir-Faire Linux Inc.
 #
 #     This program is free software; you can redistribute it and/or modify
@@ -82,6 +83,7 @@ import time
 
 from shinkenplugins import BasePlugin
 
+
 #############################################################################
 
 default_rdp_port = 3389
@@ -144,7 +146,7 @@ teardown_payload = struct.pack(
 
 class Plugin(BasePlugin):
 
-    NAME = 'check-x224'
+    NAME = 'check_x224'
     VERSION = '0.1'
     DESCRIPTION = 'Checks an x224 (RDP) server.'
     AUTHOR = 'Grégory Starck'
@@ -152,7 +154,7 @@ class Plugin(BasePlugin):
 
     ARGS = [ # Can't touch this:
             ('h', 'help', 'display plugin help', False),
-            ('v', 'version', 'display plugin version number', False),
+            ('V', 'version', 'display plugin version number', False),
             ('H', 'host', 'the host to check for its x224 service', True),
             ('p', 'port', 'the port to check, default=%s' % default_rdp_port, True),
             ('w', 'warning', 'number of seconds that an RDP response may take without'
@@ -194,7 +196,7 @@ class Plugin(BasePlugin):
 
         l_data_received = len(data_received)
         if l_data_received not in (l_expected_short, l_expected_long):
-            self.critical('x224 CRITICAL: RDP response of unexpected length (%d)' % l_data_received)
+            self.critical('x224 RDP response of unexpected length (%d)' % l_data_received)
 
         rec_tpkt_header = {}
         rec_x224_header = {}
@@ -231,20 +233,20 @@ class Plugin(BasePlugin):
                 = struct.unpack('!BBHBBHHBBBHI', data_received)
 
         if rec_tpkt_header['version'] != 3:
-            self.critical('x224 CRITICAL: Unexpected version-value(%d) in TPKT response' % rec_tpkt_header['version'])
+            self.critical('Unexpected version-value(%d) in TPKT response' % rec_tpkt_header['version'])
 
         # 13 = binary 00001101; corresponding to 11010000 shifted four times
         # dst_ref=0 and class=0 was asked for in the connection setup
         if (rec_x224_header['code'] >> 4) != 13 or \
                 rec_x224_header['dst_ref'] != 0 or \
                 rec_x224_header['class'] != 0:
-            self.critical('x224 CRITICAL: Unexpected element(s) in X.224 response')
+            self.critical('Unexpected element(s) in X.224 response')
 
         if elapsed > critical:
-            self.critical('x224 CRITICAL: RDP connection setup time (%f) was longer than (%d) seconds' % (elapsed, critical))
+            self.critical('x224 RDP connection setup time (%f) was longer than (%d) seconds' % (elapsed, critical))
 
         if elapsed > warning:
-            self.warning('x224 WARNING: RDP connection setup time (%f) was longer than (%d) seconds' % (elapsed, warning))
+            self.warning('x224 RDP connection setup time (%f) was longer than (%d) seconds' % (elapsed, warning))
 
         self.ok('x224 OK. Connection setup time: %f sec.|time=%fs;%d;%d;0' %
                 (elapsed, elapsed, warning, critical))
@@ -255,13 +257,18 @@ class Plugin(BasePlugin):
         t1 = time.time()
 
         s = socket.socket()
-        s.connect((host,port))
+        try:
+            s.connect((host, port))
+        except socket.gaierror as err:
+            self.unknown("Could not connect on host '%s:%s' : %s" % (host, port, err))
+        except Exception as err:
+            self.critical("Could not connect on host '%s:%s' : %s" % (host, port, err))
 
         # TODO: we assume that the sent will be done in one shot,
         # which is not necessarily correct..
         sent_bytes = s.send(setup_payload)
         if sent_bytes != len(setup_payload):
-            self.critical('Could not send RDP setup payload')
+            self.critical('Could not send x224 RDP setup payload')
 
         setup_received = s.recv(1024)
 
@@ -270,7 +277,7 @@ class Plugin(BasePlugin):
         # disconnect
         sent_bytes = s.send(teardown_payload)
         if sent_bytes != len(teardown_payload):
-            self.critical('x224 CRITICAL: Could not send RDP teardown payload')
+            self.critical('Could not send x224 RDP teardown payload')
 
         s.close()
 
@@ -279,16 +286,16 @@ class Plugin(BasePlugin):
     def x224_connect_and_read(self, host, port):
         try:
             return self._x224_connect_and_read(host, port)
-        except socket.gaierror as err:
-            self.unknown("x224 UNKNOWN: Could not resolve hostname '%s': %s" % (host, err))
-        except socket.error as err:
-            self.critical('x224 CRITICAL: Could not set up connection on port %d: %s' % (port, err))
         except Exception as err:
-            self.critical('x224 CRITICAL: unhandled error: %s' % err)
+            self.critical('Unhandled error: %s' % err)
+
 
 
 #############################################################################
 
-if __name__ == "__main__":
+def main():
     Plugin()
+
+if __name__ == "__main__":
+    main()
 
