@@ -56,7 +56,6 @@ class TestPlugin(unittest.TestCase):
             check_poller2livestatus.main()
         except SystemExit, e:
             output = out.getvalue().strip()
-            self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, return_val)
             matches = re.search(pattern_to_search, output)
             assert matches is not None

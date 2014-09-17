@@ -72,7 +72,6 @@ class TestPlugin(unittest.TestCase):
         except SystemExit as err:
             output = out.getvalue().strip()
             sys.stdout = prev_out
-            self.assertEquals(type(err), type(SystemExit()))
             self.assertEquals(err.code, return_val)
             matches = re.search(pattern_to_search, output)
             assert matches is not None
