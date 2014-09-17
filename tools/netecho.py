@@ -32,7 +32,7 @@ import threading
 class NetEcho(threading.Thread):
     """ This class aims to replace 'nc -e' or 'nc -c' calls in some tests """
 
-    def __init__(self, host='localhost', port=50000, echo='DEFAULT'):
+    def __init__(self, host='localhost', port=0, echo='DEFAULT'):
         threading.Thread.__init__(self)
         self.port = port
         self.host = host
@@ -44,6 +44,8 @@ class NetEcho(threading.Thread):
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             s.bind((self.host, self.port))
+            if not self.port:
+                self.port = s.getsockname()[1]
         except Exception as e:
             print('Bind failed: could not acquire port %s' % self.port)
             print(e)
@@ -58,3 +60,4 @@ class NetEcho(threading.Thread):
         client.send(self.echo)
         client.close()
         self.server_socket.close()
+
