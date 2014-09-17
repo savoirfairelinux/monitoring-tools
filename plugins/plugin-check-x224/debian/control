@@ -1,0 +1,16 @@
+Source: plugin-check-x224
+Section: python
+Priority: optional
+Maintainer: Grégory Starck <gregory.starck@savoirfairelinux.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: https://github.com/savoirfairelinux/plugin-check-x224
+Vcs-Git: git://anonscm.debian.org/collab-maint/plugin-check-x224
+Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-x224.git;a=summary
+
+Package: plugin-check-environment-canada
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins
+Description: Checks an x224 (RDP) service.
+ More information is available on Github:
+ https://github.com/savoirfairelinux/sfl-shinken-plugins
