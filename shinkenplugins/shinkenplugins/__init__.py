@@ -68,9 +68,8 @@ class BasePlugin(object):
             self.usage(pre_msg=self.version, post_msg=self.support)
 
         if 'version' in args.keys():
-
-            self.version()
-            self.support()
+            print(self.version)
+            print(self.support)
             self.exit(STATES.UNKNOWN, '')
         
         check = self.check_args(args)
