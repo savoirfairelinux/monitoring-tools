@@ -41,8 +41,7 @@ class TestPluginBase(unittest.TestCase):
             main()
         except SystemExit as err:
             output = out.getvalue().strip()
-            self.assertEquals(err.code, return_val)
-            matches = re.search(pattern_to_search, output)
-            assert matches is not None
+            self.assertEquals(err.code, return_val, 'Return code does not match expected one')
+            self.assertRegexpMatches(output, pattern_to_search)
         finally:
             sys.stdout = prev_out
