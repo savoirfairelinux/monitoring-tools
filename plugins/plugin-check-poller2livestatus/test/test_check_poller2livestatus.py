@@ -37,40 +37,10 @@ import re
 from StringIO import StringIO
 
 sys.path.append("..")
-
 import check_poller2livestatus
-import socket
-import threading
 
-class NetEcho(threading.Thread):
-    """ This class aims to replace 'nc -e' or 'nc -c' calls in some tests """
-
-    def __init__(self, host='localhost', port=50000, echo='DEFAULT'):
-        threading.Thread.__init__(self)
-        self.port = port
-        self.host = host
-        self.echo = echo
-        self.server_socket = self._create_server_socket()
-
-    def _create_server_socket(self):
-        try:
-            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            s.bind((self.host, self.port))
-        except Exception as e:
-            print 'Bind failed: could not acquire port', self.port
-            print e
-            sys.exit(0)
-        s.listen(5)
-
-        return s
-
-    def run(self):
-        client, address = self.server_socket.accept()
-        rec = client.recv(1024)
-        client.send(self.echo)
-        client.close()
-        self.server_socket.close()
+sys.path.append("../../../")
+from tools.netecho import NetEcho
 
 class TestPlugin(unittest.TestCase):
     def setUp(self):

@@ -31,46 +31,16 @@
 
 import unittest
 import sys
-import subprocess
 import re
-import time
 from StringIO import StringIO
-import socket
-import threading
 
 sys.path.append("..")
-
 import check_graphite_api
 
-class NetEcho(threading.Thread):
-    """ This class aims to replace 'nc -e' or 'nc -c' calls in some tests """
+sys.path.append("../../..")
+from tools.netecho import NetEcho
 
-    def __init__(self, host='localhost', port=50000, echo='DEFAULT'):
-        threading.Thread.__init__(self)
-        self.port = port
-        self.host = host
-        self.echo = echo
-        self.server_socket = self._create_server_socket()
 
-    def _create_server_socket(self):
-        try:
-            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            s.bind((self.host, self.port))
-        except Exception as e:
-            print 'Bind failed: could not acquire port', self.port
-            print e
-            sys.exit(0)
-        s.listen(5)
-
-        return s
-
-    def run(self):
-        client, address = self.server_socket.accept()
-        rec = client.recv(1024)
-        client.send(self.echo)
-        client.close()
-        self.server_socket.close()
 
 class TestPlugin(unittest.TestCase):
 
@@ -99,11 +69,11 @@ class TestPlugin(unittest.TestCase):
             prev_out = sys.stdout
             sys.stdout = out
             check_graphite_api.main()
-        except SystemExit, e:
+        except SystemExit as err:
             output = out.getvalue().strip()
             sys.stdout = prev_out
-            self.assertEquals(type(e), type(SystemExit()))
-            self.assertEquals(e.code, return_val)
+            self.assertEquals(type(err), type(SystemExit()))
+            self.assertEquals(err.code, return_val)
             matches = re.search(pattern_to_search, output)
             assert matches is not None
 
