@@ -1,0 +1,16 @@
+Source: plugin-check-hydro-quebec
+Section: python
+Priority: optional
+Maintainer: vdnguyen <vanduc.nguyen@savoirfairelinux.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: https://github.com/savoirfairelinux/plugin-check-hydro-quebec
+Vcs-Git: git://anonscm.debian.org/collab-maint/plugin-check-hydro-quebec.git
+Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-hydro-quebec.git;a=summary
+
+Package: plugin-check-hydro-quebec
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins
+Description: surveiller le nombre de pannes
+ More information is available on Github:
+ https://github.com/savoirfairelinux/sfl-shinken-plugins
