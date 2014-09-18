@@ -1,8 +1,8 @@
 #!/bin/bash
 
 rm -rf env
-virtualenv env --system-site-packages
+virtualenv env
 source env/bin/activate
 pip install -I nose
 pip install -r requirements.txt
-nosetests
+nosetests && rm -rf env
