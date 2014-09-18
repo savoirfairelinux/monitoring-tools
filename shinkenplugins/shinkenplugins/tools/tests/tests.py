@@ -31,17 +31,20 @@ from StringIO import StringIO
 
 
 class TestPluginBase(unittest.TestCase):
-
+    ''' Simple class to help at testing a plugin.
+    '''
     def do_tst(self, return_val, pattern_to_search, main=None):
         main = main or self._main
+        prev_out = sys.stdout
         try:
             out = StringIO()
-            prev_out = sys.stdout
             sys.stdout = out
             main()
         except SystemExit as err:
             output = out.getvalue().strip()
-            self.assertEquals(err.code, return_val, 'Return code does not match expected one')
+            self.assertEquals(err.code, return_val,
+                              'Return code does not match expected one: '
+                              'received=%s, expected=%s' % (err.code, return_val))
             self.assertRegexpMatches(output, pattern_to_search)
         finally:
             sys.stdout = prev_out

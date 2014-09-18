@@ -36,9 +36,9 @@ import time
 sys.path.append("..")
 import check_poller2livestatus
 
-sys.path.append("../../../")
-from tools.netecho import NetEcho
-from tools.tests import TestPluginBase
+
+from shinkenplugins.tools.tests.netecho import NetEcho
+from shinkenplugins.tools.tests.tests import TestPluginBase
 
 class TestPlugin(TestPluginBase):
     def setUp(self):

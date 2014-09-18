@@ -29,18 +29,15 @@
 #
 
 import sys
-import re
 import unittest
-from StringIO import StringIO
 
 #############################################################################
 
 sys.path.append("..")
 import check_x224
 
-sys.path.append("../../..")
-from tools.netecho import NetEcho
-from tools.tests import TestPluginBase
+from shinkenplugins.tools.tests.netecho import NetEcho
+from shinkenplugins.tools.tests.tests import TestPluginBase
 
 #############################################################################
 
@@ -50,16 +47,10 @@ class TestPlugin(TestPluginBase):
         self._main = check_x224.main
 
     def test_help(self):
-        """Test help output :
-           -h
-        """
         sys.argv = [sys.argv[0], '-h']
         self.do_tst(3, """^check_x224""")
 
     def test_version(self):
-        """Test version output :
-           -V
-        """
         sys.argv = [sys.argv[0], '-V']
         self.do_tst(3, "^check_x224 version %s" % check_x224.Plugin.VERSION)
 
@@ -81,7 +72,7 @@ class TestPlugin(TestPluginBase):
         self.do_tst(3, "^option --k not recognized")
 
 
-class TestPluginWithSocket_badData(TestPluginBase):
+class TestPluginWithSocket(TestPluginBase):
 
     def setUp(self):
         self._main = check_x224.main

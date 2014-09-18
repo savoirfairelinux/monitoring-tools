@@ -81,8 +81,9 @@ import socket
 import struct
 import time
 
-from shinkenplugins import BasePlugin
+#############################################################################
 
+from shinkenplugins import BasePlugin
 
 #############################################################################
 

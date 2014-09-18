@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+''' A very simple class aimed at answering a given answer on a given TCP port.
+'''
+
 #
 #  Copyright (C) 2012 Savoir-Faire Linux Inc.
 #
@@ -60,4 +63,3 @@ class NetEcho(threading.Thread):
         client.send(self.echo)
         client.close()
         self.server_socket.close()
-
