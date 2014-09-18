@@ -123,9 +123,6 @@ class Plugin(BasePlugin):
 	return result_dict
 
     def run(self, args):
-        # Here is the core of the plugin.
-        # After doing your verifications, escape by doing:
-        # self.exit(return_code, 'return_message', *performance_data)
 
 	result_dict = Plugin.create_result_dict()
         if 'list' in args:
