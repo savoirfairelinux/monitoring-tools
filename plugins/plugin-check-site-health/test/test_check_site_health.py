@@ -38,6 +38,9 @@ sys.path.append("..")
 
 import check_site_health
 
+# the tests are expecting the output to be in plain english,
+# so in case your env isn't in it let's force it:
+os.environ['LANG'] = 'C'
 
 class TestPlugin(unittest.TestCase):
     def setUp(self):

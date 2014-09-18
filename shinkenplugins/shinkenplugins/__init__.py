@@ -65,13 +65,11 @@ class BasePlugin(object):
         args = self.get_args()
         
         if 'help' in args.keys():
-            self.version()
-            self.usage()
-            self.support()
-            self.exit(STATES.UNKNOWN, '')
+            self.usage(pre_msg=self.version, post_msg=self.support)
+
         if 'version' in args.keys():
-            self.version()
-            self.support()
+            print(self.version)
+            print(self.support)
             self.exit(STATES.UNKNOWN, '')
         
         check = self.check_args(args)
@@ -80,7 +78,13 @@ class BasePlugin(object):
             self.usage()
             self.exit(STATES.UNKNOWN, '')
 
-        self.run(args)
+        self.execute_run(args)
+
+    def execute_run(self, args):
+        try:
+            self.run(args)
+        except Exception as err:
+            self.exit(STATES.CRITICAL, 'Unexpected error: %s' % err)
 
     def check_args(self, args):
         return True, None
@@ -95,10 +99,9 @@ class BasePlugin(object):
             options, args = getopt.getopt(sys.argv[1:],
                                           getopt_magicstr,
                                           getopt_longargs)
-        except getopt.GetoptError, err:
-            print str(err)
+        except getopt.GetoptError as err:
+            print(err)
             self.usage()
-            sys.exit(STATES.UNKNOWN)
 
         args = {}
         short_args = ['-' + x[0] for x in expected]
@@ -110,24 +113,25 @@ class BasePlugin(object):
                     args[long_[2:]] = value
         return args
 
+    @property
     def version(self):
-        version_msg = ('%s version %s (sfl-shinken-plugins)\n\n'
-                       'The SFL Shinken Plugins come with ABSOLUTELY NO WARRANTY. You may redistribute\n'
-                       'copies of the plugins under the terms of the GNU General Public License.\n'
-                       'For more information about these matters, see the file named COPYING.\n'
-                       % (self.__class__.NAME, self.__class__.VERSION))
-        print(version_msg)
-    
+        return ('%s version %s (sfl-shinken-plugins)\n\n'
+               'The SFL Shinken Plugins come with ABSOLUTELY NO WARRANTY. You may redistribute\n'
+               'copies of the plugins under the terms of the GNU General Public License.\n'
+               'For more information about these matters, see the file named COPYING.\n'
+               % (self.__class__.NAME, self.__class__.VERSION))
+    @property
     def support(self):
-        support_msg = ('Send email to <%s> if you have questions\n'
-                       'regarding use of this software. To submit patches or suggest improvements,\n'
-                       'send email to <%s>\n'
-                       'Please include version information with all correspondence (when\n'
-                       'possible, use output from the --version option of the plugin itself).\n'
-                       % (self.__class__.EMAIL, self.__class__.EMAIL))
-        print(support_msg)
+        return ('Send email to <%s> if you have questions\n'
+               'regarding use of this software. To submit patches or suggest improvements,\n'
+               'send email to <%s>\n'
+               'Please include version information with all correspondence (when\n'
+               'possible, use output from the --version option of the plugin itself).\n'
+               % (self.__class__.EMAIL, self.__class__.EMAIL))
     
-    def usage(self):
+    def usage(self, pre_msg=None, post_msg=None, exit_code=STATES.UNKNOWN):
+        if pre_msg:
+            print(pre_msg)
         args = self.__class__.ARGS
         short = ''
         long_ = ''
@@ -142,6 +146,10 @@ class BasePlugin(object):
         print('')
         print('Usage:')
         print(long_)
+        if post_msg:
+            print(post_msg)
+        if exit_code is not None:
+            sys.exit(exit_code)
 
     def run(self, args):
         raise NotImplementedError('You need to define the run() method with '
@@ -154,6 +162,21 @@ class BasePlugin(object):
         else:
             print('%s' % message)
         sys.exit(return_code)
+
+    ## all 4 following functions could also certainly be factorized somehow..
+    def ok(self, message, *perfdata):
+        self.exit(STATES.OK, message, *perfdata)
+
+    def unknown(self, message, *perfdata):
+        self.exit(STATES.UNKNOWN, message, *perfdata)
+
+    def warning(self, message, *perfdata):
+        self.exit(STATES.WARNING, message, *perfdata)
+
+    def critical(self, message, *perfdata):
+        self.exit(STATES.CRITICAL, message, *perfdata)
+
+#############################################################################
 
 class TestPlugin(unittest.TestCase):
     """
