@@ -26,18 +26,19 @@ from setuptools import setup, find_packages
 #                         if not l.startswith('#')]
 
 description = 'Shinken plugins wrapper library.'
-long_description = ('Library aimed to provide helpers around the creation of Shinken\n'
-                    'plugins, and in particular their inputs and outputs. Less code,\n'
-                    'less code duplication, less headache. More lolz.')
+long_description = ('''\
+Library aimed to provide helpers around the creation of Shinken
+plugins, and in particular their inputs and outputs. Less code,
+'less code duplication, less headache.''')
 
 setup(
     name='shinkenplugins',
-    version='0.1.3',
+    version='0.1.4',
     packages=find_packages(),
     #install_requires=install_requires,
     #zip_safe=False,
-    author="Matthieu Caneill",
-    author_email="matthieu.caneill@savoirfairelinux.com",
+    author="Grégory Starck",
+    author_email="gregory.starck@savoirfairelinux.com",
     long_description=long_description,
     description=description,
     license="GPL3+",

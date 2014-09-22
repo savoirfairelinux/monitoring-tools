@@ -24,15 +24,14 @@
 #
 #
 
-import re
 import sys
 import unittest
 from StringIO import StringIO
 
 
 class TestPluginBase(unittest.TestCase):
-    ''' Simple class to help at testing a plugin.
-    '''
+    ''' Simple class to help at testing a plugin. '''
+
     def do_tst(self, return_val, pattern_to_search, main=None):
         main = main or self._main
         prev_out = sys.stdout
