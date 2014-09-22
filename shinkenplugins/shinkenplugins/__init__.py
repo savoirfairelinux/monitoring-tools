@@ -192,14 +192,13 @@ class TestPlugin(unittest.TestCase):
         
         try:
             plugin()
-        except SystemExit, e:
+        except SystemExit as err:
             sys.stdout = old_stdout
             output = out.getvalue().strip()
             
             if debug:
-                print('Expected: %d, received: %d' % (return_value, e.code))
+                print('Expected: %d, received: %d' % (return_value, err.code))
                 print('Expected output: %s, received: %s' % (pattern, output))
-                
-            self.assertEquals(type(e), type(SystemExit()))
-            self.assertEquals(e.code, return_value)
+
+            self.assertEquals(err.code, return_value)
             self.assertTrue(re.search(pattern, output))
