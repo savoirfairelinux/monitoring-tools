@@ -201,4 +201,6 @@ class TestPlugin(unittest.TestCase):
                 print('Expected output: %s, received: %s' % (pattern, output))
 
             self.assertEquals(err.code, return_value)
-            self.assertTrue(re.search(pattern, output))
+            self.assertRegexpMatches(output, pattern)
+            # in python >= 3.2 : change me to assertRegex
+            # see: https://docs.python.org/3.2/library/unittest.html#unittest.TestCase.assertRegex
