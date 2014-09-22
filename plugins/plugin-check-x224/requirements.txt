@@ -1,2 +1,1 @@
-./../../shinkenplugins/ # temporary while pip package isn't up to date.
-#shinkenplugins>=0.1.4
+shinkenplugins>=0.1.4
