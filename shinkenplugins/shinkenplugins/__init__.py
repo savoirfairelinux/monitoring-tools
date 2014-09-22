@@ -186,14 +186,17 @@ class TestPlugin(unittest.TestCase):
         sys.argv = [sys.argv[0]]
         for arg in args:
             sys.argv.append(arg)
+
         out = StringIO()
         old_stdout = sys.stdout
         sys.stdout = out
         
         try:
-            plugin()
+            try:
+                plugin()
+            finally:
+                sys.stdout = old_stdout
         except SystemExit as err:
-            sys.stdout = old_stdout
             output = out.getvalue().strip()
             
             if debug:
