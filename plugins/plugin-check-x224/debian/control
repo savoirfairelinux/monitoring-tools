@@ -8,7 +8,7 @@ Homepage: https://github.com/savoirfairelinux/plugin-check-x224
 Vcs-Git: git://anonscm.debian.org/collab-maint/plugin-check-x224
 Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-x224.git;a=summary
 
-Package: plugin-check-environment-canada
+Package: plugin-check-x224
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins
 Description: Checks an x224 (RDP) service.
