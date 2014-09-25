@@ -1,0 +1,76 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Copyright (C) 2014, Grégory Starck <gregory.starck@savoirfairelinux.com>
+
+#############################################################################
+
+import os
+import sys
+
+import arprequest
+
+from shinkenplugins import BasePlugin, STATES
+
+
+DEFAULT_IFNAME = "eth0"
+
+class Plugin(BasePlugin):
+    NAME = 'check-arp-no-change'
+    VERSION = '0.1'
+    DESCRIPTION = "Verify that a host MAC address hasn't changed"
+    AUTHOR = 'Grégory Starck'
+    EMAIL = 'gregory.starck@savoirfairelinux.com'
+    
+    ARGS = [
+        ('h', 'help', 'display plugin help', False),
+        ('v', 'version', 'display plugin version number', False),
+        # Hammer time^W^W Add your plugin arguments here:
+        # ('short', 'long', 'description', 'does it expect a value?')
+        ('H', 'host', 'The host to check', True),
+        #('m', 'mac', 'The MAC address the host should have', True),
+        #('c', 'critical', "If ARP doesn't match then return a warning ; default is to return a warning.", False),
+        #('w', 'warn-on-not-found', "If ARP isn't found (timeout) then force a warning return.", False),
+        ('i', 'if_name', 'Specify the interface name to send ARP request. default='+DEFAULT_IFNAME, False),
+    ]
+    
+    def check_args(self, args):
+        host = args.get('host')
+        mac = args.get('mac')
+        args['if_name'] = args.get('if_name', DEFAULT_IFNAME)
+        if not (host and mac):
+            self.unknown('Host and MAC argument are required.')
+        args['mac'] = mac.lower()
+        return True, None
+
+    def run2(self, host, mac, if_name='eth0', **kw):
+        r = arprequest.ArpRequest(host, if_name=if_name)
+        response = r.request()
+        if response:
+            src_hw, src_pt, dst_hw, dst_pt = response
+            src_hw = ':'.join([b.encode('hex') for b in src_hw])
+            if src_hw != mac:
+                self.critical("MAC address for host %s = %s doesn't match the expected one (%s)" % (
+                    host, src_hw, mac))
+        else:
+            self.warning('ARP address not found for host %s' % host)
+
+    def run(self, args):
+        self.run2(**args)
+        self.ok('OK given MAC address corresponds to host')
+
+if __name__ == "__main__":
+    Plugin()
