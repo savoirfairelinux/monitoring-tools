@@ -38,4 +38,3 @@ class Test(TestPlugin):
     #              'regex to check against the output')
     # You can also add debug=True, to get useful information
     # to debug your plugins
-    
