@@ -17,7 +17,6 @@
 
 # Authors:
 #   Grégory Starck <gregory.starck@savoirfairelinux.com>
-#   Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
 #   Sébastien Coavoux <sebastien.coavoux@savoirfairelinux.com>
 #
 #############################################################################
@@ -25,11 +24,35 @@
 from __future__ import unicode_literals, print_function, absolute_import
 
 #############################################################################
+
+import os
+import sys
+import warnings
+
+try:
+    import argparse
+except ImportError:
+    if sys.version_info[:2] >= (2, 7):
+        raise
+    warnings.warn('argparse not provided, using the one packaged within shinkenplugins')
+    from . import argparse
+
+
 #############################################################################
 
-from .old import STATES, BasePlugin
-from .perfdata import PerfData
-from .test import TestPlugin
+def make_plugin_args_parser(progname):
+    parser = argparse.ArgumentParser(progname)
+    parser.add_argument('-v', '--version', 'Display version number.')
+    parser.add_argument('-w', '--warning', 'Warning threshold.')
+    parser.add_argument('-c', '--critical', 'Critical threshold.')
+    # tbc ..
+    return parser
 
-#############################################################################
+
+class ShinkenPlugin(object):
+    ''' TBC ..
+    '''
+
+    def __init__(self):
+        pass
 
