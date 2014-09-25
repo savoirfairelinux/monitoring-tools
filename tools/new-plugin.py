@@ -15,7 +15,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Copyright (C) 2014, Savoir-faire Linux, Inc.
-# Author:  Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
+
+# Authors:
+#   Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
+#   Grégory Starck <gregory.starck@savoirfairelinux.com>
+#
+#############################################################################
+
+from __future__ import unicode_literals
 
 import os
 import sys
@@ -23,10 +30,12 @@ import argparse
 import shutil
 import email.utils
 import time
+import codecs
 from datetime import datetime
 
 
 from jinja2 import Environment, FileSystemLoader
+
 
 def main(args):
     here = os.path.dirname(os.path.abspath(__file__))
@@ -57,6 +66,11 @@ def main(args):
     loader = FileSystemLoader(target)
     env = Environment(loader=loader)
 
+    for k, v in args.items():
+        if isinstance(v, type(b'')):
+            args[k] = v.decode('utf8')
+
+
     # template variables
     tvars = dict(args)
 
@@ -65,11 +79,12 @@ def main(args):
     tvars['year'] = now.year
     tvars['date_long'] = '%s.%s.%s.%s.%s' % (now.year, now.month, now.day, now.hour, now.minute)
     tvars['date_rfc2822'] = email.utils.formatdate(time.mktime(now.timetuple()))
-    
+
+
     
     for template in env.list_templates():
         output = env.get_template(template).render(tvars)
-        with open(os.path.join(target, template), 'w') as f:
+        with codecs.open(os.path.join(target, template), 'w', 'utf8') as f:
             f.write(output)
 
     print('')
