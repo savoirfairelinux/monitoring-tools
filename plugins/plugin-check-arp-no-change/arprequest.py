@@ -16,12 +16,17 @@
 # 0. You just DO WHAT THE FUCK YOU WANT TO.
 #
 
+
 import socket
+from socket import AF_PACKET, SOCK_RAW
 from struct import pack, unpack
-import signal
+
+import time
+
 
 ARP_GRATUITOUS = 1
 ARP_STANDARD = 2
+
 
 def val2int(val):
     '''Retourne une valeur sous forme d'octet en valeur sous forme 
@@ -29,33 +34,6 @@ def val2int(val):
 
     return int(''.join(['%02d'%ord(c) for c in val]), 16)
 
-class TimeoutError(Exception):
-    '''Exception levée après un timeout.'''
-    pass
-
-def timeout(function, timeout=10):
-    '''Exécute la fonction function (référence) et stoppe son exécution
-       au bout d'un certain temps déterminé par timeout.
-       
-       Retourne None si la fonction à été arretée par le timeout, et 
-       la valeur retournée par la fonction si son exécution se 
-       termine.'''
-
-    def raise_timeout(num, frame):
-        raise TimeoutError
-    
-    # On mappe la fonction à notre signal
-    signal.signal(signal.SIGALRM, raise_timeout)
-    # Et on définie le temps à attendre avant de lancer le signal
-    signal.alarm(timeout)
-    try:
-        retvalue = function()
-    except TimeoutError: # = Fonction quittée à cause du timeout
-        return None
-    else: # = Fonction quittée avant le timeout
-        # On annule le signal
-        signal.alarm(0)
-        return retvalue
 
 # Classes :
 ###########
@@ -63,31 +41,34 @@ def timeout(function, timeout=10):
 class ArpRequest:
     '''Génère une requête ARP et attend la réponse'''
     
-    def __init__(self, ipaddr, if_name, arp_type=ARP_GRATUITOUS):
+    def __init__(self, ipaddr, if_name, arp_type=ARP_GRATUITOUS, timeout=3, arp_resend=0.4):
         # Initialisation du socket (socket brut, donc besoin d'ê root)
         self.arp_type = arp_type
-        self.if_ipaddr = socket.gethostbyname(socket.gethostname())
-        
-        self.socket = socket.socket(socket.AF_PACKET, socket.SOCK_RAW, 
-                                                        socket.SOCK_RAW)
-        self.socket.bind((if_name, socket.SOCK_RAW))
-        
+        self.if_name = if_name
         self.ipaddr = ipaddr
-        
+        self.timeout = timeout
+        self.arp_resend = arp_resend
         
     def request(self):
         '''Envois une requête arp et attend la réponse'''
 
-        # Envois de 5 requêtes ARP
-        for _ in range(5):
+        self.if_ipaddr = socket.gethostbyname(socket.gethostname())
+        self.socket = socket.socket(AF_PACKET, SOCK_RAW, SOCK_RAW)
+        try:
+            self.socket.bind((self.if_name, SOCK_RAW))
+            return self._make_request()
+        finally:
+            self.socket.close()
+
+    def _make_request(self):
+        # Envois de 3 requêtes ARP
+        for _ in range(3):
             self._send_arp_request()
-        
+
+        time.sleep(0.05)
+
         # Puis attente de la réponse
-        if timeout(self._wait_response, 3):
-            return True
-        else:
-            return False
-    
+        return self._wait_response()
         
     def _send_arp_request(self):
         '''Envois une requête ARP pour la machine'''
@@ -100,8 +81,7 @@ class ArpRequest:
             saddr = pack('!4B', 
                               *[int(x) for x in self.ipaddr.split('.')])
             
-        
-        
+
         # Forge de la trame :
         frame = [
             ### Partie ETHERNET ###
@@ -134,14 +114,27 @@ class ArpRequest:
     
     def _wait_response(self):
         '''Attend la réponse de la machine'''
-        while 0xBeef:
+
+        t_begin = t_last_arp_sent = time.time()
+
+        while True:
+
+            now = time.time()
+            if now - t_begin > self.timeout:
+                return
+
+            if now - t_last_arp_sent > self.arp_resend:
+                self._send_arp_request()
+                t_last_arp_sent = now
+
             # Récupération de la trame :
             frame = self.socket.recv(1024)
-            
+
             # Récupération du protocole sous forme d'entier :
             proto_type = val2int(unpack('!2s', frame[12:14])[0])
             if proto_type != 0x0806: # On passe le traitement si ce
                 continue             # n'est pas de l'arp
+
 
             # Récupération du type d'opération sous forme d'entier :
             op = val2int(unpack('!2s', frame[20:22])[0])
@@ -154,15 +147,12 @@ class ArpRequest:
             hw_size, pt_size = [val2int(v) for v in arp_headers_values]
             total_addresses_byte = hw_size * 2 + pt_size * 2
             arp_addrs = frame[22:22 + total_addresses_byte]
-            src_hw, src_pt, dst_hw, dst_pt = unpack('!%ss%ss%ss%ss' 
+            src_hw, src_pt, dst_hw, dst_pt = unpack('!%ss%ss%ss%ss'
                     % (hw_size, pt_size, hw_size, pt_size), arp_addrs)
-            
-            print(arp_addrs)
-            
+
             # Comparaison de l'adresse recherchée avec l'adresse trouvée
             # dans la trame :
-            if src_pt == pack('!4B', 
+            if src_pt == pack('!4B',
                              *[int(x) for x in self.ipaddr.split('.')]):
-                return True # Quand on a trouvé, on arrete de chercher !
-                # Et oui, c'est mal de faire un retour dans une boucle,
-                # je sais :)
+                # we got it
+                return src_hw, src_pt, dst_hw, dst_pt
