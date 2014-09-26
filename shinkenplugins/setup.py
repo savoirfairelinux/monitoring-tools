@@ -15,9 +15,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Copyright (C) 2014, Savoir-faire Linux, Inc.
-# Authors:  Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
+#
+# Authors:
+#   Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
+#   Grégory Starck <gregory.starck@savoirfairelinux.com>
+#
+#############################################################################
 
+from __future__ import with_statement
 
+from os.path import join, dirname, abspath
 from setuptools import setup, find_packages
 
 # no dependencies yet, might be useful later
@@ -29,11 +36,16 @@ description = 'Shinken plugins wrapper library.'
 long_description = ('''\
 Library aimed to provide helpers around the creation of Shinken
 plugins, and in particular their inputs and outputs. Less code,
-'less code duplication, less headache.''')
+less code duplication, less headache.''')
+
+with open(join(dirname(abspath(__file__)), 'shinkenplugins', 'VERSION')) as fh:
+    VERSION = fh.readline().strip()
+
+#############################################################################
 
 setup(
     name='shinkenplugins',
-    version='0.1.4',
+    version=VERSION,
     packages=find_packages(),
     #install_requires=install_requires,
     #zip_safe=False,
