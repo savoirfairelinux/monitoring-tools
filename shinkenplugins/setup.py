@@ -56,4 +56,7 @@ setup(
     license="GPL3+",
     url="https://github.com/savoirfairelinux/sfl-shinken-plugins",
     platforms=['any'],
+    package_data={
+        'shinkenplugins': ['VERSION'],
+    },
 )

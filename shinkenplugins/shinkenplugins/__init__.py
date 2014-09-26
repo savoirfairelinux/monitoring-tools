@@ -20,6 +20,7 @@
 #   Grégory Starck <gregory.starck@savoirfairelinux.com>
 #
 
+from __future__ import absolute_import, print_function
 
 import sys
 import getopt
@@ -30,6 +31,9 @@ import unittest
 from traceback import format_exc
 from collections import namedtuple
 from StringIO import StringIO
+
+
+from .version import __version__
 
 
 def get_states_tuple():
