@@ -69,6 +69,11 @@ class BasePlugin(object):
     A simple plugin.
     Manages the metadata, input (arguments) and output.
     """
+
+    NAME = 'PluginNameUnknown'
+    VERSION = 'VersionUnknown'
+    EMAIL = 'EmailUnknown'
+
     def __init__(self, args=None):
         if args is None:
             args = sys.argv[1:]
@@ -76,18 +81,14 @@ class BasePlugin(object):
         args = self.get_args(args)
         
         if 'help' in args.keys():
-            self.usage(pre_msg=self.version, post_msg=self.support)
+            self.usage(self.version, post_msg=self.support)
 
         if 'version' in args.keys():
-            print(self.version)
-            print(self.support)
-            self.exit(STATES.UNKNOWN, '')
+            self.usage(self.version + '\n' + self.support)
         
         check = self.check_args(args)
         if not check[0]:
-            print('Arguments error: %s' % str(check[1]))
-            self.usage()
-            self.exit(STATES.UNKNOWN, '')
+            self.usage('Arguments error: %s' % str(check[1]))
 
         self.execute_run(args)
 
@@ -119,7 +120,7 @@ PythonVersion={sys_.version_info}
         return True, None
 
     def get_args(self, args):
-        expected = self.__class__.ARGS
+        expected = self.ARGS
         getopt_magicstr = ''.join(itertools.chain.from_iterable([[x[0], ':' if x[3] else '']
                                                                  for x in expected]))
         getopt_longargs = [''.join([x[1], '=' if x[3] else '']) for x in expected]
@@ -129,8 +130,7 @@ PythonVersion={sys_.version_info}
                                           getopt_magicstr,
                                           getopt_longargs)
         except getopt.GetoptError as err:
-            print(err)
-            self.usage()
+            self.usage(err)
 
         args = {}
         short_args = ['-' + x[0] for x in expected]
@@ -148,20 +148,22 @@ PythonVersion={sys_.version_info}
                'The SFL Shinken Plugins come with ABSOLUTELY NO WARRANTY. You may redistribute\n'
                'copies of the plugins under the terms of the GNU General Public License.\n'
                'For more information about these matters, see the file named COPYING.\n'
-               % (self.__class__.NAME, self.__class__.VERSION))
+               % (self.NAME, self.VERSION))
+
     @property
     def support(self):
-        return ('Send email to <%s> if you have questions\n'
+        return ('Send email to <{email}> if you have questions\n'
                'regarding use of this software. To submit patches or suggest improvements,\n'
-               'send email to <%s>\n'
+               'send email to <{email}>\n'
                'Please include version information with all correspondence (when\n'
-               'possible, use output from the --version option of the plugin itself).\n'
-               % (self.__class__.EMAIL, self.__class__.EMAIL))
+               'possible, use output from the --version option of the plugin itself).\n'.format(
+            email=self.EMAIL
+        ))
     
     def usage(self, pre_msg=None, post_msg=None, exit_code=STATES.UNKNOWN):
         if pre_msg:
             print(pre_msg)
-        args = self.__class__.ARGS
+        args = self.ARGS
         short = ''
         long_ = ''
         for arg in args:
@@ -171,7 +173,7 @@ PythonVersion={sys_.version_info}
             short += ' -' + arg[0] + s_expected
             long_ += ' -' + arg[0] + ', --' + arg[1] + l_expected + '\n    ' + arg[2] + '\n'
 
-        print('%s %s' % (self.__class__.NAME, short))
+        print('%s %s' % (self.NAME, short))
         print('')
         print('Usage:')
         print(long_)
@@ -185,11 +187,11 @@ PythonVersion={sys_.version_info}
                                   'the core of your plugin.')
 
     def exit(self, return_code, message, *perfdata):
+        sys.stdout.write(message)
         if perfdata:
-            print('%(message)s|%(perfs)s' % {'message': message,
-                                            'perfs': ' '.join([str(x) for x in perfdata])})
-        else:
-            print('%s' % message)
+            sys.stdout.write('|')
+            sys.stdout.write(' '.join([str(x) for x in perfdata]))
+        sys.stdout.write('\n')
         sys.exit(return_code)
 
     ## all 4 following functions could also certainly be factorized somehow..
