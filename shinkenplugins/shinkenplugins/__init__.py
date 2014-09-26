@@ -14,17 +14,23 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Copyright (C) 2014, Savoir-faire Linux, Inc.
-# Authors:  Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
-#           Sébastien Coavoux <sebastien.coavoux@savoirfairelinux.com>
+# Authors:
+#   Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
+#   Sébastien Coavoux <sebastien.coavoux@savoirfairelinux.com>
+#   Grégory Starck <gregory.starck@savoirfairelinux.com>
+#
 
 
 import sys
-import re
 import getopt
 import itertools
+
 import unittest
+
+from traceback import format_exc
 from collections import namedtuple
 from StringIO import StringIO
+
 
 def get_states_tuple():
     """
@@ -35,6 +41,7 @@ def get_states_tuple():
     STATES = States(0, 1, 2, 3)
     return STATES
 STATES = get_states_tuple()
+
 
 class PerfData(object):
     """
@@ -56,13 +63,17 @@ class PerfData(object):
         return ('%(label)s=%(value)s%(unit)s;%(warn)s;%(crit)s;%(min_)s;%(max_)s'
                 % self.__dict__)
 
+
 class BasePlugin(object):
     """
     A simple plugin.
     Manages the metadata, input (arguments) and output.
     """
-    def __init__(self):
-        args = self.get_args()
+    def __init__(self, args=None):
+        if args is None:
+            args = sys.argv[1:]
+        self._orig_args = args
+        args = self.get_args(args)
         
         if 'help' in args.keys():
             self.usage(pre_msg=self.version, post_msg=self.support)
@@ -84,19 +95,37 @@ class BasePlugin(object):
         try:
             self.run(args)
         except Exception as err:
-            self.exit(STATES.CRITICAL, 'Unexpected error: %s' % err)
+            traceback = format_exc()
+            sys_ = sys
+            self.critical('''\
+An unexpected error occurred: {err}
+Please consider submitting a bug report to 'https://github.com/savoirfairelinux/monitoring-tools/issues' \
+with all the following data attached:
+=============================================================================
+<<< BEGIN BUG DATA
+-----------------------------------------------------------------------------
+Plugin={self.NAME} Version={self.VERSION}
+OriginalArguments={self._orig_args}
+ParsedArguments={args}
+PythonVersion={sys_.version_info}
+-----------------------------------------------------------------------------
+{traceback}
+-----------------------------------------------------------------------------
+<<< END BUG DATA
+=============================================================================
+'''.format(**locals()))
 
     def check_args(self, args):
         return True, None
 
-    def get_args(self):
+    def get_args(self, args):
         expected = self.__class__.ARGS
         getopt_magicstr = ''.join(itertools.chain.from_iterable([[x[0], ':' if x[3] else '']
                                                                  for x in expected]))
         getopt_longargs = [''.join([x[1], '=' if x[3] else '']) for x in expected]
 
         try:
-            options, args = getopt.getopt(sys.argv[1:],
+            options, args = getopt.getopt(args,
                                           getopt_magicstr,
                                           getopt_longargs)
         except getopt.GetoptError as err:
