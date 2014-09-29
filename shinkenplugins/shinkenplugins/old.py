@@ -96,7 +96,7 @@ PythonVersion={sys_.version_info}
         return True, None
 
     def get_args(self):
-        expected = self.__class__.ARGS
+        expected = self.ARGS
         getopt_magicstr = ''.join(itertools.chain.from_iterable([[x[0], ':' if x[3] else '']
                                                                  for x in expected]))
         getopt_longargs = [''.join([x[1], '=' if x[3] else '']) for x in expected]
@@ -125,7 +125,7 @@ PythonVersion={sys_.version_info}
                'The SFL Shinken Plugins come with ABSOLUTELY NO WARRANTY. You may redistribute\n'
                'copies of the plugins under the terms of the GNU General Public License.\n'
                'For more information about these matters, see the file named COPYING.\n'
-               % (self.__class__.NAME, self.__class__.VERSION))
+               % (self.NAME, self.VERSION))
     @property
     def support(self):
         return ('Send email to <%s> if you have questions\n'
@@ -133,12 +133,12 @@ PythonVersion={sys_.version_info}
                'send email to <%s>\n'
                'Please include version information with all correspondence (when\n'
                'possible, use output from the --version option of the plugin itself).\n'
-               % (self.__class__.EMAIL, self.__class__.EMAIL))
+               % (self.EMAIL, self.EMAIL))
 
     def usage(self, pre_msg=None, post_msg=None, exit_code=STATES.UNKNOWN):
         if pre_msg:
             print(pre_msg)
-        args = self.__class__.ARGS
+        args = self.ARGS
         short = ''
         long_ = ''
         for arg in args:
@@ -148,7 +148,7 @@ PythonVersion={sys_.version_info}
             short += ' -' + arg[0] + s_expected
             long_ += ' -' + arg[0] + ', --' + arg[1] + l_expected + '\n    ' + arg[2] + '\n'
 
-        print('%s %s' % (self.__class__.NAME, short))
+        print('%s %s' % (self.NAME, short))
         print('')
         print('Usage:')
         print(long_)
