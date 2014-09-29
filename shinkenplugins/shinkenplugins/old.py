@@ -25,8 +25,14 @@ import sys
 import getopt
 import itertools
 
+from traceback import format_exc
 from collections import namedtuple
 
+#############################################################################
+
+from .version import __version__
+
+#############################################################################
 
 def get_states_tuple():
     """
@@ -38,7 +44,7 @@ def get_states_tuple():
     return STATES
 STATES = get_states_tuple()
 
-
+#############################################################################
 
 class BasePlugin(object):
     """
@@ -64,7 +70,27 @@ class BasePlugin(object):
         try:
             self.run(args)
         except Exception as err:
-            self.exit(STATES.CRITICAL, 'Unexpected error: %s' % err)
+            traceback = format_exc()
+            sys_ = sys
+            version = __version__
+            self.critical('''\
+An unexpected error occurred: {err}
+Please consider submitting a bug report to 'https://github.com/savoirfairelinux/monitoring-tools/issues' \
+with all the following data attached:
+=============================================================================
+<<< BEGIN BUG DATA
+-----------------------------------------------------------------------------
+Plugin={self.NAME} Version={self.VERSION}
+shinkenpluginVersion={version}
+OriginalArguments={self._orig_args}
+ParsedArguments={args}
+PythonVersion={sys_.version_info}
+-----------------------------------------------------------------------------
+{traceback}
+-----------------------------------------------------------------------------
+<<< END BUG DATA
+=============================================================================
+'''.format(**locals()))
 
     def check_args(self, args):
         return True, None
