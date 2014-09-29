@@ -14,7 +14,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Copyright (C) 2014, Savoir-faire Linux, Inc.
-
 # Authors:
 #   Grégory Starck <gregory.starck@savoirfairelinux.com>
 #   Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
@@ -22,14 +21,24 @@
 #
 #############################################################################
 
-from __future__ import unicode_literals, print_function, absolute_import
+class PerfData(object):
+    """
+    An object holding a plugin performance data, and whose string
+    representation matches the one needed in a plugin output.
+    """
+    def __init__(self, label, value, unit='', warn='', crit='', min_='', max_=''):
+        # if None is passed (coming e.g. from arg.get('warning'), makes sure
+        # the empty string is used instead
+        self.label = label
+        self.value = value
+        self.unit = unit or ''
+        self.warn = warn or ''
+        self.crit = crit or ''
+        self.min_ = min_ or ''
+        self.max_ = max_ or ''
+    
+    def __repr__(self):
+        return ('%(label)s=%(value)s%(unit)s;%(warn)s;%(crit)s;%(min_)s;%(max_)s'
+                % self.__dict__)
 
 #############################################################################
-#############################################################################
-
-from .old import STATES, BasePlugin
-from .perfdata import PerfData
-from .test import TestPlugin
-
-#############################################################################
-
