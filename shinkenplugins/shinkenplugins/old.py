@@ -49,18 +49,14 @@ class BasePlugin(object):
         args = self.get_args()
 
         if 'help' in args.keys():
-            self.usage(pre_msg=self.version, post_msg=self.support)
+            self.usage(self.version, post_msg=self.support)
 
         if 'version' in args.keys():
-            print(self.version)
-            print(self.support)
-            self.exit(STATES.UNKNOWN, '')
+            self.usage(self.version + '\n' + self.support)
 
         check = self.check_args(args)
         if not check[0]:
-            print('Arguments error: %s' % str(check[1]))
-            self.usage()
-            self.exit(STATES.UNKNOWN, '')
+            self.usage('Arguments error: %s' % str(check[1]))
 
         self.execute_run(args)
 
