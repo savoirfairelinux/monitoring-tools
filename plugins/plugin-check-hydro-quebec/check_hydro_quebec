@@ -40,7 +40,7 @@ class Plugin(BasePlugin):
             ('u', 'url', 'the url to fetch data from', True),
             ('w', 'warning', 'Limit to result in a warning state', True),
             ('c', 'critical', 'Limit to result in a critical state', True),
-	    ('l', 'list', 'the list of regions', False),
+      	   ('l', 'list', 'the list of regions', False),
             ]
     
     def check_args(self, args):
@@ -54,7 +54,7 @@ class Plugin(BasePlugin):
         if not args.get('region', None):
             return False, u'you have to define the region'
  
-        region = args.get('region')
+        region = args.get('region').decode("utf-8")
 
         result_dict = Plugin.create_result_dict()
         if not 'critical' in args and not 'warning' in args:
