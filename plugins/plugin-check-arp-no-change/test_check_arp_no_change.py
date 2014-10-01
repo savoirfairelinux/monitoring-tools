@@ -14,36 +14,71 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Copyright (C) 2014, Grégory Starck <gregory.starck@savoirfairelinux.com>
-import unittest
-from unittest.case import skip
 
-import check_arp_no_change
-from check_arp_no_change import Plugin
+import os
+import warnings
+from random import shuffle
+from subprocess import Popen, PIPE
 
+import mock
+
+from check_arp_no_change import Plugin, ArpRequest
 from shinkenplugins import TestPlugin
 
 
 class Test(TestPlugin):
+
     def test_version(self):
-        args = ['-v']
-        self.execute(Plugin, args, 3,
-                     'version ' + Plugin.VERSION)
+        self.execute(Plugin, ['-v'], 3, 'version ' + Plugin.VERSION)
 
     def test_help(self):
-        args = ['-h']
-        self.execute(Plugin, args, 3,
-                     'Usage:')
+        self.execute(Plugin, ['-h'], 3, 'Usage:')
 
-    # Add your tests here!
-    # They should use
-    # self.execute(Plugin,
-    #              ['your', 'list', 'of', 'arguments'],
-    #              expected_return_value,
-    #              'regex to check against the output')
-    # You can also add debug=True, to get useful information
-    # to debug your plugins
+    def test_missing_host(self):
+        self.execute(Plugin, [], 3, 'Host and MAC argument are required.')
+
+    def test_missing_mac(self):
+        self.execute(Plugin, ['-H', 'localhost'], 3, 'Host and MAC argument are required.')
+
+    def test_ok_on_not_found(self):
+        self.execute(Plugin, ['-H', '1.1.1.1', '-m', 'dont care', '--ok_on_not_found'],
+                     0, 'ARP address not found but ok_on_not_found was set.')
 
 
+class Test_ARP_with_arp_file(TestPlugin):
+
+    def __init__(self, *a, **kw):
+        super(Test_ARP_with_arp_file, self).__init__(*a, **kw)
+        self._env = os.environ.copy()
+        self._env['LANG'] = 'C'
+        self._ip = None
+        try:
+            with open(ArpRequest.ARP_FILE) as fh:
+                content = fh.readlines()
+        except IOError as err:
+            warnings.warn("Can't read ARP file (%s) some tests will be skipped." % ArpRequest.ARP_FILE)
+        else:
+            all_matches = []
+            for line in content:
+                line = line.rstrip('\n')
+                match = ArpRequest._re_proc_net_arp.match(line)
+                if match:
+                    all_matches.append(match.groupdict())
+            shuffle(all_matches)
+            if not all_matches:
+                warnings.warn("Could not parse any valid ARP entry from ARP file (%s) ; some tests will be skipped." % ArpRequest.ARP_FILE)
+            else:
+                gd = all_matches[0]
+                self._ip, self._mac = gd['ip'], gd['mac']
+
+    def test_ok(self):
+        if self._ip:
+            self.execute(Plugin, ('-H', self._ip, '-m', self._mac),
+                     0, '^OK given MAC address corresponds to host')
+
+
+
+#############################################################################
 # removed header line from this fake arp data:
 # (Address                  HWtype  HWaddress           Flags Mask            Iface)
 FAKE_ARP_DATA = '''\
@@ -55,22 +90,14 @@ FAKE_ARP_DATA = '''\
 172.17.0.14      0x1         0x2         1e:0e:8e:6b:5d:32     *        eth0
 172.17.0.4       0x1         0x2         96:5d:d9:ee:54:05     *        eth0'''
 
+def _get_arp_file_content(self):
+    for line in FAKE_ARP_DATA.split('\n'):
+        yield line
 
+#############################################################################
+
+@mock.patch('check_arp_no_change.ArpRequest._get_arp_file_content', _get_arp_file_content)
 class Test_ARP_mock(TestPlugin):
-
-    def make_ArpRequest(self, content):
-        class ArpRequest(check_arp_no_change.ArpRequest):
-            def _get_arp_file_content(self):
-                for line in content:
-                    yield line
-        return ArpRequest
-
-    def setUp(self):
-        check_arp_no_change.ArpRequest = self.make_ArpRequest(FAKE_ARP_DATA.split('\n'))
-
-    def tearDown(self):
-        pass
-
 
     def test_unknown_interface(self):
         self.execute(Plugin, ('-H', '172.17.0.12', '-i', 'no_such_if', '-m', '00:21:a1:39:96:40'),
@@ -86,5 +113,48 @@ class Test_ARP_mock(TestPlugin):
 
     def test_ok(self):
         self.execute(Plugin, ('-H', '172.17.0.12', '-i', 'eth1', '-m', 'e6:9e:ed:bc:b6:67'),
+                     0, '^OK given MAC address corresponds to host')
+
+    def test_with_ping(self):
+        self.execute(Plugin, ('-H', '172.17.0.12', '-i', 'eth1', '-m', 'e6:9e:ed:bc:b6:67', '-p'),
+                     0, '^OK given MAC address corresponds to host')
+
+#############################################################################
+
+@mock.patch('sys.platform', 'win32')
+@mock.patch('check_arp_no_change.ArpRequest._get_arp_file_content', _get_arp_file_content)
+@mock.patch('check_arp_no_change.ArpRequest._can_read_arp_file', lambda self: False)
+class Test_ARP_Windows(TestPlugin):
+    def test_not_supported(self):
+        self.execute(Plugin, ('-H', '172.17.0.12', '-i', 'eth1', '-m', 'e6:9e:ed:bc:b6:67'),
+                     2, 'platform win32 not currently supported')
+
+#############################################################################
+
+@mock.patch('check_arp_no_change.ArpRequest._can_read_arp_file', lambda self: False)
+class Test_ARP_with_arp_tool(TestPlugin):
+
+    def __init__(self, *a, **kw):
+        super(Test_ARP_with_arp_tool, self).__init__(*a, **kw)
+        self._env = os.environ.copy()
+        self._env['LANG'] = 'C'
+        proc = Popen('arp -n', shell=True, stdout=PIPE)
+        out, err = proc.communicate()
+        for line in out.split('\n'):
+            match = ArpRequest._re_usr_sbin_arp.match(line)
+            if match:
+                gd = match.groupdict()
+                self._ip, self._mac = gd['ip'], gd['mac']
+                break
+        else:
+            self._ip = None
+            warnings.warn("Can't test with arp tool, arp call details: "
+                          "out={out} err={err} RC={rc}".format(
+                out=out, err=err, rc=proc.returncode
+            ))
+
+    def test_ok(self):
+        if self._ip:
+            self.execute(Plugin, ('-H', self._ip, '-m', self._mac),
                      0, '^OK given MAC address corresponds to host')
 

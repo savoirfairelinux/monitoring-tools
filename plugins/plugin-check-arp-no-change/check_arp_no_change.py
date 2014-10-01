@@ -34,6 +34,8 @@ if sys.platform not in ['linux', 'linux2']:
     warnings.warn('%s is not a supported platform' % sys.platform)
 
 #############################################################################
+_environ = os.environ.copy()
+_environ['LANG'] = 'C'
 
 class ArpRequest:
 
@@ -60,24 +62,22 @@ class ArpRequest:
 
     _re_usr_sbin_arp = re.compile(
         '^'
-        '[^\s]+'
+        '(?P<ip>'+_ip_regex+')'    # Address
         '\s+'
-        '\((?P<ip>'+_ip_regex+')\)'
-        '\s+at\s+'
-        '(?P<mac>'+_mac_regex+')'
+        '[^\s]+'                    # HWtype
         '\s+'
-        '\[[^\s]+\]'                # HW type
-        '\s+on\s+'
+        '(?P<mac>'+_mac_regex+')'   # HWaddress
+        '\s+'
+        '[^\s]+'                    # Flags
+        '\s+'
         '(?P<device>[^\s]+)'        # Device
         '$'
     )
 
-    def __init__(self, ipaddr, if_name, _arp_cmd=["arp", "-i", "{if_name}", "-a",  "{ipaddr}"]):
+    def __init__(self, ipaddr, if_name, _arp_cmd=["arp", "-i", "{if_name}", "{ipaddr}"]):
         self.ipaddr = ipaddr
         self.if_name = if_name
         self._arp_cmd = _arp_cmd
-        self._env = os.environ.copy()
-        self._env['LANG'] = 'C'
 
     def __repr__(self):
         return '<%s ipaddr=%s if_name=%s />' % (self.__class__.__name__, self.ipaddr, self.if_name)
@@ -93,12 +93,12 @@ class ArpRequest:
         with open(self.ARP_FILE) as fh:
             fh.readline() # skip header
             for line in fh:
-                yield line.rstrip()
+                yield line.rstrip('\n')
 
     def _get_arp_bin_content(self):
         df = { 'if_name': self.if_name, 'ipaddr': self.ipaddr }
         cmd_args = tuple(a.format(**df) for a in self._arp_cmd)
-        p = subprocess.Popen(cmd_args, shell=False, stdout=subprocess.PIPE, env=self._env)
+        p = subprocess.Popen(cmd_args, shell=False, stdout=subprocess.PIPE, env=_environ)
         output, errors = p.communicate()
         if errors:
             pass # do what ?
@@ -106,7 +106,9 @@ class ArpRequest:
 
 
     def request(self):
-        '''Execute the request.
+        '''Execute the ARP request.
+If /proc/net/arp is readable then directly read the arp table from there.
+Otherwise execute an 'arp' call.
 
 :return: a dictionnary with following keys:
     'mac': will contain the MAC in str form ("aa:bb:cc:dd:ee:ff")
@@ -157,7 +159,9 @@ class Plugin(BasePlugin):
         #('c', 'critical', "If ARP doesn't match then return a warning ; default is to return a warning.", False),
         #('w', 'warn-on-not-found', "If ARP isn't found (timeout) then force a warning return.", False),
         ('i', 'if_name', 'Explicitly specify the interface name on which to look for the ARP address. default='+DEFAULT_IFNAME, True),
-        ('p', 'ping_before', 'Do you want me to ping the host before reading its ARP address ?', False)
+        ('p', 'ping_before', 'Do you want me to ping the host before reading its ARP address ?', False),
+        ('_', 'ok_on_not_found', 'Return an OK status code on no MAC found. Default is to return a WARNING status code.', False),
+
     ]
     
     def check_args(self, args):
@@ -170,9 +174,15 @@ class Plugin(BasePlugin):
         args['ping_before'] = 'ping_before' in args
         return True, None
 
+    @staticmethod
+    def ping(host, timeout=1, count=2):
+        cmd = 'ping -W {timeout} -c {count} {host}'.format(**locals())
+        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+        proc.communicate()
+
     def run2(self, host, mac, if_name, ping_before=False, **kw):
         if ping_before:
-            os.popen('ping -W 2 -c 1 %s' % host)
+            self.ping(host)
         r = ArpRequest(host, if_name=if_name)
         data = r.request()
         if data:
@@ -181,7 +191,10 @@ class Plugin(BasePlugin):
                 self.critical("MAC address for host %s = %s doesn't match "
                               "the expected one (%s)" % (host, mac_read, mac))
         else:
-            self.warning('ARP address not found for host %s' % host)
+            if 'ok_on_not_found' in kw:
+                self.ok('ARP address not found but ok_on_not_found was set.')
+            else:
+                self.warning('ARP address not found for host %s' % host)
 
     def run(self, args):
         self.run2(**args)
