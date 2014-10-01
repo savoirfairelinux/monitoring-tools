@@ -51,8 +51,11 @@ class BasePlugin(object):
     A simple plugin.
     Manages the metadata, input (arguments) and output.
     """
-    def __init__(self):
-        args = self.get_args()
+    def __init__(self, args=None):
+        if args is None:
+            args = sys.argv[1:]
+        self._orig_args = args
+        args = self.get_args(args)
 
         if 'help' in args.keys():
             self.usage(self.version, post_msg=self.support)
@@ -95,14 +98,14 @@ PythonVersion={sys_.version_info}
     def check_args(self, args):
         return True, None
 
-    def get_args(self):
+    def get_args(self, args):
         expected = self.ARGS
         getopt_magicstr = ''.join(itertools.chain.from_iterable([[x[0], ':' if x[3] else '']
                                                                  for x in expected]))
         getopt_longargs = [''.join([x[1], '=' if x[3] else '']) for x in expected]
 
         try:
-            options, args = getopt.getopt(sys.argv[1:],
+            options, args = getopt.getopt(args,
                                           getopt_magicstr,
                                           getopt_longargs)
         except getopt.GetoptError as err:

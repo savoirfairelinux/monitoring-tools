@@ -55,7 +55,7 @@ class TestPlugin(unittest.TestCase):
                 print('Expected: %d, received: %d' % (return_value, err.code))
                 print('Expected output: %s, received: %s' % (pattern, output))
 
-            self.assertEquals(err.code, return_value)
+            self.assertEquals(err.code, return_value, output)
             self.assertRegexpMatches(output, pattern)
             # in python >= 3.2 : change me to assertRegex
             # see: https://docs.python.org/3.2/library/unittest.html#unittest.TestCase.assertRegex
