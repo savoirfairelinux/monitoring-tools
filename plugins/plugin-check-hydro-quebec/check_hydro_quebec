@@ -58,7 +58,7 @@ class Plugin(BasePlugin):
 
         result_dict = Plugin.create_result_dict()
         if not 'critical' in args and not 'warning' in args:
-            if not region in result_dict.keys():
+            if not region.decode("utf-8") in result_dict.keys():
             	msg_err = "Region " + "'" + region + "'" + " unknown"
             	self.exit(STATES.UNKNOWN, msg_err)
             return True, None
