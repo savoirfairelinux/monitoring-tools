@@ -41,5 +41,5 @@ clean:
 
 mrproper: clean
 	git submodule foreach 'git checkout . && git clean -dxf'
-	git clean -dxf
+	git clean -dxf -e '/.idea/'
 
