@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 # This program is free software: you can redistribute it and/or modify
@@ -113,7 +113,7 @@ class Plugin(BasePlugin):
                                     'customers_blackout': customers_blackout, 
                                     'customers': customers }
             elif len(raw_text) == 3:
-                key = u"Across Quebec"
+                key = u"across_quebec"
                 interruptions = Plugin.find_number(raw_text[0])
                 customers_blackout = Plugin.find_number(raw_text[1])
                 clients = Plugin.find_number(raw_text[2])
