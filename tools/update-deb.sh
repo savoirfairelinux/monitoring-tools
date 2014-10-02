@@ -8,7 +8,7 @@ set -e
 # -S builds only the source package, the binary one is done by OpenBuildService
 # --ignore-bad-version skips the date check, because the files can be more recent
 # than the last debian/changelog entry
-BUILD_PACKAGE="dpkg-buildpackage -us -uc -S --source-option=-Zgzip --source-option=--ignore-bad-version"
+BUILD_PACKAGE="dpkg-buildpackage -us -uc -S --source-option=-Zgzip --source-option=--ignore-bad-version || true;"
 
 # library package
 tar -czf shinkenplugins_0.1.orig.tar.gz shinkenplugins/ --exclude=$shinkenplugins/debian/*
