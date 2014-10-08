@@ -16,36 +16,46 @@
 # Copyright (C) 2014, Grégory Starck <gregory.starck@savoirfairelinux.com>
 
 import os
+import sys
 import warnings
 from random import shuffle
 from subprocess import Popen, PIPE
 
 import mock
 
-from check_arp_no_change import Plugin, ArpRequest
 from shinkenplugins import TestPlugin
 
+import check_arp_no_change
+from check_arp_no_change import ArpRequest, Plugin
 
-class Test(TestPlugin):
+# make sure to inherit from object
+#  for super(..) to behaves correctly/as desired.
+class TestCheckARP(TestPlugin, object):
+    Plugin = Plugin
+    def execute(self, *a, **kw):
+        super(TestCheckARP, self).execute(self.Plugin, *a, **kw)
+
+
+class Test(TestCheckARP):
 
     def test_version(self):
-        self.execute(Plugin, ['-v'], 3, 'version ' + Plugin.VERSION)
+        self.execute(['-v'], 3, 'version ' + self.Plugin.VERSION)
 
     def test_help(self):
-        self.execute(Plugin, ['-h'], 3, 'Usage:')
+        self.execute(['-h'], 3, 'Usage:')
 
     def test_missing_host(self):
-        self.execute(Plugin, [], 3, 'Host and MAC argument are required.')
+        self.execute([], 3, 'Host address and MAC argument are required.')
 
     def test_missing_mac(self):
-        self.execute(Plugin, ['-H', 'localhost'], 3, 'Host and MAC argument are required.')
+        self.execute(['-H', 'localhost'], 3, 'Host address and MAC argument are required.')
 
     def test_ok_on_not_found(self):
-        self.execute(Plugin, ['-H', '1.1.1.1', '-m', 'dont care', '--ok_on_not_found'],
-                     0, 'ARP address not found but ok_on_not_found was set.')
+        self.execute(['-H', '1.1.1.1', '-m', 'dont care', '--status_on_no_ip', 'ok'],
+                     0, 'No ARP address found for host')
 
 
-class Test_ARP_with_arp_file(TestPlugin):
+class Test_ARP_with_arp_file(TestCheckARP):
 
     def __init__(self, *a, **kw):
         super(Test_ARP_with_arp_file, self).__init__(*a, **kw)
@@ -54,26 +64,29 @@ class Test_ARP_with_arp_file(TestPlugin):
         self._ip = None
         try:
             with open(ArpRequest.ARP_FILE) as fh:
-                content = fh.readlines()
+                lines = fh.readlines()
         except IOError as err:
-            warnings.warn("Can't read ARP file (%s) some tests will be skipped." % ArpRequest.ARP_FILE)
+            warnings.warn("Can't read ARP file (%s). Some tests will be skipped." % ArpRequest.ARP_FILE)
         else:
             all_matches = []
-            for line in content:
+            for line in lines:
                 line = line.rstrip('\n')
                 match = ArpRequest._re_proc_net_arp.match(line)
                 if match:
-                    all_matches.append(match.groupdict())
-            shuffle(all_matches)
+                    gd = match.groupdict()
+                    if gd['mac'] != ArpRequest._null_mac: # don't forget to filter null MACs
+                        all_matches.append(gd)
+            shuffle(all_matches) # introduce a bit of entropy in our test :p
             if not all_matches:
                 warnings.warn("Could not parse any valid ARP entry from ARP file (%s) ; some tests will be skipped." % ArpRequest.ARP_FILE)
             else:
                 gd = all_matches[0]
                 self._ip, self._mac = gd['ip'], gd['mac']
 
+
     def test_ok(self):
         if self._ip:
-            self.execute(Plugin, ('-H', self._ip, '-m', self._mac),
+            self.execute(('-H', self._ip, '-m', self._mac),
                      0, '^OK given MAC address corresponds to host')
 
 
@@ -97,57 +110,57 @@ def _get_arp_file_content(self):
 #############################################################################
 
 @mock.patch('check_arp_no_change.ArpRequest._get_arp_file_content', _get_arp_file_content)
-class Test_ARP_mock(TestPlugin):
+class Test_ARP_mock(TestCheckARP):
 
     def test_unknown_interface(self):
-        self.execute(Plugin, ('-H', '172.17.0.12', '-i', 'no_such_if', '-m', '00:21:a1:39:96:40'),
-                     1, 'ARP address not found')
+        self.execute(('-H', '172.17.0.12', '-i', 'no_such_if', '-m', '00:21:a1:39:96:40'),
+                     1, 'No ARP address found for host')
 
     def test_no_arp(self):
-        self.execute(Plugin, ('-H', '172.17.0.8', '-i', 'eth0', '-m', '00:21:a1:39:96:40'),
-                     1, 'ARP address not found')
+        self.execute(('-H', '172.17.0.8', '-i', 'eth0', '-m', '00:21:a1:39:96:40'),
+                     1, 'No ARP address found')
 
     def test_mac_changed(self):
-        self.execute(Plugin, ('-H', '172.17.0.12', '-i', 'eth1', '-m', '00:21:a1:39:96:41'),
-                     2, "MAC address for host .* doesn't match the expected one")
+        self.execute(('-H', '172.17.0.12', '-i', 'eth1', '-m', '00:21:a1:39:96:41'),
+                     2, "Some ARP address\(es\) was\(were\) found for host 172.17.0.12 \( e6:9e:ed:bc:b6:67 \) but none match the expected one")
 
     def test_ok(self):
-        self.execute(Plugin, ('-H', '172.17.0.12', '-i', 'eth1', '-m', 'e6:9e:ed:bc:b6:67'),
+        self.execute(('-H', '172.17.0.12', '-i', 'eth1', '-m', 'e6:9e:ed:bc:b6:67'),
                      0, '^OK given MAC address corresponds to host')
 
     def test_with_ping(self):
-        self.execute(Plugin, ('-H', '172.17.0.12', '-i', 'eth1', '-m', 'e6:9e:ed:bc:b6:67', '-p'),
+        self.execute(('-H', '172.17.0.12', '-i', 'eth1', '-m', 'e6:9e:ed:bc:b6:67'),
                      0, '^OK given MAC address corresponds to host')
 
 #############################################################################
 
-@mock.patch('sys.platform', 'win32')
-@mock.patch('check_arp_no_change.ArpRequest._get_arp_file_content', _get_arp_file_content)
+@mock.patch('check_arp_no_change._is_supported_platform', False)
 @mock.patch('check_arp_no_change.ArpRequest._can_read_arp_file', lambda self: False)
-class Test_ARP_Windows(TestPlugin):
+class Test_ARP_Windows(TestCheckARP):
     def test_not_supported(self):
-        self.execute(Plugin, ('-H', '172.17.0.12', '-i', 'eth1', '-m', 'e6:9e:ed:bc:b6:67'),
-                     2, 'platform win32 not currently supported')
+        self.execute(('-H', '172.17.0.12', '-i', 'eth1', '-m', 'e6:9e:ed:bc:b6:67'),
+                     3, 'Platform \w+ not currently supported')
 
 #############################################################################
 
 @mock.patch('check_arp_no_change.ArpRequest._can_read_arp_file', lambda self: False)
-class Test_ARP_with_arp_tool(TestPlugin):
+class Test_ARP_with_arp_tool(TestCheckARP):
 
-    def __init__(self, *a, **kw):
-        super(Test_ARP_with_arp_tool, self).__init__(*a, **kw)
-        self._env = os.environ.copy()
-        self._env['LANG'] = 'C'
+    @classmethod
+    def setUpClass(cls):
+        super(Test_ARP_with_arp_tool, cls).setUpClass()
+        cls._env = os.environ.copy()
+        cls._env['LANG'] = 'C'
         proc = Popen('arp -n', shell=True, stdout=PIPE)
         out, err = proc.communicate()
         for line in out.split('\n'):
             match = ArpRequest._re_usr_sbin_arp.match(line)
             if match:
                 gd = match.groupdict()
-                self._ip, self._mac = gd['ip'], gd['mac']
+                cls._ip, cls._mac = gd['ip'], gd['mac']
                 break
         else:
-            self._ip = None
+            cls._ip = None
             warnings.warn("Can't test with arp tool, arp call details: "
                           "out={out} err={err} RC={rc}".format(
                 out=out, err=err, rc=proc.returncode
@@ -155,6 +168,6 @@ class Test_ARP_with_arp_tool(TestPlugin):
 
     def test_ok(self):
         if self._ip:
-            self.execute(Plugin, ('-H', self._ip, '-m', self._mac),
+            self.execute(('-H', self._ip, '-m', self._mac),
                      0, '^OK given MAC address corresponds to host')
 
