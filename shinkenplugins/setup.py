@@ -15,9 +15,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Copyright (C) 2014, Savoir-faire Linux, Inc.
-# Authors:  Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
+#
+# Authors:
+#   Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
+#   Grégory Starck <gregory.starck@savoirfairelinux.com>
+#
+#############################################################################
 
+from __future__ import with_statement
 
+from os.path import join, dirname, abspath
 from setuptools import setup, find_packages
 
 # no dependencies yet, might be useful later
@@ -26,21 +33,30 @@ from setuptools import setup, find_packages
 #                         if not l.startswith('#')]
 
 description = 'Shinken plugins wrapper library.'
-long_description = ('Library aimed to provide helpers around the creation of Shinken\n'
-                    'plugins, and in particular their inputs and outputs. Less code,\n'
-                    'less code duplication, less headache. More lolz.')
+long_description = ('''\
+Library aimed to provide helpers around the creation of Shinken
+plugins, and in particular their inputs and outputs. Less code,
+less code duplication, less headache.''')
+
+with open(join(dirname(abspath(__file__)), 'shinkenplugins', 'VERSION')) as fh:
+    VERSION = fh.readline().strip()
+
+#############################################################################
 
 setup(
     name='shinkenplugins',
-    version='0.1.3',
+    version=VERSION,
     packages=find_packages(),
     #install_requires=install_requires,
     #zip_safe=False,
-    author="Matthieu Caneill",
-    author_email="matthieu.caneill@savoirfairelinux.com",
+    author="Grégory Starck",
+    author_email="gregory.starck@savoirfairelinux.com",
     long_description=long_description,
     description=description,
     license="GPL3+",
     url="https://github.com/savoirfairelinux/sfl-shinken-plugins",
     platforms=['any'],
+    package_data={
+        'shinkenplugins': ['VERSION'],
+    },
 )

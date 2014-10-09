@@ -1,3 +1,9 @@
+shinkenplugins (0.1.4) unstable; urgency=medium
+
+  * New version with some helper tools
+
+ -- Grégory Starck <gregory.starck@savoirfairelinux.com>  Mon, 22 Sep 2014 09:27:57 -0400
+
 shinkenplugins (0.1-1) unstable; urgency=low
 
   * source package automatically created by stdeb 0.6.0+git

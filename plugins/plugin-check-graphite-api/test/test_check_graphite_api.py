@@ -31,51 +31,18 @@
 
 import unittest
 import sys
-import subprocess
-import re
-import time
-from StringIO import StringIO
-import socket
-import threading
 
 sys.path.append("..")
-
 import check_graphite_api
 
-class NetEcho(threading.Thread):
-    """ This class aims to replace 'nc -e' or 'nc -c' calls in some tests """
+from shinkenplugins.tools.tests.netecho import NetEcho
+from shinkenplugins.tools.tests.tests import TestPluginBase
 
-    def __init__(self, host='localhost', port=50000, echo='DEFAULT'):
-        threading.Thread.__init__(self)
-        self.port = port
-        self.host = host
-        self.echo = echo
-        self.server_socket = self._create_server_socket()
 
-    def _create_server_socket(self):
-        try:
-            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            s.bind((self.host, self.port))
-        except Exception as e:
-            print 'Bind failed: could not acquire port', self.port
-            print e
-            sys.exit(0)
-        s.listen(5)
-
-        return s
-
-    def run(self):
-        client, address = self.server_socket.accept()
-        rec = client.recv(1024)
-        client.send(self.echo)
-        client.close()
-        self.server_socket.close()
-
-class TestPlugin(unittest.TestCase):
+class TestPlugin(TestPluginBase):
 
     def setUp(self):
-        pass
+        self._main = check_graphite_api.main
 
     def test_help(self):
         """Test help output :
@@ -92,20 +59,6 @@ class TestPlugin(unittest.TestCase):
         sys.argv = [sys.argv[0]]
         sys.argv.append('-V')
         self.do_tst(3, "^check_graphite_api.py v%s" % check_graphite_api.PLUGIN_VERSION)
-
-    def do_tst(self, return_val, pattern_to_search):
-        try:
-            out = StringIO()
-            prev_out = sys.stdout
-            sys.stdout = out
-            check_graphite_api.main()
-        except SystemExit, e:
-            output = out.getvalue().strip()
-            sys.stdout = prev_out
-            self.assertEquals(type(e), type(SystemExit()))
-            self.assertEquals(e.code, return_val)
-            matches = re.search(pattern_to_search, output)
-            assert matches is not None
 
     def test_default_args(self):
         """Test default_args :
@@ -135,30 +88,15 @@ class TestPlugin(unittest.TestCase):
         sys.argv.append('--k')
         self.do_tst(3, "^option --k not recognized")
 
-class TestPluginWithSocket(unittest.TestCase):
+class TestPluginWithSocket(TestPluginBase):
 
     def setUp(self):
+        self._main = check_graphite_api.main
         self.nc = NetEcho(host='localhost', port=8080)
         self.nc.start()
 
     def tearDown(self):
         self.nc.join()
-
-    def do_tst(self, return_val, pattern_to_search):
-        try:
-            out = StringIO()
-            prev_out = sys.stdout
-            sys.stdout = out
-            check_graphite_api.main()
-        except SystemExit, e:
-            output = out.getvalue().strip()
-            sys.stdout = prev_out
-            print output
-            print re.search(pattern_to_search, output)
-            self.assertEquals(type(e), type(SystemExit()))
-            self.assertEquals(e.code, return_val)
-            matches = re.search(pattern_to_search, output)
-            assert matches is not None
 
     def test_default_delay(self):
         """Test test_default_delay :
@@ -196,6 +134,7 @@ class TestPluginWithSocket(unittest.TestCase):
         sys.argv.append('-t')
         sys.argv.append('hst.svc.graph')
         self.do_tst(2, "CRITICAL : No data found$")
+
 
 if __name__ == '__main__':
     unittest.main()

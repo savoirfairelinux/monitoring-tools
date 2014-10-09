@@ -1,0 +1,5 @@
+plugin-check-arp-no-change (2014.9.25.14.24-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Grégory Starck <gregory.starck@savoirfairelinux.com>  Thu, 25 Sep 2014 18:24:12 -0000

@@ -18,7 +18,7 @@ for plugin in `ls -d */`; do
 done
 cd ..
 
-# shinkenplugins
+# finally: shinkenplugins
 cd shinkenplugins
 ./run_tests.sh
 cd ..

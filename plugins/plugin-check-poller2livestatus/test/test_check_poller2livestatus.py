@@ -31,65 +31,18 @@
 
 import unittest
 import sys
-import os
 import time
-import re
-from StringIO import StringIO
 
 sys.path.append("..")
-
 import check_poller2livestatus
-import socket
-import threading
 
-class NetEcho(threading.Thread):
-    """ This class aims to replace 'nc -e' or 'nc -c' calls in some tests """
 
-    def __init__(self, host='localhost', port=50000, echo='DEFAULT'):
-        threading.Thread.__init__(self)
-        self.port = port
-        self.host = host
-        self.echo = echo
-        self.server_socket = self._create_server_socket()
+from shinkenplugins.tools.tests.netecho import NetEcho
+from shinkenplugins.tools.tests.tests import TestPluginBase
 
-    def _create_server_socket(self):
-        try:
-            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            s.bind((self.host, self.port))
-        except Exception as e:
-            print 'Bind failed: could not acquire port', self.port
-            print e
-            sys.exit(0)
-        s.listen(5)
-
-        return s
-
-    def run(self):
-        client, address = self.server_socket.accept()
-        rec = client.recv(1024)
-        client.send(self.echo)
-        client.close()
-        self.server_socket.close()
-
-class TestPlugin(unittest.TestCase):
+class TestPlugin(TestPluginBase):
     def setUp(self):
-        pass
-
-    def tearDown(self):
-        pass
-
-    def do_tst(self, return_val, pattern_to_search):
-        try:
-            out = StringIO()
-            sys.stdout = out
-            check_poller2livestatus.main()
-        except SystemExit, e:
-            output = out.getvalue().strip()
-            self.assertEquals(type(e), type(SystemExit()))
-            self.assertEquals(e.code, return_val)
-            matches = re.search(pattern_to_search, output)
-            assert matches is not None
+        self._main = check_poller2livestatus.main
 
     def test_help(self):
         """Test help output :
@@ -182,25 +135,15 @@ class TestPlugin(unittest.TestCase):
         sys.argv.append('bad_critical')
         self.do_tst(3, "Argument `critical': Bad format !")
 
-class TestPluginWithSocket(unittest.TestCase):
+
+class TestPluginWithSocket(TestPluginBase):
     def setUp(self):
+        self._main = check_poller2livestatus.main
         self.nc = NetEcho(host='localhost', port=50001)
         self.nc.start()
 
     def tearDown(self):
         self.nc.join()
-
-    def do_tst(self, return_val, pattern_to_search):
-        try:
-            out = StringIO()
-            sys.stdout = out
-            check_poller2livestatus.main()
-        except SystemExit, e:
-            output = out.getvalue().strip()
-            self.assertEquals(type(e), type(SystemExit()))
-            self.assertEquals(e.code, return_val)
-            matches = re.search(pattern_to_search, output)
-            assert matches is not None
 
     def test_connection_ok(self):
         """Test connection ok :
@@ -221,6 +164,7 @@ class TestPluginWithSocket(unittest.TestCase):
         sys.argv.append('-p')
         sys.argv.append('mypoller')
         self.do_tst(0, "")
+
 
     def test_connection_ok_check(self):
         """Test connection ok check :
@@ -289,6 +233,8 @@ class TestPluginWithSocket(unittest.TestCase):
         sys.argv.append('-c')
         sys.argv.append('120')
         self.do_tst(2, "# delta:15[0-9]")
+
+
 
 if __name__ == '__main__':
     unittest.main()

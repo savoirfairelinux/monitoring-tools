@@ -3,7 +3,6 @@
 # Update submodules
 git submodule update --init
 git submodule foreach 'git checkout master && git pull origin master'
-git add plugins/plugin-*
 git add packs/pack-*
 
 # Update plugins documentation
