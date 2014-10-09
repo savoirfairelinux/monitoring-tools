@@ -167,3 +167,6 @@
 [submodule "packs/pack-linux-ntp-collectd"]
 	path = packs/pack-linux-ntp-collectd
 	url = https://github.com/savoirfairelinux/pack-linux-ntp-collectd.git
+[submodule "packs/pack-generic-mongodb"]
+	path = packs/pack-generic-mongodb
+	url = https://github.com/savoirfairelinux/pack-generic-mongodb.git
