@@ -1,0 +1,150 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Copyright (C) 2014, vdnguyen <vanduc.nguyen@savoirfairelinux.com>
+
+from shinkenplugins import BasePlugin, PerfData, STATES
+
+import time
+from time import sleep
+
+from collections import namedtuple
+
+class Plugin(BasePlugin):
+    NAME = 'check-linux-bandwith-usage'
+    VERSION = '0.1'
+    DESCRIPTION = 'check linux bandwith usage per month'
+    AUTHOR = 'vdnguyen'
+    EMAIL = 'vanduc.nguyen@savoirfairelinux.com'
+    
+    ARGS = [# Can't touch this:
+            ('h', 'help', 'display plugin help', False),
+            ('v', 'version', 'display plugin version number', False),
+            # Hammer time^W^W Add your plugin arguments here:
+            # ('short', 'long', 'description', 'does it expect a value?')
+            ('u', 'url', 'the url to fetch data from', True),
+            ('w', 'warning', 'Limit to result in a warning state: GB', True),
+            ('c', 'critical', 'Limit to result in a critical state: GB', True),
+            ('i', 'interface-name', 'the name of interface you want to have a bandwith', True),
+            ('l', 'limite', 'Limit of bandwith per month: GB', True),
+            ('d', 'reset-day', 'number of day to reset the counter', True),
+            ('s', 'cache-folder', 'the folder to stock the data', True),
+            ('f', 'perfdata', 'option to show perfdata', True),
+            ('W', 'warning-prct', 'Limit to result in a warning state: %', True),
+            ('C', 'critical-prct', 'Limit to result in a critical state: %', True),
+            ]
+    
+    def check_args(self, args):
+        # You can do your various arguments check here.
+        # If you don't need to check things, you can safely remove the method.
+
+     #   if not args.get("interface-name"):
+      #      self.exit(STATES.CRITICAL, "The interface is missing")
+     #   if not args.get("l"):
+#            self.exit(STATES.CRITICAL, "The limite is missing")
+ #       if args.get("w") and args.get("W"):
+  #          self.exit(STATES.CRITICAL, "Cannot put 2 warning arguments")
+   #     if args.get("c") and args.get("C"):
+    #        self.exit(STATES.CRITICAL, "Cannot put 2 critical arguments")
+
+
+#        if args.get("w") and args.get("C"):
+ #           self.exit(STATES.CRITICAL, 
+  #          "Cannot mix the warning number with critical percentage ")
+   #     if args.get("W") and args.get("c"):
+    #        self.exit(STATES.CRITICAL, 
+     #       "Cannot mix the warning number with critical percentage ")
+
+#        if not args.get("l") and args.get("W"):
+ #           self.exit(STATES.CRITICAL, 
+  #          "Cannot put percentage warning the limite is missing")
+   #     if not args.get("l") and args.get("C"):
+    #        self.exit(STATES.CRITICAL, 
+     #       "Cannot put percentage critical the limite is missing")
+
+
+
+        return True, None
+
+    @staticmethod
+    def chunks(l, n):
+        for i in xrange(0, len(l), n):
+            yield l[i: i + n]
+
+
+    @staticmethod
+    def parse_data():
+        # Here is the core of the plugin.
+        # After doing your verifications, escape by doing:
+        # self.exit(return_code, 'return_message', *performance_data)
+
+        dev = open("/proc/net/dev", "r").readlines()
+        header_line = dev[1]
+        header_names = header_line[header_line.index("|")+1:].replace("|", " ").split()
+        interface_dict={}
+        for line in dev[2:]:
+            intf = line[:line.index(":")].strip()
+            interface_dict[intf] = [int(value) for value in line[line.index(":")+1:].split()]
+        return interface_dict
+
+    def run(self, args):
+
+        file = open("newfile.txt", "w")
+        limite = 120E30
+
+        print limite
+
+        for x in range(0, 1):
+            now = time.strftime("%c")
+
+            to_day = time.strftime("%x")
+            to_day = to_day.replace("/", "")
+            to_day = to_day.lstrip("0")
+
+            interface_dict = Plugin.parse_data()
+            receive = interface_dict["eth0"][0]
+            transmit = interface_dict["eth0"][8]
+            total = receive + transmit
+
+            print total
+
+            file.write(to_day + " " + str(total) + "\n")
+
+            time.sleep(1)
+
+        file.close()
+
+        file = open("newfile.txt", "rw+")
+
+        lines = file.readlines()
+
+        lines = "\n".join(lines).split()
+
+        lines = [i for i in Plugin.chunks(lines, 2)]
+
+        for i in range(len(lines)):
+            print lines[i]
+
+
+
+
+#        p1 = PerfData('spam', 42, unit='%', warn=70, crit=90, min_=0, max_=100)
+ #       p2=  PerfData('eggs', 6, unit='%', warn=20, crit=30, min_=0, max_=100)
+        
+#        self.exit(STATES.OK, "Everything was perfect", p1, p2)
+
+if __name__ == "__main__":
+    Plugin()

@@ -1,0 +1,16 @@
+Source: plugin-check-linux-bandwith-usage
+Section: python
+Priority: optional
+Maintainer: vdnguyen <vanduc.nguyen@savoirfairelinux.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: https://github.com/savoirfairelinux/plugin-check-linux-bandwith-usage
+Vcs-Git: git://anonscm.debian.org/collab-maint/plugin-check-linux-bandwith-usage.git
+Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-linux-bandwith-usage.git;a=summary
+
+Package: plugin-check-linux-bandwith-usage
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins
+Description: check linux bandwith usage per month
+ More information is available on Github:
+ https://github.com/savoirfairelinux/sfl-shinken-plugins
