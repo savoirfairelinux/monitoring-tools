@@ -17,9 +17,12 @@
 # Copyright (C) 2014, vdnguyen <vanduc.nguyen@savoirfairelinux.com>
 
 from shinkenplugins import BasePlugin, PerfData, STATES
+import os.path
+
+import os
 
 import time
-from time import sleep
+
 
 from collections import namedtuple
 
@@ -43,50 +46,65 @@ class Plugin(BasePlugin):
             ('d', 'reset-day', 'number of day to reset the counter', True),
             ('s', 'cache-folder', 'the folder to stock the data', True),
             ('f', 'perfdata', 'option to show perfdata', True),
-            ('W', 'warning-prct', 'Limit to result in a warning state: %', True),
-            ('C', 'critical-prct', 'Limit to result in a critical state: %', True),
+            ('W', 'warning-percent', 'Limit to result in a warning state: %', True),
+            ('C', 'critical-percent', 'Limit to result in a critical state: %', True),
             ]
     
     def check_args(self, args):
         # You can do your various arguments check here.
         # If you don't need to check things, you can safely remove the method.
 
-     #   if not args.get("interface-name"):
-      #      self.exit(STATES.CRITICAL, "The interface is missing")
-     #   if not args.get("l"):
-#            self.exit(STATES.CRITICAL, "The limite is missing")
- #       if args.get("w") and args.get("W"):
-  #          self.exit(STATES.CRITICAL, "Cannot put 2 warning arguments")
-   #     if args.get("c") and args.get("C"):
-    #        self.exit(STATES.CRITICAL, "Cannot put 2 critical arguments")
+        if not args.get("interface-name"):
+            self.exit(STATES.CRITICAL, "The interface is missing")
+
+        if args.get("warning-percent") and args.get("critical-percent") and not args.get("limite"):
+            self.exit(STATES.CRITICAL, "The limite is missing")
+        
+        if not args.get("reset-day"):
+            self.exit(STATES.CRITICAL, "The day is missing")
+
+        if args.get("warning") and args.get("warning-percent"):
+            self.exit(STATES.CRITICAL, "Cannot put 2 warning arguments")
+        if args.get("critical") and args.get("critical-percent"):
+            self.exit(STATES.CRITICAL, "Cannot put 2 critical arguments")
 
 
-#        if args.get("w") and args.get("C"):
- #           self.exit(STATES.CRITICAL, 
-  #          "Cannot mix the warning number with critical percentage ")
-   #     if args.get("W") and args.get("c"):
-    #        self.exit(STATES.CRITICAL, 
-     #       "Cannot mix the warning number with critical percentage ")
-
-#        if not args.get("l") and args.get("W"):
- #           self.exit(STATES.CRITICAL, 
-  #          "Cannot put percentage warning the limite is missing")
-   #     if not args.get("l") and args.get("C"):
-    #        self.exit(STATES.CRITICAL, 
-     #       "Cannot put percentage critical the limite is missing")
-
-
+        if args.get("warning") and args.get("critical-percent"):
+            self.exit(STATES.CRITICAL, 
+            "Cannot mix the warning number with critical percentage ")
+        if args.get("warning-percent") and args.get("critical"):
+            self.exit(STATES.CRITICAL, 
+            "Cannot mix the warning number with critical percentage ")
 
         return True, None
+
+    @staticmethod
+    def file_accessible(filepath, mode):
+
+        try:
+            f = open(filepath, mode)
+            f.close()
+        except IOError as e:
+            return False
+
+        return True
 
     @staticmethod
     def chunks(l, n):
         for i in xrange(0, len(l), n):
             yield l[i: i + n]
 
+    @staticmethod
+    def get_to_day():
+        now = time.strftime("%c")
+        to_day = time.strftime("%x")
+        to_day = to_day.replace("/", "")
+        to_day = to_day.lstrip("0")
+
+        return to_day
 
     @staticmethod
-    def parse_data():
+    def get_total():
         # Here is the core of the plugin.
         # After doing your verifications, escape by doing:
         # self.exit(return_code, 'return_message', *performance_data)
@@ -98,53 +116,155 @@ class Plugin(BasePlugin):
         for line in dev[2:]:
             intf = line[:line.index(":")].strip()
             interface_dict[intf] = [int(value) for value in line[line.index(":")+1:].split()]
-        return interface_dict
+
+        receive = interface_dict["eth0"][0]
+        transmit = interface_dict["eth0"][8]
+        used_total_byte = float(receive) + float(transmit)
+        used_total = used_total_byte / (1024 * 1024 * 1024)
+        return used_total
+
+    @staticmethod
+    def get_reset_day(reset_day):
+
+        to_day = Plugin.get_to_day()
+        day = to_day[2] + to_day[3]
+        day = int(day)
+        month = to_day[0] + to_day[1]
+        year = to_day[4] + to_day[5]
+
+        if reset_day > day:
+            if reset_day < 10:
+                reset_day = "0" + str(reset_day)
+            reset_date = to_day[0] + to_day[1] + str(reset_day) + to_day[4] + to_day[5]
+        elif reset_day == day:
+            reset_date = to_day
+        else:
+            if reset_day < 10:
+                reset_day = "0" + str(reset_day)
+
+            if month == "12":
+                month = "01"
+                month = int(to_day[0] + to_day[1]) + 1
+
+                if month < 10:
+                    month = "0" + str(month)
+                month = str(month)
+            else:
+                month = int(to_day[0] + to_day[1]) + 1
+                if month < 10:
+                    month = "0" + str(month)
+                month = str(month)
+
+            if year == "99":
+                year = "00"
+                year = int(to_day[4] + to_day[5]) + 1
+                if year < 10:
+                    year = "0" + str(month)
+                year = str(year)
+            reset_date = month + str(reset_day) + year
+        return reset_date
+
 
     def run(self, args):
 
-        file = open("newfile.txt", "w")
-        limite = 120E30
+        usage_per_month = 0
+       
+        used_total = 0
+        used_total_percent = 0
+       
+        reset_day = "14"
+        used_total_byte = 0
+        offset = 0
 
-        print limite
+        interface = args["interface-name"]
+        
+        if args.get("warning"):
+            warning = args['warning']
 
-        for x in range(0, 1):
-            now = time.strftime("%c")
+        if args.get("critical"):
+            critical = args['critical']
 
-            to_day = time.strftime("%x")
-            to_day = to_day.replace("/", "")
-            to_day = to_day.lstrip("0")
+        if args.get("warning-percent"):
+            warning_percent = args['warning-percent']
+        if args.get("critical-percent"):
+             warning_percent = args['critical-percent']
 
-            interface_dict = Plugin.parse_data()
-            receive = interface_dict["eth0"][0]
-            transmit = interface_dict["eth0"][8]
-            total = receive + transmit
+            
 
-            print total
+        if args.get("limite"):
+            limite = args['limite']
 
-            file.write(to_day + " " + str(total) + "\n")
+        if not Plugin.file_accessible("bandwidth.txt", "rw"):
 
-            time.sleep(1)
+            file = open("bandwidth.txt", "w")
+            used_total = Plugin.get_total()
+            to_day = Plugin.get_to_day()
+            used_total = str(used_total)
+            offset = used_total
+            file.write("000000" + " " + used_total + " " + offset)
+            file.close()
 
-        file.close()
+        else:
+            file = open("bandwidth.txt", "rw+")
+            data_list = file.readlines()
+            data_list = "\n".join(data_list).split()
+            old_used = float(data_list[1])
+            new_used = Plugin.get_total()
+            offset = float(data_list[2])
+            old_update = data_list[0]
+            reset_date = Plugin.get_reset_day(24)
+            to_day = Plugin.get_to_day()
 
-        file = open("newfile.txt", "rw+")
+            if new_used > old_used:
+                used_total = new_used
+                print "1"
+            else:
+                used_total = new_used + old_used
+                print "2"
 
-        lines = file.readlines()
+            usage_per_month = used_total - offset
 
-        lines = "\n".join(lines).split()
+            if to_day == reset_date and to_day != old_update:
+                offset = used_total
+                old_update = reset_date
+                print "3"
 
-        lines = [i for i in Plugin.chunks(lines, 2)]
+            used_total = str(used_total)
+            offset = str(offset)
+            file.seek(0)
+            file.write(old_update + " " + used_total + " " + offset)
+            file.close()
 
-        for i in range(len(lines)):
-            print lines[i]
+        if args.get("warning"):
+            if usage_per_month < warning:
+             #   msg = "OK: %f %0.2f GB of bandwidth are used" %interface  % usage_per_month
+                msg = "OK:" + interface + round(usage_per_month,2)
+                code = STATES.OK
+            elif usage_per_month >= warning and usage_per_month < critical:
+                msg = "WARNING: %0.2f GB of bandwidth are used" % usage_per_month
+                code = STATES.WARNING
+            elif usage_per_month >= critical:
+                msg = "CRITICAL: %0.2f GB of bandwidth are used" % usage_per_month
+                code = STATES.CRITICAL
+
+        if args.get("limite"):
+            used_total_percent = (usage_per_month / float(limite)) * 100
+            if used_total_percent < warning_percent:
+                msg = "OK: %s usage: %0.2f%%" % (interface, used_total_percent) 
+                code = STATES.OK
+            elif used_total_percent >= warning_percent and used_total < critical_percent:
+                msg = "WARNING: %s usage: %0.2f%%" % (interface, used_total_percent)
+                code = STATES.WARNING
+            elif used_total_percent >= critical_percent:
+                msg = "CRITICAL: %s usage: %0.2f%%" % (interface, used_total_percent)
+                code = STATES.CRITICAL
+            self.exit(code, msg)
 
 
-
-
-#        p1 = PerfData('spam', 42, unit='%', warn=70, crit=90, min_=0, max_=100)
+        p1 = PerfData(code, msg, unit='GB', warn=warning, crit=critical, min_=0)
  #       p2=  PerfData('eggs', 6, unit='%', warn=20, crit=30, min_=0, max_=100)
         
-#        self.exit(STATES.OK, "Everything was perfect", p1, p2)
+        self.exit(code, msg, p1)
 
 if __name__ == "__main__":
     Plugin()
