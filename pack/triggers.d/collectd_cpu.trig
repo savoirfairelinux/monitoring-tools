@@ -1,67 +1,70 @@
 #!/usr/bin/env python
-try:
-    import re
-    def readable(octets):
-        units = ['K', 'M', 'G', 'T', 'P']
-        unit = 'B'
-        for i, u in enumerate(units):
-            if octets > 1024:
-                octets = octets / 1024.0
-                unit = units[i]
-            else:
-                break
-        return octets, unit
-    
-    
-    exit_code_output = {0: 'OK',
-                        1: 'WARNING',
-                        2: 'CRITICAL',
-                        3: 'UNKNOWN',
-                       }
-    exit_code = 0
-    outputs = []
-    
-    # Get threshold
-    data = {}
 
-    # Get perfs
-    raw_perf_datas = allperfs(self)
-    cpu_names = set([re.match('([^-]*)-(.*)-([^-]*)', metric_name).groups()[1]
-                for metric_name in raw_perf_datas.keys()])
-    
-    perf_datas = [] 
-    exit_codes = []
-    outputs =[]
-    for cpu in cpu_names:
-        data['cpu'] = cpu
-        bad_data = False
-        for name in ['user', 'irq', 'steal', 'nice', 'system', 'wait', 'softirq', 'idle']:
-            try:
-                data[name] = float(raw_perf_datas.get('cpu-%s-%s' % (cpu, name).value))
-            except AttributeError:
-                # If we get an error, we just pass this data_name (IN and OUT are ignored)
-                bad_data = True
+import re
 
-        if bad_data:
-            # We get an error, so we pass to the next data
+_summary_names = ( 'idle', 'nice', 'user', 'wait', 'system', 'softirq', 'irq', 'steal')
+# not same order !
+_name_2_what = {
+    'user':     's/s',
+    'irq':      's/s',
+    'steal':    'merged_ops/s',
+    'nice':     'merged_ops/s',
+    'system':   'ops/s',
+    'wait':     'ops/s',
+    'softirq':  'bytes/s',
+    'idle':     'bytes/s',
+}
+
+def readable(octets):
+    units = ['K', 'M', 'G', 'T', 'P']
+    unit = 'B'
+    for i, u in enumerate(units):
+        if octets > 1024:
+            octets = octets / 1024.0
+            unit = units[i]
+        else:
+            break
+    return octets, unit
+
+
+exit_code_output = {0: 'OK',
+                    1: 'WARNING',
+                    2: 'CRITICAL',
+                    3: 'UNKNOWN',
+                   }
+exit_code = 0
+outputs = []
+
+# Get threshold
+data = {}
+
+# Get perfs
+metrics = allperfs(self)
+cpu_names = set([re.match('([^-]*)-(.*)-([^-]*)', metric_name).groups()[1]
+            for metric_name in metrics])
+
+perf_datas = []
+exit_codes = []
+outputs =[]
+for cpu in cpu_names:
+    data['cpu'] = cpu
+    bad_data = False
+    begin = "cpu_%s" % cpu
+    for name, towhat in _name_2_what.items():
+        metric = metrics.get('cpu-%s-%s' % (cpu, name))
+        if metric is None: # some might not always be reported
             continue
+        value = data[name] = float(metric.value)
+        perf_datas.append("{begin}_{name}={value:0.2f}{what};;;0".format(begin=begin, name=name, value=value, what=towhat))
 
-        # Prepare output
-        perf_datas.append("cpu_%(cpu)s_user=%(user)0.2fs/s;;;0 "
-                          "cpu_%(cpu)s_irq=%(irq)0.2fs/s;;;0 "
-                          "cpu_%(cpu)s_steal=%(steal)0.2fmerged_ops/s;;;0 "
-                          "cpu_%(cpu)s_nice=%(nice)0.2fmerged_ops/s;;;0 "
-                          "cpu_%(cpu)s_system=%(system)0.2fops/s;;;0 "
-                          "cpu_%(cpu)s_wait=%(wait)0.2fops/s;;;0 "
-                          "cpu_%(cpu)s_softirq=%(softirq)0.2fbytes/s;;;0 "
-                          "cpu_%(cpu)s_idle=%(idle)0.2fbytes/s;;;0 " % data)
-        outputs.append("CPU-%(cpu)s: (%(idle)0.2f;%(nice)0.2f;%(user)0.2f;%(wait)0.2f;%(system)0.2f;%(softirq)0.2f;%(irq)0.2f;%(steal)0.2f)" % data)
+    res = 'CPU-{cpu}: '
+    res += ';'.join('{%s:0.2f}' % name
+                  for name in _summary_names
+                  if name in data )
 
-    # Set ouput
-    perf_data = " ".join(perf_datas)
-    output = " # ".join(outputs)
-    output = "CPU stats (idle;nice;user;wait;system;softirq;irq;steal) # " + output
-    set_value(self, output, perf_data, exit_code)
-        
-except Exception, e:
-    set_value(self, "UNKNOWN: Trigger error: " + str(e), "", 3)
+    outputs.append(res.format(**data))
+
+# Set ouput
+perf_data = " ".join(perf_datas)
+output = "CPU stats (%s) # %s" % (';'.join(name for name in _summary_names if name in data), " # ".join(outputs))
+set_value(self, output, perf_data, exit_code)
