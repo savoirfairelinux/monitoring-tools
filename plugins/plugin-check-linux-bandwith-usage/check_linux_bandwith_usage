@@ -45,7 +45,7 @@ class Plugin(BasePlugin):
             ('l', 'limite', 'Limit of bandwith per month: GB', True),
             ('d', 'reset-day', 'number of day to reset the counter', True),
             ('s', 'cache-folder', 'the folder to stock the data', True),
-            ('f', 'perfdata', 'option to show perfdata', True),
+            ('f', 'perfdata', 'option to show perfdata', False),
             ('W', 'warning-percent', 'Limit to result in a warning state: %', True),
             ('C', 'critical-percent', 'Limit to result in a critical state: %', True),
             ]
@@ -55,26 +55,44 @@ class Plugin(BasePlugin):
         # If you don't need to check things, you can safely remove the method.
 
         if not args.get("interface-name"):
-            self.exit(STATES.CRITICAL, "The interface is missing")
+            self.exit(STATES.UNKNOWN, "The interface is missing")
+
+        if args.get("interface-name"):
+            dev = open("/proc/net/dev", "r").readlines()
+            header_line = dev[1]
+            header_names = header_line[header_line.index("|")+1:].replace("|", " ").split()
+            interface_dict={}
+            for line in dev[2:]:
+                intf = line[:line.index(":")].strip()
+                interface_dict[intf] = [int(value) for value in line[line.index(":")+1:].split()]
+
+            interface_name = args.get("interface-name")
+
+            if not interface_name in interface_dict:
+                msg = "There's not interface: " + "'" + interface_name + "'"
+
+                self.exit(STATES.UNKNOWN, msg)
 
         if args.get("warning-percent") and args.get("critical-percent") and not args.get("limite"):
-            self.exit(STATES.CRITICAL, "The limite is missing")
-        
+            self.exit(STATES.UNKNOWN, "Missing limit argument")
         if not args.get("reset-day"):
-            self.exit(STATES.CRITICAL, "The day is missing")
-
+            self.exit(STATES.UNKNOWN, "The day is missing")
+        if not args.get("warning") and not args.get("warning-percent"):
+            self.exit(STATES.UNKNOWN, "The warning argument is missing")
+        if not args.get("critical") and not args.get("critical-percent"):
+             self.exit(STATES.UNKNOWN, "The critical argument is missing")
         if args.get("warning") and args.get("warning-percent"):
-            self.exit(STATES.CRITICAL, "Cannot put 2 warning arguments")
+            self.exit(STATES.UNKNOWN, "Cannot put 2 warning arguments")
         if args.get("critical") and args.get("critical-percent"):
-            self.exit(STATES.CRITICAL, "Cannot put 2 critical arguments")
-
-
+            self.exit(STATES.UNKNOWN, "Cannot put 2 critical arguments")
         if args.get("warning") and args.get("critical-percent"):
-            self.exit(STATES.CRITICAL, 
+            self.exit(STATES.UNKNOWN,
             "Cannot mix the warning number with critical percentage ")
         if args.get("warning-percent") and args.get("critical"):
-            self.exit(STATES.CRITICAL, 
+            self.exit(STATES.UNKNOWN,
             "Cannot mix the warning number with critical percentage ")
+        if args.get("perfdata"):
+            return True, None
 
         return True, None
 
@@ -104,7 +122,7 @@ class Plugin(BasePlugin):
         return to_day
 
     @staticmethod
-    def get_total():
+    def get_total(interface):
         # Here is the core of the plugin.
         # After doing your verifications, escape by doing:
         # self.exit(return_code, 'return_message', *performance_data)
@@ -117,11 +135,44 @@ class Plugin(BasePlugin):
             intf = line[:line.index(":")].strip()
             interface_dict[intf] = [int(value) for value in line[line.index(":")+1:].split()]
 
-        receive = interface_dict["eth0"][0]
-        transmit = interface_dict["eth0"][8]
-        used_total_byte = float(receive) + float(transmit)
-        used_total = used_total_byte / (1024 * 1024 * 1024)
+        receive = interface_dict[interface][0]
+        transmit = interface_dict[interface][8]
+        used_total = (float(receive) + float(transmit)) / (1024.0**3)
+
         return used_total
+
+    @staticmethod
+    def get_receive(interface):
+
+        dev = open("/proc/net/dev", "r").readlines()
+        header_line = dev[1]
+        header_names = header_line[header_line.index("|")+1:].replace("|", " ").split()
+        interface_dict={}
+        for line in dev[2:]:
+            intf = line[:line.index(":")].strip()
+            interface_dict[intf] = [int(value) for value in line[line.index(":")+1:].split()]
+
+
+        receive = interface_dict[interface][0]
+        receive = (float(receive)) / (1024.0**3)
+
+        return receive
+
+    @staticmethod
+    def get_transmit(interface):
+
+        dev = open("/proc/net/dev", "r").readlines()
+        header_line = dev[1]
+        header_names = header_line[header_line.index("|")+1:].replace("|", " ").split()
+        interface_dict={}
+        for line in dev[2:]:
+            intf = line[:line.index(":")].strip()
+            interface_dict[intf] = [int(value) for value in line[line.index(":")+1:].split()]
+
+        transmit = interface_dict[interface][8]
+        transmit = (float(transmit)) / (1024.0**3)
+
+        return transmit
 
     @staticmethod
     def get_reset_day(reset_day):
@@ -168,103 +219,282 @@ class Plugin(BasePlugin):
     def run(self, args):
 
         usage_per_month = 0
-       
+        usage_per_month_percent = 0
         used_total = 0
         used_total_percent = 0
        
         reset_day = "14"
-        used_total_byte = 0
+
         offset = 0
+        receive_offset = 0
+        transmit_offset = 0
+
+        old_receive = 0
+        new_receive = 0
+        receive_total = 0
+        receive_per_month = 0
+
+        old_transmit = 0
+        new_transmit = 0
+        transmit_total = 0
+        transmit_per_month = 0
+
+        code = STATES.OK
+        msg = ""
+
+        day = int(args.get("reset-day"))
 
         interface = args["interface-name"]
-        
+        interface_file = interface + ".txt"
+        interface_total = interface + "_total"
+        interface_percent = interface + "_percent"
+
+        interface_received = interface + "_received"
+        interface_transmitted = interface + "_transmitted"
+
         if args.get("warning"):
-            warning = args['warning']
+            warning = float(args["warning"])
 
         if args.get("critical"):
-            critical = args['critical']
+            critical = float(args["critical"])
 
+        warning_percent = 0
         if args.get("warning-percent"):
-            warning_percent = args['warning-percent']
+            warning_percent = float(args["warning-percent"])
+
+        critical_percent = 0
         if args.get("critical-percent"):
-             warning_percent = args['critical-percent']
+            warning_percent = float(args["critical-percent"])
 
-            
-
+        limite = None
         if args.get("limite"):
-            limite = args['limite']
+            limite = float(args["limite"])
 
-        if not Plugin.file_accessible("bandwidth.txt", "rw"):
+        if not Plugin.file_accessible(interface_file, "rw"):
 
-            file = open("bandwidth.txt", "w")
-            used_total = Plugin.get_total()
-            to_day = Plugin.get_to_day()
+            file = open(interface_file, "w")
+            used_total = Plugin.get_total(interface)
             used_total = str(used_total)
             offset = used_total
-            file.write("000000" + " " + used_total + " " + offset)
+            receive_offset = Plugin.get_receive(interface)
+            receive_offset = str(receive_offset)
+            transmit_offset = Plugin.get_transmit(interface)
+            transmit_offset = str(transmit_offset)
+            file.write("000000" + " " + used_total + " " + offset + " " + receive_offset + " " + receive_offset + " " + transmit_offset + " " + transmit_offset)
             file.close()
+            self.exit(code, "first use of plugin")
 
         else:
-            file = open("bandwidth.txt", "rw+")
+            file = open(interface_file, "rw+")
             data_list = file.readlines()
             data_list = "\n".join(data_list).split()
             old_used = float(data_list[1])
-            new_used = Plugin.get_total()
+            new_used = Plugin.get_total(interface)
+            old_receive = float(data_list[3])
+            new_receive = Plugin.get_receive(interface)
+            old_transmit = float(data_list[5])
+            new_transmit = Plugin.get_transmit(interface)
             offset = float(data_list[2])
+            receive_offset = float(data_list[4])
+            transmit_offset = float(data_list[6])
             old_update = data_list[0]
-            reset_date = Plugin.get_reset_day(24)
+            reset_date = Plugin.get_reset_day(day)
             to_day = Plugin.get_to_day()
 
             if new_used > old_used:
                 used_total = new_used
-                print "1"
+                receive_total = new_receive
+                transmit_total = new_transmit
             else:
                 used_total = new_used + old_used
-                print "2"
+                receive_total = new_receive + old_receive
+                transmit_total = new_transmit + old_transmit
 
             usage_per_month = used_total - offset
+            receive_per_month = receive_total - receive_offset
+            transmit_per_month = transmit_total - transmit_offset
 
             if to_day == reset_date and to_day != old_update:
                 offset = used_total
+                receive_offset = receive_total
+                transmit_offset = transmit_total
                 old_update = reset_date
-                print "3"
 
             used_total = str(used_total)
+            receive_total = str(receive_total)
+            transmit_total = str(transmit_total)
+
             offset = str(offset)
+            receive_offset = str(receive_offset)
+            transmit_offset = str(transmit_offset)
+
             file.seek(0)
-            file.write(old_update + " " + used_total + " " + offset)
+            file.write(old_update + " " + used_total + " " + offset + " " + receive_total + " " + receive_offset + " " + transmit_total + " " + transmit_offset)
             file.close()
 
-        if args.get("warning"):
-            if usage_per_month < warning:
-             #   msg = "OK: %f %0.2f GB of bandwidth are used" %interface  % usage_per_month
-                msg = "OK:" + interface + round(usage_per_month,2)
+        if "perfdata" in args.keys() and args.get("warning-percent") and args.get("limite"):
+
+            warning_percent = float(args.get("warning-percent"))
+            critical_percent = float(args.get("critical-percent"))
+
+            print usage_per_month
+            usage_per_month_percent = (usage_per_month / limite) * 100
+            print usage_per_month_percent
+
+            if usage_per_month_percent < warning_percent:
+                msg = "OK: %s usage: %0.2f%% (%0.2f/%0.2fGB)" % (interface, usage_per_month_percent, usage_per_month, limite)
                 code = STATES.OK
-            elif usage_per_month >= warning and usage_per_month < critical:
-                msg = "WARNING: %0.2f GB of bandwidth are used" % usage_per_month
+            elif usage_per_month_percent >= warning_percent and usage_per_month_percent < critical_percent:
+                msg = "WARNING: %s usage: %0.2f%% (%0.2f/%0.2fGB)" % (interface, usage_per_month_percent, usage_per_month, limite)
                 code = STATES.WARNING
-            elif usage_per_month >= critical:
-                msg = "CRITICAL: %0.2f GB of bandwidth are used" % usage_per_month
+            elif usage_per_month_percent >= critical_percent:
+                msg = "CRITICAL: %s usage: %0.2f%% (%0.2f/%0.2fGB)" % (interface, usage_per_month_percent, usage_per_month, limite)
                 code = STATES.CRITICAL
 
-        if args.get("limite"):
-            used_total_percent = (usage_per_month / float(limite)) * 100
-            if used_total_percent < warning_percent:
-                msg = "OK: %s usage: %0.2f%%" % (interface, used_total_percent) 
+            used_total_percent = "%0.2f"%(used_total_percent)
+            p1 = PerfData(interface_percent, used_total_percent, unit="%", warn=warning_percent, crit=critical_percent, min_="%0.2f"%(0), max_="%0.2f"%(100))
+
+            warning = (float(warning_percent) /100) * limite
+
+            warning = "%0.2f"%(warning)
+
+            critical = (float(critical_percent) /100) * limite
+            critical = "%0.2f"%(critical)
+
+            usage_per_month = "%0.2f"%(usage_per_month)
+            p2 = PerfData(interface_total, usage_per_month, unit="GB", warn=warning, crit=critical, min_="%0.2f"%(0), max_="%0.2f"%(limite))
+
+            receive_per_month = "%0.2f"%(float(receive_per_month))
+
+            transmit_per_month = "%0.2f"%(float(transmit_per_month))
+
+            p3 = PerfData(interface_received, receive_per_month, unit="GB", warn="", crit="", min_="%0.2f"%(0))
+
+            p4 = PerfData(interface_transmitted, transmit_per_month, unit="GB", warn="", crit="", min_="%0.2f"%(0))
+
+            self.exit(code, msg, p1, p2, p3, p4)
+
+        if "perfdata" in args.keys() and args.get("warning") and args.get("limite"):
+
+            limite = args.get("limite")
+            limite = float(limite)
+            warning = args.get("warning")
+            warning = float(warning)
+            critical = args.get("critical")
+            critical = float(critical)
+            limite = float(limite)
+
+            usage_per_month_percent = (usage_per_month / limite) * 100
+
+            if usage_per_month < warning:
+                msg = "OK: %s usage: %0.2f%% (%0.2f/%0.2fGB)" % (interface, usage_per_month_percent, usage_per_month, limite)
                 code = STATES.OK
-            elif used_total_percent >= warning_percent and used_total < critical_percent:
-                msg = "WARNING: %s usage: %0.2f%%" % (interface, used_total_percent)
+            elif usage_per_month >= warning and usage_per_month < critical:
+                msg = "WARNING: %s usage: %0.2f%% (%0.2f/%0.2fGB)" % (interface, usage_per_month_percent, usage_per_month, limite)
                 code = STATES.WARNING
-            elif used_total_percent >= critical_percent:
-                msg = "CRITICAL: %s usage: %0.2f%%" % (interface, used_total_percent)
+            elif usage_per_month >= critical:
+                msg = "CRITICAL: %s usage: %0.2f%% (%0.2f/%0.2fGB)" % (interface, usage_per_month_percent, usage_per_month, limite)
+                code = STATES.CRITICAL
+
+            warning_percent = "%0.2f"%((float(warning)/limite) * 100)
+
+            critical_percent = "%0.2f"%((float(critical)/limite) * 100)
+
+            used_total_percent = "%0.2f"%(used_total_percent)
+
+            p1 = PerfData(interface_percent, used_total_percent, unit="%", warn=warning_percent, crit=critical_percent, min_="%0.2f"%(0), max_="%0.2f"%(100))
+
+            warning = (float(warning_percent) /100) * limite
+            warning = "%0.2f"%(warning)
+            critical = (float(critical_percent) /100) * limite
+            critical = "%0.2f"%(critical)
+            usage_per_month = float(usage_per_month)
+            usage_per_month = "%0.2f"%(usage_per_month)
+
+            receive_per_month = "%0.2f"%(float(receive_per_month))
+            transmit_per_month = "%0.2f"%(float(transmit_per_month))
+
+            p2 = PerfData(interface_total,
+                          usage_per_month,
+                          unit="GB",
+                          warn=warning,
+                          crit=critical,
+                          min_="%0.2f"%(0),
+                          max_="%0.2f"%(limite))
+
+            p3 = PerfData(interface_received,
+                          receive_per_month,
+                          unit="GB",
+                          warn="",
+                          crit="",
+                          min_="%0.2f"%(0))
+
+            p4 = PerfData(interface_transmitted,
+                          transmit_per_month,
+                          unit="GB",
+                          warn="",
+                          crit="",
+                          min_="%0.2f"%(0))
+
+            self.exit(code, msg, p1, p2, p3, p4)
+
+        if "perfdata" in args.keys() and args.get("warning"):
+            warning = args.get("warning")
+            warning = float(warning)
+            critical = args.get("critical")
+            critical = float(critical)
+
+            if usage_per_month < warning:
+                msg = "OK: %s usage:%0.2f GB" % (interface, usage_per_month)
+                code = STATES.OK
+            elif usage_per_month >= warning and usage_per_month < critical:
+                msg = "WARNING: %s usage:%0.2f GB" % (interface, usage_per_month)
+                code = STATES.WARNING
+            elif usage_per_month >= critical:
+                msg = "CRITICAL: %s usage:%0.2f GB" % (interface, usage_per_month)
+                code = STATES.CRITICAL
+
+            receive_per_month = "%0.2f"%(float(receive_per_month))
+            transmit_per_month = "%0.2f"%(float(transmit_per_month))
+            usage_per_month = "%0.2f"%(float(usage_per_month))
+
+
+
+            p1 = PerfData(interface_total, usage_per_month, unit="GB", warn="%0.2f"%(warning), crit="%0.2f"%(critical), min_="%0.2f"%(0))
+
+            p2 = PerfData(interface_received, receive_per_month, unit="GB", warn="", crit="", min_="%0.2f"%(0))
+
+            p3 = PerfData(interface_transmitted, transmit_per_month, unit="GB", warn="", crit="", min_="%0.2f"%(0))
+
+            self.exit(code, msg, p1, p2, p3)
+
+        if args.get("limite") and args.get("warning-percent"):
+
+            usage_per_month_percent = (usage_per_month / float(limite)) * 100
+
+            if usage_per_month_percent < warning_percent:
+                msg = "OK: %s usage: %0.2fGB" % (interface, usage_per_month)
+                code = STATES.OK
+            elif usage_per_month_percent >= warning_percent and used_total < critical_percent:
+                msg = "WARNING: %s usage: %0.2fGB" % (interface, usage_per_month)
+                code = STATES.WARNING
+            elif usage_per_month_percent >= critical_percent:
+                msg = "CRITICAL: %s usage: %0.2fGB" % (interface, usage_per_month)
                 code = STATES.CRITICAL
             self.exit(code, msg)
 
+        if args.get("warning"):
 
-        p1 = PerfData(code, msg, unit='GB', warn=warning, crit=critical, min_=0)
- #       p2=  PerfData('eggs', 6, unit='%', warn=20, crit=30, min_=0, max_=100)
-        
-        self.exit(code, msg, p1)
+            if usage_per_month < warning: 
+                msg = "OK: %s usage:%0.2f GB" % (interface, usage_per_month)
+                code = STATES.OK
+            elif usage_per_month >= warning and usage_per_month < critical:
+                msg = "WARNING: %s usage:%0.2f GB" % (interface, usage_per_month)
+                code = STATES.WARNING
+            elif usage_per_month >= critical:
+                msg = "CRITICAL: %s usage:%0.2f GB" % (interface, usage_per_month)
+                code = STATES.CRITICAL
+            self.exit(code, msg)
 
 if __name__ == "__main__":
     Plugin()
