@@ -170,3 +170,6 @@
 [submodule "packs/pack-generic-mongodb"]
 	path = packs/pack-generic-mongodb
 	url = https://github.com/savoirfairelinux/pack-generic-mongodb.git
+[submodule "packs/pack-linux-system-nrpe"]
+	path = packs/pack-linux-system-nrpe
+	url = https://github.com/savoirfairelinux/pack-linux-system-nrpe.git
