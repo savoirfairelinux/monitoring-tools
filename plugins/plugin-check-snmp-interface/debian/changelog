@@ -1,0 +1,5 @@
+plugin-check-snmp-interface (2014.11.17.11.1-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Thibault Cohen <thibault.cohen@savoirfairelinux.com>  Mon, 17 Nov 2014 16:01:00 -0000
