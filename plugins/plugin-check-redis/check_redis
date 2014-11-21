@@ -19,7 +19,6 @@
 from shinkenplugins import BasePlugin, PerfData, STATES
 
 import sys
-import gevent
 import time
 import subprocess
 import signal
