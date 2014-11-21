@@ -222,12 +222,6 @@ class Plugin(BasePlugin):
         interface_received = interface + "_received"
         interface_transmitted = interface + "_transmitted"
 
-        ##############
-        # for test
-        ##############
-
-        interface_file = interface + "_.txt"
-
         # Get warning
         if args.get("warning"):
             warning = float(args["warning"])
@@ -323,19 +317,16 @@ class Plugin(BasePlugin):
             to_day = time.strftime("%m%d%Y")
             # Check if the counter restarted
             if new_used > used_total:
-                print 1
                 used_total = new_used
                 receive_total = new_receive
                 transmit_total = new_transmit
             else:
                 # Handle counter restart
-                print 2
                 if new_used > old_data:
                     used_total = used_total + (new_used - old_data)
                     receive_total = receive_total + (new_receive - old_receive)
                     transmit_total = transmit_total + (new_transmit - old_transmit)
                 else:
-                    print 3
                     used_total = used_total + new_used
                     receive_total = receive_total + new_receive
                     transmit_total = transmit_total + new_transmit
@@ -370,7 +361,6 @@ class Plugin(BasePlugin):
 
         # check_linux_bandwith_usage -i eth0 -W 50 -C 90 -d 10 -l 500
         if args.get("limit") and args.get("warning-percent"):
-            print "malade"
 
             warning_percent = float(args.get("warning-percent"))
             critical_percent = float(args.get("critical-percent"))
@@ -406,7 +396,6 @@ class Plugin(BasePlugin):
 
             # check_linux_bandwith_usage -i eth0 -W 50 -C 90 -d 10 -l 500 -f
             if "perfdata" in args.keys() and args.get("warning-percent") and args.get("limit"):
-                print "test malade"
 
                 p1 = PerfData(interface_percent,
                               used_total_percent,
@@ -442,7 +431,6 @@ class Plugin(BasePlugin):
 
         # check_linux_bandwith_usage -i eth0 -w 50 -c 100 -d 10 -l 500 -f
         if "perfdata" in args.keys() and args.get("warning") and args.get("limit"):
-            print "Youpi"
             # get all data from args
             limit = float(args.get("limit"))
             warning = float(args.get("warning"))
@@ -514,7 +502,6 @@ class Plugin(BasePlugin):
 
         # check_linux_bandwith_usage -i eth0 -w 50 -c 90 -d 5
         if args.get("warning"):
-            print "wow"
             warning = float(args.get("warning"))
             critical = float(args.get("critical"))
 
@@ -530,7 +517,6 @@ class Plugin(BasePlugin):
 
             # check_linux_bandwith_usage -i eth0 -w 50 -c 90 -d 5 -f
             if "perfdata" in args.keys() and args.get("warning"):
-                print "essai wow"
                 # convert all data to float with 2 decimal places
                 receive_per_month = "%0.2f" % (float(receive_per_month))
                 transmit_per_month = "%0.2f" % (float(transmit_per_month))
