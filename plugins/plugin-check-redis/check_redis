@@ -22,6 +22,7 @@ import sys
 import gevent
 import time
 import subprocess
+import signal
 
 try:
     import redis
@@ -69,18 +70,22 @@ class Plugin(BasePlugin):
 
         return True, None
 
-    def check_connect(self, con, host, port, warning, critical, db):
-        with gevent.Timeout(30, False):
+    def handler_timeout(self, signum, frame):
+        self.exit(STATES.UNKNOWN, "WARNING: Could not connect to Redis")
 
-            p = subprocess.Popen(["redis-cli", "info"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            out, err = p.communicate()
-            if err != "":
-                code = STATES.UNKNOWN
-                message = "WARNING: Could not connect to Redis at host: %s, %d" %(host, port)
-            else:
-                con.ping()
-                message = "OK: connection is good, host: %s, port: %s, database id: %s" % (host, port, str(db))
-                code = STATES.OK
+    def check_connect(self, con, host, port, warning, critical, db):
+        signal.signal(signal.SIGALRM, self.handler_timeout)
+        signal.alarm(30)
+
+        p = subprocess.Popen(["redis-cli", "info"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        out, err = p.communicate()
+        if err != "":
+            code = STATES.UNKNOWN
+            message = "WARNING: Could not connect to Redis at host: %s, %d" %(host, port)
+        else:
+            con.ping()
+            message = "OK: connection is good, host: %s, port: %s, database id: %s" % (host, port, str(db))
+            code = STATES.OK
 
         self.exit(code, message)
 
