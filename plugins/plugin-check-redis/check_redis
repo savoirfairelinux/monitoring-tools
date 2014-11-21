@@ -76,10 +76,10 @@ class Plugin(BasePlugin):
             out, err = p.communicate()
             if err != "":
                 code = STATES.UNKNOWN
-                message = "WARNING: Could not connect to Redis at host: " + host + ", port: " + port
+                message = "WARNING: Could not connect to Redis at host: %s, %d" %(host, port)
             else:
                 con.ping()
-                message = "OK: connection is good, host: %s, port: %s, database id: %s" % (host, str(port), str(db))
+                message = "OK: connection is good, host: %s, port: %s, database id: %s" % (host, port, str(db))
                 code = STATES.OK
 
         self.exit(code, message)
