@@ -206,7 +206,7 @@ class Plugin(BasePlugin):
     def run(self, args):
 
         redis_host = args.get("host")
-        redis_port = args.get("port")
+        redis_port = int(args.get("port"))
         warning = args.get("warning")
         critical = args.get("critical")
         redis_db = args.get("db")
