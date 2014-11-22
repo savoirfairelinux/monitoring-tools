@@ -45,8 +45,8 @@ if [ "$OLDHASH" != "$HASH" ] || [ ! -d last_env ]; then
   virtualenv --distribute env
   . env/bin/activate
   pip install --upgrade pip
-  pip install --upgrade -r requirements.freeze
-  pip install --upgrade -r test/jenkins/requirements.tests.freeze
+  pip install --use-wheel --find-links=/tmp/wheelhouse -r requirements.freeze
+  pip install --use-wheel --find-links=/tmp/wheelhouse -r test/jenkins/requirements.tests.freeze
   rm -rf last_env
   cp -ar env last_env
 else
