@@ -31,4 +31,5 @@ do
     cd $lib
     ./run_tests.sh
     cd ..
+done
 cd ..
