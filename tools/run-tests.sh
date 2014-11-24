@@ -2,6 +2,12 @@
 set -e
 export GREP_OPTIONS=""
 
+# Setup a wheelhouse
+[ ! -d /tmp/wheelhouse ] && mkdir /tmp/wheelhouse
+pip wheel -w /tmp/wheelhouse lxml
+pip wheel -w /tmp/wheelhouse nose
+pip wheel -w /tmp/wheelhouse shinkenplugins
+
 # Plugins
 cd plugins
 for plugin in `ls -d */`; do

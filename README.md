@@ -1,7 +1,7 @@
 Monitoring Tools
 ================
 
-[![Build Status](https://travis-ci.org/savoirfairelinux/monitoring-tools.svg?branch=master)](https://travis-ci.org/savoirfairelinux/monitoring-tools)
+[![Build Status](https://travis-ci.org/savoirfairelinux/monitoring-tools.svg?branch=master)](https://travis-ci.org/savoirfairelinux/monitoring-tools) [![Documentation Status](https://readthedocs.org/projects/sfl-monitoring-tools/badge/?version=latest&style)](https://readthedocs.org/projects/sfl-monitoring-tools/?badge=latest)
 
 This repository contains plugins we use with Shinken, to check various
 services, and which are not implemented in the usual plugins packages.

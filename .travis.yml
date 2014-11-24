@@ -1,13 +1,13 @@
 language: python
 
 python:
-  - "2.6"
-#  - "2.7"
+#  - "2.6"
+  - "2.7"
 # removed temporarily
 # rationale: "after_success" will be executed 2 times, that's not what we want (yet)
 
 install:
-  - pip install nose
+  - pip install nose wheel
   
   # this is for python's lxml
   - sudo apt-get install libdevel-cover-perl libxslt1-dev zlib1g-dev
