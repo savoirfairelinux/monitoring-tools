@@ -8,7 +8,7 @@ function obs_push {
 
     # Check if the OBS orig and the current orig are different
     rm -rf /tmp/${1}_OBS_ORIG && mkdir /tmp/${1}_OBS_ORIG && tar -xf ${OBS_REPO}/${1}/${1}*.orig.tar.gz -C /tmp/${1}_OBS_ORIG --force-local
-    diff -r ${2}/${1}/ /tmp/${1}_OBS_ORIG/${1}/ --exclude=debian --exclude=.git*
+    diff -r ${2}/${1}/ /tmp/${1}_OBS_ORIG/${1}/ --exclude=.git*
 
     #Only update the source has changed
     if [ $? -ne 0 ]; then
@@ -38,6 +38,13 @@ DIR=$(pwd)
 # Open Build Service repository
 OBS_REPO=home:sfl-monitoring:monitoring-tools
 
+
+# libraries
+for lib in `(cd libs && ls -d */ | tr -d '/')`
+do
+    obs_push $lib libs
+done
+
 # plugins
 for plugin in `(cd plugins && ls -d */ | tr -d '/')`
 do
@@ -49,6 +56,3 @@ for pack in `(cd packs && ls -d */ | tr -d '/')`
 do
     obs_push $pack packs
 done
-
-# library
-obs_push shinkenplugins .

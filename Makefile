@@ -213,6 +213,21 @@ clean:
 	rm -f plugins/*.dsc
 	rm -f plugins/*.changes
 	rm -f plugins/*.deb
+	rm -f plugins/*.diff.gz
+
+	rm -f packs/*.orig.tar.gz
+	rm -f packs/*.debian.tar.gz
+	rm -f packs/*.dsc
+	rm -f packs/*.changes
+	rm -f packs/*.deb
+	rm -f packs/*.diff.gz
+
+	rm -f libs/*.orig.tar.gz
+	rm -f libs/*.debian.tar.gz
+	rm -f libs/*.dsc
+	rm -f libs/*.changes
+	rm -f libs/*.deb
+	rm -f libs/*.diff.gz
 
 	rm -rf plugins/*/debian/plugin-*/
 	rm -f plugins/*/debian/files

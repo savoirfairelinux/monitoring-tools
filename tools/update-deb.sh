@@ -10,12 +10,21 @@ set -e
 # than the last debian/changelog entry
 BUILD_PACKAGE="dpkg-buildpackage -us -uc -S --source-option=-Zgzip --source-option=--ignore-bad-version"
 
-# library package
-# We extract the last version from the changelog
-version=$(cat shinkenplugins/debian/changelog  | grep 'shinkenplugins' | head -n 1 | awk '{print $2}' | tr -d '()' | cut -d '-' -f 1)
-tar -czf shinkenplugins_${version}.orig.tar.gz shinkenplugins/ --exclude=$shinkenplugins/debian/*
-cd shinkenplugins
-$BUILD_PACKAGE || true
+# libs packages
+cd libs
+for lib in `ls -d */ | tr -d '/'`
+do
+    # We extract the last version from the changelog
+    version=$(cat $lib/debian/changelog  | grep 'urgency=' | head -n 1 | awk '{print $2}' | tr -d '()' | cut -d '-' -f 1)
+
+    # We create the upstream source, foo.orig.tar.gz
+    tar -czf ${lib}_${version}.orig.tar.gz $lib/ --exclude=${lib}/debian/* --exclude=${lib}/.git*
+
+    # And let's build the source package
+    cd $lib
+    $BUILD_PACKAGE || true
+    cd ..
+done
 cd ..
 
 # plugin packages
