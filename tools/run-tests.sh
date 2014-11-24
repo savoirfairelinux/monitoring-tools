@@ -25,6 +25,10 @@ done
 cd ..
 
 # finally: shinkenplugins
-cd shinkenplugins
-./run_tests.sh
+cd libs
+for lib in `ls -d */`
+do
+    cd $lib
+    ./run_tests.sh
+    cd ..
 cd ..
