@@ -132,15 +132,15 @@ class Plugin(BasePlugin):
              'host-address',
              'Host address IP',
              True),
-            # SNMP community
+            # SNMP snmp-community
             ('C',
-             'community',
+             'snmp-community',
              ('SNMP community\n'
               '    Optional; Default: public'),
              True),
             # SNMP version
             ('V',
-             'version',
+             'snmp-version',
              ('SNMP version\n'
               '    Optional; Default: 2c'),
              True),
@@ -162,6 +162,11 @@ class Plugin(BasePlugin):
              ('Folder where cache will be store\n'
               '    Optional; Default: /tmp/check_snmp_int/'),
              True),
+            # Interface name
+            ('l',
+             'list-interfaces',
+             ('List all interfaces name'),
+             False),
             # Interface name
             ('n',
              'ifname',
@@ -234,11 +239,11 @@ class Plugin(BasePlugin):
                 return False, "Argument `%s' is missing !" % argument_name
 
         # Handle default values
-        if not 'community' in args.keys():
-            args['community'] = 'public'
+        if not 'snmp-community' in args.keys():
+            args['snmp-community'] = 'public'
 
-        if not 'version' in args.keys():
-            args['version'] = '2c'
+        if not 'snmp-version' in args.keys():
+            args['snmp-version'] = '2c'
 
         if not 'port' in args.keys():
             args['port'] = '161'
@@ -267,6 +272,9 @@ class Plugin(BasePlugin):
         if not 'realbandwidth' in args.keys():
             args['realbandwidth'] = False
 
+        if not 'list-interfaces' in args.keys():
+            args['list-interfaces'] = False
+
         if not 'only-up' in args.keys():
             args['only-up'] = False
 
@@ -278,6 +286,7 @@ class Plugin(BasePlugin):
                         'perfcheck',
                         'perfdata',
                         'realbandwidth',
+                        'list-interfaces',
                         'only-up',
                         '64bits']
         for argument_name in boolean_args:
@@ -285,7 +294,7 @@ class Plugin(BasePlugin):
                 args[argument_name] = True
 
         # SNMP version
-        if args['version'] not in ['1', '2c']:
+        if args['snmp-version'] not in ['1', '2c']:
             return False, "Bad SNMP Version!" % argument_name
 
         # Int arguments
@@ -436,8 +445,7 @@ class Plugin(BasePlugin):
 
 
     def find_data(self, args, interfaces={}):
-        """Search if data was already fetched
-        """
+        """Search if data was already fetched """
         host_address = args['host-address']
         ifname = args['ifname']
         update_time = args['update-time']
@@ -466,6 +474,10 @@ class Plugin(BasePlugin):
         if interfaces == {}:
             return True, interfaces
 
+        # Prepare output
+        messages = []
+        states = []
+        perfdatas = []
         now = datetime.now()
         for interface in interfaces.values():
             if re.search(ifname, str(interface.get('descr'))) or re.search(ifname.replace("/", "_"), str(interface.get('descr'))):
@@ -474,13 +486,16 @@ class Plugin(BasePlugin):
                     return True, interfaces
                 if interface.get('old_date') is None:
                     return True, interfaces
-
-
-                state, message, perf_datas = self.compute_output(interface, args)
-                self.exit(state, message, *perf_datas)
-
-
-        return False, interfaces
+                
+                output = self.compute_output(interface, args)
+                if output is None:
+                    continue
+                states.append(output[0])
+                messages.append(output[1])
+                perfdatas.extend(output[2])
+        
+        # Output
+        self.exit(max(states), " # ".join(messages), *perfdatas)
 
     def format_results(self, results, interfaces):
         """ format results
@@ -521,8 +536,8 @@ class Plugin(BasePlugin):
         """Fetch data from host
         """
         host_address = args['host-address']
-        community = args['community']
-        version = args['version']
+        community = args['snmp-community']
+        version = args['snmp-version']
         ifname = args['ifname']
         error = args['error']
         realbandwidth = args['realbandwidth']
@@ -545,7 +560,7 @@ class Plugin(BasePlugin):
         snmp_cmdgen = cmdgen.CommandGenerator()
 
         # Prepare snmp data
-        pysnmp_community = cmdgen.CommunityData(args['community'])
+        pysnmp_community = cmdgen.CommunityData(args['snmp-community'])
         pysnmp_target = cmdgen.UdpTransportTarget((args['host-address'], args['port']),
                                                   timeout=args['timeout'],
                                                   retries=0)
@@ -577,22 +592,54 @@ class Plugin(BasePlugin):
 
 
 
+    def list_interface(self, args):
+        # Prepare snmp command
+        snmp_cmdgen = cmdgen.CommandGenerator()
+
+        # Prepare snmp data
+        pysnmp_community = cmdgen.CommunityData(args['snmp-community'])
+        pysnmp_target = cmdgen.UdpTransportTarget((args['host-address'], args['port']),
+                                                  timeout=args['timeout'],
+                                                  retries=0)
+        # Get snmp datas
+        (errorIndication,
+         errorStatus,
+         errorIndex,
+         varBind) = snmp_cmdgen.nextCmd(pysnmp_community,
+                                        pysnmp_target,
+                                        ".1.3.6.1.2.1.2.2.1.2")
+
+        # TODO Handle errors
+        if errorIndication:
+            pass
+        if errorStatus != 0:
+            pass
+        if errorIndex != 0:
+            pass
+
+        # Format result
+        interface_list = [str(row[0][1]) for row in varBind]
+
+        return "\n".join(interface_list)
+
     
     def run(self, args):
         # Here is the core of the plugin.
         # After doing your verifications, escape by doing:
         # self.exit(return_code, 'return_message', *performance_data)
-        
+        if args['list-interfaces']:
+            message = self.list_interface(args)
+            self.exit(STATES.UNKNOWN, message)
+
         action, interfaces = self.find_data(args)
 
         if action:
             interfaces = self.fetch_data(args, interfaces)
             self.find_data(args, interfaces)
+            
 
-        p1 = PerfData('spam', 42, unit='%', warn=70, crit=90, min_=0, max_=100)
-        p2=  PerfData('eggs', 6, unit='%', warn=20, crit=30, min_=0, max_=100)
-        
-        self.exit(STATES.OK, MSG, p1, p2)
+
+        self.exit(STATES.OK, "Please wait the next check")
 
 if __name__ == "__main__":
     Plugin()
