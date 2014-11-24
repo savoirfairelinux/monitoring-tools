@@ -11,7 +11,9 @@ set -e
 BUILD_PACKAGE="dpkg-buildpackage -us -uc -S --source-option=-Zgzip --source-option=--ignore-bad-version"
 
 # library package
-tar -czf shinkenplugins_0.1.orig.tar.gz shinkenplugins/ --exclude=$shinkenplugins/debian/*
+# We extract the last version from the changelog
+version=$(cat shinkenplugins/debian/changelog  | grep 'shinkenplugins' | head -n 1 | awk '{print $2}' | tr -d '()' | cut -d '-' -f 1)
+tar -czf shinkenplugins_${version}.orig.tar.gz shinkenplugins/ --exclude=$shinkenplugins/debian/*
 cd shinkenplugins
 $BUILD_PACKAGE || true
 cd ..
