@@ -26,7 +26,7 @@ install:
   - sudo apt-get install -y --force-yes libvirt-dev libvirt-bin
  
   # libxml2 is broken on pypi
-  - sudo apt-get install python-libxml2
+  - sudo apt-get install python-libxml2 python-sphinx
 
 script:
   - make tests
