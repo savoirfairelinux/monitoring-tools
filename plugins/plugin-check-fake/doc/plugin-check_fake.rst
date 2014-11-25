@@ -1,3 +1,4 @@
-plugin-check_fake
-================
+plugin-check-fake
+=================
+
 Shinken plugin from SFL. Fake plugin

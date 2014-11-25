@@ -1,4 +1,4 @@
-check-environment-canada
-================
+plugin-check-environment-canada
+===============================
 
 Checks various environment metrics in Canada.

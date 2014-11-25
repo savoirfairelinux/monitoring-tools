@@ -1,5 +1,5 @@
-check-emergency-rooms-quebec
-================
+plugin-check-emergency-rooms-quebec
+===================================
 
 Checks the occupation of stretchers in various hospitals in Quebec.
 

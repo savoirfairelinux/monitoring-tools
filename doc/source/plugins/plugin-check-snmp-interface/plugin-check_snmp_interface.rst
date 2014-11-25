@@ -1,4 +1,4 @@
-check-snmp-interface
-================
+plugin-check-snmp-interface
+===========================
 
 This plugin check interface traffic using SNMP

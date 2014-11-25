@@ -1,4 +1,4 @@
-check-hydro-quebec
-================
+plugin-check-hydro-quebec
+=========================
 
-surveiller le nombre de pannes
+Get the number of service problems

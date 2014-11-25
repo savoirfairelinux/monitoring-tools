@@ -1,3 +1,4 @@
-plugin-check_site_health
-================
+plugin-check-site-health
+========================
+
 Shinken plugin from SFL. Browse web site to find broken links

@@ -1,6 +1,6 @@
-==============
-check-selenium
-==============
+=====================
+plugin-check-selenium
+=====================
 
 Web scenario tests using Selenium
 
