@@ -217,6 +217,8 @@ class Plugin(BasePlugin):
         # create interface_file with the name of interface and the path
         interface_file = cache_folder + interface + ".txt"
 
+        interface_file = interface + ".txt"
+
         interface_total = interface + "_total"
         interface_percent = interface + "_percent"
         interface_received = interface + "_received"
@@ -268,16 +270,18 @@ class Plugin(BasePlugin):
             old_receive = Plugin.get_receive(interface)
             old_transmit = Plugin.get_transmit(interface)
             # Write datas in file
-            file.write("%s %f %f %f %f %f %f %f %f %f" % (old_update,
-                                                          used_total,
-                                                          offset,
-                                                          receive_total,
-                                                          receive_offset,
-                                                          transmit_total,
-                                                          transmit_offset,
-                                                          old_data,
-                                                          old_receive,
-                                                          old_transmit))
+
+
+            file.write("%s %0.30f %0.30f %0.30f %0.30f %0.30f %0.30f %0.30f %0.30f %0.30f" % (old_update,
+                                                                                              used_total,
+                                                                                              offset,
+                                                                                              receive_total,
+                                                                                              receive_offset,
+                                                                                              transmit_total,
+                                                                                              transmit_offset,
+                                                                                              old_data,
+                                                                                              old_receive,
+                                                                                              old_transmit))
             # Close file
             file.close()
             # Exit for the first launch
@@ -316,17 +320,27 @@ class Plugin(BasePlugin):
             # Get today
             to_day = time.strftime("%m%d%Y")
             # Check if the counter restarted
-            if new_used > used_total:
+
+            if new_used >= used_total:
+                print 1
+                print "%0.30f" % new_used
+                print "%0.30f" % used_total
                 used_total = new_used
                 receive_total = new_receive
                 transmit_total = new_transmit
+
             else:
                 # Handle counter restart
-                if new_used > old_data:
+                if new_used >= old_data:
+                    print 2
                     used_total = used_total + (new_used - old_data)
                     receive_total = receive_total + (new_receive - old_receive)
                     transmit_total = transmit_total + (new_transmit - old_transmit)
                 else:
+                    print new_used
+                    print used_total
+                    print 3
+
                     used_total = used_total + new_used
                     receive_total = receive_total + new_receive
                     transmit_total = transmit_total + new_transmit
@@ -347,16 +361,16 @@ class Plugin(BasePlugin):
                 old_update = reset_date
             # write data to file
             file.seek(0)
-            file.write("%s %f %f %f %f %f %f %f %f %f" % (old_update,
-                                                          used_total,
-                                                          offset,
-                                                          receive_total,
-                                                          receive_offset,
-                                                          transmit_total,
-                                                          transmit_offset,
-                                                          old_data,
-                                                          old_receive,
-                                                          old_transmit))
+            file.write("%s %0.30f %0.30f %0.30f %0.30f %0.30f %0.30f %0.30f %0.30f %0.30f" % (old_update,
+                                                                                              used_total,
+                                                                                              offset,
+                                                                                              receive_total,
+                                                                                              receive_offset,
+                                                                                              transmit_total,
+                                                                                              transmit_offset,
+                                                                                              old_data,
+                                                                                              old_receive,
+                                                                                              old_transmit))
             file.close()
 
         # check_linux_bandwith_usage -i eth0 -W 50 -C 90 -d 10 -l 500
@@ -375,10 +389,11 @@ class Plugin(BasePlugin):
             usage_per_month = "%0.2f" % usage_per_month
 
             if usage_per_month_percent < warning_percent:
-                msg = "OK: %s usage: %0.2f%% (%s/%0.2fGB)" % (interface,
-                                                              usage_per_month_percent,
-                                                              usage_per_month,
-                                                              limit)
+                msg = ("OK: %s usage: %0.2f%% "
+                      "(%s/%0.2fGB)" % (interface,
+                                        usage_per_month_percent,
+                                        usage_per_month,
+                                        limit))
                 code = STATES.OK
             elif usage_per_month_percent >= warning_percent and usage_per_month_percent < critical_percent:
                 msg = ("WARNING: %s usage: %0.2f%% "
@@ -388,10 +403,11 @@ class Plugin(BasePlugin):
                                          limit))
                 code = STATES.WARNING
             elif usage_per_month_percent >= critical_percent:
-                msg = "CRITICAL: %s usage: %0.2f%% (%s/%0.2fGB)" % (interface,
-                                                                    usage_per_month_percent,
-                                                                    usage_per_month,
-                                                                    limit)
+                msg = ("CRITICAL: %s usage: %0.2f%% "
+                       "(%s/%0.2fGB)" % (interface,
+                                         usage_per_month_percent,
+                                         usage_per_month,
+                                         limit))
                 code = STATES.CRITICAL
 
             # check_linux_bandwith_usage -i eth0 -W 50 -C 90 -d 10 -l 500 -f
@@ -439,22 +455,25 @@ class Plugin(BasePlugin):
             usage_per_month_percent = (usage_per_month / limit) * 100
 
             if usage_per_month < warning:
-                msg = "OK: %s usage: %0.2f%% (%0.2f/%0.2fGB)" % (interface,
-                                                                 usage_per_month_percent,
-                                                                 usage_per_month,
-                                                                 limit)
+                msg = ("OK: %s usage: %0.2f%% "
+                       "(%0.2f/%0.2fGB)" % (interface,
+                                            usage_per_month_percent,
+                                            usage_per_month,
+                                            limit))
                 code = STATES.OK
             elif usage_per_month >= warning and usage_per_month < critical:
-                msg = "WARNING: %s usage: %0.2f%% (%0.2f/%0.2fGB)" % (interface,
-                                                                      usage_per_month_percent,
-                                                                      usage_per_month,
-                                                                      limit)
+                msg = ("WARNING: %s usage: %0.2f%% "
+                       "(%0.2f/%0.2fGB)" % (interface,
+                                            usage_per_month_percent,
+                                            usage_per_month,
+                                            limit))
                 code = STATES.WARNING
             elif usage_per_month >= critical:
-                msg = "CRITICAL: %s usage: %0.2f%% (%0.2f/%0.2fGB)" % (interface,
-                                                                       usage_per_month_percent,
-                                                                       usage_per_month,
-                                                                       limit)
+                msg = ("CRITICAL: %s usage: %0.2f%% "
+                       "(%0.2f/%0.2fGB)" % (interface,
+                                            usage_per_month_percent,
+                                            usage_per_month,
+                                            limit))
                 code = STATES.CRITICAL
 
             # convert all data to float with 2 decimal places
