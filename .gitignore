@@ -1,2 +1,4 @@
 doc/build
 *.pyc
+*.swp
+env/

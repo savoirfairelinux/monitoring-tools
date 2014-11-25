@@ -8,5 +8,5 @@ sfl-shinken-plugins documentation
    :maxdepth: 2
    :glob:
 
-   plugin-*
-   pack-*
+   plugins
+   packs
