@@ -39,6 +39,18 @@ sys.path.append("..")
 import check_spa2102
 
 
+def get_free_port():
+        ''' fairly copied from http://stackoverflow.com/questions/2838244/get-open-tcp-port-in-python
+        :return: a port number (on localhost) which should be "free" (== not open)
+        '''
+        import socket
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.bind(("", 0))
+        port = s.getsockname()[1]
+        s.close()
+        return port
+
+
 class TestPlugin(unittest.TestCase):
     def setUp(self):
         pass
@@ -97,6 +109,7 @@ class TestPlugin(unittest.TestCase):
         sys.argv = [sys.argv[0]]
         sys.argv.append('-H')
         sys.argv.append('127.0.0.1')
+        sys.argv.extend([ '-P', str(get_free_port())])
         try:
             out = StringIO()
             sys.stdout = out
