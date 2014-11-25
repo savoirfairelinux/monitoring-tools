@@ -20,7 +20,6 @@ import os
 import os.path
 import time
 import datetime
-from collections import namedtuple
 
 
 from shinkenplugins import BasePlugin, PerfData, STATES
@@ -33,21 +32,22 @@ class Plugin(BasePlugin):
     EMAIL = 'vanduc.nguyen@savoirfairelinux.com'
 
     ARGS = [# Can't touch this:
-            ('h', 'help', 'display plugin help', False),
-            ('v', 'version', 'display plugin version number', False),
-            # Hammer time^W^W Add your plugin arguments here:
-            # ('short', 'long', 'description', 'does it expect a value?')
-            ('u', 'url', 'the url to fetch data from', True),
-            ('w', 'warning', 'Limit to result in a warning state: GB', True),
-            ('c', 'critical', 'Limit to result in a critical state: GB', True),
-            ('i', 'interface-name', 'the name of interface you want to have a bandwith', True),
-            ('l', 'limit', 'Limit of bandwith per month: GB', True),
-            ('d', 'reset-day', 'number of day to reset the counter', True),
-            ('s', 'cache-folder', 'the folder to stock the data by default:/tmp/check_linux_bandwith/', True),
-            ('f', 'perfdata', 'option to show perfdata', False),
-            ('W', 'warning-percent', 'Limit to result in a warning state: %', True),
-            ('C', 'critical-percent', 'Limit to result in a critical state: %', True),
-            ]
+        ('h', 'help', 'display plugin help', False),
+        ('v', 'version', 'display plugin version number', False),
+        # Hammer time^W^W Add your plugin arguments here:
+        # ('short', 'long', 'description', 'does it expect a value?')
+        ('u', 'url', 'the url to fetch data from', True),
+        ('w', 'warning', 'Limit to result in a warning state: GB', True),
+        ('c', 'critical', 'Limit to result in a critical state: GB', True),
+        ('i', 'interface-name', 'the name of interface you want to have a bandwith', True),
+        ('l', 'limit', 'Limit of bandwith per month: GB', True),
+        ('d', 'reset-day', 'number of day to reset the counter', True),
+        ('s', 'cache-folder',
+         'the folder to stock the data by default:/tmp/check_linux_bandwith/', True),
+        ('f', 'perfdata', 'option to show perfdata', False),
+        ('W', 'warning-percent', 'Limit to result in a warning state: %', True),
+        ('C', 'critical-percent', 'Limit to result in a critical state: %', True),
+        ]
 
     def check_args(self, args):
         """ Check arguments validity and set default values
@@ -60,8 +60,6 @@ class Plugin(BasePlugin):
         if args.get("interface-name"):
             # Check if interface exists
             dev = open("/proc/net/dev", "r").readlines()
-            header_line = dev[1]
-            header_names = header_line[header_line.index("|") + 1:].replace("|", " ").split()
             interface_dict = {}
             for line in dev[2:]:
                 intf = line[:line.index(":")].strip()
@@ -72,8 +70,8 @@ class Plugin(BasePlugin):
                        "Interfaces unavailable: :"
                        "%s" % (interface_name,
                                ", ".join(interface_dict.keys())
-                               )
-                       )
+                              )
+                      )
                 self.exit(STATES.UNKNOWN, msg)
 
         # Check if limit argument is mandatory
@@ -97,11 +95,11 @@ class Plugin(BasePlugin):
         # Check warning and critical concordance
         if args.get("warning") and args.get("critical-percent"):
             self.exit(STATES.UNKNOWN,
-            "Cannot mix the warning number with critical percentage ")
+                      "Cannot mix the warning number with critical percentage")
         # Check warning and critical concordance
         if args.get("warning-percent") and args.get("critical"):
             self.exit(STATES.UNKNOWN,
-            "Cannot mix the warning number with critical percentage ")
+                      "Cannot mix the warning number with critical percentage")
         # Return
         return True, None
 
@@ -110,7 +108,7 @@ class Plugin(BasePlugin):
         try:
             f = open(filepath, mode)
             f.close()
-        except IOError as e:
+        except IOError:
             return False
 
         return True
@@ -118,8 +116,6 @@ class Plugin(BasePlugin):
     @staticmethod
     def get_interfaces_datas():
         dev = open("/proc/net/dev", "r").readlines()
-        header_line = dev[1]
-        header_names = header_line[header_line.index("|") + 1:].replace("|", " ").split()
         interface_dict = {}
         for line in dev[2:]:
             intf = line[:line.index(":")].strip()
@@ -250,8 +246,8 @@ class Plugin(BasePlugin):
         # if the file doesn't exist
         if not os.path.isfile(interface_file):
             try:
-                file = open(interface_file, "w")
-            except IOError as exp:
+                int_fh = open(interface_file, "w")
+            except IOError:
                 self.exit(STATES.UNKNOWN,
                           "Cannot write temp file: %s" % interface_file)
 
@@ -272,29 +268,30 @@ class Plugin(BasePlugin):
             # Write datas in file
 
 
-            file.write("%s %0.30f %0.30f %0.30f %0.30f %0.30f %0.30f %0.30f %0.30f %0.30f" % (old_update,
-                                                                                              used_total,
-                                                                                              offset,
-                                                                                              receive_total,
-                                                                                              receive_offset,
-                                                                                              transmit_total,
-                                                                                              transmit_offset,
-                                                                                              old_data,
-                                                                                              old_receive,
-                                                                                              old_transmit))
+            int_fh.write("%s %0.30f %0.30f %0.30f %0.30f "
+                         "%0.30f %0.30f %0.30f %0.30f %0.30f" % (old_update,
+                                                                 used_total,
+                                                                 offset,
+                                                                 receive_total,
+                                                                 receive_offset,
+                                                                 transmit_total,
+                                                                 transmit_offset,
+                                                                 old_data,
+                                                                 old_receive,
+                                                                 old_transmit))
             # Close file
-            file.close()
+            int_fh.close()
             # Exit for the first launch
             self.exit(code, "First use of plugin")
 
         else:
             try:
-                file = open(interface_file, "rw+")
-            except IOError as exp:
+                int_fh = open(interface_file, "r+")
+            except IOError:
                 self.exit(STATES.UNKNOWN,
                           "Cannot read/write temp file: %s" % interface_file)
             # read file
-            data_list = file.readline()
+            data_list = int_fh.readline()
             # prepare read datas
             data_list = data_list.strip().split()
             # get new datas
@@ -322,9 +319,6 @@ class Plugin(BasePlugin):
             # Check if the counter restarted
 
             if new_used >= used_total:
-                print 1
-                print "%0.30f" % new_used
-                print "%0.30f" % used_total
                 used_total = new_used
                 receive_total = new_receive
                 transmit_total = new_transmit
@@ -332,15 +326,10 @@ class Plugin(BasePlugin):
             else:
                 # Handle counter restart
                 if new_used >= old_data:
-                    print 2
                     used_total = used_total + (new_used - old_data)
                     receive_total = receive_total + (new_receive - old_receive)
                     transmit_total = transmit_total + (new_transmit - old_transmit)
                 else:
-                    print new_used
-                    print used_total
-                    print 3
-
                     used_total = used_total + new_used
                     receive_total = receive_total + new_receive
                     transmit_total = transmit_total + new_transmit
@@ -360,18 +349,19 @@ class Plugin(BasePlugin):
                 transmit_offset = transmit_total
                 old_update = reset_date
             # write data to file
-            file.seek(0)
-            file.write("%s %0.30f %0.30f %0.30f %0.30f %0.30f %0.30f %0.30f %0.30f %0.30f" % (old_update,
-                                                                                              used_total,
-                                                                                              offset,
-                                                                                              receive_total,
-                                                                                              receive_offset,
-                                                                                              transmit_total,
-                                                                                              transmit_offset,
-                                                                                              old_data,
-                                                                                              old_receive,
-                                                                                              old_transmit))
-            file.close()
+            int_fh.seek(0)
+            int_fh.write("%s %0.30f %0.30f %0.30f %0.30f "
+                         "%0.30f %0.30f %0.30f %0.30f %0.30f" % (old_update,
+                                                                 used_total,
+                                                                 offset,
+                                                                 receive_total,
+                                                                 receive_offset,
+                                                                 transmit_total,
+                                                                 transmit_offset,
+                                                                 old_data,
+                                                                 old_receive,
+                                                                 old_transmit))
+            int_fh.close()
 
         # check_linux_bandwith_usage -i eth0 -W 50 -C 90 -d 10 -l 500
         if args.get("limit") and args.get("warning-percent"):
@@ -390,10 +380,10 @@ class Plugin(BasePlugin):
 
             if usage_per_month_percent < warning_percent:
                 msg = ("OK: %s usage: %0.2f%% "
-                      "(%s/%0.2fGB)" % (interface,
-                                        usage_per_month_percent,
-                                        usage_per_month,
-                                        limit))
+                       "(%s/%0.2fGB)" % (interface,
+                                         usage_per_month_percent,
+                                         usage_per_month,
+                                         limit))
                 code = STATES.OK
             elif usage_per_month_percent >= warning_percent and usage_per_month_percent < critical_percent:
                 msg = ("WARNING: %s usage: %0.2f%% "
