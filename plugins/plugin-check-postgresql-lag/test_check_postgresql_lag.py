@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 # This program is free software: you can redistribute it and/or modify
@@ -30,11 +31,15 @@ class Test(TestPlugin):
         self.execute(Plugin, args, 3,
                      'Usage:')
 
-    # Add your tests here!
-    # They should use
-    # self.execute(Plugin,
-    #              ['your', 'list', 'of', 'arguments'],
-    #              expected_return_value,
-    #              'regex to check against the output')
-    # You can also add debug=True, to get useful information
-    # to debug your plugins
+    def test_ok(self):
+        args = ["-H", "127.0.0.1", "-p", "5432", "-u", "postgres", "-P", "1234", "-d", "testdb", "-w", "1000000", "-c", "1000000"]
+        self.execute(Plugin, args, 0, "OK: there's .* MB of latency")
+
+    def test_warning(self):
+        args = ["-H", "127.0.0.1", "-p", "5432", "-u", "postgres", "-P", "1234", "-d", "testdb", "-w", "-1", "-c", "1000000"]
+        self.execute(Plugin, args, 1, "WARNING: there's .* MB of latency")
+
+    def test_critical(self):
+        args = ["-H", "127.0.0.1", "-p", "5432", "-u", "postgres", "-P", "1234", "-d", "testdb", "-w", "-1", "-c", "-1"]
+        self.execute(Plugin, args, 2, "CRITICAL: there's .* MB of latency")
+
