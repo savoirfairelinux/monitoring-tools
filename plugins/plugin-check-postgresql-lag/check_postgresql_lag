@@ -18,6 +18,7 @@
 
 import psycopg2                                                                              
 import sys
+import re
 
 from shinkenplugins import BasePlugin, PerfData, STATES
 
@@ -36,6 +37,7 @@ class Plugin(BasePlugin):
             ('u', 'url', 'the url to fetch data from', True),
             ('w', 'warning', 'Limit to result in a warning state', True),
             ('c', 'critical', 'Limit to result in a critical state', True),
+
             ]
     
     def check_args(self, args):
@@ -45,53 +47,77 @@ class Plugin(BasePlugin):
         if args.get('url') and not args['url'].startswith('http'):
             return False, 'the url must be fetchable through http'
         return True, None
-    
+     
+    @staticmethod
+    def xlog_to_bytes(xlog):
+ 
+        logid, offset = xlog.split('/')
+        return (int('ffffffff', 16) * int(logid, 16)) + int(offset, 16)
+        
     def run(self, args):
         
         # Here is the core of the plugin.
         # After doing your verifications, escape by doing:
         # self.exit(return_code, 'return_message', *performance_data)
-        con = None
+        connection = None
 
         try:
-            con = psycopg2.connect(database="db1", user="postgres")
-            cur = con.cursor()
-            cur.execute("select * from pg_stat_replication;")
-            ver = cur.fetchone()
+            connection = psycopg2.connect(database="testdb", 
+                                          user="postgres", 
+                                          password="1234", 
+                                          host="127.0.0.1", 
+                                          port="5432")
+            cursor= connection.cursor()
+            cursor.execute("SELECT * from pg_stat_replication;")
+            data_list = cursor.fetchone()
 
-            cur.execute("SHOW wal_segment_size")
-            test = cur.fetchone()
-
-            cur.execute("SELECT\
-                         client_addr,\
-                         sent_offset - (\
-                         replay_offset - (sent_xlog - replay_xlog) * 255 * 16 ^ 6 ) AS byte_lag\
-                         FROM (\
-                         SELECT\
-                         client_addr,\
-                         ('x' || lpad(split_part(sent_location,   '/', 1), 8, '0'))::bit(32)::bigint AS sent_xlog,\
-                         ('x' || lpad(split_part(replay_location, '/', 1), 8, '0'))::bit(32)::bigint AS replay_xlog,\
-                         ('x' || lpad(split_part(sent_location,   '/', 2), 8, '0'))::bit(32)::bigint AS sent_offset,\
-                         ('x' || lpad(split_part(replay_location, '/', 2), 8, '0'))::bit(32)::bigint AS replay_offset\
-                         FROM pg_stat_replication\
-                         ) AS s;")
-            lag = cur.fetchone()
-
+            
+            sent_location = Plugin.xlog_to_bytes(data_list[9])
+            replay_location = Plugin.xlog_to_bytes(data_list[12])
+            
+            print sent_location
+            print replay_location
+            lag = (sent_location - replay_location) / (1024.0 ** 2)
             print lag
- #   print ver
-            print test
+
+            cursor.execute("SHOW wal_segment_size")
+            wal_segment = cursor.fetchone()
+            print wal_segment
+            wal_segment_int = int(re.match(r'\d+', wal_segment[0]).group())            
+            print wal_segment_int
+
+            wal_segment_unit = ''.join([i for i in wal_segment[0] if not i.isdigit()])
+            
+            print wal_segment_unit
+            
+            if args.get("warning"):
+                warning = int(args.get("warning"))
+                critical = int(args.get("critical"))
+            else:
+                warning = wal_segment_int * 2
+                critical = wal_segment_int * 4
+
         except psycopg2.DatabaseError, e:
                 print "Error %s" % e
                 sys.exit(1)
-
         finally:
-            if con:
-                con.close()
-        
-        p1 = PerfData('spam', 42, unit='%', warn=70, crit=90, min_=0, max_=100)
-        p2=  PerfData('eggs', 6, unit='%', warn=20, crit=30, min_=0, max_=100)
-        
-        self.exit(STATES.OK, "Everything was perfect", p1, p2)
+            if connection:
+                connection.close()
+         
+        if lag > critical:
+            message = "CRITICAL: there's %0.2f %s" % (lag, wal_segment_unit)
+            code = STATES.CRITICAL
+        elif lag > warning:
+            message = "WARNING: there's %0.2f %s" % (lag, wal_segment_unit)
+            code = STATES.WARNING
+        else:
+            message = "OK: there's %0.2f %s" % (lag, wal_segment_unit)
+            code = STATES.OK
+
+        lag = "%0.2f"%(lag)
+        p1 = PerfData('lag', lag, unit=wal_segment_unit, warn=warning, crit=critical, min_=0)
+         
+        self.exit(code, message, p1)
 
 if __name__ == "__main__":
     Plugin()
