@@ -21,14 +21,14 @@ from shinkenplugins import TestPlugin
 
 class Test(TestPlugin):
     def test_version(self):
-        args = ['-v']
+        args = ["-v"]
         self.execute(Plugin, args, 3,
-                     'version ' + Plugin.VERSION)
+                     "version " + Plugin.VERSION)
 
     def test_help(self):
-        args = ['-h']
+        args = ["-h"]
         self.execute(Plugin, args, 3,
-                     'Usage:')
+                     "Usage:")
 
     # Add your tests here!
     # They should use
@@ -38,3 +38,144 @@ class Test(TestPlugin):
     #              'regex to check against the output')
     # You can also add debug=True, to get useful information
     # to debug your plugins
+
+    # check_linux_bandwith_usage -i eth0 -W 50 -C 90 -d 10 -l 500
+    def test_warning_percent_ok(self):
+        args = ["-i", "eth0", "-W", "1000000", "-C", "1000000", "-d", "5", "-l", "1000000"]
+        self.execute(Plugin, args, 0, "OK: eth0 usage: .*% (.*/1000000.00GB)")
+
+    def test_warning_percent_warning(self):
+        args = ["-i", "eth0", "-W", "0", "-C", "1000000", "-d", "5", "-l", "1000000"]
+        self.execute(Plugin, args, 1, "WARNING: eth0 usage: .*% (.*/1000000.00GB)")
+
+    def test_warning_percent_critical(self):
+        args = ["-i", "eth0", "-W", "0", "-C", "0", "-d", "5", "-l", "1000000"]
+        self.execute(Plugin, args, 2, "CRITICAL: eth0 usage: .*% (.*/1000000.00GB)")
+
+    # check_linux_bandwith_usage -i eth0 -W 50 -C 90 -d 10 -l 500 -f
+
+    def test_warning_percent_perf_ok(self):
+        args = ["-i", "eth0", "-W", "1000000", "-C", "1000000", "-d", "5", "-l", "1000000", "-f"]
+        self.execute(Plugin, args, 0, "OK: eth0 usage: .*% (.*/1000000.00GB)")
+
+    def test_warning_percent_perf_warning(self):
+        args = ["-i", "eth0", "-W", "0", "-C", "1000000", "-d", "5", "-l", "1000000", "-f"]
+        self.execute(Plugin, args, 1, "WARNING: eth0 usage: .*% (.*/1000000.00GB)")
+
+    def test_warning_percent_perf_critical(self):
+        args = ["-i", "eth0", "-W", "0", "-C", "0", "-d", "5", "-l", "1000000", "-f"]
+        self.execute(Plugin, args, 2, "CRITICAL: eth0 usage: .*% (.*/1000000.00GB)")
+
+     # check_linux_bandwith_usage -i eth0 -w 50 -c 100 -d 10 -l 500 -f
+
+    def test_warning_gb_limit_perf_ok(self):
+        args = ["-i", "eth0", "-w", "1000000", "-c", "1000000", "-d", "5", "-l", "1000000", "-f"]
+        self.execute(Plugin, args, 0, "OK: eth0 usage: .*% (.*/1000000.00GB)")
+
+    def test_warning_gb_limit_perf_warning(self):
+        args = ["-i", "eth0", "-w", "0", "-c", "1000000", "-d", "5", "-l", "1000000", "-f"]
+        self.execute(Plugin, args, 1, "WARNING: eth0 usage: .*% (.*/1000000.00GB)")
+
+    def test_warning_gb_limit_perf_critical(self):
+        args = ["-i", "eth0", "-w", "0", "-c", "0", "-d", "5", "-l", "1000000", "-f"]
+        self.execute(Plugin, args, 2, "CRITICAL: eth0 usage: .*% (.*/1000000.00GB)")
+
+     # check_linux_bandwith_usage -i eth0 -w 50 -c 90 -d 5
+
+    def test_warning_gb_ok(self):
+        args = ["-i", "eth0", "-w", "1000000", "-c", "1000000", "-d", "5"]
+        self.execute(Plugin, args, 0, "OK: eth0 usage: .*GB")
+
+    def test_warning_gb_warning(self):
+        args = ["-i", "eth0", "-w", "0", "-c", "1000000", "-d", "5"]
+        self.execute(Plugin, args, 1, "WARNING: eth0 usage: .*GB")
+
+    def test_warning_gb_critical(self):
+        args = ["-i", "eth0", "-w", "0", "-c", "0", "-d", "5"]
+        self.execute(Plugin, args, 2, "CRITICAL: eth0 usage: .*GB")
+
+    # check_linux_bandwith_usage -i eth0 -w 50 -c 90 -d 5 -f
+
+    def test_warning_gb_perf_ok(self):
+        args = ["-i", "eth0", "-w", "1000000", "-c", "1000000", "-d", "5", "-f"]
+        self.execute(Plugin, args, 0, "OK: eth0 usage: .*GB")
+
+    def test_warning_gb_perf_warning(self):
+        args = ["-i", "eth0", "-w", "0", "-c", "1000000", "-d", "5", "-f"]
+        self.execute(Plugin, args, 1, "WARNING: eth0 usage: .*GB")
+
+    def test_warning_gb_perf_critical(self):
+        args = ["-i", "eth0", "-w", "0", "-c", "0", "-d", "5", "-f"]
+        self.execute(Plugin, args, 2, "CRITICAL: eth0 usage: .*GB")
+
+
+
+
+     # check_linux_bandwith_usage -i eth0 -W 50 -C 90 -d 10 -l 500 -s /tmp/
+    def test_warning_percent_path_ok(self):
+        args = ["-i", "eth0", "-W", "1000000", "-C", "1000000", "-d", "5", "-l", "1000000", "-s", "/tmp/"]
+        self.execute(Plugin, args, 0, "OK: eth0 usage: .*% (.*/1000000.00GB)")
+
+    def test_warning_percent_path_warning(self):
+        args = ["-i", "eth0", "-W", "0", "-C", "1000000", "-d", "5", "-l", "1000000", "-s", "/tmp/"]
+        self.execute(Plugin, args, 1, "WARNING: eth0 usage: .*% (.*/1000000.00GB)")
+
+    def test_warning_percent_path_critical(self):
+        args = ["-i", "eth0", "-W", "0", "-C", "0", "-d", "5", "-l", "1000000", "-s", "/tmp/"]
+        self.execute(Plugin, args, 2, "CRITICAL: eth0 usage: .*% (.*/1000000.00GB)")
+
+    # check_linux_bandwith_usage -i eth0 -W 50 -C 90 -d 10 -l 500 -f
+
+    def test_warning_percent_perf_path_ok(self):
+        args = ["-i", "eth0", "-W", "1000000", "-C", "1000000", "-d", "5", "-l", "1000000", "-f", "-s", "/tmp/"]
+        self.execute(Plugin, args, 0, "OK: eth0 usage: .*% (.*/1000000.00GB)")
+
+    def test_warning_percent_perf_path_warning(self):
+        args = ["-i", "eth0", "-W", "0", "-C", "1000000", "-d", "5", "-l", "1000000", "-f", "-s", "/tmp/"]
+        self.execute(Plugin, args, 1, "WARNING: eth0 usage: .*% (.*/1000000.00GB)")
+
+    def test_warning_percent_perf_path_critical(self):
+        args = ["-i", "eth0", "-W", "0", "-C", "0", "-d", "5", "-l", "1000000", "-f", "-s", "/tmp/"]
+        self.execute(Plugin, args, 2, "CRITICAL: eth0 usage: .*% (.*/1000000.00GB)")
+
+     # check_linux_bandwith_usage -i eth0 -w 50 -c 100 -d 10 -l 500 -f
+
+    def test_warning_gb_limit_perf_path_ok(self):
+        args = ["-i", "eth0", "-w", "1000000", "-c", "1000000", "-d", "5", "-l", "1000000", "-f", "-s", "/tmp/"]
+        self.execute(Plugin, args, 0, "OK: eth0 usage: .*% (.*/1000000.00GB)")
+
+    def test_warning_gb_limit_perf_path_warning(self):
+        args = ["-i", "eth0", "-w", "0", "-c", "1000000", "-d", "5", "-l", "1000000", "-f", "-s", "/tmp/"]
+        self.execute(Plugin, args, 1, "WARNING: eth0 usage: .*% (.*/1000000.00GB)")
+
+    def test_warning_gb_limit_perf_path_critical(self):
+        args = ["-i", "eth0", "-w", "0", "-c", "0", "-d", "5", "-l", "1000000", "-f", "-s", "/tmp/"]
+        self.execute(Plugin, args, 2, "CRITICAL: eth0 usage: .*% (.*/1000000.00GB)")
+
+     # check_linux_bandwith_usage -i eth0 -w 50 -c 90 -d 5
+
+    def test_warning_gb_path_ok(self):
+        args = ["-i", "eth0", "-w", "1000000", "-c", "1000000", "-d", "5", "-s", "/tmp/"]
+        self.execute(Plugin, args, 0, "OK: eth0 usage: .*GB")
+
+    def test_warning_gb_path_warning(self):
+        args = ["-i", "eth0", "-w", "0", "-c", "1000000", "-d", "5", "-s", "/tmp/"]
+        self.execute(Plugin, args, 1, "WARNING: eth0 usage: .*GB")
+
+    def test_warning_gb_path_critical(self):
+        args = ["-i", "eth0", "-w", "0", "-c", "0", "-d", "5", "-s", "/tmp/"]
+        self.execute(Plugin, args, 2, "CRITICAL: eth0 usage: .*GB")
+
+    # check_linux_bandwith_usage -i eth0 -w 50 -c 90 -d 5 -f
+
+    def test_warning_gb_perf_path_ok(self):
+        args = ["-i", "eth0", "-w", "1000000", "-c", "1000000", "-d", "5", "-f", "-s", "/tmp/"]
+        self.execute(Plugin, args, 0, "OK: eth0 usage: .*GB")
+
+    def test_warning_gb_perf_path_warning(self):
+        args = ["-i", "eth0", "-w", "0", "-c", "1000000", "-d", "5", "-f", "-s", "/tmp/"]
+        self.execute(Plugin, args, 1, "WARNING: eth0 usage: .*GB")
+
+    def test_warning_gb_perf_path_critical(self):
+        args = ["-i", "eth0", "-w", "0", "-c", "0", "-d", "5", "-f", "-s", "/tmp/"]
+        self.execute(Plugin, args, 2, "CRITICAL: eth0 usage: .*GB")
