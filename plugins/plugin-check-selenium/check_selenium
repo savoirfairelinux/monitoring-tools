@@ -199,7 +199,8 @@ class Plugin(BasePlugin):
             else:
                 # We show only the first failure
                 # And only the last line of its traceback
-                message = result.failures[0][1].strip().split("\n")[-1]
+                message = "CRITICAL: " + \
+                          result.failures[0][1].strip().split("\n")[-1]
             exit_code = STATES.CRITICAL
         # Errors
         if len(result.errors) > 0:
@@ -211,7 +212,7 @@ class Plugin(BasePlugin):
                 error = result.errors[0][1].strip().split("\n")
                 for line in error:
                     if line.find("Message:") != -1:
-                        message = line
+                        message = "CRITICAL: " + line
                         break
             exit_code = STATES.CRITICAL
 
