@@ -174,7 +174,12 @@ def get_data(args):
             data_not_ready = True
 
         f.close()
-        f = open(filename, 'w')
+        try:
+            f = open(filename, 'w')
+        except IOError:
+            print "Could not open this file: %s" % filename
+            sys.exit(STATE_UNKNOWN)
+        
         # Save new_data
         f.write(";".join((str(now),
                           str(raw[ifname]['in_bytes']),
