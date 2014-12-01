@@ -423,6 +423,7 @@ class Plugin(BasePlugin):
                                            max_=100.0))
 
             if args['error']:
+                self.exit(STATES.UNKNOWN, "Errors ('-e' option) not implemented")
                 output_datas['raw_in_discard'] = self.in_discard
                 output_datas['raw_out_discard'] = self.out_discard
                 perf_datas.append(PerfData('%(name)s_in_discard' % output_datas,
