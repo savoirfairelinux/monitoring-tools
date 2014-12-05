@@ -400,6 +400,7 @@ class Plugin(BasePlugin):
         output_datas['name'] = output_datas['name'].replace(" ", "_")
 
         if args['perfdata']:
+            # handle one interface
             perf_datas.append(PerfData('%(name)s_in_Bps' % output_datas,
                               '%(raw_in_bandwidth)0.2f' % output_datas,
                               unit='Bps',
@@ -411,19 +412,21 @@ class Plugin(BasePlugin):
             if output_datas['speed'] != 0:
                 output_datas['prct_in'] = output_datas['raw_in_bandwidth'] * 100 / output_datas['speed']
                 output_datas['prct_out'] = output_datas['raw_out_bandwidth'] * 100 / output_datas['speed']
-                perf_datas.append(PerfData('%(name)s_in_prct' % output_datas,
+                # Put % data in first for Nagvis
+                perf_datas.insert(0,
+                                  PerfData('%(name)s_in_prct' % output_datas,
                                            '%(prct_in)0.2f' % output_datas,
                                            '%',
                                            min_=0.0,
                                            max_=100.0))
-                perf_datas.append(PerfData('%(name)s_out_prct' % output_datas,
+                perf_datas.insert(0,
+                                  PerfData('%(name)s_out_prct' % output_datas,
                                            '%(prct_out)0.2f' % output_datas,
                                            '%',
                                            min_=0.0,
                                            max_=100.0))
 
             if args['error']:
-                self.exit(STATES.UNKNOWN, "Errors ('-e' option) not implemented")
                 output_datas['raw_in_discard'] = self.in_discard
                 output_datas['raw_out_discard'] = self.out_discard
                 perf_datas.append(PerfData('%(name)s_in_discard' % output_datas,
@@ -480,6 +483,7 @@ class Plugin(BasePlugin):
         states = []
         perfdatas = []
         now = datetime.now()
+        # Prepare results
         for interface in interfaces.values():
             if re.search(ifname, str(interface.get('descr'))) or re.search(ifname.replace("/", "_"), str(interface.get('descr'))):
                 last_update = datetime.fromtimestamp(int(interface.get('date', 0)))
