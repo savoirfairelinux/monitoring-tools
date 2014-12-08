@@ -210,7 +210,7 @@ do_output() {
 }
 
 do_perfdata() {
-    perfdata="'user'=${cpu_user};;;0;100 'nice'=${cpu_nice};;0;100 'sys'=${cpu_sys};;;0;100 'softirq'=${cpu_softirq};;;0;100 'iowait'=${cpu_iowait};;;0;100 'irq'=${cpu_irq};;;0;100 'idle'=${cpu_idle};;;0;100"
+    perfdata="'user'=${cpu_user};;;0;100 'nice'=${cpu_nice};;;0;100 'sys'=${cpu_sys};;;0;100 'softirq'=${cpu_softirq};;;0;100 'iowait'=${cpu_iowait};;;0;100 'irq'=${cpu_irq};;;0;100 'idle'=${cpu_idle};;;0;100"
     if [ -n "$warning" -a -n "$critical" ]
     then
         perfdata="$perfdata cpu_usage_$alert=$cpu_usage;$warning;$critical;0;100"
