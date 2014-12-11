@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/plugin-check-smtp-success-ratio
 #Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-smtp-success-ratio.git;a=summary
 
 Package: plugin-check-smtp-success-ratio
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Shinken plugin from SFL. Given a maillog, checks for a good ratio of sent versus total emails.
  More information is available on Github:

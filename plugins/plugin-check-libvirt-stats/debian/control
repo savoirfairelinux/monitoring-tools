@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/plugin-check-libvirt-stats
 #Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-libvirt-stats.git;a=summary
 
 Package: plugin-check-libvirt-stats
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-libvirt
 Description: Shinken plugin from SFL. Guest and host statistics from libvirt API
  More information is available on Github:

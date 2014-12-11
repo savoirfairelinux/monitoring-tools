@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/plugin-check-site-health
 #Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-site-health.git;a=summary
 
 Package: plugin-check-site-health
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Shinken plugin from SFL. Browse web site to find broken links
  More information is available on Github:

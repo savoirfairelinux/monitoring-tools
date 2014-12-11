@@ -9,7 +9,7 @@ Vcs-Git: git://github.com/savoirfairelinux/plugin-check-cpu.git
 Vcs-Browser: https://github.com/savoirfairelinux/plugin-check-cpu
 
 Package: plugin-check-cpu
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, bc
 Description: Shinken plugin from SFL. check CPU usage
  More information is available on Github:

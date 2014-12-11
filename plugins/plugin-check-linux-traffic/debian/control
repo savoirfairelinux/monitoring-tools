@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/plugin-check-linux-traffic
 #Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-linux-traffic.git;a=summary
 
 Package: plugin-check-linux-traffic
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-netifaces
 Description: Shinken plugin from SFL. Check traffic on linux hosts using _proc_net_dev
  More information is available on Github:

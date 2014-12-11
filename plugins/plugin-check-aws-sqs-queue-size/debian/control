@@ -9,7 +9,7 @@ Vcs-Git: git://anonscm.debian.org/collab-maint/plugin-check-aws-sqs-queue-size.g
 Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-aws-sqs-queue-size.git;a=summary
 
 Package: plugin-check-aws-sqs-queue-size
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins
 Description: Checks the size of an AWS sqs queue
  More information is available on Github:

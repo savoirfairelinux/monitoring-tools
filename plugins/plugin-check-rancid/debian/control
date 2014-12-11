@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/plugin-check-rancid
 #Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-rancid.git;a=summary
 
 Package: plugin-check-rancid
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-svn
 Description: Check various things from a rancid repo depending on the mode.
  More information is available on Github:

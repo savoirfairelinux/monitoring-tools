@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/plugin-check-spa2102
 #Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-spa2102.git;a=summary
 
 Package: plugin-check-spa2102
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-lxml
 Description: Shinken plugin from SFL. Check Linksys SPA-2102 status
  More information is available on Github:

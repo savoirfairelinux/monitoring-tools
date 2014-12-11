@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/plugin-check-asterisk-cdr-status
 #Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-asterisk-cdr-status.git;a=summary
 
 Package: plugin-check-asterisk-cdr-status
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Shinken plugin from SFL. Check asterisk sql cdr
  More information is available on Github:

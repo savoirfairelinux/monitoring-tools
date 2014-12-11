@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/plugin-check-carp-by-ssh
 #Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-carp-by-ssh.git;a=summary
 
 Package: plugin-check-carp-by-ssh
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Shinken plugin from SFL. Check carp status on Soekris using ssh
  More information is available on Github:

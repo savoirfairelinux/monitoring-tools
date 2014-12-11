@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/plugin-check-tripplite-ups
 #Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-tripplite-ups.git;a=summary
 
 Package: plugin-check-tripplite-ups
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Shinken plugin from SFL. Check Tripplite UPSs
  More information is available on Github:

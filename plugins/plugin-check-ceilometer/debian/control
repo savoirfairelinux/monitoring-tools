@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/plugin-check-ceilometer
 #Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-ceilometer.git;a=summary
 
 Package: plugin-check-ceilometer
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-keystoneclient, python-ceilometerclient
 Description: Shinken plugin from SFL. A Nagios plug-in to use OpenStack Ceilometer API for metering
  More information is available on Github:

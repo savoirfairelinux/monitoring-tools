@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/plugin-check-graphite-api
 #Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-graphite-api.git;a=summary
 
 Package: plugin-check-graphite-api
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: This plugin is made to ensure data freshness into Graphite.
  More information is available on Github:

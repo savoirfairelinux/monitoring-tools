@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/plugin-check-openerp
 #Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-openerp.git;a=summary
 
 Package: plugin-check-openerp
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Shinken plugin from SFL. Check OpenERP using a web scenario
  More information is available on Github:

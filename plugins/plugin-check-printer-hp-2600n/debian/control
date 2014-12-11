@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/plugin-check-printer-hp-2600n
 #Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-printer-hp-2600n.git;a=summary
 
 Package: plugin-check-printer-hp-2600n
-Architecture: any
+Architecture: all
 #Depends: python, python-dlnetsnmp
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-lxml
 Description: Shinken plugin from SFL. Check toner level from a hp 2600n printer

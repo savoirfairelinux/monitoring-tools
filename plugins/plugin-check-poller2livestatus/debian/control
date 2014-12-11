@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/plugin-check-poller2livestatus
 #Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-poller2livestatus.git;a=summary
 
 Package: plugin-check-poller2livestatus
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Shinken plugin from SFL. Check Shinken from poller to livestatus module
  More information is available on Github:

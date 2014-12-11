@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/plugin-check-reactionner-health
 #Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-reactionner-health.git;a=summary
 
 Package: plugin-check-reactionner-health
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Shinken plugin from SFL. Pseudo crontab to check if a file is edited by shinken reactionner
  More information is available on Github:

@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/plugin-check-samba
 #Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-samba.git;a=summary
 
 Package: plugin-check-samba
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-pyasn1
 Description: Shinken plugin from SFL. Samba server check
  More information is available on Github:

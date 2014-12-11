@@ -9,7 +9,7 @@ Vcs-Git: git://anonscm.debian.org/collab-maint/plugin-check-quebecrencontrescom.
 Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-quebecrencontrescom.git;a=summary
 
 Package: plugin-check-quebecrencontrescom
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins, python-lxml
 Description: Checks number of lonely hearts on quebecrencontres.com.
  More information is available on Github:

@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/plugin-check-wanpipe
 #Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-wanpipe.git;a=summary
 
 Package: plugin-check-wanpipe
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Shinken plugin from SFL. Check channels in error with wanpipe
  More information is available on Github:
