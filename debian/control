@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/pack-generic-carbon-tcp
 #Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-generic-carbon-tcp.git;a=summary
 
 Package: pack-generic-carbon-tcp
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: 
  More information is available on Github:
