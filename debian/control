@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/pack-linux-radius-collectd
 #Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-linux-radius-collectd.git;a=summary
 
 Package: pack-linux-radius-collectd
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: * collectd_processes.trig
  More information is available on Github:
