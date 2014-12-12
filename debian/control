@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/pack-linux-system-nrpe
 #Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-linux-system-nrpe.git;a=summary
 
 Package: pack-linux-system-nrpe
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: 
  More information is available on Github:
