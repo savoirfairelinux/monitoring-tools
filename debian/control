@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/pack-linux-system-collectd
 #Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-linux-system-collectd.git;a=summary
 
 Package: pack-linux-system-collectd
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: 
  More information is available on Github:
