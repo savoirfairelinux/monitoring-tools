@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/pack-vmware-system-https
 #Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-vmware-system-https.git;a=summary
 
 Package: pack-vmware-system-https
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: 
  More information is available on Github:
