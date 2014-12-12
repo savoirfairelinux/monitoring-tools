@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/pack-generic-graphite-http
 #Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-generic-graphite-http.git;a=summary
 
 Package: pack-generic-graphite-http
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: :description:       Critical threshold. Default: 5
  More information is available on Github:
