@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/pack-windows-sophos-mssql
 #Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-windows-sophos-mssql.git;a=summary
 
 Package: pack-windows-sophos-mssql
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: 
  More information is available on Github:
