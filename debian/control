@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/pack-linux-ntp-collectd
 #Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-linux-ntp-collectd.git;a=summary
 
 Package: pack-linux-ntp-collectd
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: 
  More information is available on Github:
