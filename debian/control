@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/pack-windows-rdp
 #Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-windows-rdp.git;a=summary
 
 Package: pack-windows-rdp
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: 
  More information is available on Github:
