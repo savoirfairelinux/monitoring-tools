@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/pack-generic-dhcp
 #Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-generic-dhcp.git;a=summary
 
 Package: pack-generic-dhcp
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: No trigger used with this packs
  More information is available on Github:
