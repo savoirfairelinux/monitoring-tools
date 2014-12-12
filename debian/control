@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/pack-generic-host
 #Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-generic-host.git;a=summary
 
 Package: pack-generic-host
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: 
  More information is available on Github:
