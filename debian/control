@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/pack-windows-sophos-collectd
 #Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-windows-sophos-collectd.git;a=summary
 
 Package: pack-windows-sophos-collectd
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: 
  More information is available on Github:
