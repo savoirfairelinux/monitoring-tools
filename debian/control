@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/pack-generic-multisite-http
 #Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-generic-multisite-http.git;a=summary
 
 Package: pack-generic-multisite-http
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: :description:       Warning threshold. Default: 5
  More information is available on Github:
