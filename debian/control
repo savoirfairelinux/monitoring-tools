@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/pack-linux-saltminion-collectd
 #Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-linux-saltminion-collectd.git;a=summary
 
 Package: pack-linux-saltminion-collectd
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: 
  More information is available on Github:
