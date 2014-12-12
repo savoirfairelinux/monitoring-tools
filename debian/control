@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/pack-generic-dns
 #Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-generic-dns.git;a=summary
 
 Package: pack-generic-dns
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: No trigger used with this pack
  More information is available on Github:
