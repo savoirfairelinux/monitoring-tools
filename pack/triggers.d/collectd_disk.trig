@@ -1,54 +1,51 @@
 #!/usr/bin/env python
-try:
-    import re
-    exit_code = 0
-    # Get perfs
-    raw_perf_datas = allperfs(self)
-    disk_names = set([re.match('([^-]*)-(.*)_([^-]*)', metric_name).groups()[1]
-                      for metric_name in raw_perf_datas.keys()])
 
-    perf_datas = []
-    exit_codes = []
-    outputs = []
-    data = {}
-    
-    data_names = ['disk_time', 'disk_merged', 'disk_ops', 'disk_octets']
-    in_out_dict = {"written": 0, "read": 1}
+import re
+exit_code = 0
+# Get perfs
+metrics = allperfs(self)
+disk_names = set([re.match('([^-]*)-(.*)_([^-]*)', metric_name).groups()[1]
+                  for metric_name in metrics])
 
-    # For each disk (sda, sda1, sda2, ...
-    for disk in disk_names:
-        data['disk'] = disk
-        # For each data ('disk_time', 'disk_merged', ...)
-        for data_name in data_names:
-            bad_data = False
-            # For IN/OUT data (written/read)
-            for in_out, index in in_out_dict.items():
-                data['name'] = data_name
-                data['in_out'] = in_out
-                data['in_out_index'] = index
-                try:
-                    # Get data
-                    data['current_data'] = float(raw_perf_datas.get('%(name)s-%(disk)s_%(in_out_index)s' % data).value)
-                    data['data_' + in_out] = data['current_data']
-                    # Prepare perf data
-                    perf_datas.append('%(disk)s_%(name)s_%(in_out)s=%(current_data)0.2fs/s;;;0' % data)
-                except:
-                    # If we get an error, we just pass this data_name (IN and OUT are ignored)
-                    bad_data = True
+perf_datas = []
+exit_codes = []
+outputs = []
+data = {}
 
-            if bad_data:
-                # We get an error, so we pass to the next data
-                continue
+data_names = ['disk_time', 'disk_merged', 'disk_ops', 'disk_octets']
+in_out_dict = {"written": 0, "read": 1}
 
-            # Prepare output
-            outputs.append( "%(disk)s_%(name)s=%(data_written)0.2f:%(data_read)0.2f(s/s) - " % data)
+# For each disk (sda, sda1, sda2, ...
+for disk in disk_names:
+    data['disk'] = disk
+    # For each data ('disk_time', 'disk_merged', ...)
+    for data_name in data_names:
+        bad_data = False
+        # For IN/OUT data (written/read)
+        for in_out, index in in_out_dict.items():
+            data['name'] = data_name
+            data['in_out'] = in_out
+            data['in_out_index'] = index
+            try:
+                # Get data
+                data['current_data'] = float(metrics.get('%(name)s-%(disk)s_%(in_out_index)s' % data).value)
+                data['data_' + in_out] = data['current_data']
+                # Prepare perf data
+                perf_datas.append('%(disk)s_%(name)s_%(in_out)s=%(current_data)0.2fs/s;;;0' % data)
+            except Exception as err:
+                # If we get an error, we just pass this data_name (IN and OUT are ignored)
+                bad_data = True
 
-    # Set ouput
-    perf_data = " ".join(perf_datas)
-    output = " # ".join(outputs)
-    output = "Stats (written:read) # " + output
-    set_value(self, output, perf_data, exit_code)
 
-except Exception, e:
-    set_value(self, "UNKNOWN: Trigger error: " + str(e), "", 3)
+        if bad_data:
+            # We get an error, so we pass to the next data
+            continue
 
+        # Prepare output
+        outputs.append( "%(disk)s_%(name)s=%(data_written)0.2f:%(data_read)0.2f(s/s) - " % data)
+
+# Set ouput
+perf_data = " ".join(perf_datas)
+output = " # ".join(outputs)
+output = "Stats (written:read) # " + output
+set_value(self, output, perf_data, exit_code)
