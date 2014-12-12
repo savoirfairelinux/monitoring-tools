@@ -9,7 +9,7 @@ Homepage: https://github.com/savoirfairelinux/pack-linux-saltmaster-collectd
 #Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-linux-saltmaster-collectd.git;a=summary
 
 Package: pack-linux-saltmaster-collectd
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: 
  More information is available on Github:
