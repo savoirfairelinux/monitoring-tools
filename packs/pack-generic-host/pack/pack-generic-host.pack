@@ -1,0 +1,10 @@
+{
+"name":"pack-generic-host",
+
+"description":"Generic pack for all hosts",
+
+"path":"generic/",
+
+# NEXT LINES ARE SAMPLES: YOU CAN DELETE IT
+"macros":{
+}
