@@ -1,0 +1,2 @@
+pack /etc/shinken/packs/generic-dhcp
+package.json /etc/shinken/packs/generic-dhcp

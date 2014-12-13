@@ -1,0 +1,11 @@
+{
+"name":"generic-dhcp",
+
+"description":"DHCP active checks with DHCP requests",
+
+"path":"services/",
+
+# NEXT LINES ARE SAMPLES: YOU CAN DELETE IT
+"macros":{
+        }
+}
