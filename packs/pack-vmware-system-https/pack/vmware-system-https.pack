@@ -1,0 +1,24 @@
+{
+"name": "vmware-system-https",
+
+"description": "Checks for VMware virtual machine and ESX/ESXi",
+
+"path":"virtualization/",
+
+"templates": ["vmware-system-https"],
+
+"macros":{
+         "_ESX_CPU_WARN": {"type":"percent",
+                             "description":"Level for cpu usage"
+                             },
+         "_ESX_CPU_CRIT": {"type":"percent",
+                             "description":"Level for cpu usage"
+                             },
+         "_ESX_MEM_WARN": {"type":"percent",
+                             "description":"Level for ram usage"
+                             },
+         "_ESX_MEM_CRIT": {"type":"percent",
+                             "description":"Level for ram usage"
+                             },
+         }
+}
