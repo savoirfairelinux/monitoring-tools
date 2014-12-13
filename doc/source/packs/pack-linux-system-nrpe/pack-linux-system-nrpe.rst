@@ -33,7 +33,7 @@ NRPE
 
 Here an example of a nrpe config file (in /etc/nagios/nrpe.d/):
 
-.. include:: examples/linux-system-nrpe_local.cfg
+.. include:: examples/linux-system-nrpe_local.cfg.example
 
 Installation
 ************
