@@ -1,0 +1,2 @@
+pack /etc/shinken/packs/generic-ldap
+package.json /etc/shinken/packs/generic-ldap

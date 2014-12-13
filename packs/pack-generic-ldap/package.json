@@ -1,0 +1,24 @@
+{
+	"name": "generic-ldap",
+	"types": ["pack"],
+	"version": "1.0",
+	"homepage": "https://github.com/savoirfairelinux/sfl-shinken-packs",
+	"author": "Thibault Cohen",
+	"description": "LDAP active checks with LDAP requests",
+	"contributors": [
+	  {
+		"name": "Thibault Cohen",
+		"email": "thibault.cohen@savoirfairelinux.com"
+	  },
+	],
+	"repository": "https://github.com/savoirfairelinux/pack-generic-ldap.git",
+	"keywords": [
+	  "pack",
+	  "generic-ldap"
+	  
+	],
+	"dependencies": {
+	  "shinken": ">=1.4"
+	},
+	"license": "GPL"
+}
