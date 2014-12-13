@@ -213,7 +213,6 @@ class Plugin(BasePlugin):
         # create interface_file with the name of interface and the path
         interface_file = cache_folder + interface + ".txt"
 
-        interface_file = interface + ".txt"
 
         interface_total = interface + "_total"
         interface_percent = interface + "_percent"
