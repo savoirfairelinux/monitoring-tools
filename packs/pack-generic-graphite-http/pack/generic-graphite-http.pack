@@ -1,0 +1,17 @@
+{
+"name":"generic-graphite-http",
+
+"description":"Graphite active checks with HTTP requests",
+
+"path":"websites/",
+
+# NEXT LINES ARE SAMPLES: YOU CAN DELETE IT
+"macros":{
+         "_GRAPHITEADMIN":      {"type": "string",
+                                 "description": "The Graphite admin user login",
+                                },
+         "_GRAPHITEPASSWORD":   {"type": "string",
+                                 "description": "The Graphite password admin login",
+                                },
+        }
+}
