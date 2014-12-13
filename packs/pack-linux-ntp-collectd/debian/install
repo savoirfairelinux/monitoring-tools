@@ -1,0 +1,2 @@
+pack /etc/shinken/packs/linux-ntp-collectd
+package.json /etc/shinken/packs/linux-ntp-collectd

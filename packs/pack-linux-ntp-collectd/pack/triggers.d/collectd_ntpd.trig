@@ -1,0 +1,65 @@
+#!/usr/bin/env python
+try:
+    import re
+    exit_code_output = {0: 'OK',
+                        1: 'WARNING',
+                        2: 'CRITICAL',
+                        3: 'UNKNOWN',
+                        }
+    exit_code = 0
+    outputs = []
+
+    # Get threshold
+    data = {}
+
+    # Get perfs
+    raw_perf_datas = allperfs(self)
+
+    tow = self.host.customs.get('_TIME_OFFSET_WARN', None)
+    toc = self.host.customs.get('_TIME_OFFSET_CRIT', None)
+    tdw = self.host.customs.get('_TIME_DISPERSION_WARN', None)
+    tdc = self.host.customs.get('_TIME_DISPERSION_CRIT', None)
+
+    # Not handled yet
+    tolw = self.host.customs.get('_TIME_OFFSET_LOOP_WARN', None)
+    tolc = self.host.customs.get('_TIME_OFFSET_LOOP_CRIT', None)
+    toew = self.host.customs.get('_TIME_OFFSET_ERROR_WARN', None)
+    toec = self.host.customs.get('_TIME_OFFSET_ERROR_CRIT', None)
+    folw = self.host.customs.get('_FREQUENCY_OFFSET_LOOP_WARN', None)
+    folc = self.host.customs.get('_FREQUENCY_OFFSET_LOOP_CRIT', None)
+
+    perfdata = ""
+    output = "NTP "
+    for key, m in raw_perf_datas.items():
+        val = float(m.value)
+
+        if re.search("time_offset-[0-9\.]+", key) or re.search("time_dispersion-[0-9\.]+", key):
+            perfdata += " %s=%.9fs;" % (key, m.value)  # We need to keep data. Values are usually small (e-06)
+            if tow is not None and toc is not None:
+                tow = float(tow)
+                toc = float(toc)
+                perfdata += "%.9f;%.9f;" % (tow, toc)
+                if abs(m.value) > toc:
+                    exit_code = 2
+                elif abs(m.value) > tow:
+                    exit_code = 1
+            if tdw is not None and tdc is not None:
+                tdw = float(tdw)
+                tdc = float(tdc)
+                perfdata += "%.9f;%.9f;" % (tdw, tdc)
+                if abs(m.value) > tdc:
+                    exit_code = 2
+                elif abs(m.value) > tdw and exit_code < 2:
+                    exit_code = 1
+        else:
+            perfdata += " %s=%.2fs;" % (key, m.value)  # We don't need such accuracy
+            # warning are not handled for now
+        output += "%s:%.2fs " % (key, m.value)
+
+    output = "%s - " % exit_code_output[exit_code] + output
+
+    # Set output
+    set_value(self, output, perfdata, exit_code)
+
+except Exception, e:
+    set_value(self, "UNKNOWN: Trigger error: " + str(e), "", 3)
