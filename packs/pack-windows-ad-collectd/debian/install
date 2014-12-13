@@ -1,0 +1,2 @@
+pack /etc/shinken/packs/windows-ad-collectd
+package.json /etc/shinken/packs/windows-ad-collectd

@@ -1,0 +1,45 @@
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{0A38B09E-0003-4BCE-A29E-25C4E263C5D8}]
+"SetInstance"="none"
+"TypeInstance"="directory_writes_per_s"
+"Type"="current"
+"PluginInstance"="DS"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Écritures Active Directory/s."
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{38732356-88E9-429D-A130-30B78B3831DB}]
+"SetInstance"="none"
+"TypeInstance"="directory_read_per_s"
+"Type"="current"
+"PluginInstance"="DS"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Lectures Active Directory/s."
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{3D90C2DF-179B-4B23-84A4-E11115061C0D}]
+"SetInstance"="none"
+"TypeInstance"="security_descriptor_propagations_events"
+"Type"="current"
+"PluginInstance"="DS"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Nb d’événements de propagations de descripteurs de sécurité Active Directory"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{B32F1125-91EF-4975-9C4C-514FE2E27BD4}]
+"SetInstance"="none"
+"TypeInstance"="thread_in_use"
+"Type"="current"
+"PluginInstance"="DS"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Nb de threads Active Directory utilisés"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{C3E1ED45-AA05-436D-80DE-B7B456E8A87F}]
+"SetInstance"="none"
+"TypeInstance"="security_descriptor_suboperations_per_s"
+"Type"="current"
+"PluginInstance"="DS"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Nb de sous-opérations de descripteurs de sécurité Active Directory/s."
+

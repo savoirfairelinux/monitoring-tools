@@ -1,0 +1,9 @@
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{8C54090E-A919-4C7A-B4AB-61D30520F827}]
+"SetInstance"="none"
+"TypeInstance"="made"
+"Type"="current"
+"PluginInstance"="DRA_sync_requests"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Requêtes de synchronisation DRA effectuées"
+

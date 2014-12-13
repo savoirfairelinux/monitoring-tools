@@ -1,0 +1,36 @@
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{41BCDF88-3388-42BF-BF2F-544AC5820B1B}]
+"SetInstance"="none"
+"TypeInstance"="inbound_dns_only_per_s"
+"Type"="current"
+"PluginInstance"="DRA_values"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Nb de valeurs DRA entrantes (noms uniques seulement)/s."
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{48BBA210-518E-4BDA-80DC-6732C6DDFA0E}]
+"SetInstance"="none"
+"TypeInstance"="outbound_total_per_s"
+"Type"="current"
+"PluginInstance"="DRA_values"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Nb total de valeurs DRA sortantes/s."
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{9F6F7F97-444B-43DF-B07E-74C6A056C865}]
+"SetInstance"="none"
+"TypeInstance"="inbound_total_per_s"
+"Type"="current"
+"PluginInstance"="DRA_values"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Nb total de valeurs DRA entrantes/s."
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{D92135A4-6FA0-4C5D-AF9B-C435F7971CE0}]
+"SetInstance"="none"
+"TypeInstance"="outbound_dns_only_per_s"
+"Type"="current"
+"PluginInstance"="DRA_values"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Nb de valeurs DRA sortantes (noms uniques seulement)/s."
+

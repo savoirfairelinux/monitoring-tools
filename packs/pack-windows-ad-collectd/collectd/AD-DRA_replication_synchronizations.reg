@@ -1,0 +1,9 @@
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{339BA3E4-125B-44C9-9C9C-ED5BC4724E53}]
+"SetInstance"="none"
+"TypeInstance"="pending"
+"Type"="current"
+"PluginInstance"="DRA_replication_synchronizations"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Nb de synchronisations de réplication DRA en attente"
+

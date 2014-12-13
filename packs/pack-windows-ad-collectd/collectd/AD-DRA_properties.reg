@@ -1,0 +1,27 @@
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{42FB3FFF-AB20-4A92-BB6A-ECCA3662A11A}]
+"SetInstance"="none"
+"TypeInstance"="inbound_applied_per_s"
+"Type"="current"
+"PluginInstance"="DRA_properties"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Nb de propriétés DRA entrantes appliquées/s."
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{58AF4A5B-4D93-4AB3-8A60-33241C4A4BB4}]
+"SetInstance"="none"
+"TypeInstance"="inbound_total_per_s"
+"Type"="current"
+"PluginInstance"="DRA_properties"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Nb de propriétés DRA sortantes/s."
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\octo\SSC Serv\Generic_PDH\{F904C7A4-6CE2-4C85-BE1A-E3EB3DF08717}]
+"SetInstance"="none"
+"TypeInstance"="inbound_filtered_per_s"
+"Type"="current"
+"PluginInstance"="DRA_properties"
+"Plugin"="AD"
+"Host"="AD20088"
+"PDHCounterPath"="\\NTDS\\Nb de propriétés DRA entrantes filtrées/s."
+
