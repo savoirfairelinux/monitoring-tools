@@ -1,0 +1,32 @@
+{
+"name":"windows-sophos-mssql",
+
+"description":"Pack to monitor number of infected servers on a sophos",
+
+"path":"services/",
+
+# NEXT LINES ARE SAMPLES: YOU CAN DELETE IT
+"macros":{
+         "_DOMAINPASSWORD":         {"type": "string",
+                                     "description": "domain password",
+                                    },
+
+         "_MSSQLUSER":              {"type": "string",
+                                     "description": "MSSQL user",
+                                    },
+
+         "_MSSQLPASSWORD":          {"type": "string",
+                                     "description": "MSSQL password",
+                                    },
+
+         "_INFECTED_SERVERS_WARN":  {"type": "integer",
+                                     "description": "warning threshold for infected servers count",
+                                    },
+
+         "_INFECTED_SERVERS_CRIT":  {"type": "integer",
+                                     "description": "critical threshold for infected servers count",
+                                    },
+
+
+        }
+}
