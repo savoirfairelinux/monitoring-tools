@@ -1,2 +1,0 @@
-pack /etc/shinken/packs/generic-dns
-package.json /etc/shinken/packs/generic-dns
