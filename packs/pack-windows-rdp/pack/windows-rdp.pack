@@ -1,0 +1,11 @@
+{
+"name":"windows-rdp",
+
+"description":"Windows active checks with RDP requests",
+
+"path":"services/",
+
+# NEXT LINES ARE SAMPLES: YOU CAN DELETE IT
+"macros":{
+        }
+}
