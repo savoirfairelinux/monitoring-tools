@@ -9,7 +9,7 @@ Vcs-Git: git://anonscm.debian.org/collab-maint/plugin-{{ name }}.git
 Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-{{ name }}.git;a=summary
 
 Package: plugin-{{ name }}
-Architecture: any
+Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins
 Description: {{ desc }}
  More information is available on Github:
