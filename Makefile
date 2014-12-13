@@ -185,7 +185,7 @@ doc_prepare:
 	for i in $(plugins); do cp -r plugins/$$i/doc doc/source/plugins/$$i; done
 	rm -rf doc/source/packs/
 	mkdir -p doc/source/packs/
-	for i in $(packs); do cp -r packs/$$i/doc doc/source/packs/$$i; done
+	for i in $(packs); do cp -r packs/$$i/doc/source doc/source/packs/$$i; done
 
 tests:
 	tools/run-tests.sh

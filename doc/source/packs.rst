@@ -6,5 +6,5 @@ Packs
    :maxdepth: 2
    :glob:
 
-   packs/*
+   packs/*/*
 
