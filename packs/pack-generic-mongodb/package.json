@@ -1,0 +1,24 @@
+{
+    "name": "linux-radius-collectd",
+    "types": ["pack"],
+    "version": "1.0",
+    "homepage": "",
+    "author": "Nguyen Van Duc",
+    "description": "Pack to monitor MongoDB",
+    "contributors": [
+      {
+        "name": "Nguyen Van Duc",
+        "email": "vanduc.nguyen@savoirfairelinux.com"
+      },
+    ],
+    "repository": "",
+    "keywords": [
+      "pack",
+      "generic-mongodb"
+
+    ],
+    "dependencies": {
+      "shinken": ">=1.4"
+    },
+    "license": "GPL"
+}

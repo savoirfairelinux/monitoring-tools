@@ -1,0 +1,5 @@
+pack-generic-mongodb (2014.07.15.10.15-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Thibault Cohen <thibault.cohen@savoirfairelinux.com>  Fri, 12 Dec 2014 12:35:17 -0500

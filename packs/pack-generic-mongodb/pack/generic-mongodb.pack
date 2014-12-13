@@ -1,0 +1,111 @@
+{
+    "name":"generic-mongodb",
+
+    "description":"Check Mongodb",
+
+    "path":"services/",
+
+    "macros":{
+
+        "_MONGO_PORT":                               {"type": "integer",
+                                                      "description": "port of Mongodb",
+                                                     },
+
+        "_MONGO_CONNECTION_WARNING":                 {"type": "integer",
+                                                      "description": "the connection to the server takes 2 seconds",
+                                                     },
+
+        "_MONGO_CONNECTION_CRITICAL":                {"type": "integer",
+                                                      "description": "the connection to the server takes 4 seconds",
+                                                     },
+
+        "_MONGO_PERCENTAGE_CONNECTION_WARNING":      {"type": "integer",
+                                                      "description": "the connection pool is 70%",
+                                                     },
+
+        "_MONGO_PERCENTAGE_CONNECTION_CRITICAL":     {"type": "integer",
+                                                      "description": "the connection pool is 80%",
+                                                     },
+
+        "_MONGO_REPLICATION_LAG_WARNING":            {"type": "integer",
+                                                      "description": "the lag is over 15 seconds",
+                                                     },
+
+        "_MONGO_REPLICATION_LAG_CRITICAL":           {"type": "integer",
+                                                      "description": "the lag is over 30 seconds",
+                                                     },
+
+        "_MONGO_REPLICATION_LAG_PERCENT_WARNING":    {"type": "integer",
+                                                      "description": "the lag is over 50 percents",
+                                                     },
+
+        "_MONGO_REPLICATION_LAG_PERCENT_CRITICAL":   {"type": "integer",
+                                                      "description": "the lag is over 75 percents",
+                                                     },
+
+        "_MONGO_MEMORY_WARNING":                     {"type": "integer",
+                                                      "description": "Mongo uses over 20 gigs of ram",
+                                                     },
+
+        "_MONGO_MEMORY_CRITICAL":                    {"type": "integer",
+                                                      "description": "Mongo uses over 28 gigs of ram",
+                                                     },
+
+        "_MONGO_MEMORY_MAPPED_WARNING":              {"type": "integer",
+                                                      "description": "memory mapped is 20 gigs of ram",
+                                                     },
+
+        "_MONGO_MEMORY_MAPPED_CRITICAL":             {"type": "integer",
+                                                      "description": "memory mapped is 28 gigs of ram",
+                                                     },
+
+        "_MONGO_LOCK_WARNING":                       {"type": "integer",
+                                                      "description": "the lock time is above 5%",
+                                                     },
+
+        "_MONGO_LOCK_CRITICAL":                      {"type": "integer",
+                                                      "description": "the lock time is above 10%",
+                                                     },
+
+        "_MONGO_FLUSHING_WARNING":                   {"type": "integer",
+                                                      "description": "the average flush time is above 100ms",
+                                                     },
+
+        "_MONGO_FLUSHING_CRITICAL":                  {"type": "integer",
+                                                      "description": "the average flush time is above 200ms",
+                                                     },
+
+        "_MONGO_LAST_FLUSH_WARNING":                 {"type": "integer",
+                                                      "description": "the last flush time is above 200ms",
+                                                     },
+
+        "_MONGO_LAST_FLUSH_CRITICAL":                {"type": "integer",
+                                                      "description": "the last flush time is above 400ms",
+                                                     },
+
+        "_MONGO_INDEX_MISS_RATIO_WARNING":           {"type": "float",
+                                                      "description": "the ratio is above .005",
+                                                     },
+
+        "_MONGO_INDEX_MISS_RATIO_CRITICAL":          {"type": "float",
+                                                      "description": "the ratio is above .01",
+                                                     },
+
+        "_MONGO_QUERIES_PER_SECOND_WARNING":         {"type": "integer",
+                                                      "description": "the count is over 200",
+                                                     },
+
+        "_MONGO_QUERIES_PER_SECOND_CRITICAL":        {"type": "integer",
+                                                      "description": "the count is over 150",
+                                                     },
+
+        "_MONGO_CONNECT_PRIMARY_WARNING":            {"type": "integer",
+                                                      "description": "the connection to the primary server of current replicaset takes 2 seconds",
+                                                     },
+
+        "_MONGO_CONNECT_PRIMARY_CRITICAL":           {"type": "integer",
+                                                      "description": "the connection to the primary server of current replicaset takes 4 seconds",
+                                                     },
+
+    }
+}
