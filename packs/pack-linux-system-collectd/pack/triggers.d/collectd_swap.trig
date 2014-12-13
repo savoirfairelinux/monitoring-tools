@@ -1,0 +1,90 @@
+#!/usr/bin/env python
+
+def readable(octets):
+    units = ['K', 'M', 'G', 'T', 'P']
+    unit = 'B'
+    for i, u in enumerate(units):
+        if octets >= 1024:
+            octets = octets / 1024.0
+            unit = units[i]
+        else:
+            break
+    return octets, unit
+
+
+exit_code_output = {0: 'OK',
+                    1: 'WARNING',
+                    2: 'CRITICAL',
+                    3: 'UNKNOWN',
+                   }
+exit_code = 0
+# Get threshold
+data = {}
+
+data['used_warn_p'] = self.host.customs.get('_SWAP_USED_WARN', None)
+data['used_crit_p'] = self.host.customs.get('_SWAP_USED_CRIT', None)
+if data['used_warn_p'] and data['used_crit_p']:
+    data['used_warn_p'] = float(data['used_warn_p'])
+    data['used_crit_p'] = float(data['used_crit_p'])
+    data['free_warn_p'] = 100 - data['used_warn_p']
+    data['free_crit_p'] = 100 - data['used_crit_p']
+else:
+    data['free_warn_p'] = self.host.customs.get('_SWAP_FREE_WARN', None)
+    data['free_crit_p'] = self.host.customs.get('_SWAP_FREE_CRIT', None)
+    if data['free_warn_p'] and data['free_crit_p']:
+        data['free_warn_p'] = float(data['free_warn_p'])
+        data['free_crit_p'] = float(data['free_crit_p'])
+        data['used_warn_p'] = 100 - data['free_warn_p']
+        data['used_crit_p'] = 100 - data['free_crit_p']
+
+# Get perfs
+data['unused'] = float(perf(self, 'swap-free'))
+# TODO: What is 'reserved' ???
+data['cached'] = float(perf(self, 'swap-cached'))
+data['io_out'] = float(perf(self, 'swap_io-out'))
+data['io_in'] = float(perf(self, 'swap_io-in'))
+data['used'] = float(perf(self, 'swap-used'))
+data['total'] = data['unused'] + data['used'] + data['cached']
+data['free'] = data['unused'] + data['cached']
+data['used_p'] = data['used'] * 100 / data['total']
+data['free_p'] = data['free'] * 100 / data['total']
+
+# Transform threshold
+if data['used_warn_p']:
+    data['used_warn'] = data['used_warn_p'] * data['total'] / 100.0
+    data['used_crit'] = data['used_crit_p'] * data['total'] / 100.0
+    data['free_warn'] = data['free_warn_p'] * data['total'] / 100.0
+    data['free_crit'] = data['free_crit_p'] * data['total'] / 100.0
+
+# Prepare output
+if data['used_warn_p']:
+    perf_data = ("free=%(free)dbytes;%(free_warn)d;%(free_crit)d;0;%(total)d "
+                 "used=%(used)dbytes;%(used_warn)d;%(used_crit)d;0;%(total)d "
+                 "cached=%(cached)dbytes;;;0;%(total)d "
+                 "io_out=%(io_out)dbytes/s;;;0;% "
+                 "io_in=%(io_in)dbytes/s;;;0;% " % data)
+else:
+    perf_data = ("free=%(free)dbytes;;;0;%(total)d "
+                 "used=%(used)dbytes;;;0;%(total)d "
+                 "cached=%(cached)dbytes;;;0;%(total)d "
+                 "io_out=%(io_out)dbytes/s;;;0 "
+                 "io_in=%(io_in)dbytes/s;;;0 " % data)
+
+data['h_free'], data['h_free_u'] = readable(data['free'])
+data['h_used'], data['h_used_u'] = readable(data['used'])
+data['h_total'], data['h_total_u'] = readable(data['total'])
+output = "SWAP used: %(h_used)0.2f%(h_used_u)s/%(h_total)0.2f%(h_total_u)s (Free: %(h_free)0.2f%(h_free_u)s)" % data
+
+# Get status
+if data['used_warn_p']:
+    if data['free_p'] < data['free_crit_p']:
+        exit_code = 2
+    elif data['free_p'] < data['free_warn_p']:
+        exit_code = 1
+
+# Finish output
+output = " - ".join((exit_code_output[exit_code], output))
+
+# Set ouput
+set_value(self, output, perf_data, exit_code)
+

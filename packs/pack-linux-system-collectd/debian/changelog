@@ -1,0 +1,5 @@
+pack-linux-system-collectd (2014.07.15.10.15-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Thibault Cohen <thibault.cohen@savoirfairelinux.com>  Tue, 15 Jul 2014 10:15:52 -0400

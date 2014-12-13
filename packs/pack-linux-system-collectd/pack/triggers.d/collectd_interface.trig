@@ -1,0 +1,59 @@
+#!/usr/bin/env python
+
+import re
+def readable(octets):
+    units = ['KB', 'MB', 'GB', 'TB', 'PB']
+    unit = 'B'
+    for i, u in enumerate(units):
+        if octets > 1024:
+            octets = octets / 1024.0
+            unit = units[i]
+        else:
+            break
+    return octets, unit
+
+exit_code_output = {0: 'OK',
+                    1: 'WARNING',
+                    2: 'CRITICAL',
+                    3: 'UNKNOWN',
+                   }
+exit_code = 0
+outputs = []
+
+# Get threshold
+data = {}
+
+# Get perfs
+metrics = allperfs(self)
+if_names = set([re.match('([^-]*)-(.*)_([^-]*)', metric_name).groups()[1]
+                       for metric_name in metrics])
+
+perf_datas = []
+exit_codes = []
+outputs =[]
+set_value(self, str(metrics), '', exit_code)
+for if_ in if_names:
+    data['if'] = if_
+    data['octets_in'] = float(metrics.get('if_octets-%(if)s_0' % data).value)
+    data['octets_out'] = float(metrics.get('if_octets-%(if)s_1' % data).value)
+    data['errors_in'] = float(metrics.get('if_errors-%(if)s_0' % data).value)
+    data['errors_out'] = float(metrics.get('if_errors-%(if)s_1' % data).value)
+    data['packets_in'] = float(metrics.get('if_packets-%(if)s_0' % data).value)
+    data['packets_out'] = float(metrics.get('if_packets-%(if)s_1' % data).value)
+    # Prepare output
+    perf_datas.append("'%(if)s_octets_in'=%(octets_in)0.2fbit/s;;;0 "
+                      "'%(if)s_octets_out'=%(octets_out)0.2fbit/s;;;0 "
+                      "'%(if)s_errors_in'=%(errors_in)0.2ferror/s;;;0 "
+                      "'%(if)s_errors_out'=%(errors_out)0.2ferror/s;;;0 "
+                      "'%(if)s_packets_in'=%(packets_in)0.2fpacket/s;;;0 "
+                      "'%(if)s_packets_out'=%(packets_out)0.2fpacket/s;;;0 " % data)
+    data['if'] = data['if'].capitalize()
+    data['h_octets_in'], data['h_octets_in_u'] = readable(data['octets_in'])
+    data['h_octets_out'], data['h_octets_out_u'] = readable(data['octets_out'])
+    outputs.append("%(if)s (in/out):  Traffic %(h_octets_in)0.2f%(h_octets_in_u)s/s/%(h_octets_out)0.2f%(h_octets_out_u)s/s - Packets %(packets_in)0.2f/%(packets_out)0.2f (packet/s) - Errors %(errors_in)0.2f/%(errors_out)0.2f (error/s)" % data)
+
+# Set ouput
+perf_data = " ".join(perf_datas)
+output = " # ".join(outputs)
+set_value(self, output, perf_data, exit_code)
+

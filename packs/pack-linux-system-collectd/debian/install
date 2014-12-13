@@ -1,0 +1,2 @@
+pack /etc/shinken/packs/linux-system-collectd
+package.json /etc/shinken/packs/linux-system-collectd
