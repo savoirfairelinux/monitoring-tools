@@ -1,0 +1,2 @@
+pack /etc/shinken/packs/generic-ssh
+package.json /etc/shinken/packs/generic-ssh

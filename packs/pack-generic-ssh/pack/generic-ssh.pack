@@ -1,0 +1,15 @@
+{
+"name":"generic-ssh",
+
+"description":"SSH active checks with SSH request",
+
+"path":"services/",
+
+# NEXT LINES ARE SAMPLES: YOU CAN DELETE IT
+"macros":{
+         "_SSHPORT": {"type":"integer",
+                      "description":"SSH tcp port"
+                      },
+
+}
+
