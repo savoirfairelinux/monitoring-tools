@@ -193,7 +193,7 @@ tests:
 deb: clean
 	tools/update-deb.sh
 
-obs: deb
+obs:
 	tools/update-obs-packages.sh
 
 new-plugin:
