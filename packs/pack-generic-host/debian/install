@@ -1,2 +1,0 @@
-pack /etc/shinken/packs/generic-host
-package.json /etc/shinken/packs/generic-host
