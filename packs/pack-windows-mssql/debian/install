@@ -1,0 +1,3 @@
+pack /etc/shinken/packs/windows-mssql
+package.json /etc/shinken/packs/windows-mssql
+share/* /var/lib/shinken/share
