@@ -1,0 +1,17 @@
+{
+"name":"linux-radius-collectd",
+
+"description":"Pack to monitor radius service on a Linux server",
+
+"path":"services/",
+
+"macros":{
+         "_PROCESS_RADIUS_MIN_WARN":  {"type": "integer",
+                                       "description": "Min number of salt master processs, warning threshold",
+                                      },
+
+         "_PROCESS_RADIUS_MIN_CRIT":  {"type": "integer",
+                                       "description": "Min number of salt master processs, critical threshold",
+                                      },
+        }
+}
