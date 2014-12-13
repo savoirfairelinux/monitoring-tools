@@ -2,3 +2,5 @@ doc/build
 *.pyc
 *.swp
 env/
+build-area
+obs.tmp
