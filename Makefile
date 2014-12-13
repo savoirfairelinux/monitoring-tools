@@ -177,21 +177,21 @@ doc_pseudoxml: doc_prepare
 
 
 plugins=$(shell ls plugins)
+packs=$(shell ls packs)
 current_dir=$(shell pwd)
 doc_prepare:
 	rm -rf doc/source/plugins/
 	mkdir -p doc/source/plugins/
 	for i in $(plugins); do cp -r plugins/$$i/doc doc/source/plugins/$$i; done
-
+	rm -rf doc/source/packs/
+	mkdir -p doc/source/packs/
+	for i in $(packs); do cp -r packs/$$i/doc doc/source/packs/$$i; done
 
 tests:
 	tools/run-tests.sh
 
 deb: clean
 	tools/update-deb.sh
-
-update-submodules:
-	tools/update-submodules.sh
 
 obs: deb
 	tools/update-obs-packages.sh
@@ -241,7 +241,6 @@ clean:
 	rm -rf "home:ReAzem:sfl-shinken-plugins"
 
 mrproper: clean
-	git submodule foreach 'git checkout . && git clean -dxf'
 	git clean -dxf -e '/.idea/'
 
 

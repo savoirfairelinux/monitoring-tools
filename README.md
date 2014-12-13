@@ -52,7 +52,7 @@ or for Debian and Ubuntu:
 $ sudo apt-get install lib-shinkenplugins
 ```
 
-### Update the Debian packaging of a plugin
+### Update the Debian packaging of a plugin/pack
 After modifying files under debian/, you can add an entry in the
 changelog by doing:
 ```
@@ -65,12 +65,6 @@ $ version=$(date +%Y.%m.%e.%H.%M)
 $ dch $msg --no-auto-nmu --newversion $version
 ```    
 
-### Update submodules
-```
-make update-submodules 
-```
-This will checkout all the submodules to master, update the
-documentation and create a new commit.
 
 
 ### Build the Debian source packages
