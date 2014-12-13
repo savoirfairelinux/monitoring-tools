@@ -1,0 +1,2 @@
+pack /etc/shinken/packs/generic-carbon-tcp
+package.json /etc/shinken/packs/generic-carbon-tcp

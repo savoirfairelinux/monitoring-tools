@@ -1,0 +1,9 @@
+{
+"name":"generic-carbon-tcp",
+
+"description":"Carbon active checks with TCP requests",
+
+"path":"websites/",
+
+"macros":{
+}
