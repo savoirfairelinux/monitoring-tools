@@ -1,0 +1,102 @@
+#!/usr/bin/env python
+#try:
+if True:
+    import re
+    def readable(octets):
+        units = ['KB', 'MB', 'GB', 'TB', 'PB']
+        unit = 'B'
+        for i, u in enumerate(units):
+            if octets > 1024:
+                octets = octets / 1024.0
+                unit = units[i]
+            else:
+                break
+        return octets, unit
+    
+    
+    exit_code_output = {0: 'OK',
+                        1: 'WARNING',
+                        2: 'CRITICAL',
+                        3: 'UNKNOWN',
+                       }
+    exit_code = 0
+    outputs = []
+    
+    # Get threshold
+    data = {}
+    
+    data['used_warn_p'] = self.host.customs.get('_STORAGE_USED_WARN', None)
+    data['used_crit_p'] = self.host.customs.get('_STORAGE_USED_CRIT', None)
+    if data['used_warn_p'] and data['used_crit_p']:
+        data['used_warn_p'] = float(data['used_warn_p'])
+        data['used_crit_p'] = float(data['used_crit_p'])
+        data['free_warn_p'] = 100 - data['used_warn_p']
+        data['free_crit_p'] = 100 - data['used_crit_p']
+    else:
+        data['free_warn_p'] = self.host.customs.get('_STORAGE_FREE_WARN', None)
+        data['free_crit_p'] = self.host.customs.get('_STORAGE_FREE_CRIT', None)
+        if data['free_warn_p'] and data['free_crit_p']:
+            data['free_warn_p'] = float(data['free_warn_p'])
+            data['free_crit_p'] = float(data['free_crit_p'])
+            data['used_warn_p'] = 100 - data['free_warn_p']
+            data['used_crit_p'] = 100 - data['free_crit_p']
+    
+    # Get perfs
+    raw_perf_datas = allperfs(self)
+    df_names = set([re.match('([^-]*)-(.*)-([^-]*)', metric_name).groups()[1]
+                for metric_name in raw_perf_datas.keys()])
+    
+    perf_datas = [] 
+    exit_codes = []
+    for df in df_names:
+        data['df'] = df
+        data['free'] = float(raw_perf_datas.get('df_complex-%(df)s-free' % data).value)
+        # TODO: What is 'reserved' ???
+        data['reserved'] = float(raw_perf_datas.get('df_complex-%(df)s-reserved' % data).value)
+        data['used'] = float(raw_perf_datas.get('df_complex-%(df)s-used' % data).value)
+        data['total'] = data['free'] + data['reserved'] + data['used']
+        data['used_p'] = data['used'] * 100 / data['total']
+        data['free_p'] = data['free'] * 100 / data['total']
+        
+        # Transform threshold
+        if data['used_warn_p']:
+            data['used_warn'] = data['used_warn_p'] * data['total'] / 100.0
+            data['used_crit'] = data['used_crit_p'] * data['total'] / 100.0
+            data['free_warn'] = data['free_warn_p'] * data['total'] / 100.0
+            data['free_crit'] = data['free_crit_p'] * data['total'] / 100.0
+
+        # Prepare output
+        if data['used_warn_p']:
+            tmp_perf_data = ("%(df)s_free=%(free)dbytes;%(free_warn)d;%(free_crit)d;0;%(total)d "
+                         "%(df)s_used=%(used)dbytes;%(used_warn)d;%(used_crit)d;0;%(total)d " % data)
+        else:
+            tmp_perf_data = ("%(df)sfree=%(free)dbytes;;;0;%(total)d "
+                         "%(df)sused=%(used)dbytes;;;0;%(total)d " % data)
+
+        data['h_free'], data['h_free_u'] = readable(data['free']) 
+        data['h_used'], data['h_used_u'] = readable(data['used']) 
+        data['h_total'], data['h_total_u'] = readable(data['total']) 
+        tmp_output = "%(df)s: %(h_used)0.2f%(h_used_u)s/%(h_total)0.2f%(h_total_u)s (Free: %(h_free)0.2f%(h_free_u)s)" % data
+
+        # Get status
+        if data['used_warn_p']:
+            if data['free_p'] < data['free_crit_p'] and exit_code < 2:
+                exit_code = 2
+            elif data['free_p'] < data['free_warn_p'] and exit_code < 1:
+                exit_code = 1
+
+        # Finish output
+        if exit_code > 0:
+            outputs.append(" - ".join((exit_code_output[exit_code], tmp_output)))
+        else:
+            outputs.append(tmp_output)
+        perf_datas.append(tmp_perf_data)
+
+    output = " # ".join(outputs)
+    output = "Disk spaces # " + output
+    perf_data = " ".join(perf_datas)
+    # Set ouput
+    set_value(self, output, perf_data, exit_code)
+        
+#except Exception, e:
+#    set_value(self, "UNKNOWN: Trigger error: " + str(e), "", 3)

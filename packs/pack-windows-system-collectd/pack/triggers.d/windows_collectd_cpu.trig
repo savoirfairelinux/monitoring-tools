@@ -1,0 +1,57 @@
+#!/usr/bin/env python
+try:
+    import re
+    def readable(octets):
+        units = ['K', 'M', 'G', 'T', 'P']
+        unit = 'B'
+        for i, u in enumerate(units):
+            if octets > 1024:
+                octets = octets / 1024.0
+                unit = units[i]
+            else:
+                break
+        return octets, unit
+    
+    
+    exit_code_output = {0: 'OK',
+                        1: 'WARNING',
+                        2: 'CRITICAL',
+                        3: 'UNKNOWN',
+                       }
+    exit_code = 0
+    outputs = []
+    
+    # Get threshold
+    data = {}
+
+    # Get perfs
+    raw_perf_datas = allperfs(self)
+    cpu_names = set([re.match('([^-]*)-(.*)-([^-]*)', metric_name).groups()[1]
+                for metric_name in raw_perf_datas.keys()])
+    
+    perf_datas = [] 
+    exit_codes = []
+    outputs =[]
+    for cpu in cpu_names:
+        data['cpu'] = cpu
+        data['user'] = float(raw_perf_datas.get('cpu-%(cpu)s-user' % data).value)
+        data['system'] = float(raw_perf_datas.get('cpu-%(cpu)s-system' % data).value)
+        data['irq'] = float(raw_perf_datas.get('cpu-%(cpu)s-interrupt' % data).value)
+        data['idle'] = float(raw_perf_datas.get('cpu-%(cpu)s-idle' % data).value)
+        # Prepare output
+        perf_datas.append(
+                          "cpu_%(cpu)s_idle=%(idle)0.2fbytes/s;;;0 "
+                          "cpu_%(cpu)s_user=%(user)0.2fs/s;;;0 "
+                          "cpu_%(cpu)s_system=%(system)0.2fops/s;;;0 "
+                          "cpu_%(cpu)s_interrupt=%(irq)0.2fs/s;;;0 "
+                           "" % data)
+        outputs.append("CPU-%(cpu)s: (%(idle)0.2f;%(user)0.2f;%(system)0.2f;%(irq)0.2f)" % data)
+
+    # Set ouput
+    perf_data = " ".join(perf_datas)
+    output = " # ".join(outputs)
+    output = "CPU stats (idle;user;system;irq) # " + output
+    set_value(self, output, perf_data, exit_code)
+        
+except Exception, e:
+    set_value(self, "UNKNOWN: Trigger error: " + str(e), "", 3)

@@ -1,0 +1,74 @@
+#!/usr/bin/env python
+import operator
+try:
+    def readable(octets):
+        units = ['K', 'M', 'G', 'T', 'P']
+        unit = 'B'
+        for i, u in enumerate(units):
+            if octets >= 1024:
+                octets = octets / 1024.0
+                unit = units[i]
+            else:
+                break
+        return octets, unit
+
+
+    exit_code_output = {0: 'OK',
+                        1: 'WARNING',
+                        2: 'CRITICAL',
+                        3: 'UNKNOWN',
+                       }
+    exit_code = 0
+    # Get threshold
+    data = {'warn': None,
+            'crit': None,
+           }
+
+    min_warn = self.host.customs.get('_%s_MIN_WARN' % self.service_description.upper(), None)
+    min_crit = self.host.customs.get('_%s_MIN_CRIT' % self.service_description.upper(), None)
+    max_warn = self.host.customs.get('_%s_MAX_WARN' % self.service_description.upper(), None)
+    max_crit = self.host.customs.get('_%s_MAX_CRIT' % self.service_description.upper(), None)
+    data['name'] = self.customs.get('_NAME', '')
+    if data['name'] == '':
+        data['name'] = self.service_description
+    data['perfname'] = self.customs.get('_PERF_NAME', '')
+    if data['perfname'] == '':
+        data['perfname'] = self.service_description
+    data['unit'] = self.customs.get('_UNIT', '')
+
+    # Get perfs
+    data['value'] = float(perf(self, 'current'))
+
+    # Transform threshold
+    if min_warn and min_crit:
+	data['warn'] = float(min_warn)
+	data['crit'] = float(min_crit)
+        operator_name = 'le'
+    elif max_warn and max_crit:
+	data['warn'] = float(max_warn)
+	data['crit'] = float(max_crit)
+        operator_name = 'ge'
+
+    # Prepare output
+    if not data['warn'] is None:
+        perf_data = ("%(perfname)s=%(value)0.2f%(unit)s;%(warn)0.2f;%(crit)0.2f;0; " % data)
+    else:
+        perf_data = ("%(perfname)s=%(value)0.2f%(unit)s;;;0; " % data)
+
+    output = "%(name)s: %(value)0.2f" % data
+
+    # Get status
+    if not data['warn'] is None:
+         if getattr(operator, operator_name)(data['value'], data['crit']):
+             exit_code = 2
+         elif getattr(operator, operator_name)(data['value'], data['warn']):
+             exit_code = 1
+
+    # Finish output
+    output = " - ".join((exit_code_output[exit_code], output))
+
+    # Set ouput
+    set_value(self, output, perf_data, exit_code)
+
+except Exception, e:
+    set_value(self, "UNKNOWN: Trigger error: " + str(e), "", 3)

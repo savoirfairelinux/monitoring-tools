@@ -1,0 +1,32 @@
+#!/usr/bin/env python
+
+try:
+    exit_code_output = {0: 'OK',
+                        1: 'WARNING',
+                        2: 'CRITICAL',
+                        3: 'UNKNOWN',
+                       }
+    exit_code = 0
+
+    #service_name = self.service_description.replace('services-', '')
+
+    data = {}
+    # Get perfs
+    data['ps_state'] = int(perf(self, 'ps_state'))
+
+    perf_data = ("ps_state=%(ps_state)d;;1;0;1" % data)
+
+    if data['ps_state'] == 1:
+        state = "STARTED"
+        exit_code = 0
+    else:
+        state = "NOT STARTED"
+        exit_code = 2
+
+    output = "%s - Service state: %s" % (exit_code_output[exit_code], state)
+
+    # Set ouput
+    set_value(self, output, perf_data, exit_code)
+
+except Exception, e:
+    set_value(self, "UNKNOWN: Trigger error: " + str(e), "", 3)

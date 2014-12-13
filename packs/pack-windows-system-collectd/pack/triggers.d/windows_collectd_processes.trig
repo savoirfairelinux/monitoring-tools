@@ -1,0 +1,76 @@
+#!/usr/bin/env python
+import operator
+#try:
+if True:
+    def readable(octets):
+        units = ['K', 'M', 'G', 'T', 'P']
+        unit = 'B'
+        for i, u in enumerate(units):
+            if octets >= 1024:
+                octets = octets / 1024.0
+                unit = units[i]
+            else:
+                break
+        return octets, unit
+
+
+    exit_code_output = {0: 'OK',
+                        1: 'WARNING',
+                        2: 'CRITICAL',
+                        3: 'UNKNOWN',
+                       }
+    exit_code = 0
+    # Get threshold
+    data = {'warn': None,
+            'crit': None,
+           }
+
+    process_name = self.service_description.replace('processes-', '').upper()
+    min_warn = self.host.customs.get('PROCESSES_MIN_WARN', None)
+    min_crit = self.host.customs.get('PROCESSES_MIN_CRIT', None)
+    max_warn = self.host.customs.get('PROCESSES_MAX_WARN', None)
+    max_crit = self.host.customs.get('PROCESSES_MAX_CRIT', None)
+
+    # Get perfs
+    data['process_count'] = float(perf(self, 'ps_count_0'))
+    data['thread_count'] = float(perf(self, 'ps_count_1'))
+
+    # Transform threshold
+    if min_warn and min_crit:
+	data['warn'] = int(min_warn)
+	data['crit'] = int(min_crit)
+        operator_name = 'le'
+    elif max_warn and max_crit:
+	data['warn'] = int(max_warn)
+	data['crit'] = int(max_crit)
+        operator_name = 'ge'
+
+    # Prepare output
+    if not data['warn'] is None:
+        perf_data = ("process_count=%(process_count)d;%(warn)s;%(crit)s;0; "
+                     "thread_count=%(thread_count)d;%(warn)s;%(crit)s;0;"  % data)
+    else:
+        perf_data = ("process_count=%(process_count)d;;;0; "
+                     "thread_count=%(thread_count)d;;;0; " % data)
+
+    for d in data:
+        if not d in ['process_count', 'thread_count', 'warn', 'crit']:
+            perf_data += " %s=%d;;;" % (d, data[d])
+
+    output = "Process count: %(process_count)d - Thread count: %(thread_count)d" % data
+
+    # Get status
+    if not data['warn'] is None:
+         if getattr(operator, operator_name)(data['process_count'], data['crit']):
+             exit_code = 2
+         elif getattr(operator, operator_name)(data['process_count'], data['warn']):
+             exit_code = 1
+
+    # Finish output
+    output = " - ".join((exit_code_output[exit_code], output))
+
+    # Set ouput
+    set_value(self, output, perf_data, exit_code)
+
+#except Exception, e:
+#    set_value(self, "UNKNOWN: Trigger error: " + str(e), "", 3)
