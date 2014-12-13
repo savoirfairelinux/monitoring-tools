@@ -1,0 +1,22 @@
+{
+"name":"windows-sophos-collectd",
+
+"description":"Pack to monitor the sophos service on a windows",
+
+"path":"services/",
+
+
+"macros":{
+         "_MSSQL_SOPHOS_INSTANCES": {"type": "Comma separated string list",
+                                     "description": "MSSQL Instances for Sophos. Default : SOPHOS (only one element)",
+                                    },
+
+         "_PROCESS_SOPHOS_MIN_WARN":              {"type": "string",
+                                     "description": "Value for starting warning state for the load average at 1m,5m,15m",
+                                    },
+
+         "_PROCESS_SOPHOS_MIN_CRIT":              {"type": "string",
+                                     "description": "Value for starting critical state for the load average at 1m,5m,15m",
+                                    },
+        }
+}
