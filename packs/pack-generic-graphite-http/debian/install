@@ -1,0 +1,2 @@
+pack /etc/shinken/packs/generic-graphite-http
+package.json /etc/shinken/packs/generic-graphite-http
