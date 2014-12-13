@@ -1,0 +1,2 @@
+pack /etc/shinken/packs/generic-saltmaster-tcp
+package.json /etc/shinken/packs/generic-saltmaster-tcp
