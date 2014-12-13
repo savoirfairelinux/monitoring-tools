@@ -1,0 +1,18 @@
+{
+"name":"generic-multisite-http",
+
+"description":"CheckMK Multisite active checks with HTTP requests",
+
+"path":"websites/",
+
+# NEXT LINES ARE SAMPLES: YOU CAN DELETE IT
+"macros":{
+         "_MULTISITE_USER":         {"type": "string",
+                                     "description": "The Multisite admin user login",
+                                    },
+
+         "_MULTISITE_PASSWORD":     {"type": "string",
+                                     "description": "The Multisite password admin login",
+                                    },
+        }
+}
