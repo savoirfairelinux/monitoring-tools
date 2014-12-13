@@ -1,0 +1,14 @@
+{
+"name":"generic-repodeb-http",
+
+"description":"Debian and Ubuntu repository active checks with HTTP requests",
+
+"path":"services/",
+
+# NEXT LINES ARE SAMPLES: YOU CAN DELETE IT
+"macros":{
+         "_URI_REPO":          {"type": "uri",
+                                "description": "The URI of the repo to check",
+                               },
+        }
+}

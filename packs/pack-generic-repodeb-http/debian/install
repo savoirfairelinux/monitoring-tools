@@ -1,0 +1,2 @@
+pack /etc/shinken/packs/generic-repodeb-http
+package.json /etc/shinken/packs/generic-repodeb-http

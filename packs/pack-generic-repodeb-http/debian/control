@@ -1,0 +1,16 @@
+Source: pack-generic-repodeb-http
+Section: python
+Priority: optional
+Maintainer: Thibault Cohen <thibault.cohen@savoirfairelinux.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+Homepage: https://github.com/savoirfairelinux/pack-generic-repodeb-http
+#Vcs-Git: git://git.debian.org/collab-maint/pack-generic-repodeb-http.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-generic-repodeb-http.git;a=summary
+
+Package: pack-generic-repodeb-http
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: 
+ More information is available on Github:
+ https://github.com/savoirfairelinux/sfl-shinken-packs
