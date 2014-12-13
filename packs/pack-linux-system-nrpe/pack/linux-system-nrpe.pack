@@ -1,0 +1,21 @@
+{
+"name":"linux-system-nrpe",
+
+"description":"Standard linux icolectd checks, like CPU, RAM and disk space. Checks are done by triggers on nrpe data.",
+
+"path":"os/",
+
+"macros":{
+        "_LOAD_WARN": {"type": "3 comma-separated integer",
+                       "description": "Load warning threshold (ie: 7,6,5)"
+                      },
+        "_LOAD_CRIT": {"type": "3 comma-separated integer",
+                       "description": "Load critical threshold (ie: 10,9,8)"
+                      },
+        "_STORAGE_USED_WARN": {"type": "percent",
+                               "description": "Warning level for used storage space"
+                              },
+        "_STORAGE_USED_CRIT": {"type": "percent",
+                               "description": "Critical level for used storage space"
+                              },
+}

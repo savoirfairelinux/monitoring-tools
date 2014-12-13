@@ -1,0 +1,24 @@
+{
+	"name": "linux-system-nrpe",
+	"types": ["pack"],
+	"version": "1.0",
+	"homepage": "https://github.com/savoirfairelinux/sfl-shinken-packs",
+	"author": "Thibault Cohen",
+    "description": "Standard linux NRPE active checks using NRPE, like CPU, RAM and disk space.",
+	"contributors": [
+	  {
+		"name": "Thibault Cohen",
+		"email": "thibault.cohen@savoirfairelinux.com"
+	  },
+	],
+	"repository": "https://github.com/savoirfairelinux/pack-linux-system-nrpe.git",
+	"keywords": [
+	  "pack",
+	  "linux-system-nrpe",
+      "nrpe",
+	],
+	"dependencies": {
+	  "shinken": ">=1.4"
+	},
+	"license": "GPL"
+}
