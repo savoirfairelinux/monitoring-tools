@@ -1,3 +1,3 @@
-check_asterisk_cdr_status /usr/lib/shinken/plugins
-check_asterisk_cdr_status_utils.sh /usr/lib/shinken/plugins
-check_asterisk_cdr_status.inc /usr/lib/shinken/plugins
+check_asterisk_cdr_status /usr/lib/monitoring/plugins/sfl
+check_asterisk_cdr_status_utils.sh /usr/lib/monitoring/plugins/sfl
+check_asterisk_cdr_status.inc /usr/lib/monitoring/plugins/sfl

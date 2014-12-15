@@ -1,1 +1,1 @@
-check_reseaucontactcom /usr/lib/shinken/plugins
+check_reseaucontactcom /usr/lib/monitoring/plugins/sfl

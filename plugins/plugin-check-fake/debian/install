@@ -1,1 +1,1 @@
-check_fake /usr/lib/shinken/plugins
+check_fake /usr/lib/monitoring/plugins/sfl

@@ -1,1 +1,1 @@
-check_bixi_montreal /usr/lib/shinken/plugins
+check_bixi_montreal /usr/lib/monitoring/plugins/sfl

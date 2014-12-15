@@ -1,1 +1,1 @@
-check_site_health /usr/lib/shinken/plugins
+check_site_health /usr/lib/monitoring/plugins/sfl

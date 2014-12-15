@@ -1,1 +1,1 @@
-check_rancid /usr/lib/shinken/plugins
+check_rancid /usr/lib/monitoring/plugins/sfl

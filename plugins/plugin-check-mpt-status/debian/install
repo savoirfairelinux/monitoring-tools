@@ -1,1 +1,1 @@
-check_mpt_status /usr/lib/shinken/plugins
+check_mpt_status /usr/lib/monitoring/plugins/sfl

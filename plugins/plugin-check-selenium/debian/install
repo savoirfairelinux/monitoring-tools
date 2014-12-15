@@ -1,1 +1,1 @@
-check_selenium /usr/lib/shinken/plugins
+check_selenium /usr/lib/monitoring/plugins/sfl

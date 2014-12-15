@@ -1,1 +1,1 @@
-check_stm_metro_montreal /usr/lib/shinken/plugins
+check_stm_metro_montreal /usr/lib/monitoring/plugins/sfl

@@ -1,2 +1,2 @@
-check_mem /usr/lib/shinken/plugins
-check_mem.pm /usr/lib/shinken/plugins
+check_mem /usr/lib/monitoring/plugins/sfl
+check_mem.pm /usr/lib/monitoring/plugins/sfl

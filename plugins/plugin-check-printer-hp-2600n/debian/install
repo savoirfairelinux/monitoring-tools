@@ -1,1 +1,1 @@
-check_printer_hp_2600n /usr/lib/shinken/plugins
+check_printer_hp_2600n /usr/lib/monitoring/plugins/sfl
