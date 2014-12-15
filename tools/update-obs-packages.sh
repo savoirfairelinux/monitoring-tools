@@ -34,16 +34,16 @@ function obs_push {
     rm -rf ${OBS_REPO}/${package}
     osc co ${OBS_REPO}/${package}
 
-    # Check if the OBS orig and the current orig are different
+    # Check if the OBS orig
     echo -e "${blue}Decompress OBS ${archive_name} archive${NC}"
-    rm -rf /tmp/${package}_OBS_ORIG && mkdir -p /tmp/${package}_OBS_ORIG
+    rm -rf /tmp/${package}_OBS_ORIG
+    mkdir -p /tmp/${package}_OBS_ORIG
     tar -xf ${BASEDIR}/obs.tmp/${OBS_REPO}/${package}/${package}*.orig.tar.gz -C /tmp/${package}_OBS_ORIG --force-local
     tar -xf ${BASEDIR}/obs.tmp/${OBS_REPO}/${package}/${package}*.debian.tar.gz -C /tmp/${package}_OBS_ORIG/${package} --force-local
 
     # Get differences from obs and local dir
     echo -e "${blue}Compare ${archive_name} archives${NC}"
     diff -r ${BUILD_AREA}/${package_type}s/${package}/ /tmp/${package}_OBS_ORIG/${package}/ --exclude=.git*
-
 
     #Only update the source has changed
     if [ $? -ne 0 ]; then
