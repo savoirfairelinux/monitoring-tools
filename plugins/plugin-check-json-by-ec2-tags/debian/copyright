@@ -1,6 +1,6 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: plugin-check-json-by-ec2-tags
-Source: <https://github.com/savoirfairelinux/plugin-check-json-by-ec2-tags>
+Upstream-Name: monitoring-plugins-sfl-json-by-ec2-tags
+Source: <https://github.com/savoirfairelinux/monitoring-plugins-sfl-json-by-ec2-tags>
 
 Files: *
 Copyright: Copyright (C) 2014 Alexandre Viau

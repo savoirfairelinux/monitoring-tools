@@ -1,5 +1,5 @@
-plugin-check-emergency-rooms-quebec
-===================================
+monitoring-plugins-sfl-emergency-rooms-quebec
+=============================================
 
 Checks the occupation of stretchers in various hospitals in Quebec.
 

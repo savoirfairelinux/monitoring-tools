@@ -1,14 +1,14 @@
-Source: plugin-check-stm-metro-montreal
+Source: monitoring-plugins-sfl-stm-metro-montreal
 Section: python
 Priority: optional
 Maintainer: Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
 Build-Depends: debhelper (>= 9)
 Standards-Version: 3.9.5
-Homepage: https://github.com/savoirfairelinux/plugin-check-stm-metro-montreal
-Vcs-Git: git://anonscm.debian.org/collab-maint/plugin-check-stm-metro-montreal.git
-Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-stm-metro-montreal.git;a=summary
+Homepage: https://github.com/savoirfairelinux/monitoring-tools
+Vcs-Git: git@github.com:savoirfairelinux/monitoring-tools.git
+Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 
-Package: plugin-check-stm-metro-montreal
+Package: monitoring-plugins-sfl-stm-metro-montreal
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins, python-lxml
 Description: Checks the current state of the metro in Montreal.

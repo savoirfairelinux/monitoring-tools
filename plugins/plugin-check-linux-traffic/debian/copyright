@@ -1,6 +1,6 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: plugin-check-linux-traffic
-Source: <https://github.com/savoirfairelinux/plugin-check-linux-traffic>
+Upstream-Name: monitoring-plugins-sfl-linux-traffic
+Source: <https://github.com/savoirfairelinux/monitoring-plugins-sfl-linux-traffic>
 
 Files: *
 Copyright: 2012 Savoir-Faire Linux Inc.

@@ -1,6 +1,6 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: plugin-check-aws-sqs-activity
-Source: <https://github.com/savoirfairelinux/plugin-check-aws-sqs-activity>
+Upstream-Name: monitoring-plugins-sfl-aws-sqs-activity
+Source: <https://github.com/savoirfairelinux/monitoring-plugins-sfl-aws-sqs-activity>
 
 Files: *
 Copyright: Copyright (C) 2014 Alexandre Viau

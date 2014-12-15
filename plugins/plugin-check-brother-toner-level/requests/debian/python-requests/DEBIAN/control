@@ -6,5 +6,5 @@ Installed-Size: 884
 Depends: python
 Section: misc
 Priority: optional
-Homepage: http://www.savoirfairelinux.com
+Homepage: https://github.com/savoirfairelinux/monitoring-tools
 Description: Python requests SFL lib

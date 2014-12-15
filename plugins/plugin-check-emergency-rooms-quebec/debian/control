@@ -1,14 +1,14 @@
-Source: plugin-check-emergency-rooms-quebec
+Source: monitoring-plugins-sfl-emergency-rooms-quebec
 Section: python
 Priority: optional
 Maintainer: Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
 Build-Depends: debhelper (>= 9)
 Standards-Version: 3.9.5
-Homepage: https://github.com/savoirfairelinux/plugin-check-emergency-rooms-quebec
-Vcs-Git: git://anonscm.debian.org/collab-maint/plugin-check-emergency-rooms-quebec.git
-Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-emergency-rooms-quebec.git;a=summary
+Homepage: https://github.com/savoirfairelinux/monitoring-tools
+Vcs-Git: git@github.com:savoirfairelinux/monitoring-tools.git
+Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 
-Package: plugin-check-emergency-rooms-quebec
+Package: monitoring-plugins-sfl-emergency-rooms-quebec
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins, python-lxml
 Description: Checks the occupation of stretchers in various hospitals in Quebec.

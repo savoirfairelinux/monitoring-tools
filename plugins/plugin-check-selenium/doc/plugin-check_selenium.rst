@@ -1,6 +1,6 @@
-=====================
-plugin-check-selenium
-=====================
+===============================
+monitoring-plugins-sfl-selenium
+===============================
 
 Web scenario tests using Selenium
 

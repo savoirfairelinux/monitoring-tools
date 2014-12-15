@@ -1,4 +1,4 @@
-plugin-check-ceilometer (2014.07.14.10.32-1) unstable; urgency=low
+monitoring-plugins-sfl-ceilometer (2014.07.14.10.32-1) unstable; urgency=low
 
   * Initial release
 

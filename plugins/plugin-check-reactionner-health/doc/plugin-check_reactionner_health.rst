@@ -1,4 +1,4 @@
-plugin-check-reactionner-health
-===============================
+monitoring-plugins-sfl-reactionner-health
+=========================================
 
 Shinken plugin from SFL. Pseudo crontab to check if a file is edited by shinken reactionner

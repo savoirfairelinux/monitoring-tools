@@ -1,4 +1,4 @@
-plugin-check-hydro-quebec
-=========================
+monitoring-plugins-sfl-hydro-quebec
+===================================
 
 Get the number of service problems

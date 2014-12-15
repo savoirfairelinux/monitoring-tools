@@ -4,7 +4,7 @@ Section: misc
 Priority: optional
 Standards-Version: 114-6847372-1
 Build-Depends: debhelper (>= 7)
-Homepage: http://www.savoirfairelinux.com
+Homepage: https://github.com/savoirfairelinux/monitoring-tools
 
 Package: python-requests
 Architecture: any

@@ -1,4 +1,4 @@
-plugin-check-redis
-==================
+monitoring-plugins-sfl-redis
+============================
 
 check redis data base
