@@ -35,25 +35,27 @@ function obs_push {
     osc co ${OBS_REPO}/${package_type}-${package}
 
     # Check if the OBS orig
-    echo -e "${blue}Decompress OBS ${archive_name} archive${NC}"
+    prefix=monitoring-${package_type}s-sfl
+    fullname=${prefix}-${package}
+    echo -e "${blue}Decompress OBS ${fullname} archive${NC}"
     rm -rf /tmp/${package}_OBS_ORIG
     mkdir -p /tmp/${package}_OBS_ORIG
-    if [ -f ${BASEDIR}/obs.tmp/${OBS_REPO}/${package_type}-${package}/${package}*.orig.tar.gz ]; then
-        tar -xf ${BASEDIR}/obs.tmp/${OBS_REPO}/${package_type}-${package}/${package}*.orig.tar.gz -C /tmp/${package}_OBS_ORIG --force-local
+    if [ -f ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/${fullname}*.orig.tar.gz ]; then
+        tar -xf ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullnam}/${fullname}*.orig.tar.gz -C /tmp/${fullname}_OBS_ORIG --force-local
     else
         empty=1
     fi
 
-    if [ -f ${BASEDIR}/obs.tmp/${OBS_REPO}/${package_type}-${package}/${package}*.debian.tar.gz ]; then
-        tar -xf ${BASEDIR}/obs.tmp/${OBS_REPO}/${package_type}-${package}/${package}*.debian.tar.gz -C /tmp/${package}_OBS_ORIG/${package} --force-local
+    if [ -f ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/${fullname}*.debian.tar.gz ]; then
+        tar -xf ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/${fullname}*.debian.tar.gz -C /tmp/${fullname}_OBS_ORIG/${package} --force-local
     else
         empty=1
     fi
 
     if [ $empty -ne 1 ];then
         # Get differences from obs and local dir
-        echo -e "${blue}Compare ${archive_name} archives${NC}"
-        diff -r ${BUILD_AREA}/${package_type}s/${package}/ /tmp/${package}_OBS_ORIG/${package}/ --exclude=.git*
+        echo -e "${blue}Compare ${fullname} archives${NC}"
+        diff -r ${BUILD_AREA}/${fullname}s/${fullname}/ /tmp/${fullname}_OBS_ORIG/${package}/ --exclude=.git*
     fi
 
     #Only update the source has changed
@@ -61,19 +63,18 @@ function obs_push {
         echo -e "${yellow}Source has changed, uploading to obs...${NC}"
 
         # Remove the old files
-        rm ${BASEDIR}/obs.tmp/${OBS_REPO}/${package_type}-${package}/*
+        rm ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/*
 
-        prefix=monitoring-${package_type}s-sfl
         # Copy the new files
-        cp ${BUILD_AREA}/${package_type}s/${prefix}-${package}*.tar.gz ${BASEDIR}/obs.tmp/${OBS_REPO}/${package_type}-${package}/
-        cp ${BUILD_AREA}/${package_type}s/${prefix}-${package}*.dsc ${BASEDIR}/obs.tmp/${OBS_REPO}/${package_type}-${package}/
-        cp ${BUILD_AREA}/${package_type}s/${prefix}-${package}*.changes ${BASEDIR}/obs.tmp/${OBS_REPO}/${package_type}-${package}/
-        cp ${BUILD_AREA}/${package_type}s/${prefix}-${package}*.debian.tar.gz ${BASEDIR}/obs.tmp/${OBS_REPO}/${package_type}-${package}/
+        cp ${BUILD_AREA}/${package_type}s/${fullname}*.tar.gz ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/
+        cp ${BUILD_AREA}/${package_type}s/${fullname}*.dsc ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/
+        cp ${BUILD_AREA}/${package_type}s/${fullname}*.changes ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/
+        cp ${BUILD_AREA}/${package_type}s/${fullname}*.debian.tar.gz ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/
 
         # Add the changes and commit
         echo -e "${blue}SENDING to OBS${NC}"
-        osc addremove ${BASEDIR}/obs.tmp/${OBS_REPO}/${package_type}-${package}/*
-        osc commit ${BASEDIR}/obs.tmp/${OBS_REPO}/${package_type}-${package} -m "Updated ${package}"
+        osc addremove ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/*
+        osc commit ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname} -m "Updated ${package}"
         if [[ $? -eq 0 ]]
         then
             echo -e "${green}sent to OBS${NC}"
