@@ -1,4 +1,4 @@
-plugin-check-postgresql-lag
-===========================
+monitoring-plugins-sfl-postgresql-lag
+=====================================
 
 check postgresql streaming latency

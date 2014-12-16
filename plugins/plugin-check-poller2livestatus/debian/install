@@ -1,1 +1,1 @@
-check_poller2livestatus /usr/lib/shinken/plugins
+check_poller2livestatus /usr/lib/monitoring/plugins/sfl

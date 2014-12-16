@@ -1,1 +1,1 @@
-check_x224 /usr/lib/shinken/plugins
+check_x224 /usr/lib/monitoring/plugins/sfl

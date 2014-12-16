@@ -1,4 +1,4 @@
-plugin-check-json-by-ec2-tags (2014.8.1.14.51-1) unstable; urgency=low
+monitoring-plugins-sfl-json-by-ec2-tags (2014.8.1.14.51-1) unstable; urgency=low
 
   * Initial release
 

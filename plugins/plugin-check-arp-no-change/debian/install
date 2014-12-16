@@ -1,1 +1,1 @@
-check_arp_no_change /usr/lib/shinken/plugins
+check_arp_no_change /usr/lib/monitoring/plugins/sfl

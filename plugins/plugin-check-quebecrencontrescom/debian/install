@@ -1,1 +1,1 @@
-check_quebecrencontrescom /usr/lib/shinken/plugins
+check_quebecrencontrescom /usr/lib/monitoring/plugins/sfl

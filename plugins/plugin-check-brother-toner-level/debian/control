@@ -1,14 +1,14 @@
-Source: plugin-check-brother-toner-level
+Source: monitoring-plugins-sfl-brother-toner-level
 Section: python
 Priority: optional
 Maintainer: Thibault Cohen <thibault.cohen@savoirfairelinux.com>
 Build-Depends: debhelper (>= 9)
 Standards-Version: 3.9.5
-Homepage: https://github.com/savoirfairelinux/plugin-check-brother-toner-level
-#Vcs-Git: git://anonscm.debian.org/collab-maint/plugin-check-brother-toner-level.git
-#Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-brother-toner-level.git;a=summary
+Homepage: https://github.com/savoirfairelinux/monitoring-tools
+#Vcs-Git: git@github.com:savoirfairelinux/monitoring-tools.git
+#Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 
-Package: plugin-check-brother-toner-level
+Package: monitoring-plugins-sfl-brother-toner-level
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-lxml
 Description: Shinken plugin from SFL. Check toner levels of Brother printer by http

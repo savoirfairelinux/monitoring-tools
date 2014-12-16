@@ -1,6 +1,6 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: plugin-check-redis
-Source: <https://github.com/savoirfairelinux/plugin-check-redis>
+Upstream-Name: monitoring-plugins-sfl-redis
+Source: <https://github.com/savoirfairelinux/monitoring-plugins-sfl-redis>
 
 Files: *
 Copyright: Copyright (C) 2014 vdnguyen

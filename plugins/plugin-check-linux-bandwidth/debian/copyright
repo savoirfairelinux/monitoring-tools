@@ -1,6 +1,6 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: plugin-check-linux-bandwidth
-Source: <https://github.com/savoirfairelinux/plugin-check-linux-bandwidth>
+Upstream-Name: monitoring-plugins-sfl-linux-bandwidth
+Source: <https://github.com/savoirfairelinux/monitoring-plugins-sfl-linux-bandwidth>
 
 Files: *
 Copyright: Copyright (C) 2014 vdnguyen

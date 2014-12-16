@@ -1,1 +1,1 @@
-check_redis /usr/lib/shinken/plugins
+check_redis /usr/lib/monitoring/plugins/sfl

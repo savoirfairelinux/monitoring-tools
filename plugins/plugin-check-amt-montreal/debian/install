@@ -1,2 +1,2 @@
-check_amt_montreal /usr/lib/shinken/plugins
-gtfs_realtime_pb2.py /usr/lib/shinken/plugins
+check_amt_montreal /usr/lib/monitoring/plugins/sfl
+gtfs_realtime_pb2.py /usr/lib/monitoring/plugins/sfl

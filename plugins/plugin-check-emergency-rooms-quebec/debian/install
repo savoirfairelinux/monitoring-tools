@@ -1,1 +1,1 @@
-check_emergency_rooms_quebec /usr/lib/shinken/plugins
+check_emergency_rooms_quebec /usr/lib/monitoring/plugins/sfl

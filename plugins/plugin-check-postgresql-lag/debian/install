@@ -1,1 +1,1 @@
-check_postgresql_lag /usr/lib/shinken/plugins
+check_postgresql_lag /usr/lib/monitoring/plugins/sfl

@@ -1,4 +1,4 @@
-plugin-check-postgresql-lag (2014.11.14.17.3-1) unstable; urgency=low
+monitoring-plugins-sfl-postgresql-lag (2014.11.14.17.3-1) unstable; urgency=low
 
   * Initial release
 

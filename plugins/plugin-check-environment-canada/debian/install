@@ -1,1 +1,1 @@
-check_environment_canada /usr/lib/shinken/plugins
+check_environment_canada /usr/lib/monitoring/plugins/sfl

@@ -1,1 +1,1 @@
-check_ceilometer /usr/lib/shinken/plugins
+check_ceilometer /usr/lib/monitoring/plugins/sfl

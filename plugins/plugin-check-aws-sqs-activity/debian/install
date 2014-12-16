@@ -1,1 +1,1 @@
-check_aws_sqs_activity /usr/lib/shinken/plugins
+check_aws_sqs_activity /usr/lib/monitoring/plugins/sfl

@@ -1,1 +1,1 @@
-check_spa2102 /usr/lib/shinken/plugins
+check_spa2102 /usr/lib/monitoring/plugins/sfl

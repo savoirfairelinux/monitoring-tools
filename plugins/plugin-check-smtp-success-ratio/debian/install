@@ -1,2 +1,2 @@
-check_smtp_success_ratio /usr/lib/shinken/plugins
-check_smtp_success_ratio.inc /usr/lib/shinken/plugins
+check_smtp_success_ratio /usr/lib/monitoring/plugins/sfl
+check_smtp_success_ratio.inc /usr/lib/monitoring/plugins/sfl

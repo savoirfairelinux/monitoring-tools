@@ -6,7 +6,7 @@
 # Date:     16th March, 2009
 # Verion:   2.0.0
 # License:  Public Domain - free to do as you wish
-# Homepage: http://twhiteman.netfirms.com/des.html
+# Homepage: https://github.com/savoirfairelinux/monitoring-tools
 #
 # This is a pure python implementation of the DES encryption algorithm.
 # It's pure python to avoid portability issues, since most DES 

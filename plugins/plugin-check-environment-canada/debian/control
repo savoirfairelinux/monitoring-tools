@@ -1,14 +1,14 @@
-Source: plugin-check-environment-canada
+Source: monitoring-plugins-sfl-environment-canada
 Section: python
 Priority: optional
 Maintainer: Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
 Build-Depends: debhelper (>= 9)
 Standards-Version: 3.9.5
-Homepage: https://github.com/savoirfairelinux/plugin-check-environment-canada
-Vcs-Git: git://anonscm.debian.org/collab-maint/plugin-check-environment-canada.git
-Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-environment-canada.git;a=summary
+Homepage: https://github.com/savoirfairelinux/monitoring-tools
+Vcs-Git: git@github.com:savoirfairelinux/monitoring-tools.git
+Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 
-Package: plugin-check-environment-canada
+Package: monitoring-plugins-sfl-environment-canada
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins
 Description: Checks various environment metrics in Canada.

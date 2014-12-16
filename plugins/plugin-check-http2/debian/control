@@ -1,14 +1,14 @@
-Source: plugin-check-http2
+Source: monitoring-plugins-sfl-http2
 Section: python
 Priority: optional
 Maintainer: Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
 Build-Depends: debhelper (>= 9)
 Standards-Version: 3.9.5
-Homepage: https://github.com/savoirfairelinux/plugin-check-http2
-Vcs-Git: git://anonscm.debian.org/collab-maint/plugin-check-http2.git
-Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-http2.git;a=summary
+Homepage: https://github.com/savoirfairelinux/monitoring-tools
+Vcs-Git: git@github.com:savoirfairelinux/monitoring-tools.git
+Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 
-Package: plugin-check-http2
+Package: monitoring-plugins-sfl-http2
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins
 Description: Checks HTTP sites, and doesn't timeout like good'old check_http.

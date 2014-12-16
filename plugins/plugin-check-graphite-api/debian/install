@@ -1,1 +1,1 @@
-check_graphite_api /usr/lib/shinken/plugins
+check_graphite_api /usr/lib/monitoring/plugins/sfl

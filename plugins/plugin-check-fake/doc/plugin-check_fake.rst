@@ -1,4 +1,4 @@
-plugin-check-fake
-=================
+monitoring-plugins-sfl-fake
+===========================
 
 Shinken plugin from SFL. Fake plugin
