@@ -1,5 +1,5 @@
-pack-generic-radius
-================
+sfl-generic-radius
+==================
 
 Dependencies
 ************

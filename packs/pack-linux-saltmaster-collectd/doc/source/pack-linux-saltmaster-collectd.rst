@@ -1,5 +1,5 @@
-pack-linux-saltmaster-collectd
-================
+sfl-linux-saltmaster-collectd
+=============================
 
 Dependencies
 ************

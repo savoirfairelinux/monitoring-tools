@@ -1,4 +1,4 @@
-pack-generic-host
+sfl-generic-host
 ================
 
 Dependencies

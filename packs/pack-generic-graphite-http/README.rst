@@ -1,4 +1,4 @@
-generic-graphite-http
-==========
+sfl-generic-graphite-http
+=========================
 
 Shinken configuration pack for generic-graphite-http

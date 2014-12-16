@@ -1,5 +1,5 @@
-pack-linux-system-collectd
-================
+sfl-linux-system-collectd
+=========================
 
 Dependencies
 ************

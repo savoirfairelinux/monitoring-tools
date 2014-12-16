@@ -1,4 +1,4 @@
-generic-saltmaster-tcp
-==========
+sfl-generic-saltmaster-tcp
+==========================
 
 Shinken configuration pack for generic-saltmaster-tcp

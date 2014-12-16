@@ -1,5 +1,5 @@
-pack-generic-smb
-================
+sfl-generic-smb
+===============
 
 Dependencies
 ************

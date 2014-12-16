@@ -1,5 +1,5 @@
-pack-windows-sophos-mssql
-================
+sfl-windows-sophos-mssql
+========================
 
 Dependencies
 ************

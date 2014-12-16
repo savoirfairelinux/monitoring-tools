@@ -1,6 +1,6 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: pack-generic-dns
-Source: <https://github.com/savoirfairelinux/pack-generic-dns>
+Upstream-Name: monitoring-packs-sfl-generic-dns
+Source: <https://github.com/savoirfairelinux/monitoring-tools>
 
 Files: *
 Copyright:  2014 Savoir-faire Linux

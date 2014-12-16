@@ -1,5 +1,5 @@
-pack-vmware-system-https
-================
+sfl-vmware-system-https
+=======================
 
 Dependencies
 ************

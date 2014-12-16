@@ -1,8 +1,8 @@
 {
-	"name": "generic-splunk-http",
+	"name": "sfl-generic-splunk-http",
 	"types": ["pack"],
 	"version": "1.0",
-	"homepage": "https://github.com/savoirfairelinux/sfl-shinken-packs",
+	"homepage": "https://github.com/savoirfairelinux/monitoring-tools",
 	"author": "Sebastien Coavoux",
 	"description": "Pack to monitor splunk http web page",
 	"contributors": [
@@ -11,7 +11,7 @@
 		"email": "sebastien.coavoux@savoirfairelinux.com"
 	  },
 	],
-	"repository": "https://github.com/savoirfairelinux/pack-generic-splunk-http.git",
+	"repository": "https://github.com/savoirfairelinux/monitoring-tools",
 	"keywords": [
 	  "pack",
 	  "generic-splunk-http"

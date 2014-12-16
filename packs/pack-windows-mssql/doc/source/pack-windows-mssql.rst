@@ -1,5 +1,5 @@
-pack-windows-mssql
-================
+sfl-windows-mssql
+=================
 
 Dpendencies
 ************

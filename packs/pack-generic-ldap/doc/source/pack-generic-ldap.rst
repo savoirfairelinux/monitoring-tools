@@ -1,4 +1,4 @@
-pack-generic-ldap
+sfl-generic-ldap
 ================
 
 Dependencies
@@ -79,17 +79,17 @@ How to use it
 Templates
 ~~~~~~~~~
 
-generic-ldap
+sfl-generic-ldap
 ~~~~~~~~~~~~
 
 Use this template to monitoring a standard LDAP server.
 
-generic-ldap3
+sfl-generic-ldap3
 ~~~~~~~~~~~~~
 
 Use this template to monitoring a LDAP3 server.
 
-generic-ldaps
+sfl-generic-ldaps
 ~~~~~~~~~~~~~
 
 Use this template to monitoring a LDAPS server.

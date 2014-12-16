@@ -1,4 +1,4 @@
-linux-ntp-collectd
-==========
+sfl-linux-ntp-collectd
+======================
 
 Shinken configuration pack for linux-ntp-collectd

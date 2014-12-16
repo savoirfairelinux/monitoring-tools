@@ -1,4 +1,4 @@
-pack-generic-dns
+sfl-generic-dns
 ================
 
 Dependencies

@@ -1,4 +1,4 @@
-generic-multisite-http
-==========
+sfl-generic-multisite-http
+==========================
 
 Shinken configuration pack for generic-multisite-http

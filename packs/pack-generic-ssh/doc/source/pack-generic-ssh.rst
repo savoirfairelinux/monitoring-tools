@@ -1,5 +1,5 @@
-pack-generic-ssh
-================
+sfl-generic-ssh
+===============
 
 Dependencies
 ************

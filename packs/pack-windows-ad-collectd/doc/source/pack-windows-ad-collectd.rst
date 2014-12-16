@@ -1,5 +1,5 @@
-pack-windows-ad-collectd
-================
+sfl-windows-ad-collectd
+=======================
 
 Dependencies
 ************

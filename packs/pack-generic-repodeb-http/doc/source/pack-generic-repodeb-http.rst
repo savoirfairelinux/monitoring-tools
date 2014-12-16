@@ -1,5 +1,5 @@
-pack-generic-repodeb-http
-================
+sfl-generic-repodeb-http
+========================
 
 Dependencies
 ************

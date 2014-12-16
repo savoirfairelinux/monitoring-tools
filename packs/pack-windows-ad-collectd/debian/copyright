@@ -1,6 +1,6 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: pack-windows-ad-collectd
-Source: <https://github.com/savoirfairelinux/pack-windows-ad-collectd>
+Upstream-Name: monitoring-packs-sfl-windows-ad-collectd
+Source: <https://github.com/savoirfairelinux/monitoring-tools>
 
 Files: *
 Copyright:  2014 Savoir-faire Linux
