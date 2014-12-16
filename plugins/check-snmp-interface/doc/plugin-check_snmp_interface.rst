@@ -1,4 +1,4 @@
-monitoring-plugins-sfl-snmp-interface
+check-snmp-interface
 =====================================
 
 This plugin check interface traffic using SNMP

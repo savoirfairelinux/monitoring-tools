@@ -1,4 +1,4 @@
-Source: monitoring-plugins-sfl-amt-montreal
+Source: monitoring-plugins-sfl-check-amt-montreal
 Section: python
 Priority: optional
 Maintainer: Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
@@ -8,7 +8,7 @@ Homepage: https://github.com/savoirfairelinux/monitoring-tools
 Vcs-Git: git@github.com:savoirfairelinux/monitoring-tools.git
 Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 
-Package: monitoring-plugins-sfl-amt-montreal
+Package: monitoring-plugins-sfl-check-amt-montreal
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins, python-protobuf
 Description: Checks the numbers of warnings reported by the AMT trains in the Montreal area.

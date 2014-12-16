@@ -1,4 +1,4 @@
-Source: monitoring-plugins-sfl-aws-sqs-queue-size
+Source: monitoring-plugins-sfl-check-aws-sqs-queue-size
 Section: python
 Priority: optional
 Maintainer: Alexandre Viau <alexandre.viau@savoirfairelinux.com>
@@ -8,7 +8,7 @@ Homepage: https://github.com/savoirfairelinux/monitoring-tools
 Vcs-Git: git@github.com:savoirfairelinux/monitoring-tools.git
 Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 
-Package: monitoring-plugins-sfl-aws-sqs-queue-size
+Package: monitoring-plugins-sfl-check-aws-sqs-queue-size
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins
 Description: Checks the size of an AWS sqs queue

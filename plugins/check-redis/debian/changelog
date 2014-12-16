@@ -1,4 +1,4 @@
-monitoring-plugins-sfl-redis (2014.10.30.10.42-1) unstable; urgency=low
+monitoring-plugins-sfl-check-redis (2014.10.30.10.42-1) unstable; urgency=low
 
   * Initial release
 

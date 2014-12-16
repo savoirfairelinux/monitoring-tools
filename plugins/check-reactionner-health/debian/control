@@ -1,4 +1,4 @@
-Source: monitoring-plugins-sfl-reactionner-health
+Source: monitoring-plugins-sfl-check-reactionner-health
 Section: python
 Priority: optional
 Maintainer: Thibault Cohen <thibault.cohen@savoirfairelinux.com>
@@ -8,7 +8,7 @@ Homepage: https://github.com/savoirfairelinux/monitoring-tools
 #Vcs-Git: git@github.com:savoirfairelinux/monitoring-tools.git
 #Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 
-Package: monitoring-plugins-sfl-reactionner-health
+Package: monitoring-plugins-sfl-check-reactionner-health
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Shinken plugin from SFL. Pseudo crontab to check if a file is edited by shinken reactionner

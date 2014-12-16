@@ -1,4 +1,4 @@
-Source: monitoring-plugins-sfl-postgresql-lag
+Source: monitoring-plugins-sfl-check-postgresql-lag
 Section: python
 Priority: optional
 Maintainer: vdnguyen <vanduc.nguyen@savoirfairelinux.com>
@@ -8,7 +8,7 @@ Homepage: https://github.com/savoirfairelinux/monitoring-tools
 Vcs-Git: git@github.com:savoirfairelinux/monitoring-tools.git
 Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 
-Package: monitoring-plugins-sfl-postgresql-lag
+Package: monitoring-plugins-sfl-check-postgresql-lag
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins
 Description: check postgresql streaming latency

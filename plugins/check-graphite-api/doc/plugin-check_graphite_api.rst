@@ -1,4 +1,4 @@
-monitoring-plugins-sfl-graphite-api
+check-graphite-api
 ===================================
 
 Shinken plugin from SFL.

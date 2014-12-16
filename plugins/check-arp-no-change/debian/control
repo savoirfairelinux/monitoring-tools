@@ -1,4 +1,4 @@
-Source: monitoring-plugins-sfl-arp-no-change
+Source: monitoring-plugins-sfl-check-arp-no-change
 Section: python
 Priority: optional
 Maintainer: Grégory Starck <gregory.starck@savoirfairelinux.com>
@@ -8,7 +8,7 @@ Homepage: https://github.com/savoirfairelinux/monitoring-tools
 Vcs-Git: git@github.com:savoirfairelinux/monitoring-tools.git
 Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 
-Package: monitoring-plugins-sfl-arp-no-change
+Package: monitoring-plugins-sfl-check-arp-no-change
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins
 Description: Verify that a host MAC addresse doesn't change

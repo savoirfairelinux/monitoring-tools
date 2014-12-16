@@ -1,4 +1,4 @@
-Source: monitoring-plugins-sfl-stm-metro-montreal
+Source: monitoring-plugins-sfl-check-stm-metro-montreal
 Section: python
 Priority: optional
 Maintainer: Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
@@ -8,7 +8,7 @@ Homepage: https://github.com/savoirfairelinux/monitoring-tools
 Vcs-Git: git@github.com:savoirfairelinux/monitoring-tools.git
 Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 
-Package: monitoring-plugins-sfl-stm-metro-montreal
+Package: monitoring-plugins-sfl-check-stm-metro-montreal
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins, python-lxml
 Description: Checks the current state of the metro in Montreal.
