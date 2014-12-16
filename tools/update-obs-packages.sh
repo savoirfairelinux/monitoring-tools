@@ -31,12 +31,13 @@ function obs_push {
     # Checkout the package
     echo -e "${blue}Checkout OBS repo${NC}"
     cd ${BASEDIR}/obs.tmp
-    rm -rf ${OBS_REPO}/${package_type}-${package}
-    osc co ${OBS_REPO}/${package_type}-${package}
-
-    # Check if the OBS orig
     prefix=monitoring-${package_type}s-sfl
     fullname=${prefix}-${package}
+
+    rm -rf ${OBS_REPO}/${fullname}
+    osc co ${OBS_REPO}/${fullname}
+
+    # Check if the OBS orig
     echo -e "${blue}Decompress OBS ${fullname} archive${NC}"
     rm -rf /tmp/${package}_OBS_ORIG
     mkdir -p /tmp/${package}_OBS_ORIG
