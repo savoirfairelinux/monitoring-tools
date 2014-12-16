@@ -1,4 +1,4 @@
-windows-mssql
-==========
+sfl-windows-mssql
+=================
 
 Shinken configuration pack for windows-mssql

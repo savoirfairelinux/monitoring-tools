@@ -1,5 +1,5 @@
 sfl-linux-saltmaster-collectd
-================
+=============================
 
 Dependencies
 ************

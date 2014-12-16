@@ -1,5 +1,5 @@
 sfl-linux-system-collectd
-================
+=========================
 
 Dependencies
 ************

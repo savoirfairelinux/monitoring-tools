@@ -1,5 +1,5 @@
 sfl-linux-saltminion-collectd
-================
+=============================
 
 Dependencies
 ************

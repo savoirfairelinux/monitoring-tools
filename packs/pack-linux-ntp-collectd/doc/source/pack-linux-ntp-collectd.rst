@@ -1,5 +1,5 @@
 sfl-linux-ntp-collectd
-================
+======================
 
 Dependencies
 ************

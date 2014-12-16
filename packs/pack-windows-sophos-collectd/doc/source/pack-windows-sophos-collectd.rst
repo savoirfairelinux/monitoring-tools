@@ -1,5 +1,5 @@
 sfl-windows-sophos-collectd
-================
+===========================
 
 Dependencies
 ************
