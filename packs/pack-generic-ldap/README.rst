@@ -1,4 +1,4 @@
-generic-ldap
+sfl-generic-ldap
 ==========
 
 Shinken configuration pack for generic-ldap

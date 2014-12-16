@@ -1,4 +1,4 @@
-pack-windows-system-collectd
+sfl-windows-system-collectd
 ================
 
 Dependencies

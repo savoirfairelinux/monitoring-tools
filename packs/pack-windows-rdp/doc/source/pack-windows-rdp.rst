@@ -1,4 +1,4 @@
-pack-windows-rdp
+sfl-windows-rdp
 ================
 
 Dependencies

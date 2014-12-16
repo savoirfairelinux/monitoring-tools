@@ -1,4 +1,4 @@
-pack-generic-mongodb
+sfl-generic-mongodb
 ====================
 
 Dependencies

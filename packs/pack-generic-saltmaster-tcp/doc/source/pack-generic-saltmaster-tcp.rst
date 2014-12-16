@@ -1,4 +1,4 @@
-pack-generic-saltmaster-tcp
+sfl-generic-saltmaster-tcp
 ================
 
 Dependencies

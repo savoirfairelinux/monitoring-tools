@@ -1,14 +1,14 @@
-Source: pack-linux-system-nrpe
+Source: monitoring-packs-sfl-linux-system-nrpe
 Section: python
 Priority: optional
 Maintainer: Thibault Cohen <thibault.cohen@savoirfairelinux.com>
 Build-Depends: debhelper (>= 8.0.0)
 Standards-Version: 3.9.4
-Homepage: https://github.com/savoirfairelinux/pack-linux-system-nrpe
-#Vcs-Git: git://git.debian.org/collab-maint/pack-linux-system-nrpe.git
-#Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-linux-system-nrpe.git;a=summary
+Homepage: https://github.com/savoirfairelinux/monitoring-tools
+#Vcs-Git: git@github.com:savoirfairelinux/monitoring-tools.git
+#Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 
-Package: pack-linux-system-nrpe
+Package: monitoring-packs-sfl-linux-system-nrpe
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: 

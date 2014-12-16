@@ -1,5 +1,5 @@
 {
-    "name": "linux-radius-collectd",
+    "name": "sfl-linux-radius-collectd",
     "types": ["pack"],
     "version": "1.0",
     "homepage": "",

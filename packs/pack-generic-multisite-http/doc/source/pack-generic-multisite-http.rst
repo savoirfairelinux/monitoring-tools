@@ -1,4 +1,4 @@
-pack-generic-multisite-http
+sfl-generic-multisite-http
 ================
 
 Dependencies

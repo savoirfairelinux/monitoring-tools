@@ -1,4 +1,4 @@
-pack-windows-sophos-collectd
+sfl-windows-sophos-collectd
 ================
 
 Dependencies

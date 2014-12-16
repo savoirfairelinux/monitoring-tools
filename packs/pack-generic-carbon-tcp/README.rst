@@ -1,4 +1,4 @@
-generic-carbon-tcp
+sfl-generic-carbon-tcp
 ==========
 
 Shinken configuration pack for generic-carbon-tcp

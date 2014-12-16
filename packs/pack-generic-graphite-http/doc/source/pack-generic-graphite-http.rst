@@ -1,4 +1,4 @@
-pack-generic-graphite-http
+sfl-generic-graphite-http
 ================
 
 Dependencies

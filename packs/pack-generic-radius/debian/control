@@ -1,14 +1,14 @@
-Source: pack-generic-radius
+Source: monitoring-packs-sfl-generic-radius
 Section: python
 Priority: optional
 Maintainer: Thibault Cohen <thibault.cohen@savoirfairelinux.com>
 Build-Depends: debhelper (>= 8.0.0)
 Standards-Version: 3.9.4
-Homepage: https://github.com/savoirfairelinux/pack-generic-radius
-#Vcs-Git: git://git.debian.org/collab-maint/pack-generic-radius.git
-#Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-generic-radius.git;a=summary
+Homepage: https://github.com/savoirfairelinux/monitoring-tools
+#Vcs-Git: git@github.com:savoirfairelinux/monitoring-tools.git
+#Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 
-Package: pack-generic-radius
+Package: monitoring-packs-sfl-generic-radius
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: :description:       The Radius udp port to query. Default: 1812

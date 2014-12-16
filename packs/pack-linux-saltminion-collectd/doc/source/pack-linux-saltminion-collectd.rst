@@ -1,4 +1,4 @@
-pack-linux-saltminion-collectd
+sfl-linux-saltminion-collectd
 ================
 
 Dependencies

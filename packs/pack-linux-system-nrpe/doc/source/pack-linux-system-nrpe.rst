@@ -1,4 +1,4 @@
-pack-linux-system-nrpe
+sfl-linux-system-nrpe
 ================
 
 Dependencies

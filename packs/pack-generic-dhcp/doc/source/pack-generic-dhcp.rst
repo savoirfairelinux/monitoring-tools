@@ -1,4 +1,4 @@
-pack-generic-dhcp
+sfl-generic-dhcp
 ================
 
 Dependencies

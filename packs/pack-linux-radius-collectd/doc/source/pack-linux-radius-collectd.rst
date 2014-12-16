@@ -1,4 +1,4 @@
-pack-linux-radius-collectd
+sfl-linux-radius-collectd
 ================
 
 Dependencies

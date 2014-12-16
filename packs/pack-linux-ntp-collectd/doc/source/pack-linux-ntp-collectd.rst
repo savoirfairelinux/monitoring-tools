@@ -1,4 +1,4 @@
-pack-linux-ntp-collectd
+sfl-linux-ntp-collectd
 ================
 
 Dependencies

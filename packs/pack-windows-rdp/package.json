@@ -1,8 +1,8 @@
 {
-	"name": "windows-rdp",
+	"name": "sfl-windows-rdp",
 	"types": ["pack"],
 	"version": "1.0",
-	"homepage": "https://github.com/savoirfairelinux/sfl-shinken-packs",
+	"homepage": "https://github.com/savoirfairelinux/monitoring-tools",
 	"author": "Thibault Cohen",
 	"description": "Windows active checks with RDP requests",
 	"contributors": [
@@ -11,7 +11,7 @@
 		"email": "thibault.cohen@savoirfairelinux.com"
 	  },
 	],
-	"repository": "https://github.com/savoirfairelinux/pack-windows-rdp.git",
+	"repository": "https://github.com/savoirfairelinux/monitoring-tools",
 	"keywords": [
 	  "pack",
 	  "windows-rdp"

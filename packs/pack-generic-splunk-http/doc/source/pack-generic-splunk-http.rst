@@ -1,4 +1,4 @@
-pack-generic-splunk-http
+sfl-generic-splunk-http
 ================
 
 Dependencies

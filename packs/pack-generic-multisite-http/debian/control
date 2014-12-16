@@ -1,14 +1,14 @@
-Source: pack-generic-multisite-http
+Source: monitoring-packs-sfl-generic-multisite-http
 Section: python
 Priority: optional
 Maintainer: Thibault Cohen <thibault.cohen@savoirfairelinux.com>
 Build-Depends: debhelper (>= 8.0.0)
 Standards-Version: 3.9.4
-Homepage: https://github.com/savoirfairelinux/pack-generic-multisite-http
-#Vcs-Git: git://git.debian.org/collab-maint/pack-generic-multisite-http.git
-#Vcs-Browser: http://git.debian.org/?p=collab-maint/pack-generic-multisite-http.git;a=summary
+Homepage: https://github.com/savoirfairelinux/monitoring-tools
+#Vcs-Git: git@github.com:savoirfairelinux/monitoring-tools.git
+#Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 
-Package: pack-generic-multisite-http
+Package: monitoring-packs-sfl-generic-multisite-http
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: :description:       Warning threshold. Default: 5
