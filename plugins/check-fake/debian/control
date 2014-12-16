@@ -1,4 +1,4 @@
-Source: monitoring-plugins-sfl-fake
+Source: monitoring-plugins-sfl-check-fake
 Section: python
 Priority: optional
 Maintainer: Thibault Cohen <thibault.cohen@savoirfairelinux.com>
@@ -8,7 +8,7 @@ Homepage: https://github.com/savoirfairelinux/monitoring-tools
 #Vcs-Git: git@github.com:savoirfairelinux/monitoring-tools.git
 #Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 
-Package: monitoring-plugins-sfl-fake
+Package: monitoring-plugins-sfl-check-fake
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Shinken plugin from SFL. Fake plugin

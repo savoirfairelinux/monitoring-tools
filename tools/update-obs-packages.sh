@@ -3,8 +3,8 @@
 BASEDIR=$(dirname $(readlink -f "$0"))/..
 BUILD_AREA=$BASEDIR/build-area
 
-
-package_name=$1
+plugin_name=$1
+pack_name=$1
 
 # Colors
 red='\e[0;31m'
@@ -31,37 +31,49 @@ function obs_push {
     # Checkout the package
     echo -e "${blue}Checkout OBS repo${NC}"
     cd ${BASEDIR}/obs.tmp
-    rm -rf ${OBS_REPO}/${package}
-    osc co ${OBS_REPO}/${package}
+    rm -rf ${OBS_REPO}/${package_type}-${package}
+    osc co ${OBS_REPO}/${package_type}-${package}
 
     # Check if the OBS orig
     echo -e "${blue}Decompress OBS ${archive_name} archive${NC}"
     rm -rf /tmp/${package}_OBS_ORIG
     mkdir -p /tmp/${package}_OBS_ORIG
-    tar -xf ${BASEDIR}/obs.tmp/${OBS_REPO}/${package}/${package}*.orig.tar.gz -C /tmp/${package}_OBS_ORIG --force-local
-    tar -xf ${BASEDIR}/obs.tmp/${OBS_REPO}/${package}/${package}*.debian.tar.gz -C /tmp/${package}_OBS_ORIG/${package} --force-local
+    if [ -f ${BASEDIR}/obs.tmp/${OBS_REPO}/${package_type}-${package}/${package}*.orig.tar.gz ]; then
+        tar -xf ${BASEDIR}/obs.tmp/${OBS_REPO}/${package_type}-${package}/${package}*.orig.tar.gz -C /tmp/${package}_OBS_ORIG --force-local
+    else
+        empty=1
+    fi
 
-    # Get differences from obs and local dir
-    echo -e "${blue}Compare ${archive_name} archives${NC}"
-    diff -r ${BUILD_AREA}/${package_type}s/${package}/ /tmp/${package}_OBS_ORIG/${package}/ --exclude=.git*
+    if [ -f ${BASEDIR}/obs.tmp/${OBS_REPO}/${package_type}-${package}/${package}*.debian.tar.gz ]; then
+        tar -xf ${BASEDIR}/obs.tmp/${OBS_REPO}/${package_type}-${package}/${package}*.debian.tar.gz -C /tmp/${package}_OBS_ORIG/${package} --force-local
+    else
+        empty=1
+    fi
+
+    if [ $empty -ne 1 ];then
+        # Get differences from obs and local dir
+        echo -e "${blue}Compare ${archive_name} archives${NC}"
+        diff -r ${BUILD_AREA}/${package_type}s/${package}/ /tmp/${package}_OBS_ORIG/${package}/ --exclude=.git*
+    fi
 
     #Only update the source has changed
-    if [ $? -ne 0 ]; then
+    if [ $? -ne 0 ] || [ $empty -eq 1 ]; then
         echo -e "${yellow}Source has changed, uploading to obs...${NC}"
 
         # Remove the old files
-        rm ${BASEDIR}/obs.tmp/${OBS_REPO}/${package}/*
+        rm ${BASEDIR}/obs.tmp/${OBS_REPO}/${package_type}-${package}/*
 
+        prefix=monitoring-${package_type}s-sfl
         # Copy the new files
-        cp ${BUILD_AREA}/${package_type}s/${package}*.tar.gz ${BASEDIR}/obs.tmp/${OBS_REPO}/${package}/
-        cp ${BUILD_AREA}/${package_type}s/${package}*.dsc ${BASEDIR}/obs.tmp/${OBS_REPO}/${package}/
-        cp ${BUILD_AREA}/${package_type}s/${package}*.changes ${BASEDIR}/obs.tmp/${OBS_REPO}/${package}/
-        cp ${BUILD_AREA}/${package_type}s/${package}*.debian.tar.gz ${BASEDIR}/obs.tmp/${OBS_REPO}/${package}/
+        cp ${BUILD_AREA}/${package_type}s/${prefix}-${package}*.tar.gz ${BASEDIR}/obs.tmp/${OBS_REPO}/${package_type}-${package}/
+        cp ${BUILD_AREA}/${package_type}s/${prefix}-${package}*.dsc ${BASEDIR}/obs.tmp/${OBS_REPO}/${package_type}-${package}/
+        cp ${BUILD_AREA}/${package_type}s/${prefix}-${package}*.changes ${BASEDIR}/obs.tmp/${OBS_REPO}/${package_type}-${package}/
+        cp ${BUILD_AREA}/${package_type}s/${prefix}-${package}*.debian.tar.gz ${BASEDIR}/obs.tmp/${OBS_REPO}/${package_type}-${package}/
 
         # Add the changes and commit
         echo -e "${blue}SENDING to OBS${NC}"
-        osc addremove ${BASEDIR}/obs.tmp/${OBS_REPO}/${package}/*
-        osc commit ${BASEDIR}/obs.tmp/${OBS_REPO}/${package} -m "Updated ${package}"
+        osc addremove ${BASEDIR}/obs.tmp/${OBS_REPO}/${package_type}-${package}/*
+        osc commit ${BASEDIR}/obs.tmp/${OBS_REPO}/${package_type}-${package} -m "Updated ${package}"
         if [[ $? -eq 0 ]]
         then
             echo -e "${green}sent to OBS${NC}"
@@ -82,31 +94,16 @@ OBS_REPO=home:sfl-monitoring:monitoring-tools
 
 mkdir -p ${BASEDIR}/obs.tmp && cd ${BASEDIR}/obs.tmp
 
-# libraries
-if [ "$package_name" != "" ]
-then
-    if [ -d ${BUILD_AREA}/libs/$package_name ]
-    then
-        obs_push lib $package_name
-    else
-        echo -e "\n${red}${package_name} is NOT built${NC}"
-    fi
-
-else
-    for lib in `(cd ${BASEDIR}/libs && ls -d */ | tr -d '/')`
-    do
-        obs_push lib $lib
-    done
-fi
-
 # plugins
-if [ "$package_name" != "" ]
+if [ "$plugin_name" != "" ]
 then
-    if [ -d ${BUILD_AREA}/plugins/$package_name ]
+    # prefix
+    prefix=monitoring-plugins-sfl
+    if [ -d ${BUILD_AREA}/plugins/${prefix}-${plugin_name} ]
     then
-        obs_push plugin $package_name
+        obs_push plugin $plugin_name
     else
-        echo -e "\n${red}${package_name} is NOT built${NC}"
+        echo -e "\n${red}${plugin_name} is NOT built${NC}"
     fi
 
 else
@@ -117,13 +114,15 @@ else
 fi
 
 # packs
-if [ "$package_name" != "" ]
+if [ "$pack_name" != "" ]
 then
-    if [ -d ${BUILD_AREA}/packs/$package_name ]
+    # prefix
+    prefix=monitoring-packs-sfl
+    if [ -d ${BUILD_AREA}/packs/${prefix}-$pack_name ]
     then
-        obs_push pack $package_name
+        obs_push pack $pack_name
     else
-        echo -e "\n${red}${package_name} is NOT built${NC}"
+        echo -e "\n${red}${pack_name} is NOT built${NC}"
     fi
 
 else

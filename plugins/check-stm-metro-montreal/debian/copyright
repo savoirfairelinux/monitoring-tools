@@ -1,6 +1,6 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: monitoring-plugins-sfl-stm-metro-montreal
-Source: <https://github.com/savoirfairelinux/monitoring-plugins-sfl-stm-metro-montreal>
+Upstream-Name: monitoring-plugins-sfl-check-stm-metro-montreal
+Source: <https://github.com/savoirfairelinux/monitoring-tools>
 
 Files: *
 Copyright: Copyright (C) 2014 Savoir-faire Linux, Inc.

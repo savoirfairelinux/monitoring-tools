@@ -1,4 +1,4 @@
-monitoring-plugins-sfl-quebecrencontrescom
+check-quebecrencontrescom
 ==========================================
 
 Checks number of lonely hearts on quebecrencontres.com.

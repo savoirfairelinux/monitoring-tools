@@ -1,4 +1,4 @@
-monitoring-plugins-sfl-tripplite-ups
+check-tripplite-ups
 ====================================
 
 Shinken plugin from SFL. Check Tripplite UPSs

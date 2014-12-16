@@ -1,4 +1,4 @@
-monitoring-plugins-sfl-linux-bandwidth
+check-linux-bandwidth
 ======================================
 
 check usage bandwidth per month

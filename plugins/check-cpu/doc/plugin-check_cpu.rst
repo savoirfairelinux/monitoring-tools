@@ -1,3 +1,3 @@
-monitoring-plugins-sfl-cpu
+check-cpu
 ==========================
 Shinken plugin from SFL. check CPU usage
