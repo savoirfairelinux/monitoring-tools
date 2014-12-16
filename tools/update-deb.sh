@@ -5,7 +5,8 @@ export GREP_OPTIONS=""
 
 set -e
 
-package_name=$1
+plugin_name=$1
+pack_name=$1
 
 # Colors
 red='\e[0;31m'
@@ -32,60 +33,44 @@ function build_package {
     package_type=$1
     # package name
     package=$2
+    # prefix
+    prefix=monitoring-${package_type}s-sfl
 
     echo
     echo "============================================================="
-    echo "             Prepare $package"
+    echo "             Prepare ${prefix}-${package}"
     echo "============================================================="
 
     # We extract the last version from the changelog
     cd $BASEDIR/${package_type}s
     version=$(cat ${package}/debian/changelog  | grep 'urgency=' | head -n 1 | awk '{print $2}' | tr -d '()' | cut -d '-' -f 1)
-    rm -rf $BUILD_AREA/${package_type}s/${package}
-    cp -r ${package} $BUILD_AREA/${package_type}s
+    rm -rf $BUILD_AREA/${package_type}s/${prefix}-${package}
+    cp -r ${package} $BUILD_AREA/${package_type}s/${prefix}-${package}
     cd $BUILD_AREA/${package_type}s
-    tar -czf ${package}_${version}.orig.tar.gz ${package}/ --exclude=${package}/debian* --exclude=${package}/.git*
+    tar -czf ${prefix}-${package}_${version}.orig.tar.gz ${prefix}-${package}/ --exclude=${prefix}-${package}/debian* --exclude=${prefix}-${package}/.git*
 
-    cd ${package}
-    $BUILD_PACKAGE > ../build-${package}.report 2>&1
+    cd ${prefix}-${package}
+    $BUILD_PACKAGE > ../build-${prefix}-${package}.report 2>&1
     if [[ $? -eq 0 ]]
     then
         echo -e "${green}Build OK${NC}"
     else
-        echo -e "${red}Build ERROR. Please look here: $BUILD_AREA/${package_type}s/build-${package}.report${NC}"
-        cat $BUILD_AREA/${package_type}s/build-${package}.report${NC}
+        echo -e "${red}Build ERROR. Please look here: $BUILD_AREA/${package_type}s/build-${prefix}-${package}.report${NC}"
+        cat $BUILD_AREA/${package_type}s/build-${prefix}-${package}.report${NC}
     fi
     cd $BASEDIR
 }
 
 
 
-
-# libs packages
-if [ "$package_name" != "" ]
-then
-    if [ -d $BASEDIR/libs/$package_name ]
-    then
-        build_package lib $package_name
-    else
-        echo -e "\n${red}${package_name} is NOT a lib${NC}"
-    fi
-else
-    cd libs
-    for lib in `ls -d */ | tr -d '/'`
-    do
-        build_package lib $lib
-    done
-fi
-
 # plugin packages
-if [ "$package_name" != "" ]
+if [ "$plugin_name" != "" ]
 then
-    if [ -d $BASEDIR/plugins/$package_name ]
+    if [ -d $BASEDIR/plugins/$plugin_name ]
     then
-        build_package plugin $package_name
+        build_package plugin $plugin_name
     else
-        echo -e "\n${red}${package_name} is NOT a plugin${NC}"
+        echo -e "\n${red}${plugin_name} is NOT a plugin${NC}"
     fi
 else
     cd plugins
@@ -96,13 +81,13 @@ else
 fi
 
 # pack packages
-if [ "$package_name" != "" ]
+if [ "$pack_name" != "" ]
 then
-    if [ -d $BASEDIR/packs/$package_name ]
+    if [ -d $BASEDIR/packs/$pack_name ]
     then
-        build_package pack $package_name
+        build_package pack $pack_name
     else
-        echo -e "\n${red}${package_name} is NOT a pack${NC}"
+        echo -e "\n${red}${pack_name} is NOT a pack${NC}"
     fi
 else
     cd packs
