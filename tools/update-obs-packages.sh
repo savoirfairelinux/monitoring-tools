@@ -41,7 +41,7 @@ function obs_push {
     rm -rf /tmp/${package}_OBS_ORIG
     mkdir -p /tmp/${package}_OBS_ORIG
     if [ -f ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/${fullname}*.orig.tar.gz ]; then
-        tar -xf ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullnam}/${fullname}*.orig.tar.gz -C /tmp/${fullname}_OBS_ORIG --force-local
+        tar -xf ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/${fullname}*.orig.tar.gz -C /tmp/${fullname}_OBS_ORIG --force-local
     else
         empty=1
     fi
