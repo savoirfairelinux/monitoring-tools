@@ -21,21 +21,25 @@
 #
 #############################################################################
 
+def _get_if_not_none(value):
+    return value if value is not None else ''
+
+
 class PerfData(object):
     """
     An object holding a plugin performance data, and whose string
     representation matches the one needed in a plugin output.
     """
-    def __init__(self, label, value, unit='', warn='', crit='', min_='', max_=''):
+    def __init__(self, label, value, unit=None, warn=None, crit=None, min_=None, max_=None):
         # if None is passed (coming e.g. from arg.get('warning'), makes sure
         # the empty string is used instead
         self.label = label
         self.value = value
-        self.unit = unit or ''
-        self.warn = warn or ''
-        self.crit = crit or ''
-        self.min_ = min_ or ''
-        self.max_ = max_ or ''
+        self.unit = _get_if_not_none(unit)
+        self.warn = _get_if_not_none(warn)
+        self.crit = _get_if_not_none(crit)
+        self.min_ = _get_if_not_none(min_)
+        self.max_ = _get_if_not_none(max_)
     
     def __repr__(self):
         return ('%(label)s=%(value)s%(unit)s;%(warn)s;%(crit)s;%(min_)s;%(max_)s'
