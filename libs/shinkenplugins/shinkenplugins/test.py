@@ -31,7 +31,7 @@ from StringIO import StringIO
 from shinkenplugins.plugin import ShinkenPlugin
 
 
-class TestPlugin(unittest.TestCase):
+class TestPlugin(unittest.TestCase, object):
     """
     A class to test plugin inputs/outputs.
     """
