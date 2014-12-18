@@ -16,8 +16,8 @@ manager. You can browse all the package repositories on
 
 #### Debian
 ```
-$ wget http://download.opensuse.org/repositories/home:/ReAzem:/sfl-shinken-plugins/Debian_7.0/Release.gpg
-$ sudo apt-key add - < Release.gpg
+$ wget http://download.opensuse.org/repositories/home:/sfl-monitoring:/monitoring-tools/Debian_7.0/Release.key
+$ sudo apt-key add - < Release.key
 $ sudo apt-get update
 $ sudo apt-get install plugin-<the plugin you want>
 ```
