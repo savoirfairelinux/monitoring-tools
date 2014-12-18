@@ -28,34 +28,44 @@ from __future__ import unicode_literals, print_function, absolute_import
 import sys
 import unittest
 from StringIO import StringIO
+from shinkenplugins.plugin import ShinkenPlugin
 
 
 class TestPlugin(unittest.TestCase):
     """
     A class to test plugin inputs/outputs.
     """
-    def execute(self, plugin, args, return_value, pattern, debug=False):
+    def execute(self, plugin, args, return_value, stdout_pattern='', debug=False, stderr_pattern=''):
         sys.argv = [sys.argv[0]]
         for arg in args:
             sys.argv.append(arg)
 
-        out = StringIO()
+        new_out = StringIO()
+        new_err = StringIO()
         old_stdout = sys.stdout
-        sys.stdout = out
+        old_stderr = sys.stderr
+        sys.stdout = new_out
+        sys.stderr = new_err
         
-        try:
+        with self.assertRaises(SystemExit) as context:
             try:
-                plugin()
+                plug = plugin()
+                if issubclass(plugin, ShinkenPlugin):
+                    plug.execute()
             finally:
                 sys.stdout = old_stdout
-        except SystemExit as err:
-            output = out.getvalue().strip()
-            
-            if debug:
-                print('Expected: %d, received: %d' % (return_value, err.code))
-                print('Expected output: %s, received: %s' % (pattern, output))
+                sys.stderr = old_stderr
 
-            self.assertEquals(err.code, return_value, output)
-            self.assertRegexpMatches(output, pattern)
-            # in python >= 3.2 : change me to assertRegex
-            # see: https://docs.python.org/3.2/library/unittest.html#unittest.TestCase.assertRegex
+        stdout_output = new_out.getvalue().strip()
+        stderr_output = new_err.getvalue().strip()
+
+        err = context.exception
+        if debug:
+            print('Expected: %d, received: %d' % (return_value, err.code))
+            print('Expected output: %s, received: %s' % (stdout_pattern, stdout_output))
+
+        self.assertEquals(err.code, return_value, 'stdout=%r stderr=%r' % (stdout_output, stderr_output))
+        self.assertRegexpMatches(stdout_output, stdout_pattern)
+        self.assertRegexpMatches(stderr_output, stderr_pattern)
+        # in python >= 3.2 : change me to assertRegex
+        # see: https://docs.python.org/3.2/library/unittest.html#unittest.TestCase.assertRegex

@@ -34,15 +34,7 @@ from .version import __version__
 
 #############################################################################
 
-def get_states_tuple():
-    """
-    Returns a namedtuple used to keep human-readable values of all
-    the different return states.
-    """
-    States = namedtuple('States', 'OK, WARNING, CRITICAL, UNKNOWN')
-    STATES = States(0, 1, 2, 3)
-    return STATES
-STATES = get_states_tuple()
+from .states import STATES
 
 #############################################################################
 
