@@ -16,6 +16,7 @@ manager. You can browse all the package repositories on
 
 #### Debian
 ```
+$ sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/sfl-monitoring:/monitoring-tools/Debian_7.0/ ./' > /etc/apt/sources.list.d/monitoring-tools.list"
 $ wget http://download.opensuse.org/repositories/home:/sfl-monitoring:/monitoring-tools/Debian_7.0/Release.key
 $ sudo apt-key add - < Release.key
 $ sudo apt-get update
