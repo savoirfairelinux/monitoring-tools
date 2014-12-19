@@ -1,1 +1,1 @@
-check_http2 /usr/lib/monitoring/plugins/sfl
+check_http2 usr/lib/monitoring/plugins/sfl

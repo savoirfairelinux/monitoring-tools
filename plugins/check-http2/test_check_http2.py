@@ -16,7 +16,7 @@
 # Copyright (C) 2014, Savoir-faire Linux, Inc.
 # Author Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
 
-from check_http2 import Plugin
+from http2 import Plugin
 
 from shinkenplugins import TestPlugin
 
