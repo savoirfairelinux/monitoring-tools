@@ -3,8 +3,7 @@
 BASEDIR=$(dirname $(readlink -f "$0"))/..
 BUILD_AREA=$BASEDIR/build-area
 
-plugin_name=$1
-pack_name=$1
+lib_name=$1
 
 # Colors
 red='\e[0;31m'
@@ -31,8 +30,7 @@ function obs_push {
     # Checkout the package
     echo -e "${blue}Checkout OBS repo${NC}"
     cd ${BASEDIR}/obs.tmp
-    prefix=monitoring-${package_type}s-sfl
-    fullname=${prefix}-${package}
+    fullname=${package}
 
     rm -rf ${OBS_REPO}/${fullname}
     osc co ${OBS_REPO}/${fullname}
@@ -41,6 +39,7 @@ function obs_push {
     echo -e "${blue}Decompress OBS ${fullname} archive${NC}"
     rm -rf /tmp/${package}_OBS_ORIG
     mkdir -p /tmp/${package}_OBS_ORIG
+    empty=0
     if [ -f ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/${fullname}*.orig.tar.gz ]; then
         tar -xf ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/${fullname}*.orig.tar.gz -C /tmp/${fullname}_OBS_ORIG --force-local
     else
@@ -96,40 +95,19 @@ OBS_REPO=home:sfl-monitoring:monitoring-tools
 
 mkdir -p ${BASEDIR}/obs.tmp && cd ${BASEDIR}/obs.tmp
 
-# plugins
-if [ "$plugin_name" != "" ]
-then
-    # prefix
-    prefix=monitoring-plugins-sfl
-    if [ -d ${BUILD_AREA}/plugins/${prefix}-${plugin_name} ]
-    then
-        obs_push plugin $plugin_name
-    else
-        echo -e "\n${red}${plugin_name} is NOT built${NC}"
-    fi
-
-else
-    for plugin in `(cd ${BASEDIR}/plugins && ls -d */ | tr -d '/')`
-    do
-        obs_push plugin $plugin
-    done
-fi
-
 # packs
-if [ "$pack_name" != "" ]
+if [ "$lib_name" != "" ]
 then
-    # prefix
-    prefix=monitoring-packs-sfl
-    if [ -d ${BUILD_AREA}/packs/${prefix}-$pack_name ]
+    if [ -d ${BUILD_AREA}/libs/$pack_name ]
     then
-        obs_push pack $pack_name
+        obs_push lib $lib_name
     else
-        echo -e "\n${red}${pack_name} is NOT built${NC}"
+        echo -e "\n${red}${lib_name} is NOT built${NC}"
     fi
 
 else
-    for pack in `(cd ${BASEDIR}/packs && ls -d */ | tr -d '/')`
+    for lib_name in `(cd ${BASEDIR}/libs && ls -d */ | tr -d '/')`
     do
-        obs_push pack $pack
+        obs_push lib $lib_name
     done
 fi

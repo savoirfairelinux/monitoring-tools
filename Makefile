@@ -191,9 +191,11 @@ tests:
 	tools/run-tests.sh
 
 deb: clean
+	tools/package-libs.sh
 	tools/update-deb.sh
 
 obs:
+	tools/obs-update-libs.sh
 	tools/update-obs-packages.sh
 
 new-plugin:

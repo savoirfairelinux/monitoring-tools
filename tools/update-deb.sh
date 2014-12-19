@@ -16,14 +16,14 @@ NC='\e[0m' # No Color
 # -S builds only the source package, the binary one is done by OpenBuildService
 # --ignore-bad-version skips the date check, because the files can be more recent
 # than the last debian/changelog entry
-BUILD_PACKAGE="dpkg-buildpackage -us -uc -S --source-option=-Zgzip --source-option=--ignore-bad-version"
+#BUILD_PACKAGE="dpkg-buildpackage -us -uc -S --source-option=-Zgzip --source-option=--ignore-bad-version"
+BUILD_PACKAGE="dpkg-buildpackage -us -uc --source-option=-Zgzip --source-option=--ignore-bad-version"
 
 # create build-are folder
 BASEDIR=$(dirname $(readlink -f "$0"))/..
 BUILD_AREA=$BASEDIR/build-area
 
 cd $BASEDIR
-mkdir -p $BUILD_AREA/libs
 mkdir -p $BUILD_AREA/plugins
 mkdir -p $BUILD_AREA/packs
 
@@ -47,7 +47,7 @@ function build_package {
     rm -rf $BUILD_AREA/${package_type}s/${prefix}-${package}
     cp -r ${package} $BUILD_AREA/${package_type}s/${prefix}-${package}
     cd $BUILD_AREA/${package_type}s
-    tar -czf ${prefix}-${package}_${version}.orig.tar.gz ${prefix}-${package}/ --exclude=${prefix}-${package}/debian* --exclude=${prefix}-${package}/.git*
+    tar -czf ${prefix}-${package}_${version}.orig.tar.gz ${prefix}-${package}/ --exclude=${prefix}-${package}/debian* --exclude=${prefix}-${package}/.git* --exclude=${prefix}-${package}/build
 
     cd ${prefix}-${package}
     $BUILD_PACKAGE > ../build-${prefix}-${package}.report 2>&1
