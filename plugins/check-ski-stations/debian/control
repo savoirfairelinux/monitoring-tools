@@ -1,0 +1,16 @@
+Source: plugin-check-ski-stations
+Section: python
+Priority: optional
+Maintainer: vdnguyen <vanduc.nguyen@savoirfairelinux.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: https://github.com/savoirfairelinux/plugin-check-ski-stations
+Vcs-Git: git://anonscm.debian.org/collab-maint/plugin-check-ski-stations.git
+Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-check-ski-stations.git;a=summary
+
+Package: plugin-check-ski-stations
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins
+Description: check if ski stations are open
+ More information is available on Github:
+ https://github.com/savoirfairelinux/sfl-shinken-plugins
