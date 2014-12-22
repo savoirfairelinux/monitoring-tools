@@ -16,6 +16,8 @@
 # Copyright (C) 2014, Savoir-faire Linux, Inc.
 # Author Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
 
+import unittest
+
 from http2 import Plugin
 
 from shinkenplugins import TestPlugin
@@ -23,13 +25,11 @@ from shinkenplugins import TestPlugin
 class Test(TestPlugin):
     def test_version(self):
         args = ['-v']
-        self.execute(Plugin, args, 3,
-                     'version ' + Plugin.VERSION)
+        self.execute(Plugin, args, 0, stderr_pattern='version ' + Plugin.VERSION)
 
     def test_help(self):
         args = ['-h']
-        self.execute(Plugin, args, 3,
-                     'Usage:')
+        self.execute(Plugin, args, 0, 'usage:')
 
     # Add your tests here!
     # They should use
@@ -51,3 +51,7 @@ class Test(TestPlugin):
     def test_unknwown(self):
         args = ['-U', 'http://if-somebody-buys-this-url-my-tests-are-screwed.org']
         self.execute(Plugin, args, 3, '^UNKNOWN')
+
+
+if __name__ == '__main__':
+    unittest.main()

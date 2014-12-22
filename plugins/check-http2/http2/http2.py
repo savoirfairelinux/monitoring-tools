@@ -16,77 +16,65 @@
 
 # Copyright (C) 2014, Savoir-faire Linux, Inc.
 # Author Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
+# Author Grégory Starck <gregory.starck@savoirfairelinux.com>
 
 import urllib2
 import datetime
 
+############################################################################
 
-from shinkenplugins import BasePlugin, PerfData, STATES
+from shinkenplugins import PerfData, STATES
+from shinkenplugins.plugin import ShinkenPlugin
 
-class Plugin(BasePlugin):
+############################################################################
+
+class CheckHttp2(ShinkenPlugin):
+
     NAME = 'check-http2'
-    VERSION = '0.1'
+    VERSION = '0.2'
     DESCRIPTION = "Checks HTTP sites, and doesn't timeout like good'old check_http."
     AUTHOR = 'Matthieu Caneill'
     EMAIL = 'matthieu.caneill@savoirfairelinux.com'
-    
-    ARGS = [# Can't touch this:
-            ('h', 'help', 'display plugin help', False),
-            ('v', 'version', 'display plugin version number', False),
-            # Hammer time^W^W Add your plugin arguments here:
-            # ('short', 'long', 'description', 'does it expect a value?')
-            ('U', 'url', 'the url to check', True),
-            ('A', 'user-agent', 'User-Agent header', True)
-            ]
-    
-    def check_args(self, args):
-        # You can do your various arguments check here.
-        # If you don't need to check things, you can safely remove the method.
-        
-        if not args.get('help') and not args.get('version'):
-            if not 'url' in args.keys():
-                return False, 'the argument --url is mandatory!'
-        return True, None
-    
+
+    def __init__(self):
+        super(CheckHttp2, self).__init__()
+        parser = self.parser
+        parser.add_argument('--url', '-U', required=True, help='The url to check.')
+        parser.add_argument('--user-agent', '-A', default=str(self))
+
     def run(self, args):
-        # Here is the core of the plugin.
-        # After doing your verifications, escape by doing:
-        # self.exit(return_code, 'return_message', *performance_data)
-
-        url = args['url']
-
         try:
-            request = urllib2.Request(url)
+            request = urllib2.Request(args.url)
             opener = urllib2.build_opener()
-            if args.get('user-agent'):
-                request.add_header('User-Agent', args['user-agent'])
-
+            request.add_header('User-Agent', args.user_agent)
             start = datetime.datetime.now()
             code = opener.open(request).getcode()
             end = datetime.datetime.now()
-
-        except Exception as e:
+        except Exception as err:
             try:
-                code = e.code
-                self.exit(STATES.CRITICAL, 'CRITICAL - HTTP %s - %s' % (code, e))
-
+                code = err.code
+                self.critical('HTTP %s - %s' % (code, err))
             except Exception:
-                self.exit(STATES.UNKNOWN, 'UNKNOWN - %s' % e)
-
-        response_time = end - start
-        perfdata = PerfData('response_time',
+                self.unknown('%s' % err)
+        else:
+            if code >= 400:
+                self.critical('HTTP %s' % code)
+            else:
+                response_time = end - start
+                perfdata = PerfData('response_time',
                             response_time.microseconds / 1000 + response_time.seconds * 1000,
                             unit='ms', min_=0)
+                self.ok('HTTP %s' % code, perfdata)
 
-        if code < 400:
-            self.exit(STATES.OK, 'OK - HTTP %s' % code, perfdata)
-        else:
-            self.exit(STATES.CRITICAL, 'CRITICAL - HTTP %s' % code, perfdata)
+############################################################################
 
+Plugin = CheckHttp2
 
+############################################################################
 def main():
-    Plugin()
-
+    plugin = CheckHttp2()
+    plugin.execute()
+    
 
 if __name__ == "__main__":
     main()
