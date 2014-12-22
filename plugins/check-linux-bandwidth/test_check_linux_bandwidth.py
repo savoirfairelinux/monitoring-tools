@@ -15,12 +15,14 @@
 
 # Copyright (C) 2014, vdnguyen <vanduc.nguyen@savoirfairelinux.com>
 
+import unittest
+
 import shutil
 import os
 
 from shinkenplugins import TestPlugin
 
-from check_linux_bandwidth import Plugin
+from linux_bandwidth import Plugin
 
 class Test(TestPlugin):
     def setUp(self):
@@ -31,13 +33,11 @@ class Test(TestPlugin):
 
     def test_version(self):
         args = ["-v"]
-        self.execute(Plugin, args, 3,
-                     "version " + Plugin.VERSION)
+        self.execute(Plugin, args, 0, stderr_pattern="version " + Plugin.VERSION)
 
     def test_help(self):
         args = ["-h"]
-        self.execute(Plugin, args, 3,
-                     "Usage:")
+        self.execute(Plugin, args, 0, "usage:")
 
     # Add your tests here!
     # They should use
@@ -209,3 +209,7 @@ class Test(TestPlugin):
         args = ["-i", "lo", "-w", "0", "-c", "0", "-d", "5", "-f", "-s", "/tmp/"]
         self.execute(Plugin, args, 0, "First use of plugin")
         self.execute(Plugin, args, 2, "CRITICAL: lo usage: .*GB")
+
+
+if __name__ == '__main__':
+    unittest.main()

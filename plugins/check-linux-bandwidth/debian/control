@@ -5,7 +5,6 @@ Maintainer: vdnguyen <vanduc.nguyen@savoirfairelinux.com>
 Build-Depends: debhelper (>= 9)
 Standards-Version: 3.9.5
 Homepage: https://github.com/savoirfairelinux/monitoring-tools
-Vcs-Git: git@github.com:savoirfairelinux/monitoring-tools.git
 Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 
 Package: monitoring-plugins-sfl-check-linux-bandwidth
