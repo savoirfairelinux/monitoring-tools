@@ -37,10 +37,11 @@ function obs_push {
     rm -rf ${OBS_REPO}/${fullname}
     osc co ${OBS_REPO}/${fullname}
 
+    empty=0
     # Check if the OBS orig
     echo -e "${blue}Decompress OBS ${fullname} archive${NC}"
-    rm -rf /tmp/${package}_OBS_ORIG
-    mkdir -p /tmp/${package}_OBS_ORIG
+    rm -rf /tmp/${fullname}_OBS_ORIG
+    mkdir -p /tmp/${fullname}_OBS_ORIG
     if [ -f ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/${fullname}*.orig.tar.gz ]; then
         tar -xf ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/${fullname}*.orig.tar.gz -C /tmp/${fullname}_OBS_ORIG --force-local
     else
@@ -48,7 +49,7 @@ function obs_push {
     fi
 
     if [ -f ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/${fullname}*.debian.tar.gz ]; then
-        tar -xf ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/${fullname}*.debian.tar.gz -C /tmp/${fullname}_OBS_ORIG/${package} --force-local
+        tar -xf ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/${fullname}*.debian.tar.gz -C /tmp/${fullname}_OBS_ORIG/${fullname} --force-local
     else
         empty=1
     fi
@@ -83,7 +84,7 @@ function obs_push {
             echo -e "${red}ERROR: NOT sent to OBS${NC}"
         fi
     else
-        echo -e "${lightgreen}Sources inchanged. Skipping OBS upload...${NC}"
+        echo -e "${lightgreen}Sources unchanged. Skipping OBS upload...${NC}"
     fi
 }
 

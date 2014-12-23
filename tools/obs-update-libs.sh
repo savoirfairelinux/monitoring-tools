@@ -37,8 +37,8 @@ function obs_push {
 
     # Check if the OBS orig
     echo -e "${blue}Decompress OBS ${fullname} archive${NC}"
-    rm -rf /tmp/${package}_OBS_ORIG
-    mkdir -p /tmp/${package}_OBS_ORIG
+    rm -rf /tmp/${fullname}_OBS_ORIG
+    mkdir -p /tmp/${fullname}_OBS_ORIG
     empty=0
     if [ -f ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/${fullname}*.orig.tar.gz ]; then
         tar -xf ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/${fullname}*.orig.tar.gz -C /tmp/${fullname}_OBS_ORIG --force-local
@@ -82,7 +82,7 @@ function obs_push {
             echo -e "${red}ERROR: NOT sent to OBS${NC}"
         fi
     else
-        echo -e "${lightgreen}Sources inchanged. Skipping OBS upload...${NC}"
+        echo -e "${lightgreen}Sources unchanged. Skipping OBS upload...${NC}"
     fi
 }
 
