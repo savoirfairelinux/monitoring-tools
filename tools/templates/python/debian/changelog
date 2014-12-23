@@ -1,4 +1,4 @@
-plugin-{{ name }} ({{ date_long }}-1) unstable; urgency=low
+monitoring-plugins-sfl-{{ name }} ({{ date_long }}-1) unstable; urgency=low
 
   * Initial release
 

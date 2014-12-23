@@ -1,1 +1,1 @@
-{{ exec_name }} /usr/lib/shinken/plugins
+{{ exec_name }} /usr/lib/monitoring/plugins/sfl

@@ -1,14 +1,13 @@
-Source: plugin-{{ name }}
+Source: monitoring-plugins-sfl-{{ name }}
 Section: python
 Priority: optional
 Maintainer: {{ author_name }} <{{ author_email }}>
 Build-Depends: debhelper (>= 9)
 Standards-Version: 3.9.5
-Homepage: https://github.com/savoirfairelinux/plugin-{{ name }}
-Vcs-Git: git://anonscm.debian.org/collab-maint/plugin-{{ name }}.git
-Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/plugin-{{ name }}.git;a=summary
+Homepage: https://github.com/savoirfairelinux/monitoring-tools
+Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 
-Package: plugin-{{ name }}
+Package: monitoring-plugins-sfl-{{ name }}
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins
 Description: {{ desc }}

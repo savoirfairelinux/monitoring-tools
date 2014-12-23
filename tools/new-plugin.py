@@ -40,18 +40,25 @@ from jinja2 import Environment, FileSystemLoader
 def main(args):
     here = os.path.dirname(os.path.abspath(__file__))
     tdir = os.path.join(here, 'templates', args['type'])
-    target = os.path.join(os.path.dirname(here), 'plugins', 'plugin-' + args['name'])
+    target = os.path.join(os.path.dirname(here), 'plugins', args['name'])
     
     if os.path.exists(target):
         print("The folder %s shouldn't exit" % target)
         sys.exit(1)
 
     exec_name = args['name'].replace('-', '_')
+    short_name = exec_name.replace("check_", "")
     # we copy the needed files
     shutil.copytree(tdir, target, symlinks=True)
     
     shutil.move(os.path.join(target, 'check_foo'),
                 os.path.join(target, exec_name))
+
+    shutil.move(os.path.join(target, 'foo'),
+                os.path.join(target, short_name))
+
+    shutil.move(os.path.join(target, short_name, 'foo.py'),
+                os.path.join(target, short_name, short_name + '.py'))
     
     shutil.move(os.path.join(target, 'test_check_foo.py'),
                 os.path.join(target, 'test_' + exec_name + '.py'))
@@ -75,6 +82,10 @@ def main(args):
     tvars = dict(args)
 
     tvars['exec_name'] = args['name'].replace('-', '_')
+    tvars['exec_name_capitalized'] = "".join([w.capitalize() for w in tvars['exec_name'].split("_")])
+    tvars['short_name'] = short_name
+    tvars['short_name_capitalized'] = "".join([w.capitalize() for w in short_name.split("_")])
+    tvars['doc_name'] = "%s\n%s" % (tvars['exec_name'], "=" * len(tvars['exec_name']))
     now = datetime.now()
     tvars['year'] = now.year
     tvars['date_long'] = '%s.%s.%s.%s.%s' % (now.year, now.month, now.day, now.hour, now.minute)
@@ -83,6 +94,7 @@ def main(args):
 
     
     for template in env.list_templates():
+        print template
         output = env.get_template(template).render(tvars)
         with codecs.open(os.path.join(target, template), 'w', 'utf8') as f:
             f.write(output)
