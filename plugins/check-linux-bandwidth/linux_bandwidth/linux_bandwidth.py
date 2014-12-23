@@ -78,9 +78,9 @@ def make_interface_name(value):
 #############################################################################
 
 class CheckLinuxBandwidth(ShinkenPlugin):
-    NAME = 'check-linux-bandwith-usage'
+    NAME = 'check-linux-bandwidth-usage'
     VERSION = '0.1'
-    DESCRIPTION = 'check linux bandwith usage per month'
+    DESCRIPTION = 'check linux bandwidth usage per month'
     AUTHOR = 'vdnguyen'
     EMAIL = 'vanduc.nguyen@savoirfairelinux.com'
 
@@ -125,7 +125,7 @@ class CheckLinuxBandwidth(ShinkenPlugin):
             help=escape_help('Mandatory if you use a % in warning or critical thresholds.\n'
                  '\tLimit of bandwidth per month: You can also use many unit: TB|GB|MB|KB ; if none provided -> GB.')),
         add('-d', '--reset-day', help='number of day to reset the counter', type=int),
-        add('-s', '--cache-folder', default='/tmp/check_linux_bandwith/',
+        add('-s', '--cache-folder', default='/tmp/check_linux_bandwidth/',
             help='the folder to stock the data.'),
         add('-f', '--perfdata', action='store_true',
             help='option to show perfdata'),
@@ -166,7 +166,7 @@ class CheckLinuxBandwidth(ShinkenPlugin):
 
     @classmethod
     def get_total(cls, interface):
-        """ Get interface total bandwith
+        """ Get interface total bandwidth
         """
         interface_dict = cls.get_interfaces_datas()
         receive = interface_dict[interface][0]
@@ -375,7 +375,7 @@ class CheckLinuxBandwidth(ShinkenPlugin):
                                                                  old_transmit))
             int_fh.close()
 
-        # check_linux_bandwith_usage -i eth0 -W 50 -C 90 -d 10 -l 500
+        # check_linux_bandwidth_usage -i eth0 -W 50 -C 90 -d 10 -l 500
         if limit is not None and isinstance(warning, PercentValue):
 
             # calculate bandwidth per month in %
@@ -401,7 +401,7 @@ class CheckLinuxBandwidth(ShinkenPlugin):
             else:
                 func = self.critical
 
-            # check_linux_bandwith_usage -i eth0 -W 50 -C 90 -d 10 -l 500 -f
+            # check_linux_bandwidth_usage -i eth0 -W 50 -C 90 -d 10 -l 500 -f
             if args.perfdata and isinstance(warning, PercentValue) and limit is not None:
 
                 p1 = PerfData(interface_percent,
@@ -436,7 +436,7 @@ class CheckLinuxBandwidth(ShinkenPlugin):
 
             func(msg, p1, p2, p3, p4)
 
-        # check_linux_bandwith_usage -i eth0 -w 50 -c 100 -d 10 -l 500 -f
+        # check_linux_bandwidth_usage -i eth0 -w 50 -c 100 -d 10 -l 500 -f
         if args.perfdata and args.limit is not None:
             # user give warning in GB so calculate in %
             usage_per_month_percent = (usage_per_month / limit) * 100
@@ -498,7 +498,7 @@ class CheckLinuxBandwidth(ShinkenPlugin):
 
 
         msg = "%s usage: %0.2fGB" % (interface, usage_per_month)
-        # check_linux_bandwith_usage -i eth0 -w 50 -c 90 -d 5
+        # check_linux_bandwidth_usage -i eth0 -w 50 -c 90 -d 5
         if usage_per_month < warning:
             func = self.ok
         elif usage_per_month >= warning and usage_per_month < critical:
@@ -506,7 +506,7 @@ class CheckLinuxBandwidth(ShinkenPlugin):
         else:
             func = self.critical
 
-        # check_linux_bandwith_usage -i eth0 -w 50 -c 90 -d 5 -f
+        # check_linux_bandwidth_usage -i eth0 -w 50 -c 90 -d 5 -f
         if args.perfdata:
             # convert all data to float with 2 decimal places
             receive_per_month = "%0.2f" % (float(receive_per_month))
