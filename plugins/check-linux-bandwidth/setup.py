@@ -33,8 +33,8 @@ from setuptools import setup, find_packages
 #     install_requires = [l for l in f.read().splitlines()
 #                         if not l.startswith('#')]
 
-description = 'Check Linux bandwith usage per month'
-long_description = ('''Check Linux bandwith usage per month''')
+description = 'Check Linux bandwidth usage per month'
+long_description = ('''Check Linux bandwidth usage per month''')
 
 #############################################################################
 
