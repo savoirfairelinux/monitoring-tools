@@ -50,7 +50,7 @@ function build_package {
         echo -e "${green}Build OK${NC}"
     else
         echo -e "${red}Build ERROR. Please look here: $BUILD_AREA/${package_type}s/build-${package}.report${NC}"
-        cat $BUILD_AREA/${package_type}s/build-${package}.report${NC}
+        cat $BUILD_AREA/${package_type}s/build-${package}.report
     fi
     cd $BASEDIR
 }
