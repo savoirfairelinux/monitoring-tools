@@ -45,8 +45,7 @@ function build_package {
     tar -czf ${package}_${version}.orig.tar.gz ${package}/ --exclude=${package}/debian* --exclude=${package}/.git* --exclude=${package}/build*
 
     cd ${package}
-    $BUILD_PACKAGE > ../build-${package}.report 2>&1
-    if [[ $? -eq 0 ]]
+    if $BUILD_PACKAGE > ../build-${package}.report 2>&1
     then
         echo -e "${green}Build OK${NC}"
     else
