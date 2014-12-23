@@ -1,5 +1,5 @@
 Source: shinkenplugins
-Maintainer: Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
+Maintainer: Thibault Cohen <supervision@savoirfairelinux.com>
 Section: python
 Priority: optional
 Build-Depends: python-setuptools (>= 0.6b3), python-all (>= 2.6.6-3), debhelper (>= 9)

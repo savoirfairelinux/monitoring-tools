@@ -1,3 +1,9 @@
+shinkenplugins (0.2.0-1) unstable; urgency=medium
+
+  * New upstream version
+
+ -- Thibault Cohen <thibault.cohen@savoirfairelinux.com>  Tue, 23 Dec 2014 12:40:36 -0500
+
 shinkenplugins (0.1.4-1) unstable; urgency=medium
 
   * New version with some helper tools
