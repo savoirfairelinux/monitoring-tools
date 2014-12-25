@@ -10,6 +10,9 @@ License:        GPLv3
 URL:            https://github.com/savoirfairelinux/monitoring-tools
 Source0:        https://github.com/savoirfairelinux/monitoring-tools/shinkenplugins_%{version}.orig.tar.gz
 
+Requires:       python
+BuildRequires:  python-setuptools
+
 BuildArch:      noarch
 
 %description
@@ -26,7 +29,7 @@ less code duplication, less headache. More lolz.
 
 %install
 rm -rf %{buildroot}
-%{__python} setup.py install -O1 --skip-build --root %{buildroot} --prefix=/usr/ --install-layout=deb
+%{__python} setup.py install -O1 --skip-build --root %{buildroot} --install-lib=%{python_sitelib}
 
 %check
 
