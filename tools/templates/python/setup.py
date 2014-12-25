@@ -38,7 +38,7 @@ long_description = ('''{{ desc }}''')
 
 #############################################################################
 
-setup
+setup(
     name='{{ short_name }}',
     version="1.0",
     packages=["shinkenplugins.plugins.{{ short_name }}"],

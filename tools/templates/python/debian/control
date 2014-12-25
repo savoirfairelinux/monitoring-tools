@@ -2,7 +2,7 @@ Source: monitoring-plugins-sfl-{{ name }}
 Section: python
 Priority: optional
 Maintainer: {{ author_name }} <{{ author_email }}>
-Build-Depends: debhelper (>= 9)
+Build-Depends: debhelper (>= 9), python
 Standards-Version: 3.9.5
 Homepage: https://github.com/savoirfairelinux/monitoring-tools
 Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git

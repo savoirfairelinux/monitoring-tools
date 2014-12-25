@@ -54,6 +54,9 @@ def main(args):
     shutil.move(os.path.join(target, 'check_foo'),
                 os.path.join(target, exec_name))
 
+    shutil.move(os.path.join(target, 'check-foo.spec'),
+                os.path.join(target, args['name'] + '.spec'))
+
     shutil.move(os.path.join(target, 'foo'),
                 os.path.join(target, short_name))
 
@@ -89,6 +92,7 @@ def main(args):
     now = datetime.now()
     tvars['year'] = now.year
     tvars['date_long'] = '%s.%s.%s.%s.%s' % (now.year, now.month, now.day, now.hour, now.minute)
+    tvars['date_rpm'] = now.strftime("%a %b %d %Y")
     tvars['date_rfc2822'] = email.utils.formatdate(time.mktime(now.timetuple()))
 
 
