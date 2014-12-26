@@ -70,6 +70,7 @@ function obs_push {
         cp ${BUILD_AREA}/${package_type}s/${fullname}*.dsc ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/
         cp ${BUILD_AREA}/${package_type}s/${fullname}*.changes ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/
         cp ${BUILD_AREA}/${package_type}s/${fullname}*.debian.tar.gz ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/
+        cp ${BUILD_AREA}/${package_type}s/${fullname}*.spec ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/
 
         # Add the changes and commit
         echo -e "${blue}SENDING to OBS${NC}"

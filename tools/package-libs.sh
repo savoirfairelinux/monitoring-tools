@@ -15,7 +15,7 @@ NC='\e[0m' # No Color
 # -S builds only the source package, the binary one is done by OpenBuildService
 # --ignore-bad-version skips the date check, because the files can be more recent
 # than the last debian/changelog entry
-BUILD_PACKAGE="dpkg-buildpackage -us -uc -S --source-option=-Zgzip --source-option=--ignore-bad-version"
+BUILD_PACKAGE="dpkg-buildpackage -tc -us -uc -S --source-option=-Zgzip --source-option=--ignore-bad-version"
 
 # create build-are folder
 BASEDIR=$(dirname $(readlink -f "$0"))/..
@@ -42,7 +42,8 @@ function build_package {
     rm -rf $BUILD_AREA/${package_type}s/${package}
     cp -r ${package} $BUILD_AREA/${package_type}s/${package}
     cd $BUILD_AREA/${package_type}s
-    tar -czf ${package}_${version}.orig.tar.gz ${package}/ --exclude=${package}/debian* --exclude=${package}/.git* --exclude=${package}/build*
+    tar -czf ${package}_${version}.orig.tar.gz ${package}/ --exclude=${package}/debian* --exclude=${package}/.git* --exclude=${package}/build* --exclude=${prefix}-${package}/build  --exclude=${prefix}-${package}/*.pyc  --exclude=${prefix}-${package}/*.pyc
+    cp ${package}/${package}.spec . 2> /dev/null || echo spec file is missing, RPM packages can NOT be done
 
     cd ${package}
     if $BUILD_PACKAGE > ../build-${package}.report 2>&1
