@@ -33,8 +33,8 @@ rm -rf %{buildroot}
 %{__mkdir_p} %{buildroot}/%{_libdir}/monitoring/plugins/sfl
 install -p -m0755 {{ exec_name }}  %{buildroot}/%{_libdir}/monitoring/plugins/sfl
 
-%check
-cd %{buildroot}/%{python_sitelib}/shinkenplugins/plugins/ && %{__python} -c "import {{ short_name }}"
+#%check
+#cd %{buildroot}/%{python_sitelib}/shinkenplugins/plugins/ && %{__python} -c "import {{ short_name }}"
 
 
 %files

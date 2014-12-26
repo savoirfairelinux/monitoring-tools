@@ -57,7 +57,7 @@ function obs_push {
     if [ $empty -ne 1 ];then
         # Get differences from obs and local dir
         echo -e "${blue}Compare ${fullname} archives${NC}"
-        diff -r ${BUILD_AREA}/${package_type}s/${fullname}/ /tmp/${fullname}_OBS_ORIG/${package}/ --exclude=.git*
+        diff -r ${BUILD_AREA}/${package_type}s/${fullname}/ /tmp/${fullname}_OBS_ORIG/${fullname}/ --exclude=.git*
     fi
 
     #Only update the source has changed
@@ -72,6 +72,7 @@ function obs_push {
         cp ${BUILD_AREA}/${package_type}s/${fullname}*.dsc ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/
         cp ${BUILD_AREA}/${package_type}s/${fullname}*.changes ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/
         cp ${BUILD_AREA}/${package_type}s/${fullname}*.debian.tar.gz ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/
+        cp ${BUILD_AREA}/${package_type}s/${fullname}*.spec ${BASEDIR}/obs.tmp/${OBS_REPO}/${fullname}/
 
         # Add the changes and commit
         echo -e "${blue}SENDING to OBS${NC}"

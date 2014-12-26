@@ -54,8 +54,8 @@ def main(args):
     shutil.move(os.path.join(target, 'check_foo'),
                 os.path.join(target, exec_name))
 
-    shutil.move(os.path.join(target, 'check-foo.spec'),
-                os.path.join(target, args['name'] + '.spec'))
+    shutil.move(os.path.join(target, 'monitoring-plugins-sfl-check-foo.spec'),
+                os.path.join(target, 'monitoring-plugins-sfl-' +  args['name'] + '.spec'))
 
     shutil.move(os.path.join(target, 'foo'),
                 os.path.join(target, short_name))
