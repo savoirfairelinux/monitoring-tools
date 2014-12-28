@@ -16,8 +16,8 @@ NC='\e[0m' # No Color
 # -S builds only the source package, the binary one is done by OpenBuildService
 # --ignore-bad-version skips the date check, because the files can be more recent
 # than the last debian/changelog entry
-#BUILD_PACKAGE="dpkg-buildpackage -us -uc -S --source-option=-Zgzip --source-option=--ignore-bad-version"
-BUILD_PACKAGE="dpkg-buildpackage -tc -us -uc --source-option=-Zgzip --source-option=--ignore-bad-version"
+#BUILD_DEB="dpkg-buildpackage -us -uc -S --source-option=-Zgzip --source-option=--ignore-bad-version"
+BUILD_DEB="dpkg-buildpackage -tc -us -uc --source-option=-Zgzip --source-option=--ignore-bad-version"
 
 # create build-are folder
 BASEDIR=$(dirname $(readlink -f "$0"))/..
@@ -47,16 +47,28 @@ function build_package {
     rm -rf $BUILD_AREA/${package_type}s/${prefix}-${package}
     cp -r ${package} $BUILD_AREA/${package_type}s/${prefix}-${package}
     cd $BUILD_AREA/${package_type}s
-    tar -czf ${prefix}-${package}_${version}.orig.tar.gz ${prefix}-${package}/ --exclude=${prefix}-${package}/debian* --exclude=${prefix}-${package}/.git* --exclude=${prefix}-${package}/build  --exclude=${prefix}-${package}/*.pyc  --exclude=${prefix}-${package}/*.pyc
+    find ${prefix}-${package} -type f -name "*.pyc" -exec rm -f {} \;
+    tar -czf ${prefix}-${package}_${version}.orig.tar.gz ${prefix}-${package}/ --exclude=${prefix}-${package}/debian* --exclude=${prefix}-${package}/.git* --exclude=${prefix}-${package}/build  --exclude=${prefix}-${package}/*.pyc  --exclude=*.pyc 
     cp ${prefix}-${package}/${prefix}-${package}.spec . 2> /dev/null || echo spec file is missing, RPM packages can NOT be done
 
-    cd ${prefix}-${package}
-    if $BUILD_PACKAGE > ../build-${prefix}-${package}.report 2>&1
+    if [ -e "${prefix}-${package}.spec" ]
     then
-        echo -e "${green}Build OK${NC}"
+        if rpmbuild -ba ${prefix}-${package}.spec --define "_sourcedir $BUILD_AREA/${package_type}s" > $BUILD_AREA/${package_type}s/build-${prefix}-${package}.rpm.report 2>&1
+        then
+            echo -e "${green}Build RPM OK${NC}"
+        else
+            echo -e "${red}Build RPM ERROR. Please look here: $BUILD_AREA/${package_type}s/build-${prefix}-${package}.rpm.report${NC}"
+            cat  $BUILD_AREA/${package_type}s/build-${prefix}-${package}.rpm.report
+        fi
+    fi
+
+    cd ${prefix}-${package}
+    if $BUILD_DEB > ../build-${prefix}-${package}.deb.report 2>&1
+    then
+        echo -e "${green}Build DEB OK${NC}"
     else
-        echo -e "${red}Build ERROR. Please look here: $BUILD_AREA/${package_type}s/build-${prefix}-${package}.report${NC}"
-        cat $BUILD_AREA/${package_type}s/build-${prefix}-${package}.report
+        echo -e "${red}Build DEB ERROR. Please look here: $BUILD_AREA/${package_type}s/build-${prefix}-${package}.deb.report${NC}"
+        cat $BUILD_AREA/${package_type}s/build-${prefix}-${package}.deb.report
     fi
     cd $BASEDIR
 }

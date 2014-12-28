@@ -70,7 +70,7 @@ $ dch $msg --no-auto-nmu --newversion $version
 
 ### Build the Debian source packages
 ```
-make deb
+make packages
 ```
 This will build the .orig.tar.gz, .debian.tar.gz, .dsc, and .changes files.
 
