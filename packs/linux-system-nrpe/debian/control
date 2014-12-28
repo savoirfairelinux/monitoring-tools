@@ -11,6 +11,6 @@ Homepage: https://github.com/savoirfairelinux/monitoring-tools
 Package: monitoring-packs-sfl-linux-system-nrpe
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: 
+Description: Shinken packs from SFL. Linux active checks based on NRPE
  More information is available on Github:
  https://github.com/savoirfairelinux/sfl-shinken-packs
