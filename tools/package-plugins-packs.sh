@@ -16,7 +16,6 @@ NC='\e[0m' # No Color
 # -S builds only the source package, the binary one is done by OpenBuildService
 # --ignore-bad-version skips the date check, because the files can be more recent
 # than the last debian/changelog entry
-#BUILD_DEB="dpkg-buildpackage -us -uc -S --source-option=-Zgzip --source-option=--ignore-bad-version"
 BUILD_DEB="dpkg-buildpackage -tc -us -uc --source-option=-Zgzip --source-option=--ignore-bad-version"
 
 # create build-are folder

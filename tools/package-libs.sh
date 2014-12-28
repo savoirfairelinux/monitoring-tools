@@ -52,8 +52,8 @@ function build_package {
         then
             echo -e "${green}Build RPM OK${NC}"
         else
-            echo -e "${red}Build RPM ERROR. Please look here: $BUILD_AREA/${package_type}s/build-${prefix}-${package}.rpm.report${NC}"
-            cat  $BUILD_AREA/${package_type}s/build-${prefix}-${package}.rpm.report
+            echo -e "${red}Build RPM ERROR. Please look here: $BUILD_AREA/${package_type}s/build-${package}.rpm.report${NC}"
+            cat  $BUILD_AREA/${package_type}s/build-${package}.rpm.report
         fi
     fi
 
