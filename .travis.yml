@@ -49,5 +49,4 @@ after_success:
   - 'sudo dpkg -i tools/tests/osc_0.143.0-1_all.deb || : && sudo apt-get install -f'
   
   - (echo [general] && echo apiurl = https://api.opensuse.org && echo && echo [https://api.opensuse.org] && echo user = ReAzem && echo pass = $OBS_PASSWORD) > ~/.oscrc
-  - make mrproper && make packages
-  - if [[ "${TRAVIS_BRANCH}" == "master" && "${TRAVIS_REPO_SLUG}" == "savoirfairelinux/monitoring-tools" && "${TRAVIS_PULL_REQUEST}" == "false" ]]; then make obs; fi
+  - make mrproper && make packages && if [[ "${TRAVIS_BRANCH}" == "master" && "${TRAVIS_REPO_SLUG}" == "savoirfairelinux/monitoring-tools" && "${TRAVIS_PULL_REQUEST}" == "false" ]]; then make obs; fi
