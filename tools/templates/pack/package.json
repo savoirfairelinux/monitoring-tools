@@ -1,0 +1,23 @@
+{
+	"name": "{{ name }}",
+	"types": ["pack"],
+	"version": "1.0",
+	"homepage": "https://github.com/savoirfairelinux/monitoring-tools",
+	"author": "{{ author_name }}",
+    "description": "{{ desc }}",
+	"contributors": [
+	  {
+		"name": "{{ author_name }}",
+		"email": "{{ author_email }}"
+	  }
+	],
+	"repository": "https://github.com/savoirfairelinux/monitoring-tools",
+	"keywords": [
+	  "pack",
+      {{ tags }}
+	],
+	"dependencies": {
+	  "shinken": ">=1.4"
+	},
+	"license": "GPL"
+}
