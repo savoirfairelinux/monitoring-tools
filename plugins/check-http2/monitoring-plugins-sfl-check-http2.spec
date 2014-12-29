@@ -11,7 +11,7 @@ URL:            https://github.com/savoirfairelinux/monitoring-tools
 Source0:        https://github.com/savoirfairelinux/monitoring-tools/monitoring-plugins-sfl-check-http2_%{version}.orig.tar.gz
 
 Requires:       python-shinkenplugins
-BuildRequires:  python-setuptools
+BuildRequires:  python-setuptools, python-sphinx
 
 BuildArch:      noarch
 
@@ -32,6 +32,10 @@ rm -rf %{buildroot}
 %{__python} setup.py install -O1 --skip-build --root %{buildroot} --install-lib=%{python_sitelib}
 %{__mkdir_p} %{buildroot}/%{_libdir}/monitoring/plugins/sfl
 install -p -m0755 check_http2 %{buildroot}/%{_libdir}/monitoring/plugins/sfl
+%{__install} -d -m 755 %{buildroot}/%{_docdir}/shinken/plugins/%{name}
+%{__cp} -r doc/source/ %{buildroot}/%{_docdir}/shinken/plugins/%{name}
+%{__install} -d -m 755 %{buildroot}/%{_mandir}/man1/shinken/plugins/%{name}
+sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man1/shinken/plugins/%{name}
 
 #%check
 #cd %{buildroot}/%{python_sitelib}/shinkenplugins/plugins/ && %{__python} -c "import http2"
@@ -43,6 +47,9 @@ install -p -m0755 check_http2 %{buildroot}/%{_libdir}/monitoring/plugins/sfl
 %dir %{python_sitelib}/shinkenplugins
 %{python_sitelib}/shinkenplugins/plugins/http2
 %{_libdir}/monitoring/plugins/sfl/check_http2
+%docdir
+%{_docdir}/shinken/plugins/%{name}
+%{_mandir}/man1/shinken/plugins/%{name}
 
 %changelog
 * Wed Dec 24 2014 Thibault Cohen <thibault.cohen@savoirfairelinux.com> - 0.2.0-1
