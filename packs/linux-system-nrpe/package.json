@@ -1,5 +1,5 @@
 {
-	"name": "sfl-linux-system-nrpe",
+	"name": "linux-system-nrpe",
 	"types": ["pack"],
 	"version": "1.0",
 	"homepage": "https://github.com/savoirfairelinux/monitoring-tools",
