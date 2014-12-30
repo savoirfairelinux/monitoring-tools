@@ -1,5 +1,5 @@
 install:
-  - sudo pip install nose wheel
+  - sudo pip install nose wheel virtualenv
 
   # this is for plugin-check_cpu
   - sudo apt-get install bc
