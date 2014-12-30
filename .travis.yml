@@ -1,13 +1,5 @@
-language: python
-
-python:
-#  - "2.6"
-  - "2.7_with_system_site_packages"
-# removed temporarily
-# rationale: "after_success" will be executed 2 times, that's not what we want (yet)
-
 install:
-  - pip install nose wheel
+  - sudo pip install nose wheel
 
   # this is for plugin-check_cpu
   - sudo apt-get install bc
