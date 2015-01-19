@@ -5,7 +5,6 @@
 %define name        monitoring-packs-sfl-%{raw_name}
 %define version     {{ date_long }}
 %define release     1
-%define install_folder /usr/lib/
 
 Name:       %{name}
 Version:    %{version}
@@ -37,7 +36,7 @@ BuildRequires: python-sphinx
 %{__cp} -r doc/* %{buildroot}/%{_docdir}/shinken/packs/%{raw_name}
 %{__rm} %{buildroot}/%{_docdir}/shinken/packs/%{raw_name}/conf.py
 %{__install} -d -m 755 %{buildroot}/%{_mandir}/man1/shinken/packs/%{raw_name}
-sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man1/shinken/packs/%{raw_name}
+sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man1/%{raw_name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
