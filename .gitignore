@@ -4,3 +4,5 @@ doc/build
 env/
 build-area
 obs.tmp
+plugins/*/doc/build
+packs/*/doc/build
