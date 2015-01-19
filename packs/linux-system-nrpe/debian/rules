@@ -6,3 +6,7 @@
 
 %:
 	dh $@ 
+
+override_dh_installdocs:
+	dh_installdocs
+	sphinx-build -b man -d doc/build/doctrees doc doc/build/man
