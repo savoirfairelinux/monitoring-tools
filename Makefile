@@ -183,9 +183,13 @@ doc_prepare:
 	rm -rf doc/source/plugins/
 	mkdir -p doc/source/plugins/
 	for i in $(plugins); do cp -r plugins/$$i/doc doc/source/plugins/$$i; done
+	rm -rf doc/source/plugins/*/build/
+	rm -rf doc/source/plugins/*/conf.py
 	rm -rf doc/source/packs/
 	mkdir -p doc/source/packs/
 	for i in $(packs); do cp -r packs/$$i/doc/source doc/source/packs/$$i; done
+	rm -rf doc/source/packs/*/build/
+	rm -rf doc/source/packs/*/conf.py
 
 tests:
 	tools/run-tests.sh
