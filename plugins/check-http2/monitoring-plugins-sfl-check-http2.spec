@@ -31,7 +31,7 @@ https://github.com/savoirfairelinux/sfl-shinken-plugins
 rm -rf %{buildroot}
 %{__python} setup.py install -O1 --skip-build --root %{buildroot} --install-lib=%{python_sitelib}
 %{__mkdir_p} %{buildroot}/%{_libdir}/monitoring/plugins/sfl
-install -p -m0755 check_http2 %{buildroot}/%{_libdir}/monitoring/plugins/sfl
+%{__install} -p -m0755 check_http2 %{buildroot}/%{_libdir}/monitoring/plugins/sfl
 %{__install} -d -m 755 %{buildroot}/%{_docdir}/shinken/plugins/%{name}
 %{__cp} -r doc/source/ %{buildroot}/%{_docdir}/shinken/plugins/%{name}
 %{__install} -d -m 755 %{buildroot}/%{_mandir}/man1/shinken/plugins/%{name}

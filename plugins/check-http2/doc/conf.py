@@ -12,7 +12,7 @@ templates_path = ['_templates']
 source_suffix = '.rst'
 
 # The master toctree document.
-master_doc = 'source/monitoring-plugins-sfl-check-http2'
+master_doc = 'monitoring-plugins-sfl-check-http2'
 
 # General information about the project.
 project = u'monitoring-plugins-sfl-check-http2'
