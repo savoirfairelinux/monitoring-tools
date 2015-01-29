@@ -56,8 +56,12 @@ class Plugin(BasePlugin):
         return True, None
 
     def get_html(self, url):
+        opener = urllib2.build_opener()
+        # agence.santemontreal.qc.ca seems to prohibit access (403) to "custom" http agents (
+        # like urllib2 one) ; by forcing User-agent we workaround the problem:
+        opener.addheaders = [('User-agent', 'Mozilla/5.0')]
         try:
-            html = urllib2.urlopen(url)
+            html = opener.open(url)
         except Exception as e:
             self.exit(STATES.UNKNOWN, 'Error while opening url: %s' % str(e))
         if html.getcode() >= 400:
