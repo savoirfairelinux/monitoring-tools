@@ -15,20 +15,21 @@
 
 # Copyright (C) 2014, vdnguyen <vanduc.nguyen@savoirfairelinux.com>
 
-from check_redis import Plugin
+import unittest
+
+from redis import Plugin
+
 
 from shinkenplugins import TestPlugin
 
 class Test(TestPlugin):
     def test_version(self):
         args = ['-v']
-        self.execute(Plugin, args, 3,
-                     'version ' + Plugin.VERSION)
+        self.execute(Plugin, args, 0, stderr_pattern='version ' + Plugin.VERSION)
 
     def test_help(self):
         args = ['-h']
-        self.execute(Plugin, args, 3,
-                     'Usage:')
+        self.execute(Plugin, args, 0, 'usage:')
 
     # Add your tests here!
     # They should use
@@ -38,3 +39,10 @@ class Test(TestPlugin):
     #              'regex to check against the output')
     # You can also add debug=True, to get useful information
     # to debug your plugins
+
+
+
+
+if __name__ == '__main__':
+    unittest.main()
+
