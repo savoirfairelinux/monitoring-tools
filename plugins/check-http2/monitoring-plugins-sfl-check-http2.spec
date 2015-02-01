@@ -11,7 +11,7 @@ URL:            https://github.com/savoirfairelinux/monitoring-tools
 Source0:        https://github.com/savoirfairelinux/monitoring-tools/monitoring-plugins-sfl-check-http2_%{version}.orig.tar.gz
 
 Requires:       python-shinkenplugins
-BuildRequires:  python-setuptools, python-sphinx
+BuildRequires:  python-setuptools
 
 BuildArch:      noarch
 
