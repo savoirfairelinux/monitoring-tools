@@ -35,7 +35,7 @@ rm -rf %{buildroot}
 %{__install} -d -m 755 %{buildroot}/%{_docdir}/shinken/plugins/%{name}
 %{__cp} -r doc/ %{buildroot}/%{_docdir}/shinken/plugins/%{name}
 %{__install} -d -m 755 %{buildroot}/%{_mandir}/man1/shinken/plugins/%{name}
-sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man1/shinken/plugins/%{name}
+sphinx-build -b man -d doc/build/doctrees/ doc %{buildroot}/%{_mandir}/man1/shinken/plugins/%{name}
 
 #%check
 #cd %{buildroot}/%{python_sitelib}/shinkenplugins/plugins/ && %{__python} -c "import http2"
