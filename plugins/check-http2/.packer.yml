@@ -1,0 +1,6 @@
+centos_6:
+  spec: monitoring-plugins-sfl-check-http2.spec
+  deps_pip:
+    - sphinx
+debian_7:
+  debian: debian
