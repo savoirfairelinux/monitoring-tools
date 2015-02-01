@@ -33,7 +33,7 @@ rm -rf %{buildroot}
 %{__mkdir_p} %{buildroot}/%{_libdir}/monitoring/plugins/sfl
 %{__install} -p -m0755 check_http2 %{buildroot}/%{_libdir}/monitoring/plugins/sfl
 %{__install} -d -m 755 %{buildroot}/%{_docdir}/shinken/plugins/%{name}
-%{__cp} -r doc/source/ %{buildroot}/%{_docdir}/shinken/plugins/%{name}
+%{__cp} -r doc/ %{buildroot}/%{_docdir}/shinken/plugins/%{name}
 %{__install} -d -m 755 %{buildroot}/%{_mandir}/man1/shinken/plugins/%{name}
 sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man1/shinken/plugins/%{name}
 
