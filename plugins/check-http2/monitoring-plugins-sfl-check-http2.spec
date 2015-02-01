@@ -47,9 +47,8 @@ sphinx-build -b man -d doc/build/doctrees/ doc %{buildroot}/%{_mandir}/man1/shin
 %dir %{python_sitelib}/shinkenplugins
 %{python_sitelib}/shinkenplugins/plugins/http2
 %{_libdir}/monitoring/plugins/sfl/check_http2
-%docdir
-%{_docdir}/shinken/plugins/%{name}
-%{_mandir}/man1/shinken/plugins/%{name}
+%doc %{_docdir}/shinken/plugins/%{name}
+%doc %{_mandir}/man1/shinken/plugins/%{name}
 
 %changelog
 * Wed Dec 24 2014 Thibault Cohen <thibault.cohen@savoirfairelinux.com> - 0.2.0-1
