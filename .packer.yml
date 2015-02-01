@@ -1,3 +1,3 @@
 include:
- - plugins/*/*.packer.yml
- - packs/*/*.packer.yml
+ - plugins/*/.packer.yml
+ - packs/*/.packer.yml
