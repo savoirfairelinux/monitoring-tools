@@ -95,7 +95,7 @@ html_theme = 'default'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['source/_static']
+html_static_path = ['_static']
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
@@ -164,7 +164,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('source/monitoring-plugins-sfl-check-http2', 'monitoring-plugins-sfl-check-http2.tex',
+  ('monitoring-plugins-sfl-check-http2', 'monitoring-plugins-sfl-check-http2.tex',
    u'monitoring-plugins-sfl-check-http2 Documentation',
    u'Savoir-faire Linux', 'manual'),
 ]
@@ -195,7 +195,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('source/monitoring-plugins-sfl-check-http2', 'monitoring-plugins-sfl-check-http2',
+    ('monitoring-plugins-sfl-check-http2', 'monitoring-plugins-sfl-check-http2',
      u'monitoring-plugins-sfl-check-http2 Documentation',
      [u'Savoir-faire Linux'], 1)
 ]
@@ -210,7 +210,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('source/monitoring-plugins-sfl-check-http2', 'monitoring-plugins-sfl-check-http2',
+  ('monitoring-plugins-sfl-check-http2', 'monitoring-plugins-sfl-check-http2',
    u'monitoring-plugins-sfl-check-http2 Documentation',
    u'Savoir-faire Linux', 'monitoring-plugins-sfl-check-http2', "Checks HTTP sites, and doesn't timeout like good'old check_http.",
    'Packs'),
