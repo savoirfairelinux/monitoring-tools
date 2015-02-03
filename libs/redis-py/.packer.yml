@@ -1,0 +1,4 @@
+centos_6:
+  spec: python-redis.spec
+  deps_pip:
+    - sphinx
