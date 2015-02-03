@@ -34,7 +34,7 @@ This is a Python 3 interface to the Redis key-value store.
 %endif
 
 %prep
-%setup -qn %{upstream_name}-%{version}
+%setup -q
 rm -frv %{upstream_name}.egg-info
 
 %if 0%{?with_python3}
