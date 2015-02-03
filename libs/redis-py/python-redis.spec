@@ -4,7 +4,7 @@
 
 %global upstream_name redis
 
-Name:           python-%{upstream_name}
+Name:           python-redis
 Version:        2.10.3
 Release:        1%{?dist}
 Summary:        Python 2 interface to the Redis key-value store
@@ -16,7 +16,7 @@ BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
 BuildRequires:  python-py
 BuildRequires:  pytest
-BuildRequires:  redis
+#BuildRequires:  redis
 
 %description
 This is a Python 2 interface to the Redis key-value store.
