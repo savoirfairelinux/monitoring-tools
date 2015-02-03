@@ -48,7 +48,7 @@ pushd %{py3dir}
 %{__python3} setup.py build
 popd
 %endif
-%{__python2} setup.py build
+python setup.py build
 
 %install
 %if 0%{?with_python3}
@@ -56,7 +56,7 @@ pushd %{py3dir}
 %{__python3} setup.py install -O1 --skip-build --root=%{buildroot}
 popd
 %endif
-%{__python2} setup.py install -O1 --skip-build --root %{buildroot}
+python setup.py install -O1 --skip-build --root %{buildroot}
 
 %check
 #redis-server &
@@ -65,7 +65,7 @@ pushd %{py3dir}
 %{__python3} setup.py test
 popd
 %endif
-#%{__python2} setup.py test
+#python setup.py test
 #kill %1
 
 %files
