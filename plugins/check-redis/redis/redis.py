@@ -222,7 +222,6 @@ class CheckRedis(ShinkenPlugin):
         critical= float(critical)
         warning= float(warning)
 
-        total_time="%0.2f"%(float(total_time))
         message = "ping %d times cost %s seconds" % (count, total_time)
         code = STATES.OK
         if warning is not None and critical is not None:
