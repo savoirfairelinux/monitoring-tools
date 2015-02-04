@@ -1,0 +1,5 @@
+monitoring-plugins-sfl-check-apache-server-status (2015.2.4.16.33-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Savoir-faire Linux <supervision@savoirfairelinux.com>  Wed, 04 Feb 2015 21:33:45 -0000

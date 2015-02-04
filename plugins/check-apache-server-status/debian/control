@@ -1,0 +1,15 @@
+Source: monitoring-plugins-sfl-check-apache-server-status
+Section: python
+Priority: optional
+Maintainer: Savoir-faire Linux <supervision@savoirfairelinux.com>
+Build-Depends: debhelper (>= 9), python-setuptools
+Standards-Version: 3.9.5
+Homepage: https://github.com/savoirfairelinux/monitoring-tools
+Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
+
+Package: monitoring-plugins-sfl-check-apache-server-status
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins
+Description: Get Apache metrics from mod_status Apache status
+ More information is available on Github:
+ https://github.com/savoirfairelinux/sfl-shinken-plugins
