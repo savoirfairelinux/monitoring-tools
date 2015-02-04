@@ -17,6 +17,7 @@
 # Copyright (C) 2014, vdnguyen <vanduc.nguyen@savoirfairelinux.com>
 
 
+from __future__ import absolute_import
 import sys
 import time
 import subprocess
@@ -27,11 +28,7 @@ from shinkenplugins import BasePlugin, PerfData, STATES
 from shinkenplugins.plugin import ShinkenPlugin
 
 try:
-    # Find a better way
-    save_path = sys.path[:]
-    sys.path = sys.path[1:]
     import redis
-    sys.path = save_path
 except ImportError, e:
     print e
     sys.exit(STATES.OK)
@@ -47,8 +44,8 @@ class CheckRedis(ShinkenPlugin):
     def __init__(self):
         super(CheckRedis, self).__init__()
         parser = self.parser
-        parser.add_argument('--warning', '-w', required=False, help='Limit to result in a warning state')
-        parser.add_argument('--critical', '-c', required=False, help='Limit to result in a critical state')
+        parser.add_argument('--warning', '-w', required=False, help='Limit to result in a warning state', default=None)
+        parser.add_argument('--critical', '-c', required=False, help='Limit to result in a critical state', default=None)
         parser.add_argument('--unit', '-u', required=False, help='The unit for representation: KB, MB, GB by default: KB')
         parser.add_argument('--port', '-p', required=False, help='Port of Redis', default=6379)
         parser.add_argument('--command', '-C', required=True,
@@ -59,14 +56,11 @@ class CheckRedis(ShinkenPlugin):
         parser.add_argument('--db', '-d', required=False, help='Database id', default=0)
     
     def handler_timeout(self, signum, frame):
-        self.exit(STATES.UNKNOWN, "WARNING: Could not connect to Redis")
+        self.exit(STATES.CRITICAL, "Could not connect to Redis")
 
     def check_connect(self, con, host, port, warning, critical, db):
         signal.signal(signal.SIGALRM, self.handler_timeout)
         signal.alarm(30)
-
-        #p = subprocess.Popen(["redis-cli", "info"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        #out, err = p.communicate()
         try:
             start_time = time.time()
             con.info()
@@ -77,138 +71,174 @@ class CheckRedis(ShinkenPlugin):
             self.exit(code, message)
         
         connection_time = end_time - start_time
-        warning = float(warning)
-        critical = float(critical)
-        if connection_time > critical:
-            code = STATES.CRITICAL
-            message = "Connection to Redis seems slow: %0.2f s" % connection_time
-        elif connection_time > warning:
-            code = STATES.WARNING
-            message = "Connection to Redis seems slow: %0.2f s" % connection_time
+        code = STATES.OK
+        message = "connection is good: %0.2f s" % connection_time
+        if warning is not None and critical is not None:
+            warning = float(warning)
+            critical = float(critical)
+            if connection_time > critical:
+                code = STATES.CRITICAL
+                message = "Connection to Redis seems slow: %0.2f s" % connection_time
+            elif connection_time > warning:
+                code = STATES.WARNING
+                message = "Connection to Redis seems slow: %0.2f s" % connection_time
+            p1 = PerfData("connection_time", "%0.2f" % connection_time, unit="s", warn=warning, crit=critical, min_=0)
         else:
-            code = STATES.OK
-            message = "connection is good: %0.2f s" % connection_time
+            p1 = PerfData("connection_time", "%0.2f" % connection_time, unit="s", min_=0)
 
-        p1 = PerfData("connection_time", "%0.2f" % connection_time, unit="s", warn=warning, crit=critical, min_=0)
         self.exit(code, message, p1)
 
     def check_connected_clients(self, con, host, port, warning, critical):
-        result = con.info()
+        try:
+            result = con.info()
+        except Exception:
+            code = STATES.CRITICAL
+            message = "Could not connect to Redis at host: %s, %d" %(host, port)
+            self.exit(code, message)
         connected_count = int(result["connected_clients"])
 
-        critical = int(critical)
-        warning = int(warning)
-
-        if connected_count > critical:
-            message = "CRITICAL: there's %s connected clients" % connected_count
-            code = STATES.CRITICAL
-        elif connected_count > warning:
-            message = "WARNING: there's %s connected clients" % connected_count
-            code = STATES.WARNING
+        message = "there's %s connected clients" % connected_count
+        code = STATES.OK
+        if warning is not None and critical is not None:
+            critical = int(critical)
+            warning = int(warning)
+            if connected_count > critical:
+                message = "there's %s connected clients" % connected_count
+                code = STATES.CRITICAL
+            elif connected_count > warning:
+                message = "there's %s connected clients" % connected_count
+                code = STATES.WARNING
+            p1 = PerfData("connected_count", connected_count, unit="clients", warn=warning, crit=critical, min_=0)
         else:
-            message = "OK: there's %s connected clients" % connected_count
-            code = STATES.OK
-
-        p1 = PerfData("connected_count", connected_count, unit="clients", warn=warning, crit=critical, min_=0)
+            p1 = PerfData("connected_count", connected_count, unit="clients", min_=0)
         self.exit(code, message, p1)
 
     def check_used_memory(self, con, host, port, warning, critical):
-        result = con.info()
+        try:
+            result = con.info()
+        except Exception:
+            code = STATES.CRITICAL
+            message = "Could not connect to Redis at host: %s, %d" %(host, port)
+            self.exit(code, message)
         used_memory = float(result["used_memory"])
 
-        critical = float(critical)
-        warning = float(warning)
-
-        if used_memory > critical:
-            message = "CRITICAL: current used memory is %s B" % used_memory
-            code = STATES.CRITICAL
-        elif used_memory > warning:
-            message = "WARNING: current used memory is %s B" % used_memory
-            code = STATES.WARNING
+        message = "current used memory is %s B" % used_memory
+        code = STATES.OK
+        if warning is not None and critical is not None:
+            critical = float(critical)
+            warning = float(warning)
+            if used_memory > critical:
+                message = "current used memory is %s B" % used_memory
+                code = STATES.CRITICAL
+            elif used_memory > warning:
+                message = "current used memory is %s B" % used_memory
+                code = STATES.WARNING
+            p1 = PerfData("used_memory", used_memory, unit="B", warn=warning, crit=critical, min_=0)
         else:
-            message = "OK: current used memory is %s B" % used_memory
-            code = STATES.OK
+            p1 = PerfData("used_memory", used_memory, unit="B", warn=warning, crit=critical, min_=0)
 
-        p1 = PerfData("used_memory", used_memory, unit="B", warn=warning, crit=critical, min_=0)
         self.exit(code, message, p1)
 
     def check_used_memory_human(self, con, host, port, warning, critical, unit):
-        result = con.info()
+        try:
+            result = con.info()
+        except Exception:
+            code = STATES.CRITICAL
+            message = "Could not connect to Redis at host: %s, %d" %(host, port)
+            self.exit(code, message)
+
         used_memory_human = result["used_memory_human"]
         used_memory_human = used_memory_human[:-1]
         used_memory_human = float(used_memory_human)
-        warning = float(warning)
-        critical = float(critical)
-
         if unit == "GB":
             used_memory_human = used_memory_human / 1024**2
         elif unit == "MB":
             used_memory_human = used_memory_human / 1024
 
-        if used_memory_human > critical:
-            message = "CRITICAL: current used memory is %.2f %s" % (used_memory_human, unit)
-            code = STATES.CRITICAL
-        elif used_memory_human > warning:
-            message = "WARNING: current used memory is %.2f %s" % (used_memory_human, unit)
-            code = STATES.WARNING
-        else:
-            message = "OK: current used memory is %.2f %s" % (used_memory_human, unit)
-            code = STATES.OK
+        message = "current used memory is %.2f %s" % (used_memory_human, unit)
+        code = STATES.OK
+        if warning is not None and critical is not None:
+            warning = float(warning)
+            critical = float(critical)
+            if used_memory_human > critical:
+                message = "current used memory is %.2f %s" % (used_memory_human, unit)
+                code = STATES.CRITICAL
+            elif used_memory_human > warning:
+                message = "current used memory is %.2f %s" % (used_memory_human, unit)
+                code = STATES.WARNING
 
         used_memory_human = "%0.2f"%(used_memory_human)
-        warning = "%0.2f"%(warning)
-        critical = "%0.2f"%(critical)
-        p1 = PerfData("used_memory_human", used_memory_human, unit=unit, warn=warning, crit=critical, min_=0)
+        if warning is not None and critical is not None:
+            warning = "%0.2f"%(warning)
+            critical = "%0.2f"%(critical)
+            p1 = PerfData("used_memory_human", used_memory_human, unit=unit, warn=warning, crit=critical, min_=0)
+        else:
+            p1 = PerfData("used_memory_human", used_memory_human, unit=unit, min_=0)
+
         self.exit(code, message, p1)
 
     def check_used_memory_rss(self, con, host, port, warning, critical):
-        result = con.info()
+        try:
+            result = con.info()
+        except Exception:
+            code = STATES.CRITICAL
+            message = "Could not connect to Redis at host: %s, %d" %(host, port)
+            self.exit(code, message)
+
         used_memory_rss = float(result["used_memory_rss"])
 
         critical= float(critical)
         warning= float(warning)
 
-        if used_memory_rss > critical:
-            message = "CRITICAL: current used memory rss is %s B" % used_memory_rss
-            code = STATES.CRITICAL
-        elif used_memory_rss > warning:
-            message = "WARNING: current used memory rss is %s B" % used_memory_rss
-            code = STATES.WARNING
+        message = "current used memory rss is %s B " % used_memory_rss
+        code = STATES.OK
+        if warning is not None and critical is not None:
+            if used_memory_rss > critical:
+                message = "current used memory rss is %s B" % used_memory_rss
+                code = STATES.CRITICAL
+            elif used_memory_rss > warning:
+                message = "current used memory rss is %s B" % used_memory_rss
+                code = STATES.WARNING
+            p1 = PerfData("used_memory_rss", used_memory_rss, unit="B", warn=warning, crit=critical, min_=0)
         else:
-            message = "OK: current used memory rss is %s B " % used_memory_rss
-            code = STATES.OK
+            p1 = PerfData("used_memory_rss", used_memory_rss, unit="B",  min_=0)
 
-        p1 = PerfData("used_memory_rss", used_memory_rss, unit="B", warn=warning, crit=critical, min_=0)
         self.exit(code, message, p1)
 
     def check_latency(self, con, host, port, warning, critical):
         st = time.time()
-        count = 10000
-        for i in range(count):
-            con.ping()
-        et = time.time()
-        total_time = et - st
+        count = 100
+        try:
+            for i in range(count):
+                con.ping()
+            et = time.time()
+            total_time = et - st
+        except Exception:
+            code = STATES.CRITICAL
+            message = "Could not connect to Redis at host: %s, %d" %(host, port)
+            self.exit(code, message)
 
         total_time=float(total_time)
         critical= float(critical)
         warning= float(warning)
 
-        if total_time > critical:
-            total_time="%0.2f"%(float(total_time))
-            message = "CRITICAL: ping %d times cost %s seconds" % (count, total_time)
-            code = STATES.CRITICAL
-        elif total_time > warning:
-            total_time="%0.2f"%(float(total_time))
-            message = "WARNING: ping %d times cost %s seconds" % (count, total_time)
-            code = STATES.WARNING
+        total_time="%0.2f"%(float(total_time))
+        message = "ping %d times cost %s seconds" % (count, total_time)
+        code = STATES.OK
+        if warning is not None and critical is not None:
+            if total_time > critical:
+                total_time="%0.2f"%(float(total_time))
+                message = "ping %d times cost %s seconds" % (count, total_time)
+                code = STATES.CRITICAL
+            elif total_time > warning:
+                total_time="%0.2f"%(float(total_time))
+                message = "ping %d times cost %s seconds" % (count, total_time)
+                code = STATES.WARNING
+            warning = "%0.2f"%(warning)
+            critical = "%0.2f"%(critical)
+            p1 = PerfData("total_time", total_time, unit="s", warn=warning, crit=critical, min_=0)
         else:
-            total_time="%0.2f"%(float(total_time))
-            message = "OK: ping %d times cost %s seconds" % (count, total_time)
-            code = STATES.OK
-
-        warning = "%0.2f"%(warning)
-        critical = "%0.2f"%(critical)
-        p1 = PerfData("total_time", total_time, unit="s", warn=warning, crit=critical, min_=0)
+            p1 = PerfData("total_time", total_time, unit="s", min_=0)
         self.exit(code, message, p1)
 
     def run(self, arguments):
