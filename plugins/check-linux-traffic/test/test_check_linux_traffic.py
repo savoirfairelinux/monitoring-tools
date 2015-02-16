@@ -98,7 +98,6 @@ class TestPlugin(unittest.TestCase):
             sys.stdout = out
             check_linux_traffic.main()
         except SystemExit, e:
-            self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 0)
             output = out.getvalue().strip()
             assert output == "Waiting next check to get data..."
