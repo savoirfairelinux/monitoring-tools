@@ -15,10 +15,9 @@
 
 # Copyright (C) 2014, Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
 
-import check_amt_montreal
-from check_amt_montreal import Plugin
+from shinkenplugins.plugins.amt_montreal import Plugin
 
-from shinkenplugins import TestPlugin
+from shinkenplugins.test import TestPlugin
 
 class Test(TestPlugin):
     def test_version(self):

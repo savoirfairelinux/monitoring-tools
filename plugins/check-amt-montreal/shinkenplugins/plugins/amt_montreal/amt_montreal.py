@@ -17,9 +17,14 @@
 # Copyright (C) 2014, Savoir-faire Linux, Inc.
 # Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
 
-from shinkenplugins import BasePlugin, PerfData, STATES
+
 import urllib2
-import gtfs_realtime_pb2 as gtfs
+
+from shinkenplugins.old import BasePlugin
+from shinkenplugins.states import STATES
+from shinkenplugins.perfdata import PerfData
+
+from . import gtfs_realtime_pb2 as gtfs
 
 
 class Plugin(BasePlugin):
@@ -90,5 +95,10 @@ class Plugin(BasePlugin):
         else:
             self.exit(STATES.CRITICAL, 'CRITICAL - ' + message, perfdata)
 
+
+def main(argv=None):
+    Plugin(argv)
+
+
 if __name__ == "__main__":
-    Plugin()
+    main()
