@@ -23,7 +23,7 @@ import datetime
 import argparse
 import warnings
 
-from shinkenplugins import PerfData
+from shinkenplugins.perfdata import PerfData
 from shinkenplugins.helpers.argparse import escape_help
 from shinkenplugins.helpers.argparse.parsing.bytes import (
     ByteAmountParser,
@@ -35,7 +35,7 @@ from shinkenplugins.plugin import ShinkenPlugin
 #############################################################################
 
 unit_to_transformer = adv_byte_unit_to_transformer.copy()
-unit_to_transformer[''] = lambda value: value * 2**30 # no unit -> GB
+unit_to_transformer[''] = lambda value: value * 2**30  # no unit -> GB
 
 parse_bandwidth = ByteAmountParser('byte or percent', unit_transformers=unit_to_transformer)
 
@@ -543,9 +543,9 @@ Plugin = CheckLinuxBandwidth
 
 ############################################################################
 
-def main():
+def main(argv=None):
     plugin = CheckLinuxBandwidth()
-    plugin.execute()
+    plugin.execute(argv)
 
 
 if __name__ == "__main__":

@@ -20,9 +20,10 @@ import unittest
 import shutil
 import os
 
-from shinkenplugins import TestPlugin
+from shinkenplugins.test import TestPlugin
 
-from linux_bandwidth import Plugin
+from shinkenplugins.plugins.linux_bandwidth import Plugin
+
 
 class Test(TestPlugin):
     def setUp(self):
