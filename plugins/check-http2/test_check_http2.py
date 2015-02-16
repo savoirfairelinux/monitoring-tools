@@ -18,7 +18,7 @@
 
 import unittest
 
-from http2 import Plugin
+from shinkenplugins.plugins.http2 import Plugin
 
 from shinkenplugins import TestPlugin
 

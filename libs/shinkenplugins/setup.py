@@ -43,10 +43,15 @@ with open(join(dirname(abspath(__file__)), 'shinkenplugins', 'VERSION')) as fh:
 
 #############################################################################
 
+packages = find_packages()
 setup(
     name='shinkenplugins',
     version=VERSION,
-    packages=find_packages(),
+    packages=packages,
+    namespace_packages=[
+        'shinkenplugins',
+        'shinkenplugins.plugins'
+    ],
     #install_requires=install_requires,
     #zip_safe=False,
     author="Grégory Starck",
