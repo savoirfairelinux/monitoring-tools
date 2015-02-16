@@ -16,9 +16,14 @@
 
 # Copyright (C) 2014, Alexandre Viau <alexandre@alexandreviau.net>
 
-from shinkenplugins import BasePlugin, PerfData, STATES
-import boto
+
 import datetime
+
+import boto
+
+from shinkenplugins.old import BasePlugin
+from shinkenplugins.perfdata import PerfData
+from shinkenplugins.states import STATES
 
 
 class Plugin(BasePlugin):
@@ -117,5 +122,10 @@ class Plugin(BasePlugin):
         else:
             self.exit(STATES.OK, "OK", *perf_data)
 
+
+def main(argv=None):
+    Plugin(argv)
+
+
 if __name__ == "__main__":
-    Plugin()
+    main()
