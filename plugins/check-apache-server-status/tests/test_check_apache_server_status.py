@@ -14,12 +14,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Copyright (C) 2014, vdnguyen <vanduc.nguyen@savoirfairelinux.com>
+#               2015, gstarck <gregory.starck@savoirfairelinux.com>
+
 
 import unittest
 
-from shinkenplugins import TestPlugin
+from shinkenplugins.test import TestPlugin
 
-from apache_server_status import Plugin
+from shinkenplugins.plugins.apache_server_status import Plugin
+
 
 class Test(TestPlugin):
     def setUp(self):
@@ -42,6 +45,10 @@ class Test(TestPlugin):
     #              'regex to check against the output')
     # You can also add debug=True, to get useful information
     # to debug your plugins
+
+    # TODO: do really useful tests (I mean more useful than testing the version/help arguments ..)
+
+
 
 if __name__ == '__main__':
     unittest.main()

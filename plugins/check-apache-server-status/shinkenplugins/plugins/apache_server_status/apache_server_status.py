@@ -16,23 +16,13 @@
 
 # Copyright (C) 2014, vdnguyen <vanduc.nguyen@savoirfairelinux.com>
 
-import os
-import os.path
-import time
-import datetime
-import argparse
-import warnings
+
 import urllib
 import re
 
-from shinkenplugins import PerfData
-from shinkenplugins.helpers.argparse import escape_help
-from shinkenplugins.helpers.argparse.parsing.bytes import (
-    ByteAmountParser,
-    adv_byte_unit_to_transformer,
-    PercentValue,
-)
+from shinkenplugins.perfdata import PerfData
 from shinkenplugins.plugin import ShinkenPlugin
+
 
 class CheckApacheServerStatus(ShinkenPlugin):
     NAME = 'apache_server_status'
@@ -52,27 +42,20 @@ class CheckApacheServerStatus(ShinkenPlugin):
                                  help='option to show perfdata'),
 
 
-    def parse_args(self, args):
-        """ Use this function to handle complex conditions """
-        args = super(CheckApacheServerStatus, self).parse_args(args)
-        return args
-
-
     def run(self, args):
         """ Main Plugin function """
         # Here is the core of the plugin.
         # After doing your verifications, escape by doing:
         # self.exit(return_code, 'return_message', *performance_data)
-        scheme = 'http://'
-        if args.ssl:
-            scheme = 'https://'
+
+        scheme = 'https://' if args.ssl else 'http://'
 
         url = scheme + args.hostname + "/" + args.url + "?auto"
     
         try:
             filehandle = urllib.urlopen(url)
-        except Exception as exp:
-            self.unknown("Server seems not available")
+        except Exception as err:
+            self.unknown("Unexpected error: %s" % err)
 
         metrics = {"Total Accesses:(.*)": ("total_acc", "accesses"),
                    "Total kBytes:(.*)": ("total_Kb", "Kb"),
@@ -99,7 +82,7 @@ class CheckApacheServerStatus(ShinkenPlugin):
                     
         if results == {}:
             message = "No data found on %s. Please check you apache configuration"
-            self.unknown("Server seems not available")
+            self.unknown("Server seems not available (%s)" % message)
 
         message = " # ".join([ "%s: %0.2f" % (n, v) for n, v in results.items()])
         self.ok(message, *perfdatas)
@@ -112,9 +95,9 @@ Plugin = CheckApacheServerStatus
 
 ############################################################################
 
-def main():
+def main(argv=None):
     plugin = CheckApacheServerStatus()
-    plugin.execute()
+    plugin.execute(argv)
 
 
 if __name__ == "__main__":
