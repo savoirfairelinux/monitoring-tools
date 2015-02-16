@@ -14,10 +14,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Copyright (C) 2014, Alexandre Viau <alexandre.viau@savoirfairelinux.com>
+#               2015, Grégory Starck <gregory.starck@savoirfairelinux.com>
 
-from check_aws_sqs_queue_size import Plugin
 
-from shinkenplugins import TestPlugin
+import unittest
+
+from shinkenplugins.test import TestPlugin
+from shinkenplugins.plugins.aws_sqs_queue_size import Plugin
+
 
 class Test(TestPlugin):
     def test_version(self):
@@ -38,3 +42,7 @@ class Test(TestPlugin):
     #              'regex to check against the output')
     # You can also add debug=True, to get useful information
     # to debug your plugins
+
+
+if __name__ == '__main__':
+    unittest.main()
