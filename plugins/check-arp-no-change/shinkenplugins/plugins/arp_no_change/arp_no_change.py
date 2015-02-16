@@ -264,5 +264,9 @@ class Plugin(BasePlugin):
 
 #############################################################################
 
+def main(argv=None):
+    Plugin(argv)
+
+
 if __name__ == "__main__":
-    Plugin()
+    main()

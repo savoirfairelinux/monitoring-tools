@@ -195,7 +195,7 @@ class Plugin(BasePlugin):
         return True, None
 
     def run2(self, host, mac, if_name='eth0', **kw):
-        r = arprequest.ArpRequest(host, if_name=if_name)
+        r = ArpRequest(host, if_name=if_name)
         response = r.request()
         if response:
             src_hw, src_pt, dst_hw, dst_pt = response
@@ -210,5 +210,10 @@ class Plugin(BasePlugin):
         self.run2(**args)
         self.ok('OK given MAC address corresponds to host')
 
+
+def main(argv=None):
+    Plugin(argv)
+
+
 if __name__ == "__main__":
-    Plugin()
+    main()

@@ -25,8 +25,9 @@ import mock
 
 from shinkenplugins import TestPlugin
 
-import check_arp_no_change
-from check_arp_no_change import ArpRequest, Plugin
+
+from shinkenplugins.plugins.arp_no_change import Plugin
+from shinkenplugins.plugins.arp_no_change.arp_no_change import ArpRequest
 
 # make sure to inherit from object
 #  for super(..) to behaves correctly/as desired.
@@ -109,7 +110,7 @@ def _get_arp_file_content(self):
 
 #############################################################################
 
-@mock.patch('check_arp_no_change.ArpRequest._get_arp_file_content', _get_arp_file_content)
+@mock.patch('shinkenplugins.plugins.arp_no_change.arp_no_change.ArpRequest._get_arp_file_content', _get_arp_file_content)
 class Test_ARP_mock(TestCheckARP):
 
     def test_unknown_interface(self):
@@ -134,8 +135,9 @@ class Test_ARP_mock(TestCheckARP):
 
 #############################################################################
 
-@mock.patch('check_arp_no_change._is_supported_platform', False)
-@mock.patch('check_arp_no_change.ArpRequest._can_read_arp_file', lambda self: False)
+@mock.patch('shinkenplugins.plugins.arp_no_change.arp_no_change._is_supported_platform', False)
+@mock.patch('shinkenplugins.plugins.arp_no_change.arp_no_change.ArpRequest._can_read_arp_file',
+            lambda self: False)
 class Test_ARP_Windows(TestCheckARP):
     def test_not_supported(self):
         self.execute(('-H', '172.17.0.12', '-i', 'eth1', '-m', 'e6:9e:ed:bc:b6:67'),
@@ -143,7 +145,7 @@ class Test_ARP_Windows(TestCheckARP):
 
 #############################################################################
 
-@mock.patch('check_arp_no_change.ArpRequest._can_read_arp_file', lambda self: False)
+@mock.patch('shinkenplugins.plugins.arp_no_change.arp_no_change.ArpRequest._can_read_arp_file', lambda self: False)
 class Test_ARP_with_arp_tool(TestCheckARP):
 
     @classmethod
