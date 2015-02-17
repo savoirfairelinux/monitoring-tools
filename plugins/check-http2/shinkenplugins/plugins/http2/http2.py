@@ -23,7 +23,7 @@ import datetime
 
 ############################################################################
 
-from shinkenplugins import PerfData, STATES
+from shinkenplugins.perfdata import PerfData
 from shinkenplugins.plugin import ShinkenPlugin
 
 ############################################################################
