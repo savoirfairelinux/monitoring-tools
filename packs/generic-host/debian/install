@@ -1,2 +1,2 @@
-pack /etc/shinken/packs/generic-host
-package.json /etc/shinken/packs/generic-host
+pack /usr/lib/monitoring/packs/sfl/generic-host
+package.json /usr/lib/monitoring/packs/sfl/generic-host

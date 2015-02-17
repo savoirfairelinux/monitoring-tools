@@ -13,4 +13,4 @@ Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Shinken packs from SFL. Linux active checks based on NRPE
  More information is available on Github:
- https://github.com/savoirfairelinux/sfl-shinken-packs
+ https://github.com/savoirfairelinux/monitoring-tools

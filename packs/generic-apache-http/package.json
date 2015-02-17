@@ -1,0 +1,25 @@
+{
+	"name": "sfl-generic-apache-http",
+	"types": ["pack"],
+	"version": "1.0",
+	"homepage": "https://github.com/savoirfairelinux/monitoring-tools",
+	"author": "Thibault Cohen",
+	"description": "Apache webserver stats",
+	"contributors": [
+	  {
+		"name": "Thibault Cohen",
+		"email": "thibault.cohen@savoirfairelinux.com"
+	  },
+	],
+	"repository": "https://github.com/savoirfairelinux/monitoring-tools",
+	"keywords": [
+	  "pack",
+	  "generic-apache-http"
+	  
+	],
+	"dependencies": {
+	  "shinken": ">=1.4"
+	},
+	"license": "GPL",
+    "plugin": "check-apache-server-status"
+}

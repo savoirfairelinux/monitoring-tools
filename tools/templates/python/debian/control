@@ -12,4 +12,4 @@ Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins
 Description: {{ desc }}
  More information is available on Github:
- https://github.com/savoirfairelinux/sfl-shinken-plugins
+ https://github.com/savoirfairelinux/monitoring-tools

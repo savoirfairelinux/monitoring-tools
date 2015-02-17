@@ -1,2 +1,2 @@
-pack /etc/shinken/packs/generic-ssh
-package.json /etc/shinken/packs/generic-ssh
+pack /usr/lib/monitoring/packs/sfl/generic-ssh
+package.json /usr/lib/monitoring/packs/sfl/generic-ssh

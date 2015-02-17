@@ -12,4 +12,4 @@ Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: {{ desc }}
  More information is available on Github:
- https://github.com/savoirfairelinux/sfl-shinken-packs
+ https://github.com/savoirfairelinux/monitoring-tools

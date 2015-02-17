@@ -1,2 +1,2 @@
-pack /etc/shinken/packs/generic-ldap
-package.json /etc/shinken/packs/generic-ldap
+pack /usr/lib/monitoring/packs/sfl/generic-ldap
+package.json /usr/lib/monitoring/packs/sfl/generic-ldap

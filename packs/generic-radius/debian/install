@@ -1,2 +1,2 @@
-pack /etc/shinken/packs/generic-radius
-package.json /etc/shinken/packs/generic-radius
+pack /usr/lib/monitoring/packs/sfl/generic-radius
+package.json /usr/lib/monitoring/packs/sfl/generic-radius

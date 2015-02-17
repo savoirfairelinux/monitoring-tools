@@ -1,0 +1,15 @@
+Source: monitoring-packs-sfl-generic-redis
+Section: python
+Priority: optional
+Maintainer: Savoir-faire Linux <supervision@savoirfairelinux.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+Homepage: https://github.com/savoirfairelinux/monitoring-tools
+Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
+
+Package: monitoring-packs-sfl-generic-redis
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Pack for Redis server
+ More information is available on Github:
+ https://github.com/savoirfairelinux/monitoring-tools

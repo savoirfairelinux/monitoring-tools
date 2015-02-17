@@ -71,7 +71,7 @@ def main(args):
     # template variables
     tvars = dict(args)
 
-    tvars['doc_name'] = "%s\n%s" % (tvars['name'], "=" * len(tvars['name']))
+    tvars['doc_name'] = "sfl-%s\n%s" % (tvars['name'], "=" * (len(tvars['name'] + 4)))
     now = datetime.now()
     tvars['year'] = now.year
     tvars['date_long'] = '%s.%s.%s.%s.%s' % (now.year, now.month, now.day, now.hour, now.minute)

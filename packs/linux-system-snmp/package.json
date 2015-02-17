@@ -1,0 +1,23 @@
+{
+	"name": "linux-system-snmp",
+	"types": ["pack"],
+	"version": "1.0",
+	"homepage": "https://github.com/savoirfairelinux/monitoring-tools",
+	"author": "Thibault Cohen",
+    "description": "Pack for Linux server",
+	"contributors": [
+	  {
+		"name": "Thibault Cohen",
+		"email": "thibault.cohen@savoirfairelinux.com"
+	  }
+	],
+	"repository": "https://github.com/savoirfairelinux/monitoring-tools",
+	"keywords": [
+	  "pack",
+      "pack","linux-system-snmp"
+	],
+	"dependencies": {
+	  "shinken": ">=1.4"
+	},
+	"license": "GPL"
+}

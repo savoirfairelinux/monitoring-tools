@@ -1,2 +1,2 @@
-pack /etc/shinken/packs/linux-saltminion-collectd
-package.json /etc/shinken/packs/linux-saltminion-collectd
+pack /usr/lib/monitoring/packs/sfl/linux-saltminion-collectd
+package.json /usr/lib/monitoring/packs/sfl/linux-saltminion-collectd

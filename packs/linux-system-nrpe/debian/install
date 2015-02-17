@@ -1,2 +1,2 @@
-pack /etc/shinken/packs/linux-system-nrpe
-package.json /etc/shinken/packs/linux-system-nrpe
+pack /usr/lib/monitoring/packs/sfl/linux-system-nrpe
+package.json /usr/lib/monitoring/packs/sfl/linux-system-nrpe

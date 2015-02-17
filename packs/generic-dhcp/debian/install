@@ -1,2 +1,2 @@
-pack /etc/shinken/packs/generic-dhcp
-package.json /etc/shinken/packs/generic-dhcp
+pack /usr/lib/monitoring/packs/sfl/generic-dhcp
+package.json /usr/lib/monitoring/packs/sfl/generic-dhcp

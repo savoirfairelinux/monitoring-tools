@@ -13,4 +13,4 @@ Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: :description:       The Radius udp port to query. Default: 1812
  More information is available on Github:
- https://github.com/savoirfairelinux/sfl-shinken-packs
+ https://github.com/savoirfairelinux/monitoring-tools

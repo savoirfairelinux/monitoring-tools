@@ -1,2 +1,2 @@
-pack /etc/shinken/packs/windows-sophos-mssql
-package.json /etc/shinken/packs/windows-sophos-mssql
+pack /usr/lib/monitoring/packs/sfl/windows-sophos-mssql
+package.json /usr/lib/monitoring/packs/sfl/windows-sophos-mssql

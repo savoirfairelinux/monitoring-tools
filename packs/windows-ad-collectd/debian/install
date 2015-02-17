@@ -1,2 +1,2 @@
-pack /etc/shinken/packs/windows-ad-collectd
-package.json /etc/shinken/packs/windows-ad-collectd
+pack /usr/lib/monitoring/packs/sfl/windows-ad-collectd
+package.json /usr/lib/monitoring/packs/sfl/windows-ad-collectd

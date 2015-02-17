@@ -1,2 +1,2 @@
-pack /etc/shinken/packs/linux-saltmaster-collectd
-package.json /etc/shinken/packs/linux-saltmaster-collectd
+pack /usr/lib/monitoring/packs/sfl/linux-saltmaster-collectd
+package.json /usr/lib/monitoring/packs/sfl/linux-saltmaster-collectd

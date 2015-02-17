@@ -1,2 +1,2 @@
-pack /etc/shinken/packs/linux-ntp-collectd
-package.json /etc/shinken/packs/linux-ntp-collectd
+pack /usr/lib/monitoring/packs/sfl/linux-ntp-collectd
+package.json /usr/lib/monitoring/packs/sfl/linux-ntp-collectd

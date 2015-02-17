@@ -1,2 +1,2 @@
-pack /etc/shinken/packs/generic-graphite-http
-package.json /etc/shinken/packs/generic-graphite-http
+pack /usr/lib/monitoring/packs/sfl/generic-graphite-http
+package.json /usr/lib/monitoring/packs/sfl/generic-graphite-http

@@ -1,2 +1,2 @@
-pack /etc/shinken/packs/generic-saltmaster-tcp
-package.json /etc/shinken/packs/generic-saltmaster-tcp
+pack /usr/lib/monitoring/packs/sfl/generic-saltmaster-tcp
+package.json /usr/lib/monitoring/packs/sfl/generic-saltmaster-tcp

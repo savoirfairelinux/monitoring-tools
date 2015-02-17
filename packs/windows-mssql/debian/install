@@ -1,3 +1,3 @@
-pack /etc/shinken/packs/windows-mssql
-package.json /etc/shinken/packs/windows-mssql
+pack /usr/lib/monitoring/packs/sfl/windows-mssql
+package.json /usr/lib/monitoring/packs/sfl/windows-mssql
 share/* /var/lib/shinken/share

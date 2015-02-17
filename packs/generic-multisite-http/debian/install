@@ -1,2 +1,2 @@
-pack /etc/shinken/packs/generic-multisite-http
-package.json /etc/shinken/packs/generic-multisite-http
+pack /usr/lib/monitoring/packs/sfl/generic-multisite-http
+package.json /usr/lib/monitoring/packs/sfl/generic-multisite-http

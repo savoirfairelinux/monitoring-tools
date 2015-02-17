@@ -1,2 +1,2 @@
-pack /etc/shinken/packs/generic-smb
-package.json /etc/shinken/packs/generic-smb
+pack /usr/lib/monitoring/packs/sfl/generic-smb
+package.json /usr/lib/monitoring/packs/sfl/generic-smb

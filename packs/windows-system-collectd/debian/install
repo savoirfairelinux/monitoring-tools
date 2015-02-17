@@ -1,2 +1,2 @@
-pack /etc/shinken/packs/windows-system-collectd
-package.json /etc/shinken/packs/windows-system-collectd
+pack /usr/lib/monitoring/packs/sfl/windows-system-collectd
+package.json /usr/lib/monitoring/packs/sfl/windows-system-collectd

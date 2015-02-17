@@ -1,0 +1,9 @@
+{
+"name":"generic-mysql",
+
+"description":"Pack for mysql server",
+
+"path":"databases/",
+
+"macros":{
+}

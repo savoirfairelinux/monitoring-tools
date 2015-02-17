@@ -1,2 +1,2 @@
-pack /etc/shinken/packs/{{ name }}
-package.json /etc/shinken/packs/{{ name }}
+pack /usr/lib/monitoring/packs/sfl/{{ name }}
+package.json /usr/lib/monitoring/packs/sfl/{{ name }}

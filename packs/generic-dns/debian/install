@@ -1,2 +1,2 @@
-pack /etc/shinken/packs/generic-dns
-package.json /etc/shinken/packs/generic-dns
+pack /usr/lib/monitoring/packs/sfl/generic-dns
+package.json /usr/lib/monitoring/packs/sfl/generic-dns

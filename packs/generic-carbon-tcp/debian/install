@@ -1,2 +1,2 @@
-pack /etc/shinken/packs/generic-carbon-tcp
-package.json /etc/shinken/packs/generic-carbon-tcp
+pack /usr/lib/monitoring/packs/sfl/generic-carbon-tcp
+package.json /usr/lib/monitoring/packs/sfl/generic-carbon-tcp

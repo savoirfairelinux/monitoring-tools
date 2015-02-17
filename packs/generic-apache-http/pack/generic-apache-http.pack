@@ -1,0 +1,10 @@
+{
+"name":"generic-apache-http",
+
+"description":"HTTP requests on Rails servers",
+
+"path":"websites/",
+
+"macros":{
+        }
+}
