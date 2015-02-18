@@ -2,12 +2,17 @@
 set -e
 export GREP_OPTIONS=""
 
+
+wheel_house="/tmp/wheelhouse"
+
 # Setup a wheelhouse
-[ ! -d /tmp/wheelhouse ] && mkdir /tmp/wheelhouse
-pip wheel -w /tmp/wheelhouse lxml
-pip wheel -w /tmp/wheelhouse pysnmp
-pip wheel -w /tmp/wheelhouse nose
-pip wheel -w /tmp/wheelhouse shinkenplugins
+mkdir -p "$wheel_house"
+
+w="pip wheel --find-links=${wheel_house} -w ${wheel_house}"
+$w lxml
+$w pysnmp
+$w nose
+$w shinkenplugins
 
 # Plugins
 cd plugins
