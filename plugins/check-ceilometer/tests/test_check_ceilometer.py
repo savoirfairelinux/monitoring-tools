@@ -37,7 +37,7 @@ from StringIO import StringIO
 
 sys.path.append("..")
 
-from shinkenplugins.plugins import ceilometer
+from shinkenplugins.plugins.ceilometer import ceilometer
 
 
 class TestPlugin(unittest.TestCase):

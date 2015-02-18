@@ -34,6 +34,11 @@
 
 import getopt
 import sys
+import json
+
+from ceilometerclient import client as ceil_client
+
+
 
 PLUGIN_NAME = "check_ceilometer"
 PLUGIN_VERSION = "0.1"
@@ -104,9 +109,6 @@ Usage:
 def get_data(args):
     """Fetch data
     """
-    from ceilometerclient import client as ceil_client
-    import json
-
     try:
         ceilometer = ceil_client.get_client(
             '2',

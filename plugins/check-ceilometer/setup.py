@@ -34,7 +34,7 @@ long_description = (''' .. ''')
 
 setup(
     name='shinkenplugins.plugins.ceilometer',
-    version="1.0",
+    version="1.2",
     packages=find_packages(),
     author="Grégory Starck",
     author_email="gregory.starck@savoirfairelinux.com",
@@ -48,10 +48,18 @@ setup(
         'python-ceilometerclient==1.0.10',
         'python-keystoneclient==0.8.0',
     ],
-    zip_safe=False,
+    extras_require={
+        'test': [
+            'nose'
+        ],
+    },
     namespace_packages=[
         'shinkenplugins',
         'shinkenplugins.plugins',
     ],
+    entry_points="""
+    [console_scripts]
+    check_ceilometer = shinkenplugins.plugins.ceilometer:main
+    """,
 )
 
