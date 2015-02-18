@@ -34,9 +34,8 @@ import sys
 import os
 from StringIO import StringIO
 
-sys.path.append("..")
 
-import check_fake
+from shinkenplugins.plugins.fake import fake as check_fake
 
 
 class TestPlugin(unittest.TestCase):
