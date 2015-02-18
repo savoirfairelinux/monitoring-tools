@@ -16,6 +16,7 @@
 
 # Copyright (C) 2014, vdnguyen <vanduc.nguyen@savoirfairelinux.com>
 
+from __future__ import absolute_import
 
 import sys
 import time
@@ -23,18 +24,13 @@ import subprocess
 import signal
 
 
-from shinkenplugins import BasePlugin, PerfData, STATES
+import redis
+
+
+from shinkenplugins.perfdata import PerfData
+from shinkenplugins.states import STATES
 from shinkenplugins.plugin import ShinkenPlugin
 
-try:
-    # Find a better way
-    save_path = sys.path[:]
-    sys.path = sys.path[1:]
-    import redis
-    sys.path = save_path
-except ImportError, e:
-    print e
-    sys.exit(STATES.OK)
 
 class CheckRedis(ShinkenPlugin):
     NAME = 'check-redis'
@@ -245,9 +241,10 @@ class CheckRedis(ShinkenPlugin):
 Plugin = CheckRedis
 
 ############################################################################
-def main():
+
+def main(argv=None):
     plugin = CheckRedis()
-    plugin.execute()
+    plugin.execute(argv)
 
 
 if __name__ == "__main__":

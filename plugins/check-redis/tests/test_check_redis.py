@@ -17,10 +17,11 @@
 
 import unittest
 
-from redis import Plugin
 
+from shinkenplugins.test import TestPlugin
 
-from shinkenplugins import TestPlugin
+from shinkenplugins.plugins.redis import Plugin
+
 
 class Test(TestPlugin):
     def test_version(self):
