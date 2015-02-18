@@ -32,17 +32,17 @@
 import unittest
 import sys
 
-sys.path.append("..")
-import check_graphite_api
 
 from shinkenplugins.tools.tests.netecho import NetEcho
 from shinkenplugins.tools.tests.tests import TestPluginBase
+
+from shinkenplugins.plugins.graphite_api import graphite_api
 
 
 class TestPlugin(TestPluginBase):
 
     def setUp(self):
-        self._main = check_graphite_api.main
+        self._main = graphite_api.main
 
     def test_help(self):
         """Test help output :
@@ -58,7 +58,7 @@ class TestPlugin(TestPluginBase):
         """
         sys.argv = [sys.argv[0]]
         sys.argv.append('-V')
-        self.do_tst(3, "^check_graphite_api.py v%s" % check_graphite_api.PLUGIN_VERSION)
+        self.do_tst(3, "^check_graphite_api.py v%s" % graphite_api.PLUGIN_VERSION)
 
     def test_default_args(self):
         """Test default_args :
@@ -91,7 +91,7 @@ class TestPlugin(TestPluginBase):
 class TestPluginWithSocket(TestPluginBase):
 
     def setUp(self):
-        self._main = check_graphite_api.main
+        self._main = graphite_api.main
         self.nc = NetEcho(host='localhost', port=8080)
         self.nc.start()
 
