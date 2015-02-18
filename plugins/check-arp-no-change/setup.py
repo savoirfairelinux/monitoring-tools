@@ -43,13 +43,21 @@ setup(
     install_requires=[
         'shinkenplugins>0.2',
     ],
+    extras_require={
+        'test': [
+            'nose', 'mock'
+        ],
+    },
     name='shinkenplugins.plugins.arp_no_change',
-    version="1.0",
+    version="1.2",
     packages=find_packages(),
     namespace_packages=[
         'shinkenplugins',
         'shinkenplugins.plugins',
     ],
-    #zip_safe=False,
-
+    entry_points="""
+    [console_scripts]
+    check_arp_no_change = shinkenplugins.plugins.arp_no_change:main
+    check_arp_no_change_low_level = shinkenplugins.plugins.arp_no_change.arp_no_change_low_level:main
+    """,
 )

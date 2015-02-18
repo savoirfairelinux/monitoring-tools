@@ -18,18 +18,18 @@
 
 #############################################################################
 
-from shinkenplugins import BasePlugin, STATES
-
-DEFAULT_IFNAME = "eth0"
-
-#############################################################################
-
 import socket
+import time
+
 from socket import AF_PACKET, SOCK_RAW
 from struct import pack, unpack
 
-import time
+#############################################################################
 
+from shinkenplugins.old import BasePlugin
+
+
+DEFAULT_IFNAME = "eth0"
 
 ARP_GRATUITOUS = 1
 ARP_STANDARD = 2
@@ -39,7 +39,7 @@ def val2int(val):
     '''Retourne une valeur sous forme d'octet en valeur sous forme
        d'entier.'''
 
-    return int(''.join(['%02d'%ord(c) for c in val]), 16)
+    return int(''.join(['%02d' % ord(c) for c in val]), 16)
 
 
 # Classes :

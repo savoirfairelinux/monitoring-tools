@@ -18,7 +18,7 @@
 
 #############################################################################
 
-from shinkenplugins import BasePlugin, STATES
+from shinkenplugins.old import BasePlugin
 
 #############################################################################
 
