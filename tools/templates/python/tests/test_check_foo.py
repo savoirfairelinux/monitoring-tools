@@ -17,11 +17,12 @@
 
 import unittest
 
-from shinkenplugins import TestPlugin
+from shinkenplugins.test import TestPlugin
 
-from {{ short_name }} import Plugin
+from shinkenplugins.plugins.{{ short_name }} import Plugin
 
-class Test(TestPlugin):
+
+class Test{{ short_name }}(TestPlugin):
     def setUp(self):
         # Make stuff before all tests
         pass
@@ -42,6 +43,7 @@ class Test(TestPlugin):
     #              'regex to check against the output')
     # You can also add debug=True, to get useful information
     # to debug your plugins
+
 
 if __name__ == '__main__':
     unittest.main()

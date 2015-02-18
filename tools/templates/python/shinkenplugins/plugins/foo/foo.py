@@ -15,6 +15,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Copyright (C) 2014, vdnguyen <vanduc.nguyen@savoirfairelinux.com>
+#               2015, Grégory Starck <g.starck@gmail.com>
+
+
+from __future__ import absolute_import
 
 import os
 import os.path
@@ -23,13 +27,7 @@ import datetime
 import argparse
 import warnings
 
-from shinkenplugins import PerfData
-from shinkenplugins.helpers.argparse import escape_help
-from shinkenplugins.helpers.argparse.parsing.bytes import (
-    ByteAmountParser,
-    adv_byte_unit_to_transformer,
-    PercentValue,
-)
+from shinkenplugins.perfdata import PerfData
 from shinkenplugins.plugin import ShinkenPlugin
 
 class {{ exec_name_capitalized }}(ShinkenPlugin):
@@ -75,9 +73,9 @@ Plugin = {{ exec_name_capitalized }}
 
 ############################################################################
 
-def main():
+def main(argv=None):
     plugin = {{ exec_name_capitalized }}()
-    plugin.execute()
+    plugin.execute(argv)
 
 
 if __name__ == "__main__":
