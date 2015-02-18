@@ -37,7 +37,7 @@ from StringIO import StringIO
 
 sys.path.append("..")
 
-import check_ceilometer
+from shinkenplugins.plugins import ceilometer
 
 
 class TestPlugin(unittest.TestCase):
@@ -58,7 +58,7 @@ class TestPlugin(unittest.TestCase):
         """
         sys.argv = [sys.argv[0]]
         sys.argv.append('-V')
-        self.do_tst(3, "^check_ceilometer.py v%s" % check_ceilometer.PLUGIN_VERSION)
+        self.do_tst(3, "^check_ceilometer.py v%s" % ceilometer.PLUGIN_VERSION)
 
     def test_argument_not_recognized(self):
         unknown_arg = '--test_unknown_arg'
@@ -105,13 +105,14 @@ class TestPlugin(unittest.TestCase):
         try:
             out = StringIO()
             sys.stdout = out
-            check_ceilometer.main()
+            ceilometer.main()
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, return_val)
             output = out.getvalue().strip()
             matches = re.search(pattern_to_search, output)
             assert matches is not None
+
 
 if __name__ == '__main__':
     unittest.main()

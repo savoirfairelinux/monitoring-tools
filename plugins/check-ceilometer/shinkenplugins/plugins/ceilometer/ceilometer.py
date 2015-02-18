@@ -197,11 +197,14 @@ def check_arguments(args):
             sys.exit(STATE_UNKNOWN)
 
 
-def main():
+def main(argv=None):
     """Main function
     """
+    if argv is None:
+        argv = sys.argv[1:]
+
     try:
-        options, args = getopt.getopt(sys.argv[1:],
+        options, args = getopt.getopt(argv,
                                       'hVr:m:w:c:u:p:t:a:',
                                       ['help',
                                        'version',
@@ -250,6 +253,7 @@ def main():
     check_arguments(args)
 
     get_data(args)
+
 
 
 if __name__ == "__main__":
