@@ -353,11 +353,14 @@ def check_arguments(args):
         sys.exit(STATE_UNKNOWN)
 
 
-def main():
+def main(argv=None):
     """Main fonction
     """
+    if argv is None:
+        argv = sys.argv[1:]
+
     try:
-        options, args = getopt.getopt(sys.argv[1:],
+        options, args = getopt.getopt(argv,
                 'B:I:P:H:S:w:c:p:l:f:C:hVMsD',
                 ['broker-address=', 'broker-port=',
                 'mod-plugin', 'hostname=', 'help',

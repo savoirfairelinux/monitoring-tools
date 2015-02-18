@@ -33,8 +33,8 @@ import unittest
 import sys
 import time
 
-sys.path.append("..")
-import check_poller2livestatus
+
+from shinkenplugins.plugins.poller2livestatus import poller2livestatus
 
 
 from shinkenplugins.tools.tests.netecho import NetEcho
@@ -42,7 +42,7 @@ from shinkenplugins.tools.tests.tests import TestPluginBase
 
 class TestPlugin(TestPluginBase):
     def setUp(self):
-        self._main = check_poller2livestatus.main
+        self._main = poller2livestatus.main
 
     def test_help(self):
         """Test help output :
@@ -58,7 +58,7 @@ class TestPlugin(TestPluginBase):
         """
         sys.argv = [sys.argv[0]]
         sys.argv.append('-V')
-        self.do_tst(3, "^check_poller2livestatus.py v%s" % check_poller2livestatus.PLUGIN_VERSION)
+        self.do_tst(3, "^check_poller2livestatus.py v%s" % poller2livestatus.PLUGIN_VERSION)
 
     def test_connection(self):
         """Test connection :
@@ -138,7 +138,7 @@ class TestPlugin(TestPluginBase):
 
 class TestPluginWithSocket(TestPluginBase):
     def setUp(self):
-        self._main = check_poller2livestatus.main
+        self._main = poller2livestatus.main
         self.nc = NetEcho(host='localhost', port=50001)
         self.nc.start()
 
