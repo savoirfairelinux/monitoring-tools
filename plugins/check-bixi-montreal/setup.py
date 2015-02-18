@@ -43,8 +43,13 @@ setup(
         'shinkenplugins>0.2',
         'lxml',
     ],
+    extras_require={
+        'test': [
+            'nose',
+        ],
+    },
     name='shinkenplugins.plugins.bixi_montreal',
-    version="1.0",
+    version="1.2",
     packages=find_packages(),
     namespace_packages=[
         'shinkenplugins',
