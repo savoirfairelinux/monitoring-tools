@@ -36,9 +36,6 @@ class TestPlugin(unittest.TestCase, object):
     A class to test plugin inputs/outputs.
     """
     def execute(self, plugin, args, return_value, stdout_pattern='', debug=False, stderr_pattern=''):
-        sys.argv = [sys.argv[0]]
-        for arg in args:
-            sys.argv.append(arg)
 
         new_out = StringIO()
         new_err = StringIO()
@@ -49,9 +46,10 @@ class TestPlugin(unittest.TestCase, object):
         
         with self.assertRaises(SystemExit) as context:
             try:
-                plug = plugin()
                 if issubclass(plugin, ShinkenPlugin):
-                    plug.execute()
+                    plugin().execute(args)
+                else:
+                    plugin(args)
             finally:
                 sys.stdout = old_stdout
                 sys.stderr = old_stderr
