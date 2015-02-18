@@ -15,9 +15,11 @@
 
 # Copyright (C) 2014, Thibault Cohen <thibault.cohen@savoirfairelinux.com>
 
-from check_snmp_interface import Plugin
 
-from shinkenplugins import TestPlugin
+from shinkenplugins.test import TestPlugin
+
+from shinkenplugins.plugins.snmp_interface import Plugin
+
 
 class Test(TestPlugin):
     def test_version(self):
@@ -38,3 +40,5 @@ class Test(TestPlugin):
     #              'regex to check against the output')
     # You can also add debug=True, to get useful information
     # to debug your plugins
+
+    # TODO: add more tests than the help and version one .. ;)

@@ -29,7 +29,9 @@ from pysnmp.smi.exval import noSuchInstance
 
 
 
-from shinkenplugins import BasePlugin, PerfData, STATES
+from shinkenplugins.old import BasePlugin
+from shinkenplugins.perfdata import PerfData
+from shinkenplugins.states import STATES
 
 MSG = ''
 PERF_MSG = ''
@@ -355,7 +357,7 @@ class Plugin(BasePlugin):
             # Check 64Bits support
             if self.out_octet_64 is None or self.in_octet_64 is None:
                 print "This device doesn't support 64bits counters"
-                sys.exit(STATE_UNKNOWN)
+                sys.exit(STATES.UNKNOWN)
             limit = 18446744073709551615
             in_counter_name = "in_octet_64"
             out_counter_name = "out_octet_64"
@@ -646,5 +648,10 @@ class Plugin(BasePlugin):
 
         self.exit(STATES.OK, "Please wait the next check")
 
+
+def main(argv=None):
+    Plugin(argv)
+
+
 if __name__ == "__main__":
-    Plugin()
+    main()

@@ -1,1 +1,0 @@
-check_snmp_interface
