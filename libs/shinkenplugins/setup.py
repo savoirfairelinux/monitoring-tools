@@ -27,10 +27,6 @@ from __future__ import with_statement
 from os.path import join, dirname, abspath
 from setuptools import setup, find_packages
 
-# no dependencies yet, might be useful later
-# with open('requirements.txt') as f:
-#     install_requires = [l for l in f.read().splitlines()
-#                         if not l.startswith('#')]
 
 description = 'Shinken plugins wrapper library.'
 long_description = ('''\
@@ -52,7 +48,12 @@ setup(
         'shinkenplugins',
         'shinkenplugins.plugins'
     ],
-    #install_requires=install_requires,
+    install_requires=[],
+    extras_require={
+        'test': [
+            'nose',
+        ],
+    },
     #zip_safe=False,
     author="Grégory Starck",
     author_email="gregory.starck@savoirfairelinux.com",

@@ -19,13 +19,15 @@
 #  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import unittest
-import shinkenplugins
+
+
+from shinkenplugins.perfdata import PerfData
 
 
 class TestShinkenPlugins(unittest.TestCase):
 
     def test_perfdata_none(self):
-        perfdata = shinkenplugins.PerfData(
+        perfdata = PerfData(
             'label',
             'value',
             unit=None,
