@@ -33,18 +33,17 @@ import unittest
 
 #############################################################################
 
-sys.path.append("..")
-import check_x224
-
 from shinkenplugins.tools.tests.netecho import NetEcho
 from shinkenplugins.tools.tests.tests import TestPluginBase
+
+from shinkenplugins.plugins.x224 import x224
 
 #############################################################################
 
 class TestPlugin(TestPluginBase):
 
     def setUp(self):
-        self._main = check_x224.main
+        self._main = x224.main
 
     def test_help(self):
         sys.argv = [sys.argv[0], '-h']
@@ -52,7 +51,7 @@ class TestPlugin(TestPluginBase):
 
     def test_version(self):
         sys.argv = [sys.argv[0], '-V']
-        self.do_tst(3, "^check_x224 version %s" % check_x224.Plugin.VERSION)
+        self.do_tst(3, "^check_x224 version %s" % x224.Plugin.VERSION)
 
     def test_default_args(self):
         sys.argv = [sys.argv[0]]
@@ -75,7 +74,7 @@ class TestPlugin(TestPluginBase):
 class TestPluginWithSocket(TestPluginBase):
 
     def setUp(self):
-        self._main = check_x224.main
+        self._main = x224.main
         self.nc = NetEcho(host='localhost')
         self.nc.start()
 

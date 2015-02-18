@@ -83,7 +83,7 @@ import time
 
 #############################################################################
 
-from shinkenplugins import BasePlugin
+from shinkenplugins.old import BasePlugin
 
 #############################################################################
 
@@ -94,8 +94,8 @@ default_critical_sec = 50
 #############################################################################
 # x224 data..
 
-l_expected_short = 11 # Older Windows hosts will return with a short answer
-l_expected_long  = 19 # Newer Windows hosts will return with a longer answer
+l_expected_short = 11  # Older Windows hosts will return with a short answer
+l_expected_long  = 19  # Newer Windows hosts will return with a longer answer
 
 setup_x224_cookie = "Cookie: mstshash=\r\n"
 setup_x224_rdp_neg_data = struct.pack(  # little-endian here, it seems ?
@@ -145,7 +145,7 @@ teardown_payload = struct.pack(
 
 #############################################################################
 
-class Plugin(BasePlugin):
+class CheckX224(BasePlugin):
 
     NAME = 'check_x224'
     VERSION = '0.1'
@@ -294,8 +294,12 @@ class Plugin(BasePlugin):
 
 #############################################################################
 
-def main():
-    Plugin()
+Plugin = CheckX224
+
+#############################################################################
+
+def main(argv=None):
+    Plugin(argv)
 
 if __name__ == "__main__":
     main()
