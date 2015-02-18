@@ -15,9 +15,11 @@
 
 # Copyright (C) 2014, Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
 
-from check_bixi_montreal import Plugin
 
-from shinkenplugins import TestPlugin
+from shinkenplugins.test import TestPlugin
+
+from shinkenplugins.plugins.bixi_montreal import Plugin
+
 
 class Test(TestPlugin):
     def test_version(self):

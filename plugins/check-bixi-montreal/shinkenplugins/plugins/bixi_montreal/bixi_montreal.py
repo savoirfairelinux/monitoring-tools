@@ -18,9 +18,13 @@
 # Author Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
 
 import urllib2
+
 from lxml import etree
 
-from shinkenplugins import BasePlugin, PerfData, STATES
+from shinkenplugins.old import BasePlugin
+from shinkenplugins.perfdata import PerfData
+from shinkenplugins.states import STATES
+
 
 class Plugin(BasePlugin):
     NAME = 'check-bixi-montreal'
@@ -99,5 +103,10 @@ class Plugin(BasePlugin):
         else:
             self.exit(STATES.CRITICAL, 'CRITICAL - %d %s / %d stations' % (problems, str_pb, total), p1, p2)
 
+
+def main(argv=None):
+    Plugin(argv)
+
+
 if __name__ == "__main__":
-    Plugin()
+    main()
