@@ -24,7 +24,9 @@ import importlib
 import os
 from StringIO import StringIO
 
-from shinkenplugins import BasePlugin, PerfData, STATES
+from shinkenplugins.old import BasePlugin
+from shinkenplugins.perfdata import PerfData
+from shinkenplugins.states import STATES
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By

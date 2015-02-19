@@ -23,7 +23,9 @@ import subprocess
 import signal
 
 
-from shinkenplugins import BasePlugin, PerfData, STATES
+from shinkenplugins.old import BasePlugin
+from shinkenplugins.perfdata import PerfData
+from shinkenplugins.states import STATES
 from shinkenplugins.plugin import ShinkenPlugin
 
 try:

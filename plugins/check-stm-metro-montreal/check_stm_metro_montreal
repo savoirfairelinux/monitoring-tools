@@ -21,7 +21,9 @@ import re
 import urllib2
 import lxml.html
 
-from shinkenplugins import BasePlugin, PerfData, STATES
+from shinkenplugins.old import BasePlugin
+from shinkenplugins.perfdata import PerfData
+from shinkenplugins.states import STATES
 
 URL = 'http://www.stm.info/en/info/service-updates/metro'
 STATUS_XPATH = '//div[@id="wrap"]/div[@id="sub-wrap"]//div[contains(@class, "content-services")]//section[contains(@class,"item-line")]/p/text()'

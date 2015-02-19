@@ -20,7 +20,9 @@
 import urllib2
 from lxml import etree
 
-from shinkenplugins import BasePlugin, PerfData, STATES
+from shinkenplugins.old import BasePlugin
+from shinkenplugins.perfdata import PerfData
+from shinkenplugins.states import STATES
 
 class Plugin(BasePlugin):
     NAME = 'check-bixi-montreal'

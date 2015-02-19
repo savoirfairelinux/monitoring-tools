@@ -21,7 +21,9 @@ import re
 import urllib2
 import lxml.html
 
-from shinkenplugins import BasePlugin, PerfData, STATES
+from shinkenplugins.old import BasePlugin
+from shinkenplugins.perfdata import PerfData
+from shinkenplugins.states import STATES
 
 URL = 'http://www.quebecrencontres.com/'
 XPATH = '//div[@id="top"]/h2[@class="txtlarge"]/text()'

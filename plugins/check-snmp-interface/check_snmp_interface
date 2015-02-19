@@ -29,7 +29,9 @@ from pysnmp.smi.exval import noSuchInstance
 
 
 
-from shinkenplugins import BasePlugin, PerfData, STATES
+from shinkenplugins.old import BasePlugin
+from shinkenplugins.perfdata import PerfData
+from shinkenplugins.states import STATES
 
 MSG = ''
 PERF_MSG = ''

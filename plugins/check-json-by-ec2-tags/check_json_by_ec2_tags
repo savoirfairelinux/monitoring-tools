@@ -16,7 +16,9 @@
 
 # Copyright (C) 2014, Alexandre Viau <alexandre.viau@savoirfairelinux.com>
 
-from shinkenplugins import BasePlugin, PerfData, STATES
+from shinkenplugins.old import BasePlugin
+from shinkenplugins.perfdata import PerfData
+from shinkenplugins.states import STATES
 import boto
 import requests
 

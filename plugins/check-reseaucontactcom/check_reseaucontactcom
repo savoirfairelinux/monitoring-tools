@@ -21,7 +21,9 @@ import re
 import urllib2
 import lxml.html
 
-from shinkenplugins import BasePlugin, PerfData, STATES
+from shinkenplugins.old import BasePlugin
+from shinkenplugins.perfdata import PerfData
+from shinkenplugins.states import STATES
 
 URL = 'http://www.reseaucontact.com/'
 XPATH1 = '//section[@id="widget-community-stats"]//h2[@class="totalMembers"]/text()'
