@@ -1,4 +1,4 @@
 sfl-windows-mssql
 =================
 
-Shinken configuration pack for windows-mssql
+Windows MSSQL active checks

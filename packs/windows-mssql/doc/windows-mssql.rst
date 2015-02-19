@@ -142,4 +142,3 @@ _MSSQL_BATCH_REQUESTS_WARN
 
 Triggers
 ~~~~~~~~
-
