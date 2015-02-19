@@ -52,4 +52,3 @@ try:
 
 except Exception, e:
     set_value(self, "UNKNOWN: Trigger error: " + str(e), "", 3)
-

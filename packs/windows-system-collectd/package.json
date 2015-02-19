@@ -1,24 +1,21 @@
 {
-	"name": "sfl-windows-system-collectd",
-	"types": ["pack"],
-	"version": "1.0",
-	"homepage": "https://github.com/savoirfairelinux/monitoring-tools",
-	"author": "Thibault Cohen",
-	"description": "Passive check for Windows using collectd",
-	"contributors": [
-	  {
-		"name": "Thibault Cohen",
-		"email": "thibault.cohen@savoirfairelinux.com"
-	  },
-	],
-	"repository": "https://github.com/savoirfairelinux/monitoring-tools",
-	"keywords": [
-	  "pack",
-	  "windows-system-collectd"
-	  
-	],
-	"dependencies": {
-	  "shinken": ">=1.4"
-	},
-	"license": "GPL"
+    "name": "windows-system-collectd",
+    "types": ["pack"],
+    "version": "1.0",
+    "homepage": "https://github.com/savoirfairelinux/monitoring-tools",
+    "author": "Savoir-faire Linux",
+    "description": "Passive check for Windows using collectd",
+    "contributors": [
+        {
+        "name": "Savoir-faire Linux",
+        "email": "supervision@savoirfairelinux.com"
+        }
+    ],
+    "repository": "https://github.com/savoirfairelinux/monitoring-tools",
+    "keywords": ["pack",
+                 "windows-system-collectd",
+                 "windows","system","collectd"
+    ],
+    "dependencies": { "shinken": ">=1.4" },
+    "license": "GPL"
 }
