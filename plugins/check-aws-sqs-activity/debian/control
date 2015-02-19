@@ -2,15 +2,14 @@ Source: monitoring-plugins-sfl-check-aws-sqs-activity
 Section: python
 Priority: optional
 Maintainer: Alexandre Viau <alexandre@alexandreviau.net>
-Build-Depends: debhelper (>= 9)
+Build-Depends: debhelper (>= 9), python-setuptools
 Standards-Version: 3.9.5
 Homepage: https://github.com/savoirfairelinux/monitoring-tools
-Vcs-Git: git@github.com:savoirfairelinux/monitoring-tools.git
 Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 
 Package: monitoring-plugins-sfl-check-aws-sqs-activity
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins
-Description: Checks the activity of AWS's simple queue service.
+Description: Checks the activity of AWS simple queue service.
  More information is available on Github:
- https://github.com/savoirfairelinux/sfl-shinken-plugins
+ https://github.com/savoirfairelinux/monitoring-tools

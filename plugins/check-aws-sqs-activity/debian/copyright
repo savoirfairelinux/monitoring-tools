@@ -3,11 +3,7 @@ Upstream-Name: monitoring-plugins-sfl-check-aws-sqs-activity
 Source: <https://github.com/savoirfairelinux/monitoring-tools>
 
 Files: *
-Copyright: Copyright (C) 2014 Alexandre Viau
-License: GPL-3.0+
-
-Files: debian/*
-Copyright: Copyright (C) 2014 Alexandre Viau
+Copyright: Copyright (C) 2014 (C) 2015 Alexandre Viau
 License: GPL-3.0+
 
 License: GPL-3.0+

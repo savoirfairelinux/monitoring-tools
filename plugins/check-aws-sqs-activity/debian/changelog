@@ -1,5 +1,5 @@
-monitoring-plugins-sfl-check-aws-sqs-activity (2014.8.4.10.13-1) unstable; urgency=low
+monitoring-plugins-sfl-check-aws-sqs-activity (2015.2.19.15.27-1) unstable; urgency=low
 
   * Initial release
 
- -- Alexandre Viau <alexandre@alexandreviau.net>  Mon, 04 Aug 2014 14:13:12 -0000
+ -- Alexandre Viau <alexandre@alexandreviau.net>  Thu, 19 Feb 2015 20:27:24 -0000

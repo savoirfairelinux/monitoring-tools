@@ -1,4 +1,4 @@
-check-aws-sqs-activity
-=======================================
+check_aws_sqs_activity
+======================
 
-Checks the activity of AWS's simple queue service.
+Checks the activity of AWS simple queue service.
