@@ -1,24 +1,21 @@
 {
-	"name": "sfl-windows-rdp",
-	"types": ["pack"],
-	"version": "1.0",
-	"homepage": "https://github.com/savoirfairelinux/monitoring-tools",
-	"author": "Thibault Cohen",
-	"description": "Windows active checks with RDP requests",
-	"contributors": [
-	  {
-		"name": "Thibault Cohen",
-		"email": "thibault.cohen@savoirfairelinux.com"
-	  },
-	],
-	"repository": "https://github.com/savoirfairelinux/monitoring-tools",
-	"keywords": [
-	  "pack",
-	  "windows-rdp"
-	  
-	],
-	"dependencies": {
-	  "shinken": ">=1.4"
-	},
-	"license": "GPL"
+    "name": "windows-rdp",
+    "types": ["pack"],
+    "version": "1.0",
+    "homepage": "https://github.com/savoirfairelinux/monitoring-tools",
+    "author": "Savoir-faire Linux",
+    "description": "Windows active checks with RDP requests",
+    "contributors": [
+        {
+        "name": "Savoir-faire Linux",
+        "email": "supervision@savoirfairelinux.com"
+        }
+    ],
+    "repository": "https://github.com/savoirfairelinux/monitoring-tools",
+    "keywords": ["pack",
+                 "windows-rdp",
+                 "windows","rdp"
+    ],
+    "dependencies": { "shinken": ">=1.4" },
+    "license": "GPL"
 }

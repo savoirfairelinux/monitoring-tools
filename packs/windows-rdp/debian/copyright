@@ -3,11 +3,7 @@ Upstream-Name: monitoring-packs-sfl-windows-rdp
 Source: <https://github.com/savoirfairelinux/monitoring-tools>
 
 Files: *
-Copyright:  2014 Savoir-faire Linux
-License: GPL-3.0+
-
-Files: debian/*
-Copyright: 2014 Savoir-faire Linux
+Copyright:  2015 Savoir-faire Linux <supervision@savoirfairelinux.com>
 License: GPL-3.0+
 
 License: GPL-3.0+

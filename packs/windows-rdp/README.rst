@@ -1,4 +1,4 @@
 sfl-windows-rdp
 ===============
 
-Shinken configuration pack for windows-rdp
+Windows active checks with RDP requests
