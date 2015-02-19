@@ -37,6 +37,7 @@ Collectd
 Here an example of a collectd config file:
 
 .. include:: examples/collectd.conf
+
 Installation
 ************
 

@@ -1,4 +1,4 @@
 sfl-linux-radius-collectd
 =========================
 
-Shinken configuration pack for linux-radius-collectd
+Pack to monitor radius service on a Linux server

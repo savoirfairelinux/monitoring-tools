@@ -1,24 +1,21 @@
 {
-	"name": "sfl-linux-radius-collectd",
-	"types": ["pack"],
-	"version": "1.0",
-	"homepage": "https://github.com/savoirfairelinux/monitoring-tools",
-	"author": "Sebastien Coavoux",
-	"description": "Pack to monitor radius service on a Linux server",
-	"contributors": [
-	  {
-		"name": "Sebastien Coavoux",
-		"email": "sebastien.coavoux@savoirfairelinux.com"
-	  },
-	],
-	"repository": "https://github.com/savoirfairelinux/monitoring-tools",
-	"keywords": [
-	  "pack",
-	  "linux-radius-collectd"
-	  
-	],
-	"dependencies": {
-	  "shinken": ">=1.4"
-	},
-	"license": "GPL"
+    "name": "linux-radius-collectd",
+    "types": ["pack"],
+    "version": "1.0",
+    "homepage": "https://github.com/savoirfairelinux/monitoring-tools",
+    "author": "Savoir-faire Linux",
+    "description": "Pack to monitor radius service on a Linux server",
+    "contributors": [
+        {
+        "name": "Savoir-faire Linux",
+        "email": "supervision@savoirfairelinux.com"
+        }
+    ],
+    "repository": "https://github.com/savoirfairelinux/monitoring-tools",
+    "keywords": ["pack",
+                 "linux-radius-collectd",
+                 "radius","collectd","linux"
+    ],
+    "dependencies": { "shinken": ">=1.4" },
+    "license": "GPL"
 }
