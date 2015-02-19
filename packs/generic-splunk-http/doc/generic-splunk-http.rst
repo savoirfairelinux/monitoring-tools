@@ -101,4 +101,3 @@ _SPLUNKCRIT
 :type:              integer
 :description:       Response time warning threshold
 
-
