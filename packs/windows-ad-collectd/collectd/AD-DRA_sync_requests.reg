@@ -6,4 +6,3 @@
 "Plugin"="AD"
 "Host"="AD20088"
 "PDHCounterPath"="\\NTDS\\Requêtes de synchronisation DRA effectuées"
-

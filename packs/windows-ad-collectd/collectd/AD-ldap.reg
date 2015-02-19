@@ -33,4 +33,3 @@
 "Plugin"="AD"
 "Host"="AD20088"
 "PDHCounterPath"="\\NTDS\\Durée de liaison LDAP"
-
