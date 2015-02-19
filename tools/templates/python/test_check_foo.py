@@ -13,11 +13,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Copyright (C) 2014, vdnguyen <vanduc.nguyen@savoirfairelinux.com>
+# Copyright (C) 2014, {{author_name }} <{{author_email}}>
 
 import unittest
 
-from shinkenplugins import TestPlugin
+from shinkenplugins.test import TestPlugin
 
 from {{ short_name }} import Plugin
 

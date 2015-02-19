@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Copyright (C) 2014, vdnguyen <vanduc.nguyen@savoirfairelinux.com>
+# Copyright (C) 2014, {{author_name }} <{{author_email}}>
 
 import os
 import os.path
@@ -23,7 +23,7 @@ import datetime
 import argparse
 import warnings
 
-from shinkenplugins import PerfData
+from shinkenplugins.perfdata import PerfData
 from shinkenplugins.helpers.argparse import escape_help
 from shinkenplugins.helpers.argparse.parsing.bytes import (
     ByteAmountParser,
