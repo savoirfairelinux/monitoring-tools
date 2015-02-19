@@ -1,5 +1,5 @@
-monitoring-plugins-sfl-check-environment-canada (2014.7.18.10.45-1) unstable; urgency=low
+monitoring-plugins-sfl-check-environment-canada (2015.2.19.16.12-1) unstable; urgency=low
 
   * Initial release
 
- -- Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>  Fri, 18 Jul 2014 14:45:49 -0000
+ -- Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>  Thu, 19 Feb 2015 21:12:52 -0000

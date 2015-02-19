@@ -13,22 +13,26 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Copyright (C) 2014, Savoir-faire Linux, Inc.
+# Copyright (C) 2014, Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
 
-from check_environment_canada import Plugin
+import unittest
 
 from shinkenplugins.test import TestPlugin
 
+from environment_canada import Plugin
+
 class Test(TestPlugin):
+    def setUp(self):
+        # Make stuff before all tests
+        pass
+
     def test_version(self):
-        args = ['-v']
-        self.execute(Plugin, args, 3,
-                     'version ' + Plugin.VERSION)
+        args = ["-v"]
+        self.execute(Plugin, args, 0, stderr_pattern="version " + Plugin.VERSION)
 
     def test_help(self):
-        args = ['-h']
-        self.execute(Plugin, args, 3,
-                     'Usage:')
+        args = ["-h"]
+        self.execute(Plugin, args, 0, "usage:")
 
     # Add your tests here!
     # They should use
@@ -40,8 +44,11 @@ class Test(TestPlugin):
     # to debug your plugins
 
     def test_no_args(self):
-        self.execute(Plugin, [], 3, 'Arguments error: argument url is mandatory')
-    
+        self.execute(Plugin, [], 3, "")
+
     def test_plugin(self):
         args = ['-U', 'http://www.meteomedia.com/api/data/caqc0363', '-m', 'flu_level']
-        self.execute(Plugin, args, 0, '^OK - ')
+        self.execute(Plugin, args, 0, '^OK: ')
+
+if __name__ == '__main__':
+    unittest.main()
