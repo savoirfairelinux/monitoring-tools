@@ -3,11 +3,7 @@ Upstream-Name: monitoring-plugins-sfl-check-amt-montreal
 Source: <https://github.com/savoirfairelinux/monitoring-tools>
 
 Files: *
-Copyright: Copyright (C) 2014 Savoir-faire Linux, Inc.
-License: GPL-3.0+
-
-Files: debian/*
-Copyright: Copyright (C) 2014 Savoir-faire Linux, Inc.
+Copyright: Copyright (C) 2014 (C) 2015 Matthieu Caneill
 License: GPL-3.0+
 
 License: GPL-3.0+

@@ -1,2 +1,2 @@
-shinkenplugins>=0.3
+shinkenplugins>=0.2.0
 protobuf>=2.5.0

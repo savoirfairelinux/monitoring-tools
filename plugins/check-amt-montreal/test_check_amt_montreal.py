@@ -13,23 +13,26 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Copyright (C) 2014, Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
+# Copyright (C) 2014, vdnguyen <vanduc.nguyen@savoirfairelinux.com>
 
-import check_amt_montreal
-from check_amt_montreal import Plugin
+import unittest
 
 from shinkenplugins.test import TestPlugin
 
+from amt_montreal import Plugin
+
 class Test(TestPlugin):
+    def setUp(self):
+        # Make stuff before all tests
+        pass
+
     def test_version(self):
-        args = ['-v']
-        self.execute(Plugin, args, 3,
-                     'version ' + Plugin.VERSION)
+        args = ["-v"]
+        self.execute(Plugin, args, 0, stderr_pattern="version " + Plugin.VERSION)
 
     def test_help(self):
-        args = ['-h']
-        self.execute(Plugin, args, 3,
-                     'Usage:')
+        args = ["-h"]
+        self.execute(Plugin, args, 0, "usage:")
 
     # Add your tests here!
     # They should use
@@ -46,9 +49,12 @@ class Test(TestPlugin):
             with open('Alert.pb') as f:
                 data = f.read()
             return data
-        
+
         # monkey patch
         Plugin.get_feed = get_data
-        
+
         args = ['-U', 'bacon', '-t', 'eggs', '-w', '1', '-c', '3']
-        self.execute(Plugin, args, 1, '^WARNING - 2 problems', debug=True)
+        self.execute(Plugin, args, 1, '^WARNING: 2 problems', debug=True)
+
+if __name__ == '__main__':
+    unittest.main()
