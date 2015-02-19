@@ -9,5 +9,9 @@
 
 override_dh_installdocs:
 	dh_installdocs
-	sphinx-build -b man -d doc/build/doctrees doc doc/build/man
+	sphinx-build -b html -d debian/tmp/doc/build/doctrees doc debian/tmp/doc/build/html
+
+override_dh_installman:
+	sphinx-build -b man -d debian/tmp/doc/build/doctrees doc debian/tmp/doc/build/man
+	dh_installman
 
