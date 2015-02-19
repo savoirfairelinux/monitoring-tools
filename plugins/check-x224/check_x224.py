@@ -83,7 +83,7 @@ import time
 
 #############################################################################
 
-from shinkenplugins import BasePlugin
+from shinkenplugins.old import BasePlugin
 
 #############################################################################
 

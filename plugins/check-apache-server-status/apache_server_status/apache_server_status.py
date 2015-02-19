@@ -25,7 +25,7 @@ import warnings
 import urllib
 import re
 
-from shinkenplugins import PerfData
+from shinkenplugins.perfdata import PerfData
 from shinkenplugins.helpers.argparse import escape_help
 from shinkenplugins.helpers.argparse.parsing.bytes import (
     ByteAmountParser,
