@@ -47,6 +47,9 @@ def main(args):
         print("The folder %s shouldn't exit" % target)
         print("Or maybe you want to migrate with the last template version")
         sys.exit(1)
+    if args['update'] and not os.path.exists(target):
+        print("You want to update a pack and the folder %s doesn't exit" % target)
+        sys.exit(1)
 
     # we copy the needed files
     if not args['update']:
@@ -117,7 +120,7 @@ def main(args):
 def parse_args():
     parser = argparse.ArgumentParser(description='Create a new Shinken pack.')
     required = [
-        {'name': 'system', 'help': 'Type of pack you want', 'choices': ['generic', 'linux', 'windows',]},
+        {'name': 'system', 'help': 'Type of pack you want', 'choices': ['generic', 'linux', 'windows', 'vmware']},
         {'name': 'application', 'help': 'Application name you want monitor', 'choices': None},
         {'name': 'protocol', 'help': 'Protocol used in this new pack', 'choices': None},
         {'name': 'desc', 'help': 'The description of your pack', 'choices': None},

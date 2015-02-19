@@ -22,7 +22,7 @@ BuildRoot:  %{_tmppath}/%{name}-%{version}
 #Requires: python, python-dlnetsnmp
 
 
-%description 
+%description
 {{ desc }}
 
 %prep

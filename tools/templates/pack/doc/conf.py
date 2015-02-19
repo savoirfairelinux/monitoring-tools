@@ -19,7 +19,7 @@ project = u'{{ name }}'
 copyright = u'{{ year }}, {{ author_name }} <{{ author_email }}>'
 
 # The short X.Y version.
-version = '{{ date_version }}'
+version = '{{ date_long }}'
 # The full version, including alpha/beta/rc tags.
 release = '1'
 
