@@ -54,4 +54,3 @@ _SSHPORT
 
 :type:              integer
 :description:       SSH port. Usually 22
-
