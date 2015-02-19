@@ -87,4 +87,3 @@ output = " - ".join((exit_code_output[exit_code], output))
 
 # Set ouput
 set_value(self, output, perf_data, exit_code)
-

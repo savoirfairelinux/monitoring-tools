@@ -1,25 +1,21 @@
 {
-	"name": "sfl-linux-system-collectd",
-	"types": ["pack"],
-	"version": "1.0",
-	"homepage": "https://github.com/savoirfairelinux/monitoring-tools",
-	"author": "Thibault Cohen",
+    "name": "linux-system-collectd",
+    "types": ["pack"],
+    "version": "1.0",
+    "homepage": "https://github.com/savoirfairelinux/monitoring-tools",
+    "author": "Savoir-faire Linux",
     "description": "Standard linux collectd passive checks, like CPU, RAM and disk space. Checks are done by triggers on collected data. Started from collectd community module",
-	"description": "Linux passive checks based on Collectd",
-	"contributors": [
-	  {
-		"name": "Thibault Cohen",
-		"email": "thibault.cohen@savoirfairelinux.com"
-	  },
-	],
-	"repository": "https://github.com/savoirfairelinux/monitoring-tools",
-	"keywords": [
-	  "pack",
-	  "linux-system-collectd"
-	  
-	],
-	"dependencies": {
-	  "shinken": ">=1.4"
-	},
-	"license": "GPL"
+    "contributors": [
+        {
+        "name": "Savoir-faire Linux",
+        "email": "supervision@savoirfairelinux.com"
+        }
+    ],
+    "repository": "https://github.com/savoirfairelinux/monitoring-tools",
+    "keywords": ["pack",
+                 "linux-system-collectd",
+                 "system","collectd","linux"
+    ],
+    "dependencies": { "shinken": ">=1.4" },
+    "license": "GPL"
 }

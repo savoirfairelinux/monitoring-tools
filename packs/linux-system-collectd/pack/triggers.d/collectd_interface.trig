@@ -56,4 +56,3 @@ for if_ in if_names:
 perf_data = " ".join(perf_datas)
 output = " # ".join(outputs)
 set_value(self, output, perf_data, exit_code)
-
