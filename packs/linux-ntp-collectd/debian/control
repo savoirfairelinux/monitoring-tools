@@ -1,16 +1,15 @@
 Source: monitoring-packs-sfl-linux-ntp-collectd
 Section: python
 Priority: optional
-Maintainer: Thibault Cohen <thibault.cohen@savoirfairelinux.com>
-Build-Depends: debhelper (>= 8.0.0)
-Standards-Version: 3.9.4
+Maintainer: Savoir-faire Linux <supervision@savoirfairelinux.com>
+Build-Depends: debhelper (>= 8.0.0), python-sphinx
+Standards-Version: 3.9.6
 Homepage: https://github.com/savoirfairelinux/monitoring-tools
-#Vcs-Git: git@github.com:savoirfairelinux/monitoring-tools.git
-#Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
+Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 
 Package: monitoring-packs-sfl-linux-ntp-collectd
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: 
+Description: Pack for NTP on linux with collectd
  More information is available on Github:
  https://github.com/savoirfairelinux/monitoring-tools

@@ -75,4 +75,3 @@ This is the list of triggers used in the pack :
 
 * collectd_ntpd.trig
 
-
