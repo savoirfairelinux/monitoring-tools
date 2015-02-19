@@ -1,2 +1,1 @@
-shinkenplugins>=0.3
-boto
+shinkenplugins>=0.2.0

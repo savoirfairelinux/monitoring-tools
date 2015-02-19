@@ -13,22 +13,26 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Copyright (C) 2014, Alexandre Viau <alexandre.viau@savoirfairelinux.com>
+# Copyright (C) 2014, Alexandre Viau <alexandre@alexandreviau.net>
 
-from check_aws_sqs_queue_size import Plugin
+import unittest
 
 from shinkenplugins.test import TestPlugin
 
+from aws_sqs_queue_size import Plugin
+
 class Test(TestPlugin):
+    def setUp(self):
+        # Make stuff before all tests
+        pass
+
     def test_version(self):
-        args = ['-v']
-        self.execute(Plugin, args, 3,
-                     'version ' + Plugin.VERSION)
+        args = ["-v"]
+        self.execute(Plugin, args, 0, stderr_pattern="version " + Plugin.VERSION)
 
     def test_help(self):
-        args = ['-h']
-        self.execute(Plugin, args, 3,
-                     'Usage:')
+        args = ["-h"]
+        self.execute(Plugin, args, 0, "usage:")
 
     # Add your tests here!
     # They should use
@@ -38,3 +42,6 @@ class Test(TestPlugin):
     #              'regex to check against the output')
     # You can also add debug=True, to get useful information
     # to debug your plugins
+
+if __name__ == '__main__':
+    unittest.main()
