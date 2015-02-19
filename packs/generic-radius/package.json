@@ -1,24 +1,21 @@
 {
-	"name": "sfl-generic-radius",
-	"types": ["pack"],
-	"version": "1.0",
-	"homepage": "https://github.com/savoirfairelinux/monitoring-tools",
-	"author": "Sebastien Coavoux",
-	"description": "Generic pack for radius check",
-	"contributors": [
-	  {
-		"name": "Sebastien Coavoux",
-		"email": "sebastien.coavoux@savoirfairelinux.com"
-	  },
-	],
-	"repository": "https://github.com/savoirfairelinux/monitoring-tools",
-	"keywords": [
-	  "pack",
-	  "generic-radius"
-	  
-	],
-	"dependencies": {
-	  "shinken": ">=1.4"
-	},
-	"license": "GPL"
+    "name": "generic-radius",
+    "types": ["pack"],
+    "version": "1.0",
+    "homepage": "https://github.com/savoirfairelinux/monitoring-tools",
+    "author": "Savoir-faire Linux",
+    "description": "Generic pack for radius check",
+    "contributors": [
+        {
+        "name": "Savoir-faire Linux",
+        "email": "supervision@savoirfairelinux.com"
+        }
+    ],
+    "repository": "https://github.com/savoirfairelinux/monitoring-tools",
+    "keywords": ["pack",
+                 "generic-radius",
+                 "radius"
+    ],
+    "dependencies": { "shinken": ">=1.4" },
+    "license": "GPL"
 }
