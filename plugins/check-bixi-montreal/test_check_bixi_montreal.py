@@ -15,20 +15,24 @@
 
 # Copyright (C) 2014, Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
 
-from check_bixi_montreal import Plugin
+import unittest
 
 from shinkenplugins.test import TestPlugin
 
+from bixi_montreal import Plugin
+
 class Test(TestPlugin):
+    def setUp(self):
+        # Make stuff before all tests
+        pass
+
     def test_version(self):
-        args = ['-v']
-        self.execute(Plugin, args, 3,
-                     'version ' + Plugin.VERSION)
+        args = ["-v"]
+        self.execute(Plugin, args, 0, stderr_pattern="version " + Plugin.VERSION)
 
     def test_help(self):
-        args = ['-h']
-        self.execute(Plugin, args, 3,
-                     'Usage:')
+        args = ["-h"]
+        self.execute(Plugin, args, 0, "usage:")
 
     # Add your tests here!
     # They should use
@@ -38,7 +42,9 @@ class Test(TestPlugin):
     #              'regex to check against the output')
     # You can also add debug=True, to get useful information
     # to debug your plugins
-
     def test_plugin(self):
         args = ['-U', 'http://montreal.bixi.com/data/bikeStations.xml', '-w', '-1', '-c', '-1']
         self.execute(Plugin, args, 2, '^CRITICAL')
+
+if __name__ == '__main__':
+    unittest.main()
