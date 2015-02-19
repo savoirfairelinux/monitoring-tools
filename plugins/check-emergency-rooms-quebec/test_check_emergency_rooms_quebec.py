@@ -13,22 +13,26 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Copyright (C) 2014, Savoir-Faire Linux, Inc.
+# Copyright (C) 2014, Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
 
-from check_emergency_rooms_quebec import Plugin
+import unittest
 
 from shinkenplugins.test import TestPlugin
 
+from emergency_rooms_quebec import Plugin
+
 class Test(TestPlugin):
+    def setUp(self):
+        # Make stuff before all tests
+        pass
+
     def test_version(self):
-        args = ['-v']
-        self.execute(Plugin, args, 3,
-                     'version ' + Plugin.VERSION)
+        args = ["-v"]
+        self.execute(Plugin, args, 0, stderr_pattern="version " + Plugin.VERSION)
 
     def test_help(self):
-        args = ['-h']
-        self.execute(Plugin, args, 3,
-                     'Usage:')
+        args = ["-h"]
+        self.execute(Plugin, args, 0, "usage:")
 
     # Add your tests here!
     # They should use
@@ -38,14 +42,6 @@ class Test(TestPlugin):
     #              'regex to check against the output')
     # You can also add debug=True, to get useful information
     # to debug your plugins
-    
-    def test_no_args(self):
-        self.execute(Plugin, [], 3, 'Arguments error: argument url is mandatory')
-    
-    def test_critical_output(self):
-        args = ['-w', '-1', '-c', '-1',
-                '-U', 'http://agence.santemontreal.qc.ca/fileadmin/asssm/rapports/urgence_quotidien_media.html',
-                '-f', '//td/div[text()="Total"]/../following-sibling::td[2]/div/text()',
-                '-o', '//td/div[text()="Total"]/../following-sibling::td[3]/div/text()']
-        
-        self.execute(Plugin, args, 2, 'CRITICAL - [0-9]*%')
+
+if __name__ == '__main__':
+    unittest.main()
