@@ -1,4 +1,4 @@
 sfl-windows-sophos-collectd
 ===========================
 
-Shinken configuration pack for windows-sophos-collectd
+Pack to monitor the sophos service on a windows

@@ -79,4 +79,3 @@ This is the list of triggers used in the pack :
 * windows_collectd_service.trig
 * windows_collectd_processes.trig
 
-
