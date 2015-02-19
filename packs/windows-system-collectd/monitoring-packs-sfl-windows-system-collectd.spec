@@ -3,7 +3,7 @@
 #
 %define raw_name    windows-system-collectd
 %define name        monitoring-packs-sfl-%{raw_name}
-%define version     2015.2.19.18.36
+%define version     2015.2.19.18.39
 %define release     1
 
 Name:       %{name}

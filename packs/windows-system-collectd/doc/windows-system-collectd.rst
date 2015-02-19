@@ -119,4 +119,3 @@ This is the list of triggers used in the pack :
 * windows-collectd_processes.trig
 * windows-collectd_service.trig
 * windows-collectd_users.trig
-
