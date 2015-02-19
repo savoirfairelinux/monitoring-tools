@@ -99,4 +99,3 @@ _SMB_TIMEOUT
 :type:              integer
 :description:       Samba time before timeout (s). Default 10
 
-

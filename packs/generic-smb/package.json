@@ -1,24 +1,21 @@
 {
-	"name": "sfl-generic-smb",
-	"types": ["pack"],
-	"version": "1.0",
-	"homepage": "https://github.com/savoirfairelinux/monitoring-tools",
-	"author": "Sebastien Coavoux",
-	"description": "Pack to monitor samba shared directory",
-	"contributors": [
-	  {
-		"name": "Sebastien Coavoux",
-		"email": "sebastien.coavoux@savoirfairelinux.com"
-	  },
-	],
-	"repository": "https://github.com/savoirfairelinux/monitoring-tools",
-	"keywords": [
-	  "pack",
-	  "generic-smb"
-	  
-	],
-	"dependencies": {
-	  "shinken": ">=1.4"
-	},
-	"license": "GPL"
+    "name": "generic-smb",
+    "types": ["pack"],
+    "version": "1.0",
+    "homepage": "https://github.com/savoirfairelinux/monitoring-tools",
+    "author": "Savoir-faire Linux",
+    "description": "Pack to monitor samba shared directory",
+    "contributors": [
+        {
+        "name": "Savoir-faire Linux",
+        "email": "supervision@savoirfairelinux.com"
+        }
+    ],
+    "repository": "https://github.com/savoirfairelinux/monitoring-tools",
+    "keywords": ["pack",
+                 "generic-smb",
+                 "samba","smb"
+    ],
+    "dependencies": { "shinken": ">=1.4" },
+    "license": "GPL"
 }
