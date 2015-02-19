@@ -1,26 +1,21 @@
 {
-	"name": "sfl-generic-dns",
-	"types": ["pack"],
-	"version": "1.0",
-	"homepage": "https://github.com/savoirfairelinux/monitoring-tools",
-	"author": "Thibault Cohen",
-	"description": "DNS active checks with DNS requests",
-	"contributors": [
-	  {
-		"name": "Thibault Cohen",
-		"email": "thibault.cohen@savoirfairelinux.com"
-	  },
-	],
-	"repository": "https://github.com/savoirfairelinux/monitoring-tools",
-	"keywords": [
-	  "pack",
-      "dns",
-      "network",
-      "bind",
-      "dig"
-	],
-	"dependencies": {
-	  "shinken": ">=1.4"
-	},
-	"license": "GPL"
+    "name": "generic-dns",
+    "types": ["pack"],
+    "version": "1.0",
+    "homepage": "https://github.com/savoirfairelinux/monitoring-tools",
+    "author": "Savoir-faire Linux",
+    "description": "DNS active checks with DNS requests",
+    "contributors": [
+        {
+        "name": "Savoir-faire Linux",
+        "email": "supervision@savoirfairelinux.com"
+        }
+    ],
+    "repository": "https://github.com/savoirfairelinux/monitoring-tools",
+    "keywords": ["pack",
+                 "generic-dns",
+                 "dns"
+    ],
+    "dependencies": { "shinken": ">=1.4" },
+    "license": "GPL"
 }

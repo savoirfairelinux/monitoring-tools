@@ -1,4 +1,4 @@
 sfl-generic-dns
 ===============
 
-Shinken configuration pack for generic-dns
+DNS active checks with DNS requests
