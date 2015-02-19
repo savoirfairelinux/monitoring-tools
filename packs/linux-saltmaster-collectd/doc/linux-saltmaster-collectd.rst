@@ -76,4 +76,3 @@ This is the list of triggers used in the pack :
 
 * collectd_processes.trig
 
-

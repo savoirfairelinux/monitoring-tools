@@ -1,24 +1,21 @@
 {
-	"name": "sfl-linux-saltmaster-collectd",
-	"types": ["pack"],
-	"version": "1.0",
-	"homepage": "https://github.com/savoirfairelinux/monitoring-tools",
-	"author": "Sebastien Coavoux",
-	"description": "Pack to monitor the salt master service on a linux",
-	"contributors": [
-	  {
-		"name": "Sebastien Coavoux",
-		"email": "sebastien.coavoux@savoirfairelinux.com"
-	  },
-	],
-	"repository": "https://github.com/savoirfairelinux/monitoring-tools",
-	"keywords": [
-	  "pack",
-	  "linux-saltmaster-collectd"
-	  
-	],
-	"dependencies": {
-	  "shinken": ">=1.4"
-	},
-	"license": "GPL"
+    "name": "linux-saltmaster-collectd",
+    "types": ["pack"],
+    "version": "1.0",
+    "homepage": "https://github.com/savoirfairelinux/monitoring-tools",
+    "author": "Savoir-faire Linux",
+    "description": "Pack to monitor the salt master service on a linux",
+    "contributors": [
+        {
+        "name": "Savoir-faire Linux",
+        "email": "supervision@savoirfairelinux.com"
+        }
+    ],
+    "repository": "https://github.com/savoirfairelinux/monitoring-tools",
+    "keywords": ["pack",
+                 "linux-saltmaster-collectd",
+                 "linux","salt","saltmaster","master","collectd"
+    ],
+    "dependencies": { "shinken": ">=1.4" },
+    "license": "GPL"
 }
