@@ -54,4 +54,3 @@ _URI_REPO
 
 :type:              URI
 :description:       The URI of the repo to check
-

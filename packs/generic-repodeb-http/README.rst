@@ -1,4 +1,4 @@
 sfl-generic-repodeb-http
 ========================
 
-Shinken configuration pack for generic-repodeb-http
+Debian and Ubuntu repository active checks with HTTP requests
