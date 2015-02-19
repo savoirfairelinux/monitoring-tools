@@ -1,4 +1,4 @@
 sfl-generic-dhcp
 ================
 
-Shinken configuration pack for generic-dhcp
+DHCP active checks with DHCP request
