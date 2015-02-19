@@ -1,4 +1,4 @@
 sfl-generic-mongodb
 ===================
 
-Shinken configuration pack for generic-mongodb
+Pack to monitor MongoDB

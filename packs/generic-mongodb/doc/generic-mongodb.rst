@@ -213,4 +213,3 @@ _MONGO_CONNECT_PRIMARY_CRITICAL
 :type:              integer
 :description:       critical threshold for the connection to the primary server of current replicaset : second
 :defaut:            4
-

@@ -1,24 +1,21 @@
 {
-    "name": "sfl-linux-radius-collectd",
+    "name": "generic-mongodb",
     "types": ["pack"],
     "version": "1.0",
-    "homepage": "",
-    "author": "Nguyen Van Duc",
+    "homepage": "https://github.com/savoirfairelinux/monitoring-tools",
+    "author": "Savoir-faire Linux",
     "description": "Pack to monitor MongoDB",
     "contributors": [
-      {
-        "name": "Nguyen Van Duc",
-        "email": "vanduc.nguyen@savoirfairelinux.com"
-      },
+        {
+        "name": "Savoir-faire Linux",
+        "email": "supervision@savoirfairelinux.com"
+        }
     ],
-    "repository": "",
-    "keywords": [
-      "pack",
-      "generic-mongodb"
-
+    "repository": "https://github.com/savoirfairelinux/monitoring-tools",
+    "keywords": ["pack",
+                 "generic-mongodb",
+                 "mongo","mongodb"
     ],
-    "dependencies": {
-      "shinken": ">=1.4"
-    },
+    "dependencies": { "shinken": ">=1.4" },
     "license": "GPL"
 }
