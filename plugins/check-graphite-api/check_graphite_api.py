@@ -1,1 +1,0 @@
-check_graphite_api

@@ -24,7 +24,6 @@ import datetime
 ############################################################################
 
 from shinkenplugins.perfdata import PerfData
-from shinkenplugins.states import STATES
 from shinkenplugins.plugin import ShinkenPlugin
 
 ############################################################################

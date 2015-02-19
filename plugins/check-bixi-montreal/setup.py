@@ -17,46 +17,43 @@
 # Copyright (C) 2014, Savoir-faire Linux, Inc.
 #
 # Authors:
-#   Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
 #   Grégory Starck <gregory.starck@savoirfairelinux.com>
 #
 #############################################################################
 
-from __future__ import with_statement
+from __future__ import with_statement, unicode_literals
 
-import os
-from os.path import join, dirname, abspath
 from setuptools import setup, find_packages
 
-# no dependencies yet, might be useful later
-# with open('requirements.txt') as f:
-#     install_requires = [l for l in f.read().splitlines()
-#                         if not l.startswith('#')]
-
-description = 'Checks empty or full Bixi (public bike service) stations, in Montreal.'
-long_description = ('''Checks empty or full Bixi (public bike service) stations, in Montreal.''')
+description = 'Check Montréal Bixi'
+long_description = ''' ... '''
 
 #############################################################################
 
 setup(
-    name='bixi_montreal',
-    version="1.0",
-    packages=["shinkenplugins.plugins.bixi_montreal"],
-    #install_requires=install_requires,
-    #zip_safe=False,
-    author="Matthieu Caneill",
-    author_email="matthieu.caneill@savoirfairelinux.com",
+    author="Savoir-faire Linux",
+    author_email="supervision@savoirfairelinux.com",
     long_description=long_description,
     description=description,
     license="GPL3+",
     url="https://github.com/savoirfairelinux/sfl-shinken-plugins",
     platforms=['any'],
-    install_requires=["shinkenplugins"],
-    package_dir={'shinkenplugins.plugins' : ''},
-#   MAYBE LATER: use pkg_ressources
-#    entry_points="""
-#    [console_scripts]
-#    check_bixi_montreal = shinkenplugins.plugins.bixi_montreal.bixi_montreal:main
-#
-#    """
+
+    install_requires=[
+        'shinkenplugins>0.2',
+        'lxml',
+    ],
+    extras_require={
+        'test': [
+            'nose',
+        ],
+    },
+    name='shinkenplugins.plugins.bixi_montreal',
+    version="1.2",
+    packages=find_packages(),
+    namespace_packages=[
+        'shinkenplugins',
+        'shinkenplugins.plugins',
+    ],
+
 )

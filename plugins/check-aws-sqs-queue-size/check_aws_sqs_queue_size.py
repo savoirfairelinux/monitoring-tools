@@ -1,1 +1,0 @@
-check_aws_sqs_queue_size

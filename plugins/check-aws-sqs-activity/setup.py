@@ -17,46 +17,46 @@
 # Copyright (C) 2014, Savoir-faire Linux, Inc.
 #
 # Authors:
-#   Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
 #   Grégory Starck <gregory.starck@savoirfairelinux.com>
 #
 #############################################################################
 
 from __future__ import with_statement
 
-import os
-from os.path import join, dirname, abspath
 from setuptools import setup, find_packages
 
-# no dependencies yet, might be useful later
-# with open('requirements.txt') as f:
-#     install_requires = [l for l in f.read().splitlines()
-#                         if not l.startswith('#')]
-
-description = 'Checks the activity of AWS simple queue service.'
-long_description = ('''Checks the activity of AWS simple queue service.''')
+description = 'Check AWS SQS activity'
+long_description = ''' ... '''
 
 #############################################################################
 
 setup(
-    name='aws_sqs_activity',
-    version="1.0",
-    packages=["shinkenplugins.plugins.aws_sqs_activity"],
-    #install_requires=install_requires,
-    #zip_safe=False,
-    author="Alexandre Viau",
-    author_email="alexandre@alexandreviau.net",
+    author="Savoir-faire Linux",
+    author_email="supervision@savoirfairelinux.com",
     long_description=long_description,
     description=description,
     license="GPL3+",
     url="https://github.com/savoirfairelinux/sfl-shinken-plugins",
     platforms=['any'],
-    install_requires=["shinkenplugins"],
-    package_dir={'shinkenplugins.plugins' : ''},
-#   MAYBE LATER: use pkg_ressources
-#    entry_points="""
-#    [console_scripts]
-#    check_aws_sqs_activity = shinkenplugins.plugins.aws_sqs_activity.aws_sqs_activity:main
-#
-#    """
+
+    install_requires=[
+        'shinkenplugins>0.2',
+        'boto',
+    ],
+    extras_require={
+        'test': [
+            'nose'
+        ],
+    },
+    name='shinkenplugins.plugins.aws_sqs_activity',
+    version="1.2",
+    packages=find_packages(),
+    namespace_packages=[
+        'shinkenplugins',
+        'shinkenplugins.plugins',
+    ],
+    entry_points="""
+    [console_scripts]
+    check_aws_sqs_activity = shinkenplugins.plugins.aws_sqs_activity:main
+    """,
 )

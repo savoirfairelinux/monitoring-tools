@@ -24,39 +24,42 @@
 
 from __future__ import with_statement
 
-import os
-from os.path import join, dirname, abspath
+
+
 from setuptools import setup, find_packages
-
-# no dependencies yet, might be useful later
-# with open('requirements.txt') as f:
-#     install_requires = [l for l in f.read().splitlines()
-#                         if not l.startswith('#')]
-
-description = 'Checks the numbers of warnings reported by the AMT trains in the Montreal area.'
-long_description = ('''Checks the numbers of warnings reported by the AMT trains in the Montreal area.''')
 
 #############################################################################
 
+description = 'A Shinken plugin to check Montréal AMT'
+long_description = (''' .. ''')
+
+
 setup(
-    name='amt_montreal',
-    version="1.0",
-    packages=["shinkenplugins.plugins.amt_montreal"],
-    #install_requires=install_requires,
-    #zip_safe=False,
-    author="Matthieu Caneill",
-    author_email="matthieu.caneill@savoirfairelinux.com",
+    name='shinkenplugins.plugins.amt_montreal',
+    version="1.2",
+    packages=find_packages(),
+    author="Grégory Starck",
+    author_email="gregory.starck@savoirfairelinux.com",
     long_description=long_description,
     description=description,
     license="GPL3+",
     url="https://github.com/savoirfairelinux/sfl-shinken-plugins",
     platforms=['any'],
-    install_requires=["shinkenplugins"],
-    package_dir={'shinkenplugins.plugins' : ''},
-#   MAYBE LATER: use pkg_ressources
-#    entry_points="""
-#    [console_scripts]
-#    check_amt_montreal = shinkenplugins.plugins.amt_montreal.amt_montreal:main
-#
-#    """
+    install_requires=[
+        'shinkenplugins>0.2',
+        'protobuf>=2.5.0',
+    ],
+    extras_require={
+        'test': [
+            'nose',
+        ],
+    },
+    namespace_packages=[
+        'shinkenplugins',
+        'shinkenplugins.plugins',
+    ],
+    entry_points="""
+    [console_scripts]
+    check_amt_montreal = shinkenplugins.plugins.amt_montreal:main
+    """,
 )

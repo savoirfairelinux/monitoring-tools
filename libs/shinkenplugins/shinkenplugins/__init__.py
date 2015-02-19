@@ -22,15 +22,13 @@
 #
 #############################################################################
 
-from __future__ import unicode_literals, print_function, absolute_import
-
-#############################################################################
-#############################################################################
-
-from .old import STATES, BasePlugin
-from .perfdata import PerfData
-from .test import TestPlugin
-
-#############################################################################
+# This is a namespace package so don't expect this __init__
+# to be always executed. let alone be installed.
 
 __import__('pkg_resources').declare_namespace(__name__)
+
+# See for references:
+# https://pythonhosted.org/setuptools/setuptools.html#namespace-packages
+# http://stackoverflow.com/questions/27715334/with-setuptools-when-does-namespace-packages-init-py-files-disappears
+# or
+# http://stackoverflow.com/questions/24347094/python-setuptools-init-py-does-not-call-declare-namespace

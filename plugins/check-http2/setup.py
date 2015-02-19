@@ -24,9 +24,6 @@
 
 from __future__ import with_statement
 
-import os
-from os.path import join, dirname, abspath
-
 from setuptools import setup, find_packages
 
 #############################################################################
@@ -38,11 +35,7 @@ long_description = (''' .. ''')
 setup(
     name='shinkenplugins.plugins.http2',
     version="1.0",
-    packages=[
-        'shinkenplugins',
-        'shinkenplugins.plugins',
-        'shinkenplugins.plugins.http2',
-    ],
+    packages=find_packages(),
     author="Grégory Starck",
     author_email="gregory.starck@savoirfairelinux.com",
     long_description=long_description,
@@ -53,20 +46,17 @@ setup(
     install_requires=[
         'shinkenplugins>0.2',
     ],
-    zip_safe=False,
-    package_dir={
-#        'shinkenplugins':		'',
-#        'shinkenplugins.plugins': 	'',
-#        'shinkenplugins.plugins.http2':	'http2',
+    extras_require={
+        'test': [
+            'nose'
+        ],
     },
     namespace_packages=[
         'shinkenplugins',
         'shinkenplugins.plugins',
     ],
-#   MAYBE LATER: use pkg_ressources
-#    entry_points="""
-#    [console_scripts]
-#    check_http2 = shinkenplugins.plugins.http2.http2:main
-#
-#    """
+    entry_points="""
+    [console_scripts]
+    check_http2 = shinkenplugins.plugins.http2:main
+    """,
 )

@@ -51,26 +51,21 @@ def main(args):
     # we copy the needed files
     shutil.copytree(tdir, target, symlinks=True)
     
-    shutil.move(os.path.join(target, 'check_foo'),
-                os.path.join(target, exec_name))
 
     shutil.move(os.path.join(target, 'monitoring-plugins-sfl-check-foo.spec'),
-                os.path.join(target, 'monitoring-plugins-sfl-' +  args['name'] + '.spec'))
+                os.path.join(target, 'monitoring-plugins-sfl-check-%s.spec' % short_name))
 
-    shutil.move(os.path.join(target, 'foo'),
-                os.path.join(target, short_name))
+    shutil.move(os.path.join(target, 'shinkenplugins', 'plugins', 'foo'),
+                os.path.join(target, 'shinkenplugins', 'plugins', short_name))
 
-    shutil.move(os.path.join(target, short_name, 'foo.py'),
-                os.path.join(target, short_name, short_name + '.py'))
-    
-    shutil.move(os.path.join(target, 'test_check_foo.py'),
-                os.path.join(target, 'test_' + exec_name + '.py'))
+    shutil.move(os.path.join(target, 'shinkenplugins', 'plugins', short_name, 'foo.py'),
+                os.path.join(target, 'shinkenplugins', 'plugins', short_name, '%s.py' % short_name))
+
+    shutil.move(os.path.join(target, 'tests', 'test_check_foo.py'),
+                os.path.join(target, 'tests', 'test_' + exec_name + '.py'))
 
     shutil.move(os.path.join(target, 'doc', 'plugin-check_foo.rst'),
                 os.path.join(target, 'doc', 'plugin-' + exec_name + '.rst'))
-    
-    os.symlink(exec_name,
-               os.path.join(target, exec_name + '.py'))
 
     # and feed them to jinja2
     loader = FileSystemLoader(target)
@@ -100,6 +95,7 @@ def main(args):
     for template in env.list_templates():
         print template
         output = env.get_template(template).render(tvars)
+
         with codecs.open(os.path.join(target, template), 'w', 'utf8') as f:
             f.write(output)
 

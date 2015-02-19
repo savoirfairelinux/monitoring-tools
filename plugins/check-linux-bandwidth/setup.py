@@ -24,14 +24,8 @@
 
 from __future__ import with_statement
 
-import os
-from os.path import join, dirname, abspath
 from setuptools import setup, find_packages
 
-# no dependencies yet, might be useful later
-# with open('requirements.txt') as f:
-#     install_requires = [l for l in f.read().splitlines()
-#                         if not l.startswith('#')]
 
 description = 'Check Linux bandwidth usage per month'
 long_description = ('''Check Linux bandwidth usage per month''')
@@ -39,11 +33,7 @@ long_description = ('''Check Linux bandwidth usage per month''')
 #############################################################################
 
 setup(
-    name='linux_bandwidth',
-    version="1.0",
-    packages=["shinkenplugins.plugins.linux_bandwidth"],
-    #install_requires=install_requires,
-    #zip_safe=False,
+    name='shinkenplugins.plugins.linux_bandwidth',
     author="Grégory Starck",
     author_email="gregory.starck@savoirfairelinux.com",
     long_description=long_description,
@@ -51,12 +41,23 @@ setup(
     license="GPL3+",
     url="https://github.com/savoirfairelinux/sfl-shinken-plugins",
     platforms=['any'],
-    install_requires=["shinkenplugins"],
-    package_dir={'shinkenplugins.plugins' : ''},
-#   MAYBE LATER: use pkg_ressources
-#    entry_points="""
-#    [console_scripts]
-#    check_linux_bandwidth = shinkenplugins.plugins.linux_bandwidth.linux_bandwidth:main
-#
-#    """
+
+    version="1.0",
+    packages=find_packages(),
+    namespace_packages=[
+        'shinkenplugins',
+        'shinkenplugins.plugins',
+    ],
+    install_requires=[
+        'shinkenplugins>0.2.0',
+    ],
+    extras_require={
+        'test': [
+            'nose'
+        ],
+    },
+    entry_points="""
+    [console_scripts]
+    check_linux_bandwith = shinkenplugins.plugins.linux_bandwith:main
+    """,
 )

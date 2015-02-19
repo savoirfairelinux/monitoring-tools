@@ -1,1 +1,0 @@
-check_poller2livestatus
