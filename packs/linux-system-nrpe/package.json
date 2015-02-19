@@ -1,24 +1,21 @@
 {
-	"name": "linux-system-nrpe",
-	"types": ["pack"],
-	"version": "1.0",
-	"homepage": "https://github.com/savoirfairelinux/monitoring-tools",
-	"author": "Thibault Cohen",
+    "name": "linux-system-nrpe",
+    "types": ["pack"],
+    "version": "1.0",
+    "homepage": "https://github.com/savoirfairelinux/monitoring-tools",
+    "author": "Savoir-faire Linux",
     "description": "Standard linux NRPE active checks using NRPE, like CPU, RAM and disk space.",
-	"contributors": [
-	  {
-		"name": "Thibault Cohen",
-		"email": "thibault.cohen@savoirfairelinux.com"
-	  },
-	],
-	"repository": "https://github.com/savoirfairelinux/monitoring-tools",
-	"keywords": [
-	  "pack",
-	  "linux-system-nrpe",
-      "nrpe",
-	],
-	"dependencies": {
-	  "shinken": ">=1.4"
-	},
-	"license": "GPL"
+    "contributors": [
+        {
+        "name": "Savoir-faire Linux",
+        "email": "supervision@savoirfairelinux.com"
+        }
+    ],
+    "repository": "https://github.com/savoirfairelinux/monitoring-tools",
+    "keywords": ["pack",
+                 "linux-system-nrpe",
+                 "system","nrpe","linux"
+    ],
+    "dependencies": { "shinken": ">=1.4" },
+    "license": "GPL"
 }

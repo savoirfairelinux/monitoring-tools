@@ -1,4 +1,4 @@
-linux-system-nrpe
-=================
+sfl-linux-system-nrpe
+=====================
 
-Shinken configuration pack for linux-system-nrpe
+Standard linux NRPE active checks using NRPE, like CPU, RAM and disk space.

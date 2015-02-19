@@ -12,14 +12,14 @@ templates_path = ['_templates']
 source_suffix = '.rst'
 
 # The master toctree document.
-master_doc = 'pack-linux-system-nrpe'
+master_doc = 'linux-system-nrpe'
 
 # General information about the project.
-project = u'pack-linux-system-nrpe'
-copyright = u'2014, Thibault Cohen <thibault.cohen@savoirfairelinux.com>'
+project = u'linux-system-nrpe'
+copyright = u'2015, Savoir-faire Linux <supervision@savoirfairelinux.com>'
 
 # The short X.Y version.
-version = '2014.10.05.10.15'
+version = ''
 # The full version, including alpha/beta/rc tags.
 release = '1'
 
@@ -95,7 +95,7 @@ html_theme = 'default'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['source/_static']
+html_static_path = ['_static']
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
@@ -144,7 +144,7 @@ html_static_path = ['source/_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'pack-linux-system-nrpedoc'
+htmlhelp_basename = 'linux-system-nrpedoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -164,8 +164,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('source/pack-linux-system-nrpe', 'pack-linux-system-nrpe.tex', u'pack-linux-system-nrpe Documentation',
-   u'\\{\\{ author\\_name \\}\\}', 'manual'),
+  ('linux-system-nrpe', 'linux-system-nrpe.tex', u'linux-system-nrpe Documentation',
+   u'Savoir-faire Linux', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -194,8 +194,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('source/pack-linux-system-nrpe', 'pack-linux-system-nrpe', u'pack-linux-system-nrpe Documentation',
-     [u'Thibault Cohen'], 1)
+    ('linux-system-nrpe', 'monitoring-packs-sfl-linux-system-nrpe', u'linux-system-nrpe Documentation',
+     [u'Savoir-faire Linux'], 7)
 ]
 
 # If true, show URL addresses after external links.
@@ -208,9 +208,9 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('source/pack-linux-system-nrpe', 'pack-linux-system-nrpe', u'pack-linux-system-nrpe Documentation',
-   u'Thibault Cohen', 'pack-linux-system-nrpe', 'Shinken packs from SFL. Linux active checks based on NRPE',
-   'Miscellaneous'),
+  ('linux-system-nrpe', 'linux-system-nrpe', u'linux-system-nrpe Documentation',
+   u'Savoir-faire Linux', 'linux-system-nrpe', 'Standard linux NRPE active checks using NRPE, like CPU, RAM and disk space.',
+   'Packs'),
 ]
 
 # Documents to append as an appendix to all manuals.
