@@ -209,7 +209,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('linux-system-snmp', 'linux-system-snmp', u'linux-system-snmp Documentation',
-   u'Savoir-faire Linux', 'linux-system-snmp', 'Standard linux NRPE active checks using SNMP, like CPU, RAM and disk space.',
+   u'Savoir-faire Linux', 'linux-system-snmp', 'Standard linux active checks using SNMP, like CPU, RAM and disk space.',
    'Packs'),
 ]
 

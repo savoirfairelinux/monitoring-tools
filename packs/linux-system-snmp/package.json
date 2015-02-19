@@ -4,7 +4,7 @@
     "version": "1.0",
     "homepage": "https://github.com/savoirfairelinux/monitoring-tools",
     "author": "Savoir-faire Linux",
-    "description": "Standard linux NRPE active checks using SNMP, like CPU, RAM and disk space.",
+    "description": "Standard linux active checks using SNMP, like CPU, RAM and disk space.",
     "contributors": [
         {
         "name": "Savoir-faire Linux",

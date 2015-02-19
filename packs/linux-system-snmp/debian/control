@@ -10,6 +10,6 @@ Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 Package: monitoring-packs-sfl-linux-system-snmp
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Standard linux NRPE active checks using SNMP, like CPU, RAM and disk space.
+Description: Standard linux active checks using SNMP, like CPU, RAM and disk space.
  More information is available on Github:
  https://github.com/savoirfairelinux/monitoring-tools

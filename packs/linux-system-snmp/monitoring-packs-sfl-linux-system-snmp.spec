@@ -10,7 +10,7 @@ Name:       %{name}
 Version:    %{version}
 Release:    %{release}
 License: GPL v3
-Summary: Standard linux NRPE active checks using SNMP, like CPU, RAM and disk space.
+Summary: Standard linux active checks using SNMP, like CPU, RAM and disk space.
 Group: Networking/Other
 Source: https://github.com/savoirfairelinux/monitoring-tools/%{name}_%{version}.orig.tar.gz
 URL: https://github.com/savoirfairelinux/monitoring-tools/
@@ -23,7 +23,7 @@ BuildRoot:  %{_tmppath}/%{name}-%{version}
 
 
 %description
-Standard linux NRPE active checks using SNMP, like CPU, RAM and disk space.
+Standard linux active checks using SNMP, like CPU, RAM and disk space.
 
 %prep
 %setup -q
