@@ -127,4 +127,3 @@ This is the list of triggers used in the pack :
 * collectd_swap.trig
 * collectd_users.trig
 
-

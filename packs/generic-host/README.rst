@@ -1,4 +1,4 @@
 sfl-generic-host
 ================
 
-Shinken configuration pack for pack-generic-host
+Generic pack for all hosts
