@@ -1,4 +1,4 @@
 sfl-generic-carbon-tcp
 ======================
 
-Shinken configuration pack for generic-carbon-tcp
+Carbon active checks with TCP requests
