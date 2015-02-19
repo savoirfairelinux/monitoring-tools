@@ -1,4 +1,4 @@
 sfl-generic-multisite-http
 ==========================
 
-Shinken configuration pack for generic-multisite-http
+CheckMK Multisite active checks with HTTP requests
