@@ -3,51 +3,53 @@
 #
 %define raw_name    generic-mysql
 %define name        monitoring-packs-sfl-%{raw_name}
-%define version     2015.1.29.14.37
+%define version     2015.2.19.16.47
 %define release     1
 
 Name:       %{name}
 Version:    %{version}
-Release:    %{release}%{?dist}
+Release:    %{release}
 License: GPL v3
 Summary: Pack for mysql server
 Group: Networking/Other
-Source: http://monitoring.savoirfairelinux.com/%{name}_%{version}.orig.tar.gz
-URL: http://monitoring.savoirfairelinux.com/
+Source: https://github.com/savoirfairelinux/monitoring-tools/%{name}_%{version}.orig.tar.gz
+URL: https://github.com/savoirfairelinux/monitoring-tools/
 Distribution: Savoir-faire Linux
 Vendor: Savoir-faire Linux
 Packager: Savoir-faire Linux <supervision@savoirfairelinux.com>
 BuildRoot:  %{_tmppath}/%{name}-%{version}
-BuildRequires: python-sphinx
+#%{?el7:BuildRequires: python-sphinx}
 #Requires: python, python-dlnetsnmp
+
 
 %description 
 Pack for mysql server
 
 %prep
-%setup -q -n %{name}
+%setup -q
+
+%build
+sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man7/%{raw_name}
+sphinx-build -b html -d doc/build/doctrees/source doc %{buildroot}/%{_docdir}/monitoring/packs/%{raw_name}
 
 %install
 %{__rm} -rf %{buildroot}
-%{__install} -d -m 755 %{buildroot}/%{_sysconfdir}/shinken/packs/%{raw_name}
-%{__cp} -r pack/* %{buildroot}/%{_sysconfdir}/shinken/packs/%{raw_name}
-%{__install} -p -m 755 package.json %{buildroot}/%{_sysconfdir}/shinken/packs/%{raw_name}
-%{__install} -d -m 755 %{buildroot}/%{_docdir}/shinken/packs/%{raw_name}
-%{__cp} -r doc/* %{buildroot}/%{_docdir}/shinken/packs/%{raw_name}
-%{__rm} %{buildroot}/%{_docdir}/shinken/packs/%{raw_name}/conf.py
-%{__install} -d -m 755 %{buildroot}/%{_mandir}/man1/shinken/packs/%{raw_name}
-sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man1/%{raw_name}
+%{__install} -d -m 755 %{buildroot}/%{_libdir}/monitoring/packs/%{raw_name}
+%{__cp} -r pack/* %{buildroot}/%{_libdir}/monitoring/packs/%{raw_name}
+%{__install} -p -m 755 package.json %{buildroot}/%{_libdir}/monitoring/packs/%{raw_name}
+%{__install} -d -m 755 %{buildroot}/%{_docdir}/monitoring/packs/%{raw_name}
+%{__install} -d -m 755 %{buildroot}/%{_mandir}/man7/%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%docdir
-%{_docdir}/shinken/packs/%{raw_name}
-%{_mandir}/man1/shinken/packs/%{raw_name}
-%config
-%{_sysconfdir}/shinken/packs/
+%{_libdir}/monitoring/packs/
+%doc
+%{_docdir}/monitoring/packs/%{raw_name}
+%{_mandir}/man7/%{name}
+
 
 %changelog
-* Thu Jan 29 2015 Savoir-faire Linux <supervision@savoirfairelinux.com>
+* Thu Feb 19 2015 Savoir-faire Linux <supervision@savoirfairelinux.com>
 - Initial Release
