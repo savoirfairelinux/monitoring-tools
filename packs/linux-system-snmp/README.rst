@@ -1,4 +1,4 @@
 sfl-linux-system-snmp
 =====================
 
-Pack for Linux server
+Standard linux NRPE active checks using SNMP, like CPU, RAM and disk space.

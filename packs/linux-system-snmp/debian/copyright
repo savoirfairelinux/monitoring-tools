@@ -3,7 +3,7 @@ Upstream-Name: monitoring-packs-sfl-linux-system-snmp
 Source: <https://github.com/savoirfairelinux/monitoring-tools>
 
 Files: *
-Copyright:  2015 Thibault Cohen <thibault.cohen@savoirfairelinux.com>
+Copyright:  2015 Savoir-faire Linux <supervision@savoirfairelinux.com>
 License: GPL-3.0+
 
 License: GPL-3.0+
