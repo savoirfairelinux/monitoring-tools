@@ -1,4 +1,4 @@
 sfl-generic-graphite-http
 =========================
 
-Shinken configuration pack for generic-graphite-http
+Graphite active checks with HTTP requests
