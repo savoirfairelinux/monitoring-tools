@@ -89,4 +89,3 @@ _INFECTED_SERVERS_CRIT
 
 :type:         integer
 :description:  critical threshold for infected servers count
-

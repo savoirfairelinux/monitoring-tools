@@ -1,4 +1,4 @@
 sfl-windows-sophos-mssql
 ========================
 
-Shinken configuration pack for windows-sophos-mssql
+Pack to monitor number of infected servers on a sophos
