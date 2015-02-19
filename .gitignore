@@ -5,4 +5,6 @@ env/
 build-area
 obs.tmp
 plugins/*/doc/build
+plugins/*/debian/tmp/
 packs/*/doc/build
+packs/*/debian/tmp/

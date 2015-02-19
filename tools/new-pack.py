@@ -43,22 +43,38 @@ def main(args):
     tdir = os.path.join(here, 'templates', 'pack')
     target = os.path.join(os.path.dirname(here), 'packs', args['name'])
     
-    if os.path.exists(target):
+    if os.path.exists(target) and not args['update']:
         print("The folder %s shouldn't exit" % target)
+        print("Or maybe you want to migrate with the last template version")
         sys.exit(1)
 
     # we copy the needed files
-    shutil.copytree(tdir, target, symlinks=True)
-    
+    if not args['update']:
+        shutil.copytree(tdir, target, symlinks=True)
+    else:
+        file_ignored = ['commands.cfg', 'templates.cfg']
+        for path, folders, files in os.walk(tdir):
+            current_relative_folder = path.replace(tdir, "").strip("/")
+            for file_ in files:
+                if file_ not in file_ignored:
+                    shutil.copy(os.path.join(path, file_),
+                                os.path.join(target, current_relative_folder, file_))
+
     shutil.move(os.path.join(target, 'monitoring-packs-sfl-foo.spec'),
                 os.path.join(target, 'monitoring-packs-sfl-' +  args['name'] + '.spec'))
 
-    shutil.move(os.path.join(target, 'pack', 'foo.pack'),
-                os.path.join(target, 'pack', args['name'] + '.pack'))
 
-    shutil.move(os.path.join(target, 'doc', 'source', 'foo.rst'),
-                os.path.join(target, 'doc', args['name'] + '.rst'))
-    
+    if not args['update']:
+        shutil.move(os.path.join(target, 'pack', 'foo.pack'),
+                os.path.join(target, 'pack', args['name'] + '.pack'))
+        shutil.move(os.path.join(target, 'doc', 'foo.rst'),
+                    os.path.join(target, 'doc', args['name'] + '.rst'))
+    else:
+        os.remove(os.path.join(target, 'doc', 'foo.rst'))
+        os.remove(os.path.join(target, 'pack', 'foo.pack'))
+        os.remove(os.path.join(target, 'pack', 'services', 'service1.cfg'))
+        os.remove(os.path.join(target, 'pack', 'services', 'service2.cfg'))
+ 
     # and feed them to jinja2
     loader = FileSystemLoader(target)
     env = Environment(loader=loader)
@@ -71,7 +87,7 @@ def main(args):
     # template variables
     tvars = dict(args)
 
-    tvars['doc_name'] = "sfl-%s\n%s" % (tvars['name'], "=" * (len(tvars['name'] + 4)))
+    tvars['doc_name'] = "sfl-%s\n%s" % (tvars['name'], "=" * (len(tvars['name']) + 4))
     now = datetime.now()
     tvars['year'] = now.year
     tvars['date_long'] = '%s.%s.%s.%s.%s' % (now.year, now.month, now.day, now.hour, now.minute)
@@ -80,7 +96,11 @@ def main(args):
 
     for template in env.list_templates():
         print template
-        output = env.get_template(template).render(tvars)
+        try:
+            output = env.get_template(template).render(tvars)
+        except Exception as exp:
+            print template, ": Can't be processed. Error :", exp
+            continue
         with codecs.open(os.path.join(target, template), 'w', 'utf8') as f:
             f.write(output)
 
@@ -102,11 +122,13 @@ def parse_args():
         {'name': 'protocol', 'help': 'Protocol used in this new pack', 'choices': None},
         {'name': 'desc', 'help': 'The description of your pack', 'choices': None},
         {'name': 'tags', 'help': 'Pack tag list (comma separed)', 'choices': None},
-        {'name': 'author_name', 'help': 'Your name', 'choices': None},
-        {'name': 'author_email', 'help': 'Your email address', 'choices': None},
         ]
     for arg in required:
         parser.add_argument('--' + arg['name'], help=arg['help'], choices=arg['choices'])
+
+    parser.add_argument('--author_name', help='Your name', default='Savoir-faire Linux')
+    parser.add_argument('--author_email', help='Your email address', default='supervision@savoirfairelinux.com')
+    parser.add_argument('--update', help='Update', default=False, action='store_true')
 
     args = vars(parser.parse_args())
 
