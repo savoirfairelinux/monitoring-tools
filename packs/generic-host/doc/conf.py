@@ -19,7 +19,7 @@ project = u'generic-host'
 copyright = u'2015, Savoir-faire Linux <supervision@savoirfairelinux.com>'
 
 # The short X.Y version.
-version = ''
+version = '2015.2.19.16.37'
 # The full version, including alpha/beta/rc tags.
 release = '1'
 

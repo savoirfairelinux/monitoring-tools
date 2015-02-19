@@ -19,7 +19,7 @@ project = u'generic-apache-http'
 copyright = u'2015, Thibault Cohen <thibault.cohen@savoirfairelinux.com>'
 
 # The short X.Y version.
-version = ''
+version = '2015.2.17.14.15'
 # The full version, including alpha/beta/rc tags.
 release = '1'
 

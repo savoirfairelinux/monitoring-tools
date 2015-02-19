@@ -19,7 +19,7 @@ project = u'vmware-system-https'
 copyright = u'2015, Savoir-faire Linux <supervision@savoirfairelinux.com>'
 
 # The short X.Y version.
-version = ''
+version = '2015.2.19.18.17'
 # The full version, including alpha/beta/rc tags.
 release = '1'
 
