@@ -23,7 +23,7 @@ from subprocess import Popen, PIPE
 
 import mock
 
-from shinkenplugins import TestPlugin
+from shinkenplugins.test import TestPlugin
 
 import check_arp_no_change
 from check_arp_no_change import ArpRequest, Plugin

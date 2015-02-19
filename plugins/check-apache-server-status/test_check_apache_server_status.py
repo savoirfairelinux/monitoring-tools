@@ -17,7 +17,7 @@
 
 import unittest
 
-from shinkenplugins import TestPlugin
+from shinkenplugins.test import TestPlugin
 
 from apache_server_status import Plugin
 

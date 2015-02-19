@@ -20,7 +20,7 @@ import unittest
 import shutil
 import os
 
-from shinkenplugins import TestPlugin
+from shinkenplugins.test import TestPlugin
 
 from linux_bandwidth import Plugin
 

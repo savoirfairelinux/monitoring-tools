@@ -18,7 +18,7 @@
 
 from check_stm_metro_montreal import Plugin
 
-from shinkenplugins import TestPlugin
+from shinkenplugins.test import TestPlugin
 
 class Test(TestPlugin):
     def test_version(self):

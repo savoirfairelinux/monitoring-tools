@@ -17,7 +17,7 @@
 
 from check_json_by_ec2_tags import Plugin
 
-from shinkenplugins import TestPlugin
+from shinkenplugins.test import TestPlugin
 
 class Test(TestPlugin):
     def test_version(self):

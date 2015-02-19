@@ -17,7 +17,7 @@
 
 from check_bixi_montreal import Plugin
 
-from shinkenplugins import TestPlugin
+from shinkenplugins.test import TestPlugin
 
 class Test(TestPlugin):
     def test_version(self):
