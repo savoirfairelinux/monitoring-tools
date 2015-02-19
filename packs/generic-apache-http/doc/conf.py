@@ -12,7 +12,7 @@ templates_path = ['_templates']
 source_suffix = '.rst'
 
 # The master toctree document.
-master_doc = 'source/generic-apache-http'
+master_doc = 'generic-apache-http'
 
 # General information about the project.
 project = u'generic-apache-http'
@@ -95,7 +95,7 @@ html_theme = 'default'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['source/_static']
+html_static_path = ['_static']
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
@@ -164,7 +164,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('source/generic-apache-http', 'generic-apache-http.tex', u'generic-apache-http Documentation',
+  ('generic-apache-http', 'generic-apache-http.tex', u'generic-apache-http Documentation',
    u'Thibault Cohen', 'manual'),
 ]
 
@@ -194,8 +194,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('source/generic-apache-http', 'generic-apache-http', u'generic-apache-http Documentation',
-     [u'Thibault Cohen'], 1)
+    ('generic-apache-http', 'monitoring-packs-sfl-generic-apache-http', u'generic-apache-http Documentation',
+     [u'Thibault Cohen'], 7)
 ]
 
 # If true, show URL addresses after external links.
@@ -208,7 +208,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('source/generic-apache-http', 'generic-apache-http', u'generic-apache-http Documentation',
+  ('generic-apache-http', 'generic-apache-http', u'generic-apache-http Documentation',
    u'Thibault Cohen', 'generic-apache-http', 'Apache webserver stats',
    'Packs'),
 ]
