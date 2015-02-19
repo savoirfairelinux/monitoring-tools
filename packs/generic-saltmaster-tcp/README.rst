@@ -1,4 +1,4 @@
 sfl-generic-saltmaster-tcp
 ==========================
 
-Shinken configuration pack for generic-saltmaster-tcp
+Pack to monitor saltmaster service

@@ -70,4 +70,3 @@ _TIME_CRIT
 :type:              double
 :description:       Response time critical threshold. Default 2
 
-
