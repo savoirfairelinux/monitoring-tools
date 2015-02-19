@@ -88,4 +88,3 @@ _ESX_SWAP_CRIT
 :type:              percent
 :description:       Level for swap usage
 
-

@@ -1,3 +1,2 @@
 pack /usr/lib/monitoring/packs/sfl/vmware-system-https
 package.json /usr/lib/monitoring/packs/sfl/vmware-system-https
-share/* /var/lib/shinken/share

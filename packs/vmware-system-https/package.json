@@ -1,37 +1,21 @@
 {
-	"name": "vmware",
-	"types": ["pack"],
-	"version": "1.4",
-	"homepage": "https://github.com/shinken-monitoring/pack-vmware",
-	"author": "Jean Gabes",
-	"description": "Checks for VMware virtual machine and ESX/ESXi",
-	"contributors": [
-	  {
-		"name": "Jean Gabes",
-		"email": "naparuba@gmail.com"
-	  },
-	  {
-		"name": "Imrane Dessai",
-		"email": "dessai.imrane@gmail.com"
-	  },
-          {
-                "name": "Romain Forlot",
-                "email": ""
-          }
-
-	],
-	"repository": "https://github.com/shinken-monitoring/pack-vmware",
-	"keywords": [
-	  "pack",
-	  "vmware",
-	  "esx",
-	  "esxi",
-	  "virtualization",
-	  "vm",
-	  "vcenter"
-	],
-	"dependencies": {
-	  "shinken": ">=1.4"
-	},
-	"license": "AGPL"
+    "name": "vmware-system-https",
+    "types": ["pack"],
+    "version": "1.0",
+    "homepage": "https://github.com/savoirfairelinux/monitoring-tools",
+    "author": "Savoir-faire Linux",
+    "description": "Checks for VMware virtual machine and ESX/ESXi",
+    "contributors": [
+        {
+        "name": "Savoir-faire Linux",
+        "email": "supervision@savoirfairelinux.com"
+        }
+    ],
+    "repository": "https://github.com/savoirfairelinux/monitoring-tools",
+    "keywords": ["pack",
+                 "vmware-system-https",
+                 "system","http","vmware",""
+    ],
+    "dependencies": { "shinken": ">=1.4" },
+    "license": "GPL"
 }
