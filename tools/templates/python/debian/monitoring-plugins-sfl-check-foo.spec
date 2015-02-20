@@ -37,9 +37,6 @@ rm -rf %{buildroot}
 %{__install} -d -m 755 %{buildroot}/%{_mandir}/man1/monitoring/plugins/%{name}
 sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man1/monitoring/plugins/%{name}
 
-#%check
-#cd %{buildroot}/%{python_sitelib}/shinkenplugins/plugins/ && %{__python} -c "import {{ short_name }}"
-
 
 %files
 %defattr(-,root,root,-)
