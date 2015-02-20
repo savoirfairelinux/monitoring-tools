@@ -28,11 +28,11 @@ class Test(TestPlugin):
 
     def test_version(self):
         args = ["-v"]
-        self.execute(Plugin, args, 0, stderr_pattern="version " + Plugin.VERSION)
+        self.execute(Plugin, args, 3, Plugin.NAME + " version " + Plugin.VERSION)
 
     def test_help(self):
         args = ["-h"]
-        self.execute(Plugin, args, 0, "usage:")
+        self.execute(Plugin, args, 3, Plugin.NAME + " version " + Plugin.VERSION)
 
     # Add your tests here!
     # They should use
