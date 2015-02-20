@@ -1,16 +1,16 @@
 #
 # Example spec file for cdplayer app...
 #
-%define raw_name    generic-ssh
+%define raw_name    windows-ad-collectd
 %define name        monitoring-packs-sfl-%{raw_name}
-%define version     2015.2.19.17.18
+%define version     2015.2.19.18.26
 %define release     1
 
 Name:       %{name}
 Version:    %{version}
 Release:    %{release}
 License: GPL v3
-Summary: Checks for SSH
+Summary: Passive check for Active Directory
 Group: Networking/Other
 Source: https://github.com/savoirfairelinux/monitoring-tools/%{name}_%{version}.orig.tar.gz
 URL: https://github.com/savoirfairelinux/monitoring-tools/
@@ -23,32 +23,27 @@ BuildRoot:  %{_tmppath}/%{name}-%{version}
 
 
 %description
-Checks for SSH
+Passive check for Active Directory
 
 %prep
 %setup -q
 
-%build
-sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man7/%{raw_name}
-sphinx-build -b html -d doc/build/doctrees/source doc %{buildroot}/%{_docdir}/monitoring/packs/%{raw_name}
-
 %install
 %{__rm} -rf %{buildroot}
-%{__install} -d -m 755 %{buildroot}/%{_libdir}/monitoring/packs/%{raw_name}
-%{__cp} -r pack/* %{buildroot}/%{_libdir}/monitoring/packs/%{raw_name}
-%{__install} -p -m 755 package.json %{buildroot}/%{_libdir}/monitoring/packs/%{raw_name}
-%{__install} -d -m 755 %{buildroot}/%{_docdir}/monitoring/packs/%{raw_name}
-%{__install} -d -m 755 %{buildroot}/%{_mandir}/man7/%{name}
+%{__install} -d -m 755 %{buildroot}/%{_libdir}/monitoring/packs/sfl/%{raw_name}
+%{__cp} -r pack/* %{buildroot}/%{_libdir}/monitoring/packs/sfl/%{raw_name}
+%{__install} -p -m 755 package.json %{buildroot}/%{_libdir}/monitoring/packs/sfl/%{raw_name}
+sphinx-build -b html -d doc/build/doctrees/source doc %{buildroot}/%{_docdir}/monitoring/packs/sfl/%{raw_name}
+sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man7/
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf 
 
 %files
-%{_libdir}/monitoring/packs/
+%{_libdir}/monitoring/packs/sfl
 %doc
-%{_docdir}/monitoring/packs/%{raw_name}
-%{_mandir}/man7/%{name}
-
+%{_docdir}/monitoring/packs/sfl/%{raw_name}
+%{_mandir}/man7/*
 
 %changelog
 * Thu Feb 19 2015 Savoir-faire Linux <supervision@savoirfairelinux.com>
