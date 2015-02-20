@@ -16,6 +16,8 @@
 # Copyright (C) 2014, Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
 
 
+import unittest
+
 from shinkenplugins.test import TestPlugin
 
 from shinkenplugins.plugins.bixi_montreal import Plugin

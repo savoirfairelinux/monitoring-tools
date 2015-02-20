@@ -15,6 +15,8 @@
 
 # Copyright (C) 2014, vdnguyen <vanduc.nguyen@savoirfairelinux.com>
 
+import unittest
+
 from shinkenplugins.plugins.amt_montreal import Plugin
 
 from shinkenplugins.test import TestPlugin
