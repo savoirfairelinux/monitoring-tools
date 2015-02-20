@@ -2,8 +2,8 @@ Source: monitoring-plugins-sfl-check-redis
 Section: python
 Priority: optional
 Maintainer: vdnguyen <vanduc.nguyen@savoirfairelinux.com>
-Build-Depends: debhelper (>= 9)
-Standards-Version: 3.9.5
+Build-Depends: debhelper (>= 9), python-setuptools
+Standards-Version: 3.9.6
 Homepage: https://github.com/savoirfairelinux/monitoring-tools
 Vcs-Git: git@github.com:savoirfairelinux/monitoring-tools.git
 Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git

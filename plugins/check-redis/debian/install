@@ -1,1 +1,1 @@
-check_redis /usr/lib/monitoring/plugins/sfl
+#check_redis /usr/lib/monitoring/plugins/sfl

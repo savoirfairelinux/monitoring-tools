@@ -1,9 +1,13 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print (get_python_lib())")}
+%define raw_name    check-redis
+%define name        monitoring-packs-sfl-%{raw_name}
+%define version     2015.2.17.14.15
+%define release     1
 
 
-Name:           monitoring-plugins-sfl-check-redis
-Version:        2014.7.18.16.15
-Release:        1%{?dist}
+Name:           %{name}
+Version:        %{version}
+Release:        %{release}
 Summary:        Check Redis database
 
 License:        GPLv3
@@ -11,7 +15,8 @@ URL:            https://github.com/savoirfairelinux/monitoring-tools
 Source0:        https://github.com/savoirfairelinux/monitoring-tools/monitoring-plugins-sfl-check-redis_%{version}.orig.tar.gz
 
 Requires:       python-shinkenplugins
-BuildRequires:  python-setuptools, python-sphinx
+BuildRequires:  python-setuptools
+#%{?el7:BuildRequires: python-sphinx}
 
 BuildArch:      noarch
 
@@ -31,23 +36,24 @@ https://github.com/savoirfairelinux/sfl-shinken-plugins
 rm -rf %{buildroot}
 %{__python} setup.py install -O1 --skip-build --root %{buildroot} --install-lib=%{python_sitelib}
 %{__mkdir_p} %{buildroot}/%{_libdir}/monitoring/plugins/sfl
-%{__install} -p -m0755 check_redis %{buildroot}/%{_libdir}/monitoring/plugins/sfl
-%{__install} -d -m 755 %{buildroot}/%{_docdir}/shinken/plugins/%{name}
-%{__cp} -r doc/source/ %{buildroot}/%{_docdir}/shinken/plugins/%{name}
-%{__install} -d -m 755 %{buildroot}/%{_mandir}/man1/shinken/plugins/%{name}
-sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man1/shinken/plugins/%{name}
+%{__mv} %{buildroot}/usr/bin/*  %{buildroot}/%{_libdir}/monitoring/plugins/sfl/
+%{__rm} -rf %{buildroot}/usr/bin/
+find %{buildroot}/%{python_sitelib} -name "*.py[co]" -exec rm {} \;
 
+sphinx-build -b html -d doc/build/doctrees/source doc %{buildroot}/%{_docdir}/monitoring/plugins/%{raw_name}
+
+sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man1/
 
 %files
 %defattr(-,root,root,-)
 %{python_sitelib}/*.egg-info
-%dir %{python_sitelib}/shinkenplugins
-%{python_sitelib}/shinkenplugins/plugins/redis
+%{python_sitelib}/*.pth
+%{python_sitelib}/shinkenplugins/plugins
 %{_libdir}/monitoring/plugins/sfl/check_redis
-%docdir
-%{_docdir}/shinken/plugins/%{name}
-%{_mandir}/man1/shinken/plugins/%{name}
+%doc
+%{_docdir}/monitoring/plugins/%{raw_name}
+%{_mandir}/man1/*
 
 %changelog
-* Wed Dec 24 2014 Thibault Cohen <thibault.cohen@savoirfairelinux.com> - 0.2.0-1
+* Fri Feb 20 2015 Thibault Cohen <thibault.cohen@savoirfairelinux.com> - 2015.2.17.14.15-1
 - Initial package

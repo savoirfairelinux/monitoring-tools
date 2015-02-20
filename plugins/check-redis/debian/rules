@@ -8,6 +8,15 @@ override_dh_clean:
 	rm -rf ./*.egg-info
 	dh_clean
 
+override_dh_install:
+	dh_install
+	mv debian/monitoring-plugins-sfl-check-redis/usr/bin/* debian/monitoring-plugins-sfl-check-redis/usr/lib/monitoring/plugins/sfl
+	rmdir debian/monitoring-plugins-sfl-check-redis/usr/bin
+
 override_dh_installdocs:
+	sphinx-build -b html -d debian/tmp/doc/build/doctrees doc debian/tmp/doc/build/html
 	dh_installdocs
-	sphinx-build -b man -d doc/build/doctrees doc doc/build/man
+
+override_dh_installman:
+	sphinx-build -b man -d debian/tmp/doc/build/doctrees doc debian/tmp/doc/build/man
+	dh_installman
