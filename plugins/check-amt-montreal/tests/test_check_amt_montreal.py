@@ -26,11 +26,11 @@ class Test(TestPlugin):
 
     def test_version(self):
         args = ["-v"]
-        self.execute(Plugin, args, 0, stderr_pattern="version " + Plugin.VERSION)
+        self.execute(Plugin, args, 3, "check-amt-montreal version " + Plugin.VERSION, debug=True)
 
     def test_help(self):
         args = ["-h"]
-        self.execute(Plugin, args, 0, "usage:")
+        self.execute(Plugin, args, 3, "check-amt-montreal version " + Plugin.VERSION)
 
     # Add your tests here!
     # They should use
@@ -52,7 +52,7 @@ class Test(TestPlugin):
         Plugin.get_feed = get_data
 
         args = ['-U', 'bacon', '-t', 'eggs', '-w', '1', '-c', '3']
-        self.execute(Plugin, args, 1, '^WARNING: 2 problems', debug=True)
+        self.execute(Plugin, args, 1, '^WARNING - 2 problems', debug=True)
 
 if __name__ == '__main__':
     unittest.main()
