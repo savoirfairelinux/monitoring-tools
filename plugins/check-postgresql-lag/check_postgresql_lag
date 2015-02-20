@@ -19,9 +19,9 @@
 import psycopg2
 import sys
 import re
-from shinkenplugins.old import BasePlugin
-from shinkenplugins.perfdata import PerfData
-from shinkenplugins.states import STATES
+from shinkenplugins import BasePlugin
+from shinkenplugins import PerfData
+from shinkenplugins import STATES
 class Plugin(BasePlugin):
     NAME = 'check-postgresql-lag'
     VERSION = '0.1'

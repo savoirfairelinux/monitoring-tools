@@ -20,9 +20,9 @@ from __future__ import unicode_literals, division
 import sys, codecs
 sys.stdout = codecs.getwriter('utf8')(sys.stdout)
 import urllib, json
-from shinkenplugins.old import BasePlugin
-from shinkenplugins.perfdata import PerfData
-from shinkenplugins.states import STATES
+from shinkenplugins import BasePlugin
+from shinkenplugins import PerfData
+from shinkenplugins import STATES
 
 
 class Plugin(BasePlugin):
