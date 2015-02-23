@@ -87,7 +87,7 @@ class TestPlugin(unittest.TestCase):
         try:
             out = StringIO()
             sys.stdout = out
-            linux_traffic.main(['-v'])
+            linux_traffic.main(['--version'])
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 3)
