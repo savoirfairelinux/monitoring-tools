@@ -42,7 +42,7 @@ setup(
     url="https://github.com/savoirfairelinux/sfl-shinken-plugins",
     platforms=['any'],
 
-    version="1.0",
+    version="1.2",
     packages=find_packages(),
     namespace_packages=[
         'shinkenplugins',
