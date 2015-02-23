@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """Check traffic on linux hosts using _proc_net_dev
 """
@@ -366,11 +366,13 @@ def check_arguments(args):
     return args
 
 
-def main():
+def main(argv=None):
     """Main fonction
     """
+    if argv is None:
+        argv = sys.argv[1:]
     try:
-        options, args = getopt.getopt(sys.argv[1:],
+        options, args = getopt.getopt(argv,
                         'hVl:n:w:c:f',
                         ['help', 'version', 'ignore-lo',
                          'limit=', 'perfdata', 'ifname=',
