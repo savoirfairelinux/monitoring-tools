@@ -17,6 +17,7 @@ $w shinkenplugins
 # Plugins
 cd plugins
 for plugin in `ls -d */`; do
+    echo "===============>>> $plugin <<<==============="
     cd $plugin
     file="./test/jenkins/jenkins_unit_tests.sh"
     # workaround, as long as we still have these dirty jenkins scripts
