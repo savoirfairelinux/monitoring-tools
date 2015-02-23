@@ -62,6 +62,9 @@ class TestPlugin(unittest.TestCase):
 
         linux_traffic.main = mocked_main
 
+    def tearDown(self):
+        shutil.rmtree(self.tmpdir, True)
+
 
     def test_help(self):
         """Test help output :
