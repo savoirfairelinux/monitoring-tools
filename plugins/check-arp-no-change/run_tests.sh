@@ -6,8 +6,7 @@ rm -rf env
 virtualenv env
 source env/bin/activate
 
-pip install --upgrade pip
-pip install wheel
+pip install --upgrade pip nose setuptools wheel
 
 pip wheel --find-links=${wheel_house} --wheel-dir=${wheel_house} .
 
