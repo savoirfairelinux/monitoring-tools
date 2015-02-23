@@ -35,33 +35,42 @@ import time
 import os
 import shutil
 from StringIO import StringIO
+import tempfile
 
 import netifaces
 
 from shinkenplugins.plugins.linux_traffic import linux_traffic
 
 
-class TestPlugin(unittest.TestCase):
-    def setUp(self):
-        shutil.rmtree("/tmp/check_linux_traffic", True)
-        reload(linux_traffic)
+orig_linux_traffic_main = linux_traffic.main
 
+
+class TestPlugin(unittest.TestCase):
+
+    def setUp(self):
+        self.tmpdir = tempfile.mkdtemp(prefix='tests_linux_traffic')
+        shutil.rmtree(self.tmpdir, True)
         self.interfaces = netifaces.interfaces()
         self.interfaces = filter(lambda x: ':' not in x, self.interfaces)
         if len(self.interfaces) == 0:
             print('Error: No interface found.')
             sys.exit(1)
 
+        def mocked_main(argv):
+            argv.extend(('--store_dir', self.tmpdir))
+            return orig_linux_traffic_main(argv)
+
+        linux_traffic.main = mocked_main
+
+
     def test_help(self):
         """Test help output :
            -h
         """
-        sys.argv = [sys.argv[0]]
-        sys.argv.append('-h')
         try:
             out = StringIO()
             sys.stdout = out
-            linux_traffic.main()
+            linux_traffic.main(['-h'])
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 3)
@@ -72,12 +81,10 @@ class TestPlugin(unittest.TestCase):
         """Test version output :
            -V
         """
-        sys.argv = [sys.argv[0]]
-        sys.argv.append('-V')
         try:
             out = StringIO()
             sys.stdout = out
-            linux_traffic.main()
+            linux_traffic.main(['-v'])
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 3)
@@ -89,26 +96,20 @@ class TestPlugin(unittest.TestCase):
         """Test check2:
            -n `first interface`
         """
-        sys.argv = [sys.argv[0]]
-        sys.argv.append('-n')
-        sys.argv.append(self.interfaces[0])
         try:
             out = StringIO()
             sys.stdout = out
-            linux_traffic.main()
+            linux_traffic.main(['-n', self.interfaces[0]])
         except SystemExit, e:
             self.assertEquals(e.code, 0, str(e))
             output = out.getvalue().strip()
             assert output == "Waiting next check to get data..."
+
         time.sleep(5)
-        sys.argv = [sys.argv[0]]
-        sys.argv.append('-f')
-        sys.argv.append('-n')
-        sys.argv.append(self.interfaces[0])
         try:
             out = StringIO()
             sys.stdout = out
-            linux_traffic.main()
+            linux_traffic.main(['-f', '-n', self.interfaces[0]])
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 0)
@@ -121,26 +122,20 @@ class TestPlugin(unittest.TestCase):
         """Test check3:
            -f --ignore-lo
         """
-        sys.argv = [sys.argv[0]]
-        sys.argv.append('--ignore-lo')
-        sys.argv.append('-f')
         try:
             out = StringIO()
             sys.stdout = out
-            linux_traffic.main()
+            linux_traffic.main(['--ignore-lo', '-f'])
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 0)
             output = out.getvalue().strip()
             assert output == "Waiting next check to get data..."
-        sys.argv = [sys.argv[0]]
-        sys.argv.append('--ignore-lo')
-        sys.argv.append('-f')
         time.sleep(5)
         try:
             out = StringIO()
             sys.stdout = out
-            linux_traffic.main()
+            linux_traffic.main(['--ignore-lo', '-f'])
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 0)
@@ -152,32 +147,20 @@ class TestPlugin(unittest.TestCase):
         """Test check4:
            -f -n `first interface` -l 131072000 
         """
-        sys.argv = [sys.argv[0]]
-        sys.argv.append('-f')
-        sys.argv.append('-n')
-        sys.argv.append(self.interfaces[0])
-        sys.argv.append('-l')
-        sys.argv.append('131072000')
         try:
             out = StringIO()
             sys.stdout = out
-            linux_traffic.main()
+            linux_traffic.main(['-f', '-n', self.interfaces[0], '-l', '131072000'])
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 0)
             output = out.getvalue().strip()
             assert output == "Waiting next check to get data..."
         time.sleep(5)
-        sys.argv = [sys.argv[0]]
-        sys.argv.append('-f')
-        sys.argv.append('-n')
-        sys.argv.append(self.interfaces[0])
-        sys.argv.append('-l')
-        sys.argv.append('131072000')
         try:
             out = StringIO()
             sys.stdout = out
-            linux_traffic.main()
+            linux_traffic.main(['-f', '-n', self.interfaces[0], '-l', '131072000'])
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 0)
@@ -189,12 +172,10 @@ class TestPlugin(unittest.TestCase):
         """Test bad arguments1:
            -g
         """
-        sys.argv = [sys.argv[0]]
-        sys.argv.append('-g')
         try:
             out = StringIO()
             sys.stdout = out
-            linux_traffic.main()
+            linux_traffic.main(['-g'])
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 3)
@@ -205,15 +186,10 @@ class TestPlugin(unittest.TestCase):
         """Test bad arguments2:
            -w 80 -c 70
         """
-        sys.argv = [sys.argv[0]]
-        sys.argv.append('-w')
-        sys.argv.append('80')
-        sys.argv.append('-c')
-        sys.argv.append('70')
         try:
             out = StringIO()
             sys.stdout = out
-            linux_traffic.main()
+            linux_traffic.main(['-w', '80', '-c', '70'])
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 3)
@@ -224,13 +200,10 @@ class TestPlugin(unittest.TestCase):
         """Test bad arguments3:
            -w 80
         """
-        sys.argv = [sys.argv[0]]
-        sys.argv.append('-w')
-        sys.argv.append('80')
         try:
             out = StringIO()
             sys.stdout = out
-            linux_traffic.main()
+            linux_traffic.main(['-w', 80])
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 3)
@@ -247,7 +220,7 @@ class TestPlugin(unittest.TestCase):
         try:
             out = StringIO()
             sys.stdout = out
-            linux_traffic.main()
+            linux_traffic.main(['-w', 'bad_arg'])
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 3)

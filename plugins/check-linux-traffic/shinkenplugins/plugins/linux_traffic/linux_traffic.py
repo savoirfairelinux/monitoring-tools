@@ -45,6 +45,8 @@ STATE_CRITICAL = 2
 STATE_UNKNOWN = 3
 STATE_DEPENDENT = 4
 
+DEFAULT_STORE_DIR = '/tmp/check_linux_traffic'
+
 
 def print_version():
     """Show plugin version
@@ -102,8 +104,11 @@ Usage:
  -f, --perfdata
     Show perfdata in output
     Default: False
+ --store_dir
+    Give the directory where information will be saved about the host traffic.
+    Default: %s
 
-""" % PLUGIN_NAME
+""" % (PLUGIN_NAME, DEFAULT_STORE_DIR)
     print usage_msg
 
 
@@ -111,6 +116,8 @@ def get_data(args):
     """Fetch data
     """
     exit_code = STATE_OK
+
+    store_dir = args['store_dir']
 
     f = open('/proc/net/dev', 'r')
     data = f.read()
@@ -150,12 +157,13 @@ def get_data(args):
     # Init results
     results = {}
     # Get old data
-    if not os.path.exists("/tmp/check_linux_traffic"):
-        os.mkdir("/tmp/check_linux_traffic")
+    if not os.path.exists(store_dir):
+        os.mkdir(store_dir)
+
     now = int(time.time())
     data_not_ready = False
     for ifname in raw.keys():
-        filename = "/tmp/check_linux_traffic/%s" % ifname
+        filename = "%s/%s" % (store_dir, ifname)
         if os.path.exists(filename):
             f = open(filename, 'r')
             old_data = f.read()
@@ -363,6 +371,9 @@ def check_arguments(args):
         print_support()
         sys.exit(STATE_UNKNOWN)
 
+    if 'store_dir' not in args:
+        args['store_dir'] = DEFAULT_STORE_DIR
+
     return args
 
 
@@ -376,7 +387,7 @@ def main(argv=None):
                         'hVl:n:w:c:f',
                         ['help', 'version', 'ignore-lo',
                          'limit=', 'perfdata', 'ifname=',
-                         'warning=', 'critical='])
+                         'warning=', 'critical=', 'store_dir='])
     except getopt.GetoptError, err:
         print str(err)
         print_usage()
@@ -397,6 +408,8 @@ def main(argv=None):
             args['ignore_lo'] = True
         elif option_name in ("-f", "--perfdata"):
             args['perfdata'] = True
+        elif option_name in ('--store_dir', ):
+            args['store_dir'] = value
         elif option_name in ("-h", "--help"):
             print_version()
             print_usage()
