@@ -38,7 +38,7 @@ from StringIO import StringIO
 
 import netifaces
 
-from shinkenplugins.plugins import linux_traffic
+from shinkenplugins.plugins.linux_traffic import linux_traffic
 
 
 class TestPlugin(unittest.TestCase):
