@@ -38,13 +38,13 @@ from StringIO import StringIO
 
 import netifaces
 
-from shinkenplugins.plugins import check_linux_traffic
+from shinkenplugins.plugins import linux_traffic
 
 
 class TestPlugin(unittest.TestCase):
     def setUp(self):
         shutil.rmtree("/tmp/check_linux_traffic", True)
-        reload(check_linux_traffic)
+        reload(linux_traffic)
 
         self.interfaces = netifaces.interfaces()
         self.interfaces = filter(lambda x: ':' not in x, self.interfaces)
@@ -61,7 +61,7 @@ class TestPlugin(unittest.TestCase):
         try:
             out = StringIO()
             sys.stdout = out
-            check_linux_traffic.main()
+            linux_traffic.main()
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 3)
@@ -77,13 +77,13 @@ class TestPlugin(unittest.TestCase):
         try:
             out = StringIO()
             sys.stdout = out
-            check_linux_traffic.main()
+            linux_traffic.main()
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 3)
             output = out.getvalue().strip()
             assert output.startswith("check_linux_traffic.py v%s"
-                                     % check_linux_traffic.PLUGIN_VERSION)
+                                     % linux_traffic.PLUGIN_VERSION)
 
     def test_check2(self):
         """Test check2:
@@ -95,7 +95,7 @@ class TestPlugin(unittest.TestCase):
         try:
             out = StringIO()
             sys.stdout = out
-            check_linux_traffic.main()
+            linux_traffic.main()
         except SystemExit, e:
             self.assertEquals(e.code, 0, str(e))
             output = out.getvalue().strip()
@@ -108,7 +108,7 @@ class TestPlugin(unittest.TestCase):
         try:
             out = StringIO()
             sys.stdout = out
-            check_linux_traffic.main()
+            linux_traffic.main()
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 0)
@@ -127,7 +127,7 @@ class TestPlugin(unittest.TestCase):
         try:
             out = StringIO()
             sys.stdout = out
-            check_linux_traffic.main()
+            linux_traffic.main()
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 0)
@@ -140,7 +140,7 @@ class TestPlugin(unittest.TestCase):
         try:
             out = StringIO()
             sys.stdout = out
-            check_linux_traffic.main()
+            linux_traffic.main()
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 0)
@@ -161,7 +161,7 @@ class TestPlugin(unittest.TestCase):
         try:
             out = StringIO()
             sys.stdout = out
-            check_linux_traffic.main()
+            linux_traffic.main()
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 0)
@@ -177,7 +177,7 @@ class TestPlugin(unittest.TestCase):
         try:
             out = StringIO()
             sys.stdout = out
-            check_linux_traffic.main()
+            linux_traffic.main()
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 0)
@@ -194,7 +194,7 @@ class TestPlugin(unittest.TestCase):
         try:
             out = StringIO()
             sys.stdout = out
-            check_linux_traffic.main()
+            linux_traffic.main()
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 3)
@@ -213,7 +213,7 @@ class TestPlugin(unittest.TestCase):
         try:
             out = StringIO()
             sys.stdout = out
-            check_linux_traffic.main()
+            linux_traffic.main()
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 3)
@@ -230,7 +230,7 @@ class TestPlugin(unittest.TestCase):
         try:
             out = StringIO()
             sys.stdout = out
-            check_linux_traffic.main()
+            linux_traffic.main()
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 3)
@@ -247,7 +247,7 @@ class TestPlugin(unittest.TestCase):
         try:
             out = StringIO()
             sys.stdout = out
-            check_linux_traffic.main()
+            linux_traffic.main()
         except SystemExit, e:
             self.assertEquals(type(e), type(SystemExit()))
             self.assertEquals(e.code, 3)
