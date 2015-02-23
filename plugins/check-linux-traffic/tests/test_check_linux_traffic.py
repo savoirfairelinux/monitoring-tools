@@ -35,11 +35,10 @@ import time
 import os
 import shutil
 from StringIO import StringIO
+
 import netifaces
 
-sys.path.append("..")
-
-import check_linux_traffic
+from shinkenplugins.plugins import check_linux_traffic
 
 
 class TestPlugin(unittest.TestCase):
