@@ -1,0 +1,5 @@
+monitoring-plugins-sfl-check-toshiba-ups (2015.2.23.15.46-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Thibault Cohen <thibault.cohen@savoirfairelinux.com>  Mon, 23 Feb 2015 20:46:23 -0000
