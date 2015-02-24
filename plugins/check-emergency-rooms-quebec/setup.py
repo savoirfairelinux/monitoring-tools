@@ -24,39 +24,40 @@
 
 from __future__ import with_statement
 
-import os
-from os.path import join, dirname, abspath
 from setuptools import setup, find_packages
-
-# no dependencies yet, might be useful later
-# with open('requirements.txt') as f:
-#     install_requires = [l for l in f.read().splitlines()
-#                         if not l.startswith('#')]
-
-description = 'Checks the occupation of stretchers in various hospitals in Quebec.'
-long_description = ('''Checks the occupation of stretchers in various hospitals in Quebec.''')
 
 #############################################################################
 
+description = 'Checks the occupation of stretchers in various hospitals in Quebec.'
+long_description = '''Checks the occupation of stretchers in various hospitals in Quebec.'''
+
+
 setup(
-    name='emergency_rooms_quebec',
-    version="1.0",
-    packages=["shinkenplugins.plugins.emergency_rooms_quebec"],
-    #install_requires=install_requires,
-    #zip_safe=False,
-    author="Matthieu Caneill",
-    author_email="matthieu.caneill@savoirfairelinux.com",
+    name='shinkenplugins.plugins.emergency_rooms_quebec',
+    version="1.2",
+    packages=find_packages(),
+    author="Grégory Starck",
+    author_email="gregory.starck@savoirfairelinux.com",
     long_description=long_description,
     description=description,
     license="GPL3+",
     url="https://github.com/savoirfairelinux/sfl-shinken-plugins",
     platforms=['any'],
-    install_requires=["shinkenplugins"],
-    package_dir={'shinkenplugins.plugins' : ''},
-#   MAYBE LATER: use pkg_ressources
-#    entry_points="""
-#    [console_scripts]
-#    check_emergency_rooms_quebec = shinkenplugins.plugins.emergency_rooms_quebec.emergency_rooms_quebec:main
-#
-#    """
+    install_requires=[
+        'shinkenplugins>0.2',
+        'lxml',
+    ],
+    extras_require={
+        'test': [
+            'nose'
+        ],
+    },
+    namespace_packages=[
+        'shinkenplugins',
+        'shinkenplugins.plugins',
+    ],
+    entry_points="""
+    [console_scripts]
+    check_emergency_rooms_quebec = shinkenplugins.plugins.check_emergency_rooms_quebec:main
+    """,
 )

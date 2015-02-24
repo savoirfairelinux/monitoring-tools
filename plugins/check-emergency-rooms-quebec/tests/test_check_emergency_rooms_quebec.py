@@ -19,7 +19,7 @@ import unittest
 
 from shinkenplugins.test import TestPlugin
 
-from emergency_rooms_quebec import Plugin
+from shinkenplugins.plugins.emergency_rooms_quebec import Plugin
 
 class Test(TestPlugin):
     def setUp(self):

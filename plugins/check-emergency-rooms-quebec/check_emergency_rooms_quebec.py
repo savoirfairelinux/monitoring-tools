@@ -1,1 +1,0 @@
-check_emergency_rooms_quebec

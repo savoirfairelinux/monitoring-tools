@@ -27,14 +27,9 @@ import urllib2
 import lxml.html
 
 from shinkenplugins.perfdata import PerfData
-from shinkenplugins.helpers.argparse import escape_help
-from shinkenplugins.helpers.argparse.parsing.bytes import (
-    ByteAmountParser,
-    adv_byte_unit_to_transformer,
-    PercentValue,
-)
 from shinkenplugins.plugin import ShinkenPlugin
 from shinkenplugins.states import STATES
+
 
 class CheckEmergencyRoomsQuebec(ShinkenPlugin):
     NAME = 'emergency_rooms_quebec'
@@ -117,9 +112,9 @@ Plugin = CheckEmergencyRoomsQuebec
 
 ############################################################################
 
-def main():
+def main(argv=None):
     plugin = CheckEmergencyRoomsQuebec()
-    plugin.execute()
+    plugin.execute(argv)
 
 
 if __name__ == "__main__":
