@@ -16,11 +16,13 @@
 
 # Copyright (C) 2014, Alexandre Viau <alexandre.viau@savoirfairelinux.com>
 
-from shinkenplugins import BasePlugin
-from shinkenplugins import PerfData
-from shinkenplugins import STATES
+from shinkenplugins.old import BasePlugin
+from shinkenplugins.perfdata import PerfData
+from shinkenplugins.states import STATES
+
 import boto
 import requests
+
 
 class Plugin(BasePlugin):
     NAME = 'check-json-by-ec2-tags'
@@ -127,5 +129,10 @@ class Plugin(BasePlugin):
             self.exit(STATES.OK, "OK", *performance_data)
 
 
+
+def main(argv=None):
+    Plugin(argv)
+
+
 if __name__ == "__main__":
-    Plugin()
+    main()

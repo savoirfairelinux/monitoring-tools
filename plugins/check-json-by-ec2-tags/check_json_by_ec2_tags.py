@@ -1,1 +1,0 @@
-check_json_by_ec2_tags

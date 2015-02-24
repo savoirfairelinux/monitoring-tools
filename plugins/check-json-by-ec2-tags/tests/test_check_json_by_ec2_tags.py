@@ -15,9 +15,10 @@
 
 # Copyright (C) 2014, Alexandre Viau <alexandre.viau@savoirfairelinux.com>
 
-from check_json_by_ec2_tags import Plugin
 
 from shinkenplugins.test import TestPlugin
+from shinkenplugins.plugins.json_by_ec2_tags import Plugin
+
 
 class Test(TestPlugin):
     def test_version(self):
@@ -38,3 +39,5 @@ class Test(TestPlugin):
     #              'regex to check against the output')
     # You can also add debug=True, to get useful information
     # to debug your plugins
+
+    # TODO ..
