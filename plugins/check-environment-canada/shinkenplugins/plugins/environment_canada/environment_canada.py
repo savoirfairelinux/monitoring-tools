@@ -26,21 +26,15 @@ import warnings
 import json
 import urllib2
 
-from shinkenplugins.perfdata import PerfData
-from shinkenplugins.states import STATES
 
+from shinkenplugins.states import STATES
 from shinkenplugins.perfdata import PerfData
-from shinkenplugins.helpers.argparse import escape_help
-from shinkenplugins.helpers.argparse.parsing.bytes import (
-    ByteAmountParser,
-    adv_byte_unit_to_transformer,
-    PercentValue,
-)
 from shinkenplugins.plugin import ShinkenPlugin
+
 
 class CheckEnvironmentCanada(ShinkenPlugin):
     NAME = 'environment_canada'
-    VERSION = '1.0'
+    VERSION = '1.2'
     DESCRIPTION = 'Checks various environment metrics in Canada.'
     AUTHOR = 'Matthieu Caneill'
     EMAIL = 'matthieu.caneill@savoirfairelinux.com'
@@ -116,9 +110,9 @@ Plugin = CheckEnvironmentCanada
 
 ############################################################################
 
-def main():
+def main(argv=None):
     plugin = CheckEnvironmentCanada()
-    plugin.execute()
+    plugin.execute(argv)
 
 
 if __name__ == "__main__":

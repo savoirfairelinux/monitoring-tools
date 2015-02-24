@@ -18,8 +18,8 @@
 import unittest
 
 from shinkenplugins.test import TestPlugin
+from shinkenplugins.plugins.environment_canada import Plugin
 
-from environment_canada import Plugin
 
 class Test(TestPlugin):
     def setUp(self):
@@ -49,6 +49,7 @@ class Test(TestPlugin):
     def test_plugin(self):
         args = ['-U', 'http://www.meteomedia.com/api/data/caqc0363', '-m', 'flu_level']
         self.execute(Plugin, args, 0, '^OK: ')
+
 
 if __name__ == '__main__':
     unittest.main()
