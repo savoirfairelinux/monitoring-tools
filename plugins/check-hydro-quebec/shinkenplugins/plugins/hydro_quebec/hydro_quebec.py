@@ -16,12 +16,12 @@
 
 # Copyright (C) 2014, vdnguyen <vanduc.nguyen@savoirfairelinux.com>
 
-from shinkenplugins import BasePlugin
-from shinkenplugins import PerfData
-from shinkenplugins import STATES
-from lxml.etree import tostring
-from lxml import etree
-from decimal import *
+from shinkenplugins.old import BasePlugin
+from shinkenplugins.perfdata import PerfData
+from shinkenplugins.states import STATES
+
+from decimal import Decimal, ROUND_HALF_UP
+
 import lxml.html
 import urllib
 import re
@@ -210,5 +210,10 @@ class Plugin(BasePlugin):
         # Exit plugin
         self.exit(code, msg, p1, p2, p3)
 
-if __name__ == "__main__":
-    Plugin()
+
+def main(argv=None):
+    return Plugin(argv)
+
+
+if __name__ == '__main__':
+    main()

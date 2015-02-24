@@ -15,9 +15,13 @@
 
 # Copyright (C) 2014, vdnguyen <vanduc.nguyen@savoirfairelinux.com>
 
-from check_hydro_quebec import Plugin
+
+import unittest
+
 
 from shinkenplugins.test import TestPlugin
+from shinkenplugins.plugins.hydro_quebec import Plugin
+
 
 class Test(TestPlugin):
     def test_version(self):
@@ -38,3 +42,7 @@ class Test(TestPlugin):
     #              'regex to check against the output')
     # You can also add debug=True, to get useful information
     # to debug your plugins
+
+
+if __name__ == '__main__':
+    unittest.main()
