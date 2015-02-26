@@ -20,6 +20,8 @@ Packager: Savoir-faire Linux <supervision@savoirfairelinux.com>
 BuildRoot:  %{_tmppath}/%{name}-%{version}
 BuildRequires: python-sphinx
 #Requires: python, python-dlnetsnmp
+BuildRequires:  gcc
+BuildRequires:  python-dev
 
 %description 
 Pack for Redis server

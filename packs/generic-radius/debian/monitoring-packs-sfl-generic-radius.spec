@@ -20,6 +20,8 @@ Packager: Savoir-faire Linux <supervision@savoirfairelinux.com>
 BuildRoot:  %{_tmppath}/%{name}-%{version}
 #%{?el7:BuildRequires: python-sphinx}
 #Requires: python, python-dlnetsnmp
+BuildRequires:  gcc
+BuildRequires:  python-dev
 
 
 %description 
