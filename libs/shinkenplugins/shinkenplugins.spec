@@ -12,6 +12,8 @@ Source0:        https://github.com/savoirfairelinux/monitoring-tools/shinkenplug
 
 Requires:       python
 BuildRequires:  python-setuptools
+BuildRequires:  gcc
+BuildRequires:  python-devel
 
 BuildArch:      noarch
 
