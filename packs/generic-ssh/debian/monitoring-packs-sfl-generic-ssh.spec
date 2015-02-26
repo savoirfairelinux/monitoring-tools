@@ -21,7 +21,7 @@ BuildRoot:  %{_tmppath}/%{name}-%{version}
 #%{?el7:BuildRequires: python-sphinx}
 #Requires: python, python-dlnetsnmp
 BuildRequires:  gcc
-BuildRequires:  python-dev
+BuildRequires:  python-devel
 
 
 %description
