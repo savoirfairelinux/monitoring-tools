@@ -16,6 +16,7 @@ Source0:        https://github.com/savoirfairelinux/monitoring-tools/monitoring-
 
 Requires:       python-shinkenplugins
 BuildRequires:  python-setuptools
+BuildRequires:  gcc
 #%{?el7:BuildRequires: python-sphinx}
 
 BuildArch:      noarch

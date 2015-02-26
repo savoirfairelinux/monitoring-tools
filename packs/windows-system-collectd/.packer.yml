@@ -1,9 +1,9 @@
 centos_6:
-    spec: monitoring-packs-sfl-windows-system-collectd.spec
+    spec: debian/monitoring-packs-sfl-windows-system-collectd.spec
     deps_pip:
         - sphinx
 centos_7:
-    spec: monitoring-packs-sfl-windows-system-collectd.spec
+    spec: debian/monitoring-packs-sfl-windows-system-collectd.spec
     deps_pip:
         - sphinx
 debian_8:

@@ -1,9 +1,9 @@
 centos_6:
-    spec: monitoring-packs-sfl-linux-saltmaster-collectd.spec
+    spec: debian/monitoring-packs-sfl-linux-saltmaster-collectd.spec
     deps_pip:
         - sphinx
 centos_7:
-    spec: monitoring-packs-sfl-linux-saltmaster-collectd.spec
+    spec: debian/monitoring-packs-sfl-linux-saltmaster-collectd.spec
     deps_pip:
         - sphinx
 debian_8:

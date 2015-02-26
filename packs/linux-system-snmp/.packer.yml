@@ -1,9 +1,9 @@
 centos_6:
-    spec: monitoring-packs-sfl-linux-system-snmp.spec
+    spec: debian/monitoring-packs-sfl-linux-system-snmp.spec
     deps_pip:
         - sphinx
 centos_7:
-    spec: monitoring-packs-sfl-linux-system-snmp.spec
+    spec: debian/monitoring-packs-sfl-linux-system-snmp.spec
     deps_pip:
         - sphinx
 debian_8:

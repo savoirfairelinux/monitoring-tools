@@ -1,9 +1,9 @@
 centos_6:
-    spec: monitoring-packs-sfl-generic-ssh.spec
+    spec: debian/monitoring-packs-sfl-generic-ssh.spec
     deps_pip:
         - sphinx
 centos_7:
-    spec: monitoring-packs-sfl-generic-ssh.spec
+    spec: debian/monitoring-packs-sfl-generic-ssh.spec
     deps_pip:
         - sphinx
 debian_8:
