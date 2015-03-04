@@ -1,7 +1,7 @@
 centos_6:
     spec: debian/monitoring-packs-sfl-linux-saltminion-collectd.spec
     deps_pip:
-        - sphinx
+        - Sphinx==1.2.3
 centos_7:
     spec: debian/monitoring-packs-sfl-linux-saltminion-collectd.spec
     deps_pip:
