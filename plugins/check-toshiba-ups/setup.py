@@ -45,6 +45,7 @@ setup(
     platforms=['any'],
     install_requires=[
         'shinkenplugins>0.2',
+        'pysnmp',
     ],
     extras_require={
         'test': [
