@@ -17,12 +17,17 @@
 # Copyright (C) 2014, vdnguyen <vanduc.nguyen@savoirfairelinux.com>
 
 from __future__ import unicode_literals, division
-import sys, codecs
+
+import codecs
+import json
+import urllib
+import sys
+
 sys.stdout = codecs.getwriter('utf8')(sys.stdout)
-import urllib, json
-from shinkenplugins import BasePlugin
-from shinkenplugins import PerfData
-from shinkenplugins import STATES
+
+from shinkenplugins.old import BasePlugin
+from shinkenplugins.perfdata import PerfData
+from shinkenplugins.states import STATES
 
 
 class Plugin(BasePlugin):
