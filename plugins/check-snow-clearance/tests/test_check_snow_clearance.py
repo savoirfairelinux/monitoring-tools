@@ -15,7 +15,7 @@
 
 # Copyright (C) 2014, vdnguyen <vanduc.nguyen@savoirfairelinux.com>
 
-from check_snow_clearance import Plugin
+from shinkenplugins.plugins.snow_clearance import Plugin
 
 from shinkenplugins.test import TestPlugin
 
