@@ -194,5 +194,10 @@ class Plugin(BasePlugin):
 
         self.exit(state, message, p1, p2, p3, p4)
 
-if __name__ == "__main__":
+
+def main(argv=None):
     Plugin()
+
+
+if __name__ == "__main__":
+    main()
