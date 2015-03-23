@@ -127,10 +127,18 @@ class Plugin(BasePlugin):
                 # calculate the total included without info
                 total_without_info = total + without_info
                 # calculate all data in percentage
-                clearance_percent = (clear / total) * 100.0
-                planned_percent = (planned / total) * 100.0
-                in_action_percent = (in_action / total) * 100.0
-                without_info_percent = (without_info / total_without_info) * 100.0
+                if total:
+                    clearance_percent = (clear / total) * 100.0
+                    planned_percent = (planned / total) * 100.0
+                    in_action_percent = (in_action / total) * 100.0
+                else:
+                    clearance_percent = 100
+                    planned_percent = 0
+                    in_action_percent = 0
+                if total_without_info:
+                    without_info_percent = (without_info / total_without_info) * 100.0
+                else:
+                    without_info_percent = 100
 
                 if clearance_percent < critical:
                     message = ("CRITICAL: %0.1f%% in '%s' is clear"
