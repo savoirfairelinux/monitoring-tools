@@ -8,7 +8,7 @@ wheel_house="/tmp/wheelhouse"
 # Setup a wheelhouse
 mkdir -p "$wheel_house"
 
-w="pip wheel --find-links=${wheel_house} -w ${wheel_house}"
+w="pip wheel --find-links=file://${wheel_house} -w ${wheel_house}"
 $w lxml
 $w pysnmp
 $w nose
