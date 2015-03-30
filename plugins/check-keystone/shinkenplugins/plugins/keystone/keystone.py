@@ -24,7 +24,10 @@
 
 import datetime
 
-from shinkenplugins import BasePlugin, PerfData, STATES
+from shinkenplugins.old import BasePlugin
+from shinkenplugins.perfdata import PerfData
+from shinkenplugins.states import STATES
+
 from keystoneclient.v2_0 import client
 
 
@@ -102,7 +105,7 @@ class Plugin(BasePlugin):
 
         msgs = []
         for service in services:
-            if not service in endpoints.keys():
+            if service not in endpoints.keys():
                 msgs.append("`%s' service is missing" % service)
                 continue
 
@@ -128,5 +131,9 @@ class Plugin(BasePlugin):
                 *perfdata
             )
 
+
+def main(argv=None):
+    Plugin(argv)
+
 if __name__ == "__main__":
-    Plugin()
+    main()
