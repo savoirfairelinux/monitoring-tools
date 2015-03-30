@@ -22,7 +22,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from shinkenplugins import BasePlugin, PerfData, STATES
+from shinkenplugins.old import BasePlugin
+from shinkenplugins.perfdata import PerfData
+from shinkenplugins.states import STATES
 
 from keystoneclient.v2_0 import client as keystone_client
 from glanceclient import client as glance_client
@@ -161,5 +163,10 @@ class Plugin(BasePlugin):
             *perfdata
         )
 
+
+def main(argv=None):
+    Plugin(argv)
+
+
 if __name__ == '__main__':
-    Plugin()
+    main()
