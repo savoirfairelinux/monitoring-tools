@@ -21,10 +21,8 @@ from shinkenplugins.test import TestPlugin
 
 from shinkenplugins.plugins.emergency_rooms_quebec import Plugin
 
+
 class Test(TestPlugin):
-    def setUp(self):
-        # Make stuff before all tests
-        pass
 
     def test_version(self):
         args = ["-v"]
@@ -42,6 +40,18 @@ class Test(TestPlugin):
     #              'regex to check against the output')
     # You can also add debug=True, to get useful information
     # to debug your plugins
+
+    def test_no_args(self):
+        self.execute(Plugin, [], 3, stderr_pattern='error: argument --url/-U is required')
+
+    def test_critical_output(self):
+        args = ['-w', '-1', '-c', '-1',
+                '-U', 'http://agence.santemontreal.qc.ca/fileadmin/asssm/rapports/urgence_quotidien_media.html',
+                '-f', '//td/div[text()="Total"]/../following-sibling::td[2]/div/text()',
+                '-o', '//td/div[text()="Total"]/../following-sibling::td[3]/div/text()']
+
+        self.execute(Plugin, args, 2, 'CRITICAL: [0-9]*%')
+
 
 if __name__ == '__main__':
     unittest.main()
