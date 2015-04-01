@@ -58,6 +58,6 @@ setup(
     },
     entry_points="""
     [console_scripts]
-    check_linux_bandwith = shinkenplugins.plugins.linux_bandwith:main
+    check_linux_bandwith = shinkenplugins.plugins.linux_bandwidth:main
     """,
 )
