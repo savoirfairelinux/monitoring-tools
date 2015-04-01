@@ -1,1 +1,2 @@
-__author__ = 'gstarck'
+
+from .graphite_api import main
