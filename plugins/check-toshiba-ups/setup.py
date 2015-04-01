@@ -34,7 +34,7 @@ long_description = ('''Plugin to check Toshiba UPSs''')
 
 setup(
     name='shinkenplugins.plugins.toshiba_ups',
-    version="1.0",
+    version="1.2",
     packages=find_packages(),
     author="Thibault Cohen",
     author_email="thibault.cohen@savoirfairelinux.com",
