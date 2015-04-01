@@ -60,9 +60,9 @@ class Plugin(BasePlugin):
         try:
             html = urllib2.urlopen(URL)
         except Exception as e:
-            self.exit(STATES.UNKWOWN, 'Error while opening url: %s' % str(e))
+            self.exit(STATES.UNKNOWN, 'Error while opening url: %s' % str(e))
         if html.getcode() >= 400:
-            self.exit(STATES.UNKWOWN, 'HTTP error: %d' % html.getcode())
+            self.exit(STATES.UNKNOWN, 'HTTP error: %d' % html.getcode())
         return html.read()
     
     def run(self, args):
