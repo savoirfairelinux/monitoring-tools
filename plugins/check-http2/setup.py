@@ -34,7 +34,7 @@ long_description = (''' .. ''')
 
 setup(
     name='shinkenplugins.plugins.http2',
-    version="1.0",
+    version="1.2",
     packages=find_packages(),
     author="Grégory Starck",
     author_email="gregory.starck@savoirfairelinux.com",
