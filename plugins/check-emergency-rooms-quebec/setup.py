@@ -58,6 +58,6 @@ setup(
     ],
     entry_points="""
     [console_scripts]
-    check_emergency_rooms_quebec = shinkenplugins.plugins.check_emergency_rooms_quebec:main
+    check_emergency_rooms_quebec = shinkenplugins.plugins.emergency_rooms_quebec:main
     """,
 )
