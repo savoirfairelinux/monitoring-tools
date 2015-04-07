@@ -1,1 +1,0 @@
-check_postgresql_lag
