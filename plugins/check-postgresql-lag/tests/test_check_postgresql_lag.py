@@ -16,9 +16,16 @@
 
 # Copyright (C) 2014, vdnguyen <vanduc.nguyen@savoirfairelinux.com>
 
-from check_postgresql_lag import Plugin
+import unittest
+from unittest.case import skip
 
 from shinkenplugins.test import TestPlugin
+from shinkenplugins.plugins.postgresql_lag import Plugin
+
+
+SKIP = skip('find a way to either have a postgres valid account '
+            'or to simulate a postgres server.')
+
 
 class Test(TestPlugin):
     def test_version(self):
@@ -31,15 +38,22 @@ class Test(TestPlugin):
         self.execute(Plugin, args, 3,
                      'Usage:')
 
+
+    @SKIP
     def test_ok(self):
         args = ["-H", "127.0.0.1", "-p", "5432", "-u", "postgres", "-P", "1234", "-d", "testdb", "-w", "1000000", "-c", "1000000"]
         self.execute(Plugin, args, 0, "OK: there's .* MB of latency")
 
+    @SKIP
     def test_warning(self):
         args = ["-H", "127.0.0.1", "-p", "5432", "-u", "postgres", "-P", "1234", "-d", "testdb", "-w", "-1", "-c", "1000000"]
         self.execute(Plugin, args, 1, "WARNING: there's .* MB of latency")
 
+    @SKIP
     def test_critical(self):
         args = ["-H", "127.0.0.1", "-p", "5432", "-u", "postgres", "-P", "1234", "-d", "testdb", "-w", "-1", "-c", "-1"]
         self.execute(Plugin, args, 2, "CRITICAL: there's .* MB of latency")
 
+
+if __name__ == '__main__':
+    unittest.main()

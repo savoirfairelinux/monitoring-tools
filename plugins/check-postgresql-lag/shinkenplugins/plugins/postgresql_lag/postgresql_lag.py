@@ -19,9 +19,12 @@
 import psycopg2
 import sys
 import re
-from shinkenplugins import BasePlugin
-from shinkenplugins import PerfData
-from shinkenplugins import STATES
+
+from shinkenplugins.old import BasePlugin
+from shinkenplugins.perfdata import PerfData
+from shinkenplugins.states import STATES
+
+
 class Plugin(BasePlugin):
     NAME = 'check-postgresql-lag'
     VERSION = '0.1'
@@ -114,8 +117,8 @@ class Plugin(BasePlugin):
                 warning = wal_segment_int * 2
                 critical = wal_segment_int * 4
 
-        except psycopg2.DatabaseError:
-            print "Error %s"
+        except psycopg2.DatabaseError as err:
+            print "Error %s" % err
             sys.exit(1)
         finally:
             if connection:
@@ -136,5 +139,10 @@ class Plugin(BasePlugin):
 
         self.exit(code, message, p1)
 
+
+def main(argv=None):
+    Plugin(argv)
+
+
 if __name__ == "__main__":
-    Plugin()
+    main()
