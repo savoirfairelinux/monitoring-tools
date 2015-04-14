@@ -52,8 +52,8 @@ def main(args):
     shutil.copytree(tdir, target, symlinks=True)
     
 
-    shutil.move(os.path.join(target, 'monitoring-plugins-sfl-check-foo.spec'),
-                os.path.join(target, 'monitoring-plugins-sfl-check-%s.spec' % short_name))
+    shutil.move(os.path.join(target, 'debian', 'monitoring-plugins-sfl-check-foo.spec'),
+                os.path.join(target, 'debian', 'monitoring-plugins-sfl-check-%s.spec' % short_name))
 
     shutil.move(os.path.join(target, 'shinkenplugins', 'plugins', 'foo'),
                 os.path.join(target, 'shinkenplugins', 'plugins', short_name))
