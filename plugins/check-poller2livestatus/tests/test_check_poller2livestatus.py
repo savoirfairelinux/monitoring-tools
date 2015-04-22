@@ -139,10 +139,12 @@ class TestPlugin(TestPluginBase):
 class TestPluginWithSocket(TestPluginBase):
     def setUp(self):
         self._main = poller2livestatus.main
-        self.nc = NetEcho(host='localhost', port=50001)
+        self.nc = NetEcho(host='127.0.0.1', port=0)  # let it choose the port
+        self.port_str = str(self.nc.port)
         self.nc.start()
 
     def tearDown(self):
+        self.nc.stop()
         self.nc.join()
 
     def test_connection_ok(self):
@@ -154,9 +156,9 @@ class TestPluginWithSocket(TestPluginBase):
 
         sys.argv = [sys.argv[0]]
         sys.argv.append('-B')
-        sys.argv.append('localhost')
+        sys.argv.append('127.0.0.1')
         sys.argv.append('-P')
-        sys.argv.append('50001')
+        sys.argv.append(self.port_str)
         sys.argv.append('-H')
         sys.argv.append('myhost')
         sys.argv.append('-S')
@@ -177,7 +179,7 @@ class TestPluginWithSocket(TestPluginBase):
         sys.argv.append('-B')
         sys.argv.append('127.0.0.1')
         sys.argv.append('-P')
-        sys.argv.append('50001')
+        sys.argv.append(self.port_str)
         sys.argv.append('-H')
         sys.argv.append('myhost')
         sys.argv.append('-S')
@@ -197,9 +199,9 @@ class TestPluginWithSocket(TestPluginBase):
 
         sys.argv = [sys.argv[0]]
         sys.argv.append('-B')
-        sys.argv.append('localhost')
+        sys.argv.append('127.0.0.1')
         sys.argv.append('-P')
-        sys.argv.append('50001')
+        sys.argv.append(self.port_str)
         sys.argv.append('-H')
         sys.argv.append('myhost')
         sys.argv.append('-S')
@@ -221,9 +223,9 @@ class TestPluginWithSocket(TestPluginBase):
 
         sys.argv = [sys.argv[0]]
         sys.argv.append('-B')
-        sys.argv.append('localhost')
+        sys.argv.append('127.0.0.1')
         sys.argv.append('-P')
-        sys.argv.append('50001')
+        sys.argv.append(self.port_str)
         sys.argv.append('-H')
         sys.argv.append('myhost')
         sys.argv.append('-p')
