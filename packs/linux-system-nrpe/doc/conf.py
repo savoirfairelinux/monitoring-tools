@@ -12,7 +12,7 @@ templates_path = ['_templates']
 source_suffix = '.rst'
 
 # The master toctree document.
-master_doc = 'linux-system-nrpe'
+master_doc = 'pack-linux-system-nrpe'
 
 # General information about the project.
 project = u'linux-system-nrpe'
