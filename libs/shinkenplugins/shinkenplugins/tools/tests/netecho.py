@@ -36,29 +36,40 @@ class NetEcho(threading.Thread):
     """ This class aims to replace 'nc -e' or 'nc -c' calls in some tests """
 
     def __init__(self, host='localhost', port=0, echo='DEFAULT'):
-        threading.Thread.__init__(self)
+        super(NetEcho, self).__init__()
         self.port = port
         self.host = host
         self.echo = echo
         self.server_socket = self._create_server_socket()
+        self.running = True
 
     def _create_server_socket(self):
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            s.settimeout(1)  # so to not block indefinitely in accept()..
             s.bind((self.host, self.port))
             if not self.port:
                 self.port = s.getsockname()[1]
-        except Exception as e:
-            print('Bind failed: could not acquire port %s' % self.port)
-            print(e)
-            sys.exit(0)
+        except Exception as err:
+            print('Could not prepare socket %s' % err)
+            raise
         s.listen(5)
-
         return s
 
+    def stop(self):
+        self.running = False
+
     def run(self):
-        client, address = self.server_socket.accept()
+        while self.running:
+            try:
+                client, address = self.server_socket.accept()
+            except socket.error:
+                pass
+            else:
+                break
+        else:
+            return
         rec = client.recv(1024)
         client.send(self.echo)
         client.close()

@@ -154,8 +154,8 @@ def get_data(args):
     # Connection
     try:
         ls_con.connect((args['broker-address'], args['broker-port']))
-    except:
-        message = "CRITICAL : Error while connecting to livestatus"
+    except Exception as err:
+        message = "CRITICAL : Error while connecting to livestatus: %s" % err
         exit(STATE_CRITICAL, message)
 
     if args['servicename']:

@@ -43,7 +43,8 @@ class TestPluginBase(unittest.TestCase):
             output = out.getvalue().strip()
             self.assertEquals(err.code, return_val,
                               'Return code does not match expected one: '
-                              'received=%s, expected=%s' % (err.code, return_val))
+                              'received=%s, expected=%s\noutput=%s' % (
+                                  err.code, return_val, output))
             self.assertRegexpMatches(output, pattern_to_search)
         finally:
             sys.stdout = prev_out
