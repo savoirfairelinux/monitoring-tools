@@ -164,7 +164,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('linux-system-nrpe', 'linux-system-nrpe.tex', u'linux-system-nrpe Documentation',
+  ('pack-linux-system-nrpe', 'linux-system-nrpe.tex', u'linux-system-nrpe Documentation',
    u'Savoir-faire Linux', 'manual'),
 ]
 
@@ -194,7 +194,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('linux-system-nrpe', 'monitoring-packs-sfl-linux-system-nrpe', u'linux-system-nrpe Documentation',
+    ('pack-linux-system-nrpe', 'monitoring-packs-sfl-linux-system-nrpe', u'linux-system-nrpe Documentation',
      [u'Savoir-faire Linux'], 7)
 ]
 
@@ -208,7 +208,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('linux-system-nrpe', 'linux-system-nrpe', u'linux-system-nrpe Documentation',
+  ('pack-linux-system-nrpe', 'linux-system-nrpe', u'linux-system-nrpe Documentation',
    u'Savoir-faire Linux', 'linux-system-nrpe', 'Standard linux NRPE active checks using NRPE, like CPU, RAM and disk space.',
    'Packs'),
 ]
