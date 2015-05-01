@@ -1,0 +1,1 @@
+check_influxdb /usr/lib/monitoring/plugins/sfl

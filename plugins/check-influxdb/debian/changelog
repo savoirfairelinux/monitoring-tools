@@ -1,0 +1,5 @@
+monitoring-plugins-sfl-check-influxdb (2015.4.14.12.17-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Flavien Peyre <flavien.peyre@savoirfairelinux.com>  Tue, 14 Apr 2015 16:17:11 -0000
