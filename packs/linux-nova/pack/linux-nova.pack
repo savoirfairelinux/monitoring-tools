@@ -1,0 +1,27 @@
+{
+"name":"linux-nova",
+
+"description":"Shinken pack for monitoring OpenStack Nova",
+
+"path":"",
+
+"macros":{
+        "_OS_AUTH_URL": {"type": "url",
+                     "description": "Keystone Auth URL"
+                    },
+        "_OS_USERNAME": {"type": "string",
+                     "description": "OpenStack username"
+                    },
+        "_OS_PASSWORD": {"type": "string",
+                     "description": "OpenStack password"
+                    },
+        "_OS_TENANT": {"type": "string",
+                     "description": "OpenStack tenant name"
+                    },
+        "_NOVA_URL": {"type": "string",
+                     "description": "Nova API URL"
+                    },
+        "_NOVA_FLAVORS": {"type": "string",
+                     "description": "Nova flavors to expect"
+                    },
+}
