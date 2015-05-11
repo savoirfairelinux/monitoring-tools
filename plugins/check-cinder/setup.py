@@ -45,6 +45,7 @@ setup(
     install_requires=[
         'shinkenplugins>=0.3',
         'requests',
+        'python-keystoneclient',
     ],
     extras_require={
         'test': [
