@@ -1,0 +1,24 @@
+{
+"name":"linux-cinder",
+
+"description":"Shinken pack for monitoring OpenStack Cinder",
+
+"path":"",
+
+"macros":{
+        "_OS_AUTH_URL": {"type": "url",
+                     "description": "Auth URL"
+                    },
+        "_OS_USERNAME": {"type": "string",
+                     "description": "OpenStack username"
+                    },
+        "_OS_PASSWORD": {"type": "string",
+                     "description": "OpenStack password"
+                    },
+        "_OS_TENANT": {"type": "string",
+                     "description": "OpenStack tenant name"
+                    },
+        "_OS_CINDER_URL": {"type": "string",
+                     "description": "Cinder endpoint url"
+                    }
+}
