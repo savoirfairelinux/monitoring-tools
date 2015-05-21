@@ -28,7 +28,13 @@ for plugin in `ls -d */`; do
     then
         $file
     else
-        ./run_tests.sh
+        if test -x run_test.sh
+        then
+            ./run_tests.sh
+        else
+            echo "WARNING: $plugin not tested"
+            not_tested="${not_tested}\n${plugin}"
+        fi
     fi
     cd ..
 done
@@ -44,7 +50,7 @@ do
         ./run_tests.sh
     else
         echo "WARNING: $lib not tested"
-        not_tested="$not_tested\n$lib"
+        not_tested="${not_tested}\n${lib}"
     fi
     cd ..
 done
