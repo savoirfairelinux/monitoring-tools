@@ -1,0 +1,2 @@
+pack /etc/shinken/packs/linux-openstackceilometer
+package.json /etc/shinken/packs/linux-openstackceilometer
