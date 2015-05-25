@@ -35,7 +35,6 @@ class CheckDrupalCache(ShinkenPlugin):
     AUTHOR = 'Frédéric Vachon'
     EMAIL = 'frederic.vachon@savoirfairelinux.com'
 
-
     def __init__(self):
         super(CheckDrupalCache, self).__init__()
         self.add_warning_critical()
@@ -48,7 +47,8 @@ class CheckDrupalCache(ShinkenPlugin):
         try:
             data = self._call_site_audit(path)
         except subprocess.CalledProcessError, e:
-            return None, "Command 'drush --json ac' returned non-zero exit status 1"
+            return None, "Command 'drush --json ac' " \
+                         "returned non-zero exit status 1"
         except OSError, e:
             return None, e.strerror
         return data, None
@@ -98,8 +98,9 @@ class CheckDrupalCache(ShinkenPlugin):
         perfdata.append(
             PerfData(
                 'SiteAuditCheckCacheLifetime',
-                data['checks']['SiteAuditCheckCacheLifetime']['result']
-             )
+                data['checks']['SiteAuditCheckCacheLifetime']
+                ['result']
+            )
         )
 
         perfdata.append(
@@ -158,6 +159,7 @@ class CheckDrupalCache(ShinkenPlugin):
 Plugin = CheckDrupalCache
 
 ############################################################################
+
 
 def main(argv=None):
     plugin = CheckDrupalCache()

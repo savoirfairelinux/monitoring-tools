@@ -46,7 +46,8 @@ class CheckDrupalCron(ShinkenPlugin):
         try:
             data = self._call_site_audit(path)
         except subprocess.CalledProcessError:
-            return None, "Command 'drush --json acr' returned non-zero exit status 1"
+            return None, "Command 'drush --json acr' " \
+                         "returned non-zero exit status 1"
         except OSError, e:
             return None, e.strerror
         return data, None
