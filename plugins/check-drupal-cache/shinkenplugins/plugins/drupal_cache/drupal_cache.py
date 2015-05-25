@@ -45,6 +45,15 @@ class CheckDrupalCache(ShinkenPlugin):
                                  help='option to show perfdata'),
 
     def _get_site_audit_result(self, path):
+        try:
+            data = self._call_site_audit(path)
+        except subprocess.CalledProcessError, e:
+            return None, "Command 'drush --json ac' returned non-zero exit status 1"
+        except OSError, e:
+            return None, e.strerror
+        return data, None
+
+    def _call_site_audit(self, path):
         out = subprocess.check_output(['drush', '--json', 'ac'], cwd=path)
         return json.loads(out)
 
@@ -60,7 +69,11 @@ class CheckDrupalCache(ShinkenPlugin):
         # Here is the core of the plugin.
         # After doing your verifications, escape by doing:
         # self.exit(return_code, 'return_message', *performance_data)
-        data = self._get_site_audit_result(args.drupal_path)
+        data, e_msg = self._get_site_audit_result(args.drupal_path)
+
+        if data is None:
+            self.unknown(e_msg)
+
         status = data['percent']
 
         if status <= args.critical:
