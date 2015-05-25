@@ -1,0 +1,7 @@
+{
+"name":"linux-openstackceilometer",
+
+"description":"Shinken pack for monitoring OpenStack Nova",
+
+"path":""
+}
