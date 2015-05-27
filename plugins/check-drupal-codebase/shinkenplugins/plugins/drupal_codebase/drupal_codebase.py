@@ -39,8 +39,6 @@ class CheckDrupalCodebase(ShinkenPlugin):
         self.add_warning_critical()
         self.parser.add_argument('-p', '--drupal-path', required=True,
                                  help='Drupal installation path'),
-        self.parser.add_argument('-f', '--perfdata', action='store_true',
-                                 help='option to show perfdata'),
 
     def _get_site_audit_result(self, path):
         try:
@@ -74,31 +72,23 @@ class CheckDrupalCodebase(ShinkenPlugin):
         if data is None:
             self.unknown(e_msg)
 
-        perfdata = []
-
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckCodebaseSizeFiles',
-                data['checks']['SiteAuditCheckCodebaseSizeFiles']['result']
-            )
+        message = ['Codebase audit']
+        message.append(
+            'SiteAuditCheckCodebaseSizeFiles=%s;' %
+            data['checks']['SiteAuditCheckCodebaseSizeFiles']['result']
         )
 
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckCodebaseSizeAll',
-                data['checks']['SiteAuditCheckCodebaseSizeAll']['result']
-            )
+        message.append(
+            'SiteAuditCheckCodebaseSizeAll=%s;' %
+            data['checks']['SiteAuditCheckCodebaseSizeAll']['result']
         )
 
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckCodebaseManagedFileSize',
-                data['checks']['SiteAuditCheckCodebaseManagedFileSize']
-                ['result']
-            )
+        message.append(
+            'SiteAuditCheckCodebaseManagedFileSize%s;' %
+            data['checks']['SiteAuditCheckCodebaseManagedFileSize']['result']
         )
 
-        self.ok('Codebase audit', *perfdata)
+        self.ok('\n'.join(message))
 
 
 ############################################################################
