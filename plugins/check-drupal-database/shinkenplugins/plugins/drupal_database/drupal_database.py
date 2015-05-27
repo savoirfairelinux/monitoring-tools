@@ -77,13 +77,13 @@ class CheckDrupalDatabase(ShinkenPlugin):
         message = []
 
         if status <= args.critical:
-            message.append('%d%%' % status)
+            message.append('%.2f%%' % status)
             code = STATES.CRITICAL
         elif status <= args.warning:
-            message.append('%d%%' % status)
+            message.append('%.2f%%' % status)
             code = STATES.WARNING
         else:
-            message.append('%d%%' % status)
+            message.append('%.2f%%' % status)
             code = STATES.OK
 
         message.append(

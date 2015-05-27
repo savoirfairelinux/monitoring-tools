@@ -110,7 +110,7 @@ class CheckDrupalLogging(ShinkenPlugin):
             data['checks']['SiteAuditCheckWatchdog404']['result']
         )
 
-        self.exit(code, message)
+        self.exit(code, '\n'.join(message))
 
 
 ############################################################################
