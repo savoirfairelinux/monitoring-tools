@@ -22,7 +22,6 @@ from __future__ import absolute_import
 import json
 import subprocess
 
-from shinkenplugins.perfdata import PerfData
 from shinkenplugins.plugin import ShinkenPlugin
 from shinkenplugins.states import STATES
 
@@ -39,8 +38,6 @@ class CheckDrupalCron(ShinkenPlugin):
         self.add_warning_critical()
         self.parser.add_argument('-p', '--drupal-path', required=True,
                                  help='Drupal installation path'),
-        self.parser.add_argument('-f', '--perfdata', action='store_true',
-                                 help='option to show perfdata'),
 
     def _get_site_audit_result(self, path):
         try:
@@ -75,41 +72,28 @@ class CheckDrupalCron(ShinkenPlugin):
             self.unknown(e_msg)
 
         status = data['percent']
+        message = []
 
         if status <= args.critical:
-            msg = '%d%%' % status
+            message.append('%d%%' % status)
             code = STATES.CRITICAL
         elif status <= args.warning:
-            msg = '%d%%' % status
+            message.append('%d%%' % status)
             code = STATES.WARNING
         else:
-            msg = '%d%%' % status
+            message.append('%d%%' % status)
             code = STATES.OK
 
-        perfdata = []
+        message.append('SiteAuditCheckCronEnabled=%s;' %
+                       data['checks']['SiteAuditCheckCronEnabled']['result'])
 
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckCronEnabled',
-                data['checks']['SiteAuditCheckCronEnabled']['result']
-            )
-        )
+        message.append('SiteAuditCheckCronRunning=%s;' %
+                       data['checks']['SiteAuditCheckCronRunning']['result'])
 
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckCronRunning',
-                data['checks']['SiteAuditCheckCronRunning']['result']
-            )
-        )
+        message.append('SiteAuditCheckCronLast=%s;' %
+                       data['checks']['SiteAuditCheckCronLast']['result'])
 
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckCronLast',
-                data['checks']['SiteAuditCheckCronLast']['result']
-            )
-        )
-
-        self.exit(code, msg, *perfdata)
+        self.exit(code, '\n'.join(message))
 
 
 ############################################################################
