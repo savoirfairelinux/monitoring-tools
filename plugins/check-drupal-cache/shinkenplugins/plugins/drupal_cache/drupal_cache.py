@@ -23,7 +23,6 @@ from __future__ import absolute_import
 import json
 import subprocess
 
-from shinkenplugins.perfdata import PerfData
 from shinkenplugins.plugin import ShinkenPlugin
 from shinkenplugins.states import STATES
 
@@ -40,8 +39,6 @@ class CheckDrupalCache(ShinkenPlugin):
         self.add_warning_critical()
         self.parser.add_argument('-p', '--drupal-path', required=True,
                                  help='Drupal installation path'),
-        self.parser.add_argument('-f', '--perfdata', action='store_true',
-                                 help='option to show perfdata'),
 
     def _get_site_audit_result(self, path):
         try:
@@ -75,84 +72,65 @@ class CheckDrupalCache(ShinkenPlugin):
             self.unknown(e_msg)
 
         status = data['percent']
+        message = []
 
         if status <= args.critical:
-            msg = '%d%%' % status
+            message.append('%d%%' % status)
             code = STATES.CRITICAL
         elif status <= args.warning:
-            msg = '%d%%' % status
+            message.append('%d%%' % status)
             code = STATES.WARNING
         else:
-            msg = '%d%%' % status
+            message.append('%d%%' % status)
             code = STATES.OK
 
-        perfdata = []
-
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckCacheAnon',
-                data['checks']['SiteAuditCheckCacheAnon']['result']
-            )
+        message.append(
+            'SiteAuditCheckCacheAnon=%s;' %
+            data['checks']['SiteAuditCheckCacheAnon']['result']
         )
 
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckCacheLifetime',
-                data['checks']['SiteAuditCheckCacheLifetime']
-                ['result']
-            )
+        message.append(
+            'SiteAuditCheckCacheLifetime=%s;' %
+            data['checks']['SiteAuditCheckCacheLifetime']['result']
         )
 
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckCachePageExpire',
-                data['checks']['SiteAuditCheckCachePageExpire']['result']
-            )
+        message.append(
+            'SiteAuditCheckCachePageExpire=%s;' %
+            data['checks']['SiteAuditCheckCachePageExpire']['result']
         )
 
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckCachePageCompression',
-                data['checks']['SiteAuditCheckCachePageCompression']['result']
-            )
+        message.append(
+            'SiteAuditCheckCachePageCompression=%s;' %
+            data['checks']['SiteAuditCheckCachePageCompression']['result']
         )
 
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckCachePreprocessCss',
-                data['checks']['SiteAuditCheckCachePreprocessCss']['result']
-            )
+        message.append(
+            'SiteAuditCheckCachePreprocessCss=%s;' %
+            data['checks']['SiteAuditCheckCachePreprocessCss']['result']
         )
 
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckCachePreprocessJs',
-                data['checks']['SiteAuditCheckCachePreprocessJs']['result']
-            )
+        message.append(
+            'SiteAuditCheckCachePreprocessJs=%s;' %
+            data['checks']['SiteAuditCheckCachePreprocessJs']['result']
         )
 
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckCacheLock',
-                data['checks']['SiteAuditCheckCacheLock']['result']
-            )
+        message.append(
+            'SiteAuditCheckCacheLock=%s;' %
+            data['checks']['SiteAuditCheckCacheLock']['result']
         )
 
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckCacheBackends',
-                data['checks']['SiteAuditCheckCacheBackends']['result']
-            )
+        message.append(
+            'SiteAuditCheckCacheBackends=%s;' %
+            data['checks']['SiteAuditCheckCacheBackends']['result']
         )
 
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckCacheBins',
-                data['checks']['SiteAuditCheckCacheBins']['result']
-            )
+        message.append(
+            'SiteAuditCheckCacheBins=%s;' %
+            data['checks']['SiteAuditCheckCacheBins']['result']
         )
 
-        self.exit(code, msg, *perfdata)
+        self.exit(code, '\n'.join(message))
+
 
 ############################################################################
 
