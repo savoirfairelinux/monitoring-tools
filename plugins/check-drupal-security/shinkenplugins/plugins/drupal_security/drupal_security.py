@@ -39,8 +39,6 @@ class CheckDrupalSecurity(ShinkenPlugin):
         self.add_warning_critical()
         self.parser.add_argument('-p', '--drupal-path', required=True,
                                  help='Drupal installation path'),
-        self.parser.add_argument('-f', '--perfdata', action='store_true',
-                                 help='option to show perfdata'),
 
     def _get_site_audit_result(self, path):
         try:
@@ -75,27 +73,24 @@ class CheckDrupalSecurity(ShinkenPlugin):
             self.unknown(e_msg)
 
         status = data['percent']
+        message = []
 
         if status <= args.critical:
-            msg = '%d%%' % status
+            message.append('%.2f%%' % status)
             code = STATES.CRITICAL
         elif status <= args.warning:
-            msg = '%d%%' % status
+            message.append('%.2f%%' % status)
             code = STATES.WARNING
         else:
-            msg = '%d%%' % status
+            message.append('%.2f%%' % status)
             code = STATES.OK
 
-        perfdata = []
-
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckSecurityMenuRouter',
-                data['checks']['SiteAuditCheckSecurityMenuRouter']['result']
-            )
+        message.append(
+            'SiteAuditCheckSecurityMenuRouter=%s;' %
+            data['checks']['SiteAuditCheckSecurityMenuRouter']['result']
         )
 
-        self.exit(code, msg, *perfdata)
+        self.exit(code, '\n'.join(message))
 
 
 ############################################################################
