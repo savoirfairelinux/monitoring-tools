@@ -39,13 +39,11 @@ class CheckDrupalViews(ShinkenPlugin):
         self.add_warning_critical()
         self.parser.add_argument('-p', '--drupal-path', required=True,
                                  help='Drupal installation path'),
-        self.parser.add_argument('-f', '--perfdata', action='store_true',
-                                 help='option to show perfdata'),
 
     def _get_site_audit_result(self, path):
         try:
             data = self._call_site_audit(path)
-        except subprocess.CalledProcessError, e:
+        except subprocess.CalledProcessError:
             return None, "Command 'drush --json av' " \
                          "returned non-zero exit status 1"
         except OSError, e:
@@ -75,50 +73,41 @@ class CheckDrupalViews(ShinkenPlugin):
             self.unknown(e_msg)
 
         status = data['percent']
+        message = []
 
         if status == -1:
             self.ok('Views is not enabled.')
         elif status <= args.critical:
-            msg = '%d%%' % status
+            message.append('%.2f%%' % status)
             code = STATES.CRITICAL
         elif status <= args.warning:
-            msg = '%d%%' % status
+            message.append('%.2f%%' % status)
             code = STATES.WARNING
         else:
-            msg = '%d%%' % status
+            message.append('%.2f%%' % status)
             code = STATES.OK
 
-        perfdata = []
-
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckViewsEnabled',
-                data['checks']['SiteAuditCheckViewsEnabled']['result']
-            )
+        message.append(
+            'SiteAuditCheckViewsEnabled=%s;' %
+            data['checks']['SiteAuditCheckViewsEnabled']['result']
         )
 
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckViewsCount',
-                data['checks']['SiteAuditCheckViewsCount']['result']
-            )
+        message.append(
+            'SiteAuditCheckViewsCount=%s;' %
+            data['checks']['SiteAuditCheckViewsCount']['result']
         )
 
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckViewsCacheResults',
-                data['checks']['SiteAuditCheckViewsCacheResults']['result']
-            )
+        message.append(
+            'SiteAuditCheckViewsCacheResults=%s;' %
+            data['checks']['SiteAuditCheckViewsCacheResults']['result']
         )
 
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckViewsCacheOutput',
-                data['checks']['SiteAuditCheckViewsCacheOutput']['result']
-            )
+        message.append(
+            'SiteAuditCheckViewsCacheOutput=%s;' %
+            data['checks']['SiteAuditCheckViewsCacheOutput']['result']
         )
 
-        self.exit(code, msg, *perfdata)
+        self.exit(code, '\n'.join(message))
 
 
 ############################################################################
