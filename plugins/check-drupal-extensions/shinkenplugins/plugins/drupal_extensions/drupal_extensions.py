@@ -39,8 +39,6 @@ class CheckDrupalExtensions(ShinkenPlugin):
         self.add_warning_critical()
         self.parser.add_argument('-p', '--drupal-path', required=True,
                                  help='Drupal installation path'),
-        self.parser.add_argument('-f', '--perfdata', action='store_true',
-                                 help='option to show perfdata'),
 
     def _get_site_audit_result(self, path):
         try:
@@ -75,57 +73,46 @@ class CheckDrupalExtensions(ShinkenPlugin):
             self.unknown(e_msg)
 
         status = data['percent']
+        message = []
 
         if status <= args.critical:
-            msg = '%d%%' % status
+            message.append('%d%%' % status)
             code = STATES.CRITICAL
         elif status <= args.warning:
-            msg = '%d%%' % status
+            message.append('%d%%' % status)
             code = STATES.WARNING
         else:
-            msg = '%d%%' % status
+            message.append('%d%%' % status)
             code = STATES.OK
 
-        perfdata = []
-
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckExtensionsDev',
-                data['checks']['SiteAuditCheckExtensionsDev']
-                ['result'].split(';')[0]
-            )
+        message.append(
+            'SiteAuditCheckExtensionsDev%s;' %
+            data['checks']['SiteAuditCheckExtensionsDev']
+            ['result'].split(';')[0]
         )
 
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckExtensionsUnrecommended',
-                data['checks']['SiteAuditCheckExtensionsUnrecommended']
-                ['result'].split(';')[0]
-            )
+        message.append(
+            'SiteAuditCheckExtensionsUnrecommended=%s;' %
+            data['checks']['SiteAuditCheckExtensionsUnrecommended']
+            ['result'].split(';')[0]
         )
 
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckExtensionsDuplicate',
-                data['checks']['SiteAuditCheckExtensionsDuplicate']['result']
-            )
+        message.append(
+            'SiteAuditCheckExtensionsDuplicate=%s;' %
+            data['checks']['SiteAuditCheckExtensionsDuplicate']['result']
         )
 
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckExtensionsMissing',
-                data['checks']['SiteAuditCheckExtensionsMissing']['result']
-            )
+        message.append(
+            'SiteAuditCheckExtensionsMissing=%s;' %
+            data['checks']['SiteAuditCheckExtensionsMissing']['result']
         )
 
-        perfdata.append(
-            PerfData(
-                'SiteAuditCheckExtensionsDisabled',
-                data['checks']['SiteAuditCheckExtensionsDisabled']['result']
-            )
+        message.append(
+            'SiteAuditCheckExtensionsDisabled=%s;' %
+            data['checks']['SiteAuditCheckExtensionsDisabled']['result']
         )
 
-        self.exit(code, msg, *perfdata)
+        self.exit(code, '\n'.join(message))
 
 
 ############################################################################
