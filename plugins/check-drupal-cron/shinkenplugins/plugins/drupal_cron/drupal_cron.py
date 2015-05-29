@@ -84,13 +84,13 @@ class CheckDrupalCron(ShinkenPlugin):
             message.append('%.2f%%' % status)
             code = STATES.OK
 
-        message.append('SiteAuditCheckCronEnabled=%s;' %
+        message.append('%s;' %
                        data['checks']['SiteAuditCheckCronEnabled']['result'])
 
-        message.append('SiteAuditCheckCronRunning=%s;' %
+        message.append('%s;' %
                        data['checks']['SiteAuditCheckCronRunning']['result'])
 
-        message.append('SiteAuditCheckCronLast=%s;' %
+        message.append('%s' %
                        data['checks']['SiteAuditCheckCronLast']['result'])
 
         self.exit(code, '\n'.join(message))

@@ -74,17 +74,17 @@ class CheckDrupalCodebase(ShinkenPlugin):
 
         message = ['Codebase audit']
         message.append(
-            'SiteAuditCheckCodebaseSizeFiles=%s;' %
+            '%s;' %
             data['checks']['SiteAuditCheckCodebaseSizeFiles']['result']
         )
 
         message.append(
-            'SiteAuditCheckCodebaseSizeAll=%s;' %
+            '%s;' %
             data['checks']['SiteAuditCheckCodebaseSizeAll']['result']
         )
 
         message.append(
-            'SiteAuditCheckCodebaseManagedFileSize%s;' %
+            '%s' %
             data['checks']['SiteAuditCheckCodebaseManagedFileSize']['result']
         )
 

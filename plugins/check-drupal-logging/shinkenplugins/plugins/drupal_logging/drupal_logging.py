@@ -86,27 +86,27 @@ class CheckDrupalLogging(ShinkenPlugin):
             code = STATES.OK
 
         message.append(
-            'SiteAuditCheckWatchdogSyslog=%s;' %
+            '%s;' %
             data['checks']['SiteAuditCheckWatchdogSyslog']['result']
         )
 
         message.append(
-            'SiteAuditCheckWatchdogEnabled=%s;' %
+            '%s;' %
             data['checks']['SiteAuditCheckWatchdogEnabled']['result']
         )
 
         message.append(
-            'SiteAuditCheckWatchdogCount=%s;' %
+            '%s;' %
             data['checks']['SiteAuditCheckWatchdogCount']['result']
         )
 
         message.append(
-            'SiteAuditCheckWatchdogAge=%s;' %
+            '%s;' %
             data['checks']['SiteAuditCheckWatchdogAge']['result']
         )
 
         message.append(
-            'SiteAuditCheckWatchdog404=%s;' %
+            '%s' %
             data['checks']['SiteAuditCheckWatchdog404']['result']
         )
 

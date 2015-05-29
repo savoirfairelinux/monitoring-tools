@@ -86,7 +86,7 @@ class CheckDrupalSecurity(ShinkenPlugin):
             code = STATES.OK
 
         message.append(
-            'SiteAuditCheckSecurityMenuRouter=%s;' %
+            '%s;' %
             data['checks']['SiteAuditCheckSecurityMenuRouter']['result']
         )
 

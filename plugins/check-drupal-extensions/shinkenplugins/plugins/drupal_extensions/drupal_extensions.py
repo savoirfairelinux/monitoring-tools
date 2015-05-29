@@ -86,29 +86,29 @@ class CheckDrupalExtensions(ShinkenPlugin):
             code = STATES.OK
 
         message.append(
-            'SiteAuditCheckExtensionsDev%s;' %
+            '%s;' %
             data['checks']['SiteAuditCheckExtensionsDev']
             ['result'].split(';')[0]
         )
 
         message.append(
-            'SiteAuditCheckExtensionsUnrecommended=%s;' %
+            '%s;' %
             data['checks']['SiteAuditCheckExtensionsUnrecommended']
             ['result'].split(';')[0]
         )
 
         message.append(
-            'SiteAuditCheckExtensionsDuplicate=%s;' %
+            '%s;' %
             data['checks']['SiteAuditCheckExtensionsDuplicate']['result']
         )
 
         message.append(
-            'SiteAuditCheckExtensionsMissing=%s;' %
+            '%s;' %
             data['checks']['SiteAuditCheckExtensionsMissing']['result']
         )
 
         message.append(
-            'SiteAuditCheckExtensionsDisabled=%s;' %
+            '%s' %
             data['checks']['SiteAuditCheckExtensionsDisabled']['result']
         )
 

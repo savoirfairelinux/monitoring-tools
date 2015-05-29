@@ -87,17 +87,17 @@ class CheckDrupalDatabase(ShinkenPlugin):
             code = STATES.OK
 
         message.append(
-            'SiteAuditCheckDatabaseSize=%s;' %
+            '%s;' %
             data['checks']['SiteAuditCheckDatabaseSize']['result']
         )
 
         message.append(
-            'SiteAuditCheckDatabaseCollation=%s;' %
+            '%s;' %
             data['checks']['SiteAuditCheckDatabaseCollation']['result']
         )
 
         message.append(
-            'SiteAuditCheckDatabaseEngine=%s;' %
+            '%s' %
             data['checks']['SiteAuditCheckDatabaseEngine']['result']
         )
 

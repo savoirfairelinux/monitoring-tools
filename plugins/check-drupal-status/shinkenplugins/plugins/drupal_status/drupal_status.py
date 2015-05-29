@@ -86,7 +86,7 @@ class CheckDrupalStatus(ShinkenPlugin):
             code = STATES.OK
 
         message.append(
-            'SiteAuditCheckStatusSystem=%s;' %
+            '%s;' %
             data['checks']['SiteAuditCheckStatusSystem']['result']
         )
 

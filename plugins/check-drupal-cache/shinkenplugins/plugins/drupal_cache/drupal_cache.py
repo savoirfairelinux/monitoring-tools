@@ -85,47 +85,47 @@ class CheckDrupalCache(ShinkenPlugin):
             code = STATES.OK
 
         message.append(
-            'SiteAuditCheckCacheAnon=%s;' %
+            '%s;' %
             data['checks']['SiteAuditCheckCacheAnon']['result']
         )
 
         message.append(
-            'SiteAuditCheckCacheLifetime=%s;' %
+            '%s;' %
             data['checks']['SiteAuditCheckCacheLifetime']['result']
         )
 
         message.append(
-            'SiteAuditCheckCachePageExpire=%s;' %
+            '%s;' %
             data['checks']['SiteAuditCheckCachePageExpire']['result']
         )
 
         message.append(
-            'SiteAuditCheckCachePageCompression=%s;' %
+            '%s;' %
             data['checks']['SiteAuditCheckCachePageCompression']['result']
         )
 
         message.append(
-            'SiteAuditCheckCachePreprocessCss=%s;' %
+            '%s;' %
             data['checks']['SiteAuditCheckCachePreprocessCss']['result']
         )
 
         message.append(
-            'SiteAuditCheckCachePreprocessJs=%s;' %
+            '%s;' %
             data['checks']['SiteAuditCheckCachePreprocessJs']['result']
         )
 
         message.append(
-            'SiteAuditCheckCacheLock=%s;' %
+            '%s;' %
             data['checks']['SiteAuditCheckCacheLock']['result']
         )
 
         message.append(
-            'SiteAuditCheckCacheBackends=%s;' %
+            '%s;' %
             data['checks']['SiteAuditCheckCacheBackends']['result']
         )
 
         message.append(
-            'SiteAuditCheckCacheBins=%s;' %
+            '%s' %
             data['checks']['SiteAuditCheckCacheBins']['result']
         )
 
