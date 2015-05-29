@@ -157,7 +157,7 @@ def get_data(args):
 
     prct_used = memory_up / max_memory * 100
     if prct_used > float(args['critical']):
-        data = "CRITICAL - Too much unit used : %0.2f%% "\
+        data = "CRITICAL - Too much memory used : %0.2f%% "\
                "| memory=%0.2f%s;%0.2f;%0.2f;0.0;%0.2f" % \
                 (prct_used,
                  memory_up,
@@ -166,7 +166,7 @@ def get_data(args):
                  max_memory * float(args['critical'] / 100),
                  max_memory)
     elif prct_used > float(args['warning']):
-        data = "WARNING - Too much unit used : %0.2f%% "\
+        data = "WARNING - Too much memory used : %0.2f%% "\
                "| memory=%0.2f%s;%0.2f;%0.2f;0.0;%0.2f" % \
                 (prct_used,
                  memory_up,
@@ -175,7 +175,7 @@ def get_data(args):
                  max_memory * float(args['critical'] / 100),
                  max_memory)
     else:
-        data = "OK - Unit used : %0.2f%% "\
+        data = "OK - Memory used : %0.2f%% "\
                 "| memory=%0.2f%s;%0.2f;%0.2f;0.0;%0.2f" % \
                 (prct_used,
                  memory_up,
