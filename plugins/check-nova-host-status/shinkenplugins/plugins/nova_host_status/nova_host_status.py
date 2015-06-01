@@ -20,6 +20,15 @@
 
 from __future__ import absolute_import
 from novaclient import client
+<<<<<<< HEAD
+=======
+import os
+import os.path
+import time
+import datetime
+import argparse
+import warnings
+>>>>>>> 861428b7825c6246654548fb0f78ecf6bcc9f005
 
 
 from shinkenplugins.plugin import ShinkenPlugin
@@ -60,6 +69,7 @@ class CheckNovaHostStatus(ShinkenPlugin):
                     self.exit(0, 'instance is run')
                 else:
                     self.exit(2, 'instance is not run')
+
                 server_find = True
 
         if not server_find:
