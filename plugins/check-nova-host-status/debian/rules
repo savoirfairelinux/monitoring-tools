@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --with python2 --install-layout=deb,quilt
+
+override_dh_clean:
+	rm -rf ./build
+	rm -rf ./*.egg-info
+	dh_clean
+
+override_dh_installdocs:
+	dh_installdocs
+	sphinx-build -b man -d doc/build/doctrees doc doc/build/man

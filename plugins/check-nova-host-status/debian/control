@@ -1,0 +1,15 @@
+Source: monitoring-plugins-sfl-check-nova-host-status
+Section: python
+Priority: optional
+Maintainer: Flavien Peyre <peyre.flavien@gmail.com>
+Build-Depends: debhelper (>= 9), python-setuptools
+Standards-Version: 3.9.5
+Homepage: https://github.com/savoirfairelinux/monitoring-tools
+Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
+
+Package: monitoring-plugins-sfl-check-nova-host-status
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins
+Description: check the current status for a nova host
+ More information is available on Github:
+ https://github.com/savoirfairelinux/monitoring-tools
