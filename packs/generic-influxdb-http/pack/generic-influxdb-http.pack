@@ -1,0 +1,21 @@
+{
+"name":"generic-influxdb-http",
+
+"description":"check if influxdb is launch. Send informations like consumption memory, the number of shard ...",
+
+"path":"",
+
+"macros":{
+        "_MACRO_1": {"type": "3 comma-separated integer",
+                     "description": "Macro 1 description"
+                    },
+        "_MACRO_2": {"type": "3 comma-separated integer",
+                     "description": "Macro 2 description"
+                    },
+        "_MACRO_3": {"type": "percent",
+                     "description": "Macro 3 description"
+                    },
+        "_MACRO_4": {"type": "percent",
+                     "description": "Macro 4 description"
+                    },
+}

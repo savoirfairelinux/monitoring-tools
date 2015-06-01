@@ -63,8 +63,8 @@ def main(args):
                     shutil.copy(os.path.join(path, file_),
                                 os.path.join(target, current_relative_folder, file_))
 
-    shutil.move(os.path.join(target, 'monitoring-packs-sfl-foo.spec'),
-                os.path.join(target, 'monitoring-packs-sfl-' +  args['name'] + '.spec'))
+    shutil.move(os.path.join(target,'debian', 'monitoring-packs-sfl-foo.spec'),
+                os.path.join(target,'debian', 'monitoring-packs-sfl-' +  args['name'] + '.spec'))
 
 
     if not args['update']:

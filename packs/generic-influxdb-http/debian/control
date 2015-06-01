@@ -1,0 +1,15 @@
+Source: monitoring-packs-sfl-generic-influxdb-http
+Section: python
+Priority: optional
+Maintainer: Savoir-faire Linux <supervision@savoirfairelinux.com>
+Build-Depends: debhelper (>= 8.0.0), python-sphinx
+Standards-Version: 3.9.6
+Homepage: https://github.com/savoirfairelinux/monitoring-tools
+Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
+
+Package: monitoring-packs-sfl-generic-influxdb-http
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: check if influxdb is launch. Send informations like consumption memory, the number of shard ...
+ More information is available on Github:
+ https://github.com/savoirfairelinux/monitoring-tools

@@ -1,0 +1,14 @@
+centos_6:
+    spec: debian/monitoring-packs-sfl-generic-influxdb-http.spec
+    deps_pip:
+        - sphinx
+centos_7:
+    spec: debian/monitoring-packs-sfl-generic-influxdb-http.spec
+    deps_pip:
+        - sphinx
+debian_8:
+    debian: debian
+ubuntu_12.04:
+    debian: debian
+ubuntu_14.04:
+    debian: debian

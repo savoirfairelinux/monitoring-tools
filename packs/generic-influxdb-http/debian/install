@@ -1,0 +1,2 @@
+pack /usr/lib/monitoring/packs/sfl/generic-influxdb-http
+package.json /usr/lib/monitoring/packs/sfl/generic-influxdb-http

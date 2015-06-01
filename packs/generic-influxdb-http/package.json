@@ -1,0 +1,21 @@
+{
+    "name": "generic-influxdb-http",
+    "types": ["pack"],
+    "version": "1.0",
+    "homepage": "https://github.com/savoirfairelinux/monitoring-tools",
+    "author": "Savoir-faire Linux",
+    "description": "check if influxdb is launch. Send informations like consumption memory, the number of shard ...",
+    "contributors": [
+        {
+        "name": "Savoir-faire Linux",
+        "email": "supervision@savoirfairelinux.com"
+        }
+    ],
+    "repository": "https://github.com/savoirfairelinux/monitoring-tools",
+    "keywords": ["pack",
+                 "generic-influxdb-http",
+                 "generic","influxdb"
+    ],
+    "dependencies": { "shinken": ">=1.4" },
+    "license": "GPL"
+}
