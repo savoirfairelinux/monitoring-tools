@@ -19,17 +19,8 @@
 
 
 from __future__ import absolute_import
-from novaclient import client
-<<<<<<< HEAD
-=======
-import os
-import os.path
-import time
-import datetime
-import argparse
-import warnings
->>>>>>> 861428b7825c6246654548fb0f78ecf6bcc9f005
 
+from novaclient import client
 
 from shinkenplugins.plugin import ShinkenPlugin
 
@@ -61,19 +52,15 @@ class CheckNovaHostStatus(ShinkenPlugin):
     def run(self, args):
         """ Main Plugin function """
         nova = client.Client(2, args.username, args.password, args.tenant_name, args.auth_url)
-        servers = nova.servers.list()
-        server_find = False
-        for server in servers:
-            if server.id == args.instance_id:
-                if getattr(server, 'OS-EXT-STS:power_state') == 1:
-                    self.exit(0, 'instance is run')
-                else:
-                    self.exit(2, 'instance is not run')
-
-                server_find = True
-
-        if not server_find:
+        try:
+            server = nova.servers.get(args.instance_id)
+        except Exception :
             self.exit(2, 'instance id unknown')
+
+        if getattr(server, 'OS-EXT-STS:power_state') == 1:
+            self.exit(0, 'instance is run')
+        else:
+            self.exit(2, 'instance is not run')
 
 
 ############################################################################
