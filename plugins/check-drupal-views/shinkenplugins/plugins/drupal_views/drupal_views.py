@@ -88,23 +88,27 @@ class CheckDrupalViews(ShinkenPlugin):
             code = STATES.OK
 
         message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckViewsEnabled']['result']
+            '%s;%d;' %
+            data['checks']['SiteAuditCheckViewsEnabled']['result'],
+            data['checks']['SiteAuditCheckViewsEnabled']['score'],
         )
 
         message.append(
-            '%s;' %
+            '%s;%d;' %
             data['checks']['SiteAuditCheckViewsCount']['result']
+            data['checks']['SiteAuditCheckViewsCount']['score']
         )
 
         message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckViewsCacheResults']['result']
+            '%s;%d;' %
+            data['checks']['SiteAuditCheckViewsCacheResults']['result'],
+            data['checks']['SiteAuditCheckViewsCacheResults']['score']
         )
 
         message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckViewsCacheOutput']['result']
+            '%s;%d' %
+            data['checks']['SiteAuditCheckViewsCacheOutput']['result'],
+            data['checks']['SiteAuditCheckViewsCacheOutput']['score']
         )
 
         self.exit(code, '\n'.join(message))
