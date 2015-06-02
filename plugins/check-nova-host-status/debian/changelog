@@ -1,0 +1,5 @@
+monitoring-plugins-sfl-check-nova-host-status (2015.5.29.13.21-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Flavien Peyre <peyre.flavien@gmail.com>  Fri, 29 May 2015 17:21:41 -0000

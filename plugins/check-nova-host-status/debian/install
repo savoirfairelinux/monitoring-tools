@@ -1,0 +1,1 @@
+check_nova_host_status /usr/lib/monitoring/plugins/sfl
