@@ -35,16 +35,16 @@ class CheckNovaHostStatus(ShinkenPlugin):
     def __init__(self):
         super(CheckNovaHostStatus, self).__init__()
         self.parser.add_argument('--auth-url', '-a', required=True, help='keystone auth url')
-        self.parser.add_argument('--username', '-u',  required=True, help='keystone username'),
-        self.parser.add_argument('--password', '-p',  required=True, help='keystone password'),
-        self.parser.add_argument('--tenant-name', '-t',  required=True, help='keystone project id'),
+        self.parser.add_argument('--username', '-u',  required=True, help='keystone username')
+        self.parser.add_argument('--password', '-p',  required=True, help='keystone password')
+        self.parser.add_argument('--tenant-name', '-t',  required=True, help='keystone tenant name')
         self.parser.add_argument('--instance-id', '-r',  required=True, help='id of the instance to check'),
 
 
     def parse_args(self, args):
         """ Use this function to handle complex conditions """
         args = super(CheckNovaHostStatus, self).parse_args(args)
-        if None in (args.auth_url, args.username, args.password, args.project_id, args.server_id):
+        if None in (args.auth_url, args.username, args.password, args.tenant_name, args.instance_id):
             self.parser.error('--auth-url, --username, --password, --tenant-name and --instance-id are both required')
         return args
 
@@ -57,7 +57,7 @@ class CheckNovaHostStatus(ShinkenPlugin):
         except Exception :
             self.exit(2, 'instance id unknown')
 
-        if getattr(server, 'OS-EXT-STS:power_state') == 1:
+        if server.status == 'ACTIVE':
             self.exit(0, 'instance is running')
         else:
             self.exit(2, 'instance is not running')
