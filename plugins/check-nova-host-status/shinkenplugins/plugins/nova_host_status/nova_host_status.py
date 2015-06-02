@@ -58,9 +58,9 @@ class CheckNovaHostStatus(ShinkenPlugin):
             self.exit(2, 'instance id unknown')
 
         if getattr(server, 'OS-EXT-STS:power_state') == 1:
-            self.exit(0, 'instance is run')
+            self.exit(0, 'instance is running')
         else:
-            self.exit(2, 'instance is not run')
+            self.exit(2, 'instance is not running')
 
 
 ############################################################################
