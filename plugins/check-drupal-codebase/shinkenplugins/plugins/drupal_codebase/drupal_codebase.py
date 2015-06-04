@@ -75,7 +75,7 @@ class CheckDrupalCodebase(ShinkenPlugin):
         if data is None:
             self.unknown(e_msg)
 
-        message = ['Codebase audit']
+        message = ['Codebase audit\n']
 
         results = []
         actions = []
@@ -97,7 +97,7 @@ class CheckDrupalCodebase(ShinkenPlugin):
                 )
             )
 
-        self.ok('\n'.join(message))
+        self.ok(''.join(message))
 
 
 ############################################################################

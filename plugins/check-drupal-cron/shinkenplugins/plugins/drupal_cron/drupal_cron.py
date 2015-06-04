@@ -76,15 +76,16 @@ class CheckDrupalCron(ShinkenPlugin):
 
         status = data['percent']
         message = []
+        score_format = '%.2f%%\n'
 
         if status <= args.critical:
-            message.append('%.2f%%' % status)
+            message.append(score_format % status)
             code = STATES.CRITICAL
         elif status <= args.warning:
-            message.append('%.2f%%' % status)
+            message.append(score_format % status)
             code = STATES.WARNING
         else:
-            message.append('%.2f%%' % status)
+            message.append(score_format % status)
             code = STATES.OK
 
         results = []
@@ -109,7 +110,7 @@ class CheckDrupalCron(ShinkenPlugin):
                 )
             )
 
-        self.exit(code, '\n'.join(message))
+        self.exit(code, ''.join(message))
 
 
 ############################################################################
