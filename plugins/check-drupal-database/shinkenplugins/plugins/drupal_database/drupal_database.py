@@ -34,6 +34,9 @@ class CheckDrupalDatabase(ShinkenPlugin):
     DESCRIPTION = 'A plugin to monitor Drupal database'
     AUTHOR = 'Frédéric Vachon'
     EMAIL = 'frederic.vachon@savoirfairelinux.com'
+    METRICS = ['SiteAuditCheckDatabaseSize',
+               'SiteAuditCheckDatabaseCollation',
+               'SiteAuditCheckDatabaseEngine']
 
     def __init__(self):
         super(CheckDrupalDatabase, self).__init__()
@@ -86,20 +89,27 @@ class CheckDrupalDatabase(ShinkenPlugin):
             message.append('%.2f%%' % status)
             code = STATES.OK
 
-        message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckDatabaseSize']['result']
-        )
+        results = []
+        scores = []
+        actions = []
 
-        message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckDatabaseCollation']['result']
-        )
+        for metric in self.METRICS:
+            results.append(data['checks'][metric]['result'])
+            scores.append(data['checks'][metric]['score'])
 
-        message.append(
-            '%s' %
-            data['checks']['SiteAuditCheckDatabaseEngine']['result']
-        )
+            action = data['checks'][metric]['action']
+            action = action if action is not None else ''
+            actions.append(action)
+
+        for i in range(len(results)):
+            message.append(
+                '%s;%d;%s;' %
+                (
+                    results[i],
+                    scores[i],
+                    actions[i]
+                )
+            )
 
         self.exit(code, '\n'.join(message))
 
