@@ -1,87 +1,71 @@
 #!/usr/bin/env python
-
-
 import operator
-def readable(octets):
-    units = ['K', 'M', 'G', 'T', 'P']
-    unit = 'B'
-    for i, u in enumerate(units):
-        if octets >= 1024:
-            octets = octets / 1024.0
-            unit = units[i]
-        else:
-            break
-    return octets, unit
+try:
+    exit_code_output = {0: 'OK',
+                        1: 'WARNING',
+                        2: 'CRITICAL',
+                        3: 'UNKNOWN',
+                       }
+    exit_code = 0
+    # Get threshold
+    data = {'warn': None,
+            'crit': None,
+           }
+
+    process_name = self.service_description.replace('processes-', '').upper()
+    min_warn = self.host.customs.get('_PROCESS_%s_MIN_WARN' % process_name, None)
+    min_crit = self.host.customs.get('_PROCESS_%s_MIN_CRIT' % process_name, None)
+    max_warn = self.host.customs.get('_PROCESS_%s_MAX_WARN' % process_name, None)
+    max_crit = self.host.customs.get('_PROCESS_%s_MAX_CRIT' % process_name, None)
+
+    # Get perfs
+    metrics = ['ps_data', 'ps_code', 'ps_pagefaults_0', 'ps_pagefaults_1',
+               'ps_count_0', 'ps_count_1', 'ps_vm', 'ps_stacksize',
+               'ps_disk_ops_0', 'ps_disk_ops_1', 'ps_rss', 'ps_cputime_0',
+               'ps_cputime_1', 'ps_disk_octets_0', 'ps_disk_octets_1']
+    for metric in metrics:
+        try:
+            data[metric] = float(perf(self, metric))
+        except Exception:
+            pass
 
 
-exit_code_output = {0: 'OK',
-                    1: 'WARNING',
-                    2: 'CRITICAL',
-                    3: 'UNKNOWN',
-                   }
-exit_code = 0
-# Get threshold
-data = {'warn': None,
-        'crit': None,
-       }
+    # Transform threshold
+    if min_warn and min_crit:
+        data['warn'] = int(min_warn)
+        data['crit'] = int(min_crit)
+        operator_name = 'le'
+    elif max_warn and max_crit:
+        data['warn'] = int(max_warn)
+        data['crit'] = int(max_crit)
+        operator_name = 'ge'
 
-process_name = self.service_description.replace('processes-', '').upper()
-min_warn = self.host.customs.get('_PROCESS_%s_MIN_WARN' % process_name, None)
-min_crit = self.host.customs.get('_PROCESS_%s_MIN_CRIT' % process_name, None)
-max_warn = self.host.customs.get('_PROCESS_%s_MAX_WARN' % process_name, None)
-max_crit = self.host.customs.get('_PROCESS_%s_MAX_CRIT' % process_name, None)
+    # Prepare output
+    if not data['warn'] is None:
+        perf_data = ("ps_count_0=%(ps_count_0)d;%(warn)s;%(crit)s;0; "
+                     "ps_count_1=%(ps_count_1)d;%(warn)s;%(crit)s;0; " % data)
+    else:
+        perf_data = ("ps_count_0=%(ps_count_0)d;;;0; "
+                     "ps_count_1=%(ps_count_1)d;;;0; " % data)
 
-# Get perfs
-data['ps_data'] = float(perf(self, 'ps_data'))
-data['ps_code'] = float(perf(self, 'ps_code'))
-data['ps_pagefaults_0'] = float(perf(self, 'ps_pagefaults_0'))
-data['ps_pagefaults_1'] = float(perf(self, 'ps_pagefaults_1'))
-data['ps_count_0'] = float(perf(self, 'ps_count_0'))
-data['ps_count_1'] = float(perf(self, 'ps_count_1'))
-data['ps_vm'] = float(perf(self, 'ps_vm'))
-data['ps_stacksize'] = float(perf(self, 'ps_stacksize'))
-data['ps_disk_ops_0'] = float(perf(self, 'ps_disk_ops_0'))
-data['ps_disk_ops_1'] = float(perf(self, 'ps_disk_ops_1'))
-data['ps_rss'] = float(perf(self, 'ps_rss'))
-data['ps_cputime_0'] = float(perf(self, 'ps_cputime_0'))
-data['ps_cputime_1'] = float(perf(self, 'ps_cputime_1'))
-data['ps_disk_octets_0'] = float(perf(self, 'ps_disk_octets_0'))
-data['ps_disk_octets_1'] = float(perf(self, 'ps_disk_octets_1'))
+    for d in data:
+        if not d in ['ps_count_0', 'ps_count_1', 'warn', 'crit']:
+            perf_data += " %s=%d;;;" % (d, data[d])
 
+    output = "Processes count: %(ps_count_0)d" % data
 
-# Transform threshold
-if min_warn and min_crit:
-    data['warn'] = int(min_warn)
-    data['crit'] = int(min_crit)
-    operator_name = 'le'
-elif max_warn and max_crit:
-    data['warn'] = int(max_warn)
-    data['crit'] = int(max_crit)
-    operator_name = 'ge'
+    # Get status
+    if not data['warn'] is None:
+         if getattr(operator, operator_name)(data['ps_count_0'], data['warn']):
+             exit_code = 1
+         if getattr(operator, operator_name)(data['ps_count_0'], data['crit']):
+             exit_code = 2
 
-# Prepare output
-if not data['warn'] is None:
-    perf_data = ("ps_count_0=%(ps_count_0)d;%(warn)s;%(crit)s;0; "
-                 "ps_count_1=%(ps_count_1)d;%(warn)s;%(crit)s;0; " % data)
-else:
-    perf_data = ("ps_count_0=%(ps_count_0)d;;;0; "
-                 "ps_count_1=%(ps_count_1)d;;;0; " % data)
+    # Finish output
+    output = " - ".join((exit_code_output[exit_code], output))
 
-for d in data:
-    if not d in ['ps_count_0', 'ps_count_1', 'warn', 'crit']:
-        perf_data += " %s=%d;;;" % (d, data[d])
+    # Set ouput
+    set_value(self, output, perf_data, exit_code)
 
-output = "Processes count: %(ps_count_0)d" % data
-
-# Get status
-if not data['warn'] is None:
-     if getattr(operator, operator_name)(data['ps_count_0'], data['crit']):
-         exit_code = 2
-     if getattr(operator, operator_name)(data['ps_count_0'], data['warn']):
-         exit_code = 1
-
-# Finish output
-output = " - ".join((exit_code_output[exit_code], output))
-
-# Set ouput
-set_value(self, output, perf_data, exit_code)
+except Exception, e:
+    set_value(self, "UNKNOWN: Trigger error: " + str(e), "", 3)

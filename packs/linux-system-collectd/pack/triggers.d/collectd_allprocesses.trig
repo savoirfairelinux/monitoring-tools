@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+try:
+    exit_code_output = {0: 'OK',
+                        1: 'WARNING',
+                        2: 'CRITICAL',
+                        3: 'UNKNOWN',
+                       }
+    exit_code = 0
+
+    # Get perfs
+    data = {}
+    data['ps_state_stopped'] = float(perf(self, 'ps_state-stopped'))
+    data['ps_state_sleeping'] = float(perf(self, 'ps_state-sleeping'))
+    data['ps_state_paging'] = float(perf(self, 'ps_state-paging'))
+    data['ps_state_zombies'] = float(perf(self, 'ps_state-zombies'))
+    data['ps_state_blocked'] = float(perf(self, 'ps_state-blocked'))
+    data['ps_state_running'] = float(perf(self, 'ps_state-running'))
+    data['fork_rate'] = float(perf(self, 'fork_rate'))
+
+    output = []
+    perf_data = ""
+    for key, value in data.items():
+        output.append("%s: %0.2f" % (key, value))
+        perf_data += " %s=%0.2f;;;" % (key, value)
+
+    output = "Processes stats # "  + " - ".join(output)
+
+    # Finish output
+    output = " - ".join((exit_code_output[exit_code], output))
+
+    # Set ouput
+    set_value(self, output, perf_data, exit_code)
+
+except Exception, e:
+    set_value(self, "UNKNOWN: Trigger error: " + str(e), "", 3)
+
