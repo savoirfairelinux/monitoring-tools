@@ -33,6 +33,11 @@ class CheckDrupalExtensions(ShinkenPlugin):
     DESCRIPTION = 'A plugin to monitor Drupal extensions'
     AUTHOR = 'Frédéric Vachon'
     EMAIL = 'frederic.vachon@savoirfairelinux.com'
+    METRICS = ['SiteAuditCheckExtensionsDev',
+               'SiteAuditCheckExtensionsDev',
+               'SiteAuditCheckExtensionsDuplicate',
+               'SiteAuditCheckExtensionsMissing',
+               'SiteAuditCheckExtensionsDisabled']
 
     def __init__(self):
         super(CheckDrupalExtensions, self).__init__()
@@ -85,32 +90,28 @@ class CheckDrupalExtensions(ShinkenPlugin):
             message.append('%.2f%%' % status)
             code = STATES.OK
 
-        message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckExtensionsDev']
-            ['result'].split(';')[0]
-        )
+        results = []
+        scores = []
+        actions = []
 
-        message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckExtensionsUnrecommended']
-            ['result'].split(';')[0]
-        )
+        for metric in self.METRICS:
+            result = data['checks'][metric]['result'].split(';')[0]
+            results.append(result)
+            scores.append(data['checks'][metric]['score'])
 
-        message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckExtensionsDuplicate']['result']
-        )
+            action = data['checks'][metric]['action']
+            action = action if action is not None else ''
+            actions.append(action)
 
-        message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckExtensionsMissing']['result']
-        )
-
-        message.append(
-            '%s' %
-            data['checks']['SiteAuditCheckExtensionsDisabled']['result']
-        )
+        for i in range(len(results)):
+            message.append(
+                '%s;%d;%s;' %
+                (
+                    results[i],
+                    scores[i],
+                    actions[i]
+                )
+            )
 
         self.exit(code, '\n'.join(message))
 
