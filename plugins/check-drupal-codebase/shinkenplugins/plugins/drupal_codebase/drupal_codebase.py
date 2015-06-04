@@ -33,6 +33,9 @@ class CheckDrupalCodebase(ShinkenPlugin):
     DESCRIPTION = 'A plugin to monitor Drupal codebase'
     AUTHOR = 'Frédéric Vachon'
     EMAIL = 'frederic.vachon@savoirfairelinux.com'
+    METRICS = ['SiteAuditCheckCodebaseSizeFiles',
+               'SiteAuditCheckCodebaseSizeAll',
+               'SiteAuditCheckCodebaseManagedFileSize']
 
     def __init__(self):
         super(CheckDrupalCodebase, self).__init__()
@@ -73,20 +76,26 @@ class CheckDrupalCodebase(ShinkenPlugin):
             self.unknown(e_msg)
 
         message = ['Codebase audit']
-        message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckCodebaseSizeFiles']['result']
-        )
 
-        message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckCodebaseSizeAll']['result']
-        )
+        results = []
+        actions = []
 
-        message.append(
-            '%s' %
-            data['checks']['SiteAuditCheckCodebaseManagedFileSize']['result']
-        )
+        for metric in self.METRICS:
+            results.append(data['checks'][metric]['result'])
+
+            action = data['checks'][metric]['action']
+            action = action if action is not None else ''
+            actions.append(action)
+
+        for i in range(len(results)):
+            message.append(
+                '%s;%d;%s;' %
+                (
+                    results[i],
+                    -1,
+                    actions[i]
+                )
+            )
 
         self.ok('\n'.join(message))
 
