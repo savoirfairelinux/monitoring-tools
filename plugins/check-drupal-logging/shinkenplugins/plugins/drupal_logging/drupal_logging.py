@@ -33,6 +33,11 @@ class CheckDrupalLogging(ShinkenPlugin):
     DESCRIPTION = 'A plugin to monitor Drupal watchdog logging'
     AUTHOR = 'Frédéric Vachon'
     EMAIL = 'frederic.vachon@savoirfairelinux.com'
+    METRICS = ['SiteAuditCheckWatchdogSyslog',
+               'SiteAuditCheckWatchdogEnabled',
+               'SiteAuditCheckWatchdogCount',
+               'SiteAuditCheckWatchdogAge',
+               'SiteAuditCheckWatchdog404']
 
     def __init__(self):
         super(CheckDrupalLogging, self).__init__()
@@ -85,30 +90,27 @@ class CheckDrupalLogging(ShinkenPlugin):
             message.append('%.2f%%' % status)
             code = STATES.OK
 
-        message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckWatchdogSyslog']['result']
-        )
+        results = []
+        scores = []
+        actions = []
 
-        message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckWatchdogEnabled']['result']
-        )
+        for metric in self.METRICS:
+            results.append(data['checks'][metric]['result'])
+            scores.append(data['checks'][metric]['score'])
 
-        message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckWatchdogCount']['result']
-        )
+            action = data['checks'][metric]['action']
+            action = action if action is not None else ''
+            actions.append(action)
 
-        message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckWatchdogAge']['result']
-        )
-
-        message.append(
-            '%s' %
-            data['checks']['SiteAuditCheckWatchdog404']['result']
-        )
+        for i in range(len(results)):
+            message.append(
+                '%s;%d;%s;' %
+                (
+                    results[i],
+                    scores[i],
+                    actions[i]
+                )
+            )
 
         self.exit(code, '\n'.join(message))
 
