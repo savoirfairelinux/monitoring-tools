@@ -85,9 +85,15 @@ class CheckDrupalSecurity(ShinkenPlugin):
             message.append('%.2f%%' % status)
             code = STATES.OK
 
+        action = data['checks']['SiteAuditCheckSecurityMenuRouter']['action']
+        action = action if action is not None else ''
+
         message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckSecurityMenuRouter']['result']
+            '%s;%d;%s;' % (
+                data['checks']['SiteAuditCheckSecurityMenuRouter']['result'],
+                data['checks']['SiteAuditCheckSecurityMenuRouter']['score'],
+                action
+            )
         )
 
         self.exit(code, '\n'.join(message))
