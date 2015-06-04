@@ -33,6 +33,15 @@ class CheckDrupalCache(ShinkenPlugin):
     DESCRIPTION = 'A plugin to monitor Drupal cache service'
     AUTHOR = 'Frédéric Vachon'
     EMAIL = 'frederic.vachon@savoirfairelinux.com'
+    METRICS = ['SiteAuditCheckCacheAnon',
+               'SiteAuditCheckCacheLifetime',
+               'SiteAuditCheckCachePageExpire',
+               'SiteAuditCheckCachePageCompression',
+               'SiteAuditCheckCachePreprocessCss',
+               'SiteAuditCheckCachePreprocessJs',
+               'SiteAuditCheckCacheLock',
+               'SiteAuditCheckCacheBackends',
+               'SiteAuditCheckCacheBins']
 
     def __init__(self):
         super(CheckDrupalCache, self).__init__()
@@ -84,50 +93,27 @@ class CheckDrupalCache(ShinkenPlugin):
             message.append('%.2f%%' % status)
             code = STATES.OK
 
-        message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckCacheAnon']['result']
-        )
+        results = []
+        scores = []
+        actions = []
 
-        message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckCacheLifetime']['result']
-        )
+        for metric in self.METRICS:
+            results.append(data['checks'][metric]['result'])
+            scores.append(data['checks'][metric]['score'])
 
-        message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckCachePageExpire']['result']
-        )
+            action = data['checks'][metric]['action']
+            action = action if action is not None else ''
+            actions.append(action)
 
-        message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckCachePageCompression']['result']
-        )
-
-        message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckCachePreprocessCss']['result']
-        )
-
-        message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckCachePreprocessJs']['result']
-        )
-
-        message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckCacheLock']['result']
-        )
-
-        message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckCacheBackends']['result']
-        )
-
-        message.append(
-            '%s' %
-            data['checks']['SiteAuditCheckCacheBins']['result']
-        )
+        for i in range(len(results)):
+            message.append(
+                '%s;%d;%s;' %
+                (
+                    results[i],
+                    scores[i],
+                    actions[i]
+                )
+            )
 
         self.exit(code, '\n'.join(message))
 
