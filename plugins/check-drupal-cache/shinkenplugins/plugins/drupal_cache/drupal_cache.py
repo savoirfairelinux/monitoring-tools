@@ -22,6 +22,7 @@ from __future__ import absolute_import
 
 import json
 import subprocess
+import sys
 
 from shinkenplugins.plugin import ShinkenPlugin
 from shinkenplugins.states import STATES
@@ -60,7 +61,10 @@ class CheckDrupalCache(ShinkenPlugin):
         return data, None
 
     def _call_site_audit(self, path):
-        out = subprocess.check_output(['drush', '--json', 'ac'], cwd=path)
+        devnull = open('/dev/null', 'w')
+        out = subprocess.check_output(['drush', '--json', 'ac'],
+                                      cwd=path,
+                                      stderr=devnull)
         return json.loads(out)
 
     def parse_args(self, args):

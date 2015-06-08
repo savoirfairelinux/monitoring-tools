@@ -53,7 +53,10 @@ class CheckDrupalCron(ShinkenPlugin):
         return data, None
 
     def _call_site_audit(self, path):
-        out = subprocess.check_output(['drush', '--json', 'acr'], cwd=path)
+        devnull = open('/dev/null', 'w')
+        out = subprocess.check_output(['drush', '--json', 'acr'],
+                                      cwd=path,
+                                      stderr=devnull)
         return json.loads(out)
 
     def parse_args(self, args):

@@ -22,7 +22,6 @@ from __future__ import absolute_import
 import json
 import subprocess
 
-from shinkenplugins.perfdata import PerfData
 from shinkenplugins.plugin import ShinkenPlugin
 from shinkenplugins.states import STATES
 
@@ -51,7 +50,10 @@ class CheckDrupalSecurity(ShinkenPlugin):
         return data, None
 
     def _call_site_audit(self, path):
-        out = subprocess.check_output(['drush', '--json', 'asec'], cwd=path)
+        devnull = open('/dev/null', 'w')
+        out = subprocess.check_output(['drush', '--json', 'asec'],
+                                      cwd=path,
+                                      stderr=devnull)
         return json.loads(out)
 
     def parse_args(self, args):
