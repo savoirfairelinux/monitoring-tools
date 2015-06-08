@@ -95,7 +95,7 @@ class CheckDrupalViews(ShinkenPlugin):
 
         message.append(
             '%s;%d;' %
-            data['checks']['SiteAuditCheckViewsCount']['result']
+            data['checks']['SiteAuditCheckViewsCount']['result'],
             data['checks']['SiteAuditCheckViewsCount']['score']
         )
 
