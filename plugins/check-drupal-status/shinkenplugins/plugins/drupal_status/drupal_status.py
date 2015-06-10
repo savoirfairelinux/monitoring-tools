@@ -22,7 +22,6 @@ from __future__ import absolute_import
 import json
 import subprocess
 
-from shinkenplugins.perfdata import PerfData
 from shinkenplugins.plugin import ShinkenPlugin
 from shinkenplugins.states import STATES
 
@@ -40,25 +39,9 @@ class CheckDrupalStatus(ShinkenPlugin):
         self.parser.add_argument('-p', '--drupal-path', required=True,
                                  help='Drupal installation path'),
 
-    def _get_site_audit_result(self, path):
-        try:
-            data = self._call_site_audit(path)
-        except subprocess.CalledProcessError, e:
-            return None, "Command 'drush --json as' " \
-                         "returned non-zero exit status 1"
-        except OSError, e:
-            return None, e.strerror
-        return data, None
-
-    def _call_site_audit(self, path):
-        out = subprocess.check_output(['drush', '--json', 'as'], cwd=path)
-        return json.loads(out)
-
     def parse_args(self, args):
         """ Use this function to handle complex conditions """
         args = super(CheckDrupalStatus, self).parse_args(args)
-        if None in (args.warning, args.critical):
-            self.parser.error('--warning and --critical are both required')
         return args
 
     def run(self, args):
@@ -66,31 +49,113 @@ class CheckDrupalStatus(ShinkenPlugin):
         # Here is the core of the plugin.
         # After doing your verifications, escape by doing:
         # self.exit(return_code, 'return_message', *performance_data)
+        self.path = args.drupal_path
 
-        data, e_msg = self._get_site_audit_result(args.drupal_path)
+        data, e_msg = self._get_site_audit_result()
+        update_status, e_msg = self._get_update_status()
 
-        if data is None:
+        if data is None or e_msg is not None:
             self.unknown(e_msg)
 
-        status = data['percent']
-        message = []
+        info = data['checks']['SiteAuditCheckStatusSystem']['result']
+        info = info.split('\n')
+        info = {line.split(':')[0]: line.split(':')[1] for line in info}
 
-        if status <= args.critical:
-            message.append('%.2f%%' % status)
-            code = STATES.CRITICAL
-        elif status <= args.warning:
-            message.append('%.2f%%' % status)
-            code = STATES.WARNING
+        update_status = update_status.strip().split('\n')
+
+        if len(update_status) == 1 and update_status[0].strip() == '':
+            update_status = []
         else:
-            message.append('%.2f%%' % status)
-            code = STATES.OK
+            update_status = [(update.split(',')[0], update.split(',')[3])
+                             for update in update_status]
 
-        message.append(
-            '%s;' %
-            data['checks']['SiteAuditCheckStatusSystem']['result']
+        result = []
+
+        result.append(
+            ('Drupal Core version',
+             info['Drupal'].split('-')[1].strip(),
+             -1)
+        )
+        result.append(
+            ('Database system',
+             info['Database system'].split('-')[1].strip(),
+             -1)
+        )
+        result.append(
+            ('DBMS version',
+             info['Database system version'].split('-')[1].strip(),
+             -1)
+        )
+        result.append(
+            ('Database update',
+             info['Database updates'].split('-')[1].strip(),
+             -1)
+        )
+        result.append(
+            ('PHP version',
+             info['PHP'].split('-')[1].strip().split(' ')[0],
+             -1)
         )
 
-        self.exit(code, '\n'.join(message))
+        code = STATES.OK
+        msg = 'Everything is up to date'
+
+        # To maintain consistency between Drupal plugins, site_audit's levels
+        # are used. So, level -1 = info, 0 = critical, 1 = warning and 2 = OK
+        for (mod_name, mod_status) in update_status:
+            if mod_status == 'Up to date':
+                level = 2
+            elif mod_status == 'Update available':
+                if code < 1:
+                    code = STATES.WARNING
+                    msg = 'Updates available'
+                level = 1
+            elif mod_status == 'SECURITY UPDATE available':
+                if code < 2:
+                    code = STATES.CRITICAL
+                    msg = 'SECURITY UPDATE available'
+                level = 0
+            else:
+                level = -1
+
+            result.append((mod_name, mod_status, level))
+
+        out = [msg]
+
+        for (key, value, level) in result:
+            out.append("%s;%s;%d" % (key, value, level))
+
+        self.exit(code, '\n'.join(out))
+
+    def _get_site_audit_result(self):
+        try:
+            data = self._call_site_audit(['--json', '--detail', 'as'])
+            data = json.loads(data)
+        except subprocess.CalledProcessError, e:
+            return None, "Command 'drush --json --detail as' " \
+                         "returned non-zero exit status 1"
+        except OSError, e:
+            return None, e.strerror
+        return data, None
+
+    def _get_update_status(self):
+        try:
+            data = self._call_site_audit(['ups', '--format=csv'])
+        except subprocess.CalledProcessError, e:
+            return None, "Command 'drush ups --format=csv' " \
+                         "returned non-zero exit status 1"
+        except OSError, e:
+            return None, e.strerror
+        return data, None
+
+    def _call_site_audit(self, args):
+        cmd = ['drush']
+        [cmd.append(arg) for arg in args]
+
+        with open('/dev/null', 'w') as devnull:
+            out = subprocess.check_output(cmd, cwd=self.path, stderr=devnull)
+
+        return out
 
 
 ############################################################################
