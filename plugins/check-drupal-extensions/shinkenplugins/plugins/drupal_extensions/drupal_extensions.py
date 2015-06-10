@@ -100,11 +100,14 @@ class CheckDrupalExtensions(ShinkenPlugin):
 
         for metric in self.METRICS:
             result = data['checks'][metric]['result'].split(';')[0]
+            result.replace(';', ':')
             results.append(result)
             scores.append(data['checks'][metric]['score'])
 
             action = data['checks'][metric]['action']
+
             action = action if action is not None else ''
+            action = action.replace(';', ':')
             actions.append(action)
 
         for i in range(len(results)):
