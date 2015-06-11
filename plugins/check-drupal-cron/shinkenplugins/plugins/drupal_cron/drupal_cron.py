@@ -39,40 +39,85 @@ class CheckDrupalCron(ShinkenPlugin):
     def __init__(self):
         super(CheckDrupalCron, self).__init__()
         self.add_warning_critical()
-        self.parser.add_argument('-p', '--drupal-path', required=True,
-                                 help='Drupal installation path'),
-
-    def _get_site_audit_result(self, path):
-        try:
-            data = self._call_site_audit(path)
-        except subprocess.CalledProcessError:
-            return None, "Command 'drush --json acr' " \
-                         "returned non-zero exit status 1"
-        except OSError, e:
-            return None, e.strerror
-        return data, None
-
-    def _call_site_audit(self, path):
-        devnull = open('/dev/null', 'w')
-        out = subprocess.check_output(['drush', '--json', 'acr'],
-                                      cwd=path,
-                                      stderr=devnull)
-        return json.loads(out)
+        self.parser.add_argument('-p', '--drupal-path', required=False,
+                                 help='Drupal installation path for local'
+                                      ' drush'),
+        self.parser.add_argument('-a', '--alias', required=False,
+                                 help='Alias to use for remote drush'),
 
     def parse_args(self, args):
         """ Use this function to handle complex conditions """
         args = super(CheckDrupalCron, self).parse_args(args)
         if None in (args.warning, args.critical):
             self.parser.error('--warning and --critical are both required')
+        if args.alias is None and args.drupal_path is None:
+            self.parser.error('Either --alias or --drupal-path must be set')
+        if args.alias is not None and args.drupal_path is not None:
+            self.parser.error('--alias and --drupal-path can\'t be both set')
+
         return args
+
+    def _get_site_audit_result(self):
+        try:
+            if self.alias is not None:
+                args = [self.alias, '--json', 'acr']
+                data = self._call_site_audit(args)
+                data = self._extract_json_from_output(data)
+            else:
+                args = ['--json', 'acr']
+                data = self._call_site_audit(args)
+
+            data = json.loads(data)
+        except subprocess.CalledProcessError, e:
+            return None, "Command 'drush " + ' '.join(args) + "' " \
+                         "returned non-zero exit status 1"
+        except OSError, e:
+            return None, e.strerror
+        except Exception, e:
+            return None, e.message
+        return data, None
+
+    def _call_site_audit(self, args):
+        cmd = ['drush']
+
+        if self.alias is not None:
+            cmd.append(self.alias)
+
+        [cmd.append(arg) for arg in args]
+
+        with open('/dev/null', 'w') as devnull:
+            out = subprocess.check_output(cmd,
+                                          cwd=self.path,
+                                          stderr=devnull)
+        return out
+
+    def _extract_json_from_output(self, output):
+        """ Used to extract a JSON from the dirty remote drush output """
+        json_beg = output.find('{')
+        json_end = output.rfind('}') + 1
+        same_line = False
+
+        # Make sure that the opening curly bracket is on the same line as the
+        # closing one.
+        while not same_line:
+            if json_beg == -1:
+                raise Exception('No JSON found in the output')
+            elif json_end <= output.find('\n', json_beg):
+                same_line = True
+            else:
+                json_beg = output.find('{', json_beg, json_end)
+
+        return output[json_beg:json_end]
 
     def run(self, args):
         """ Main Plugin function """
         # Here is the core of the plugin.
         # After doing your verifications, escape by doing:
         # self.exit(return_code, 'return_message', *performance_data)
+        self.alias = args.alias
+        self.path = args.drupal_path
 
-        data, e_msg = self._get_site_audit_result(args.drupal_path)
+        data, e_msg = self._get_site_audit_result()
 
         if data is None:
             self.unknown(e_msg)
