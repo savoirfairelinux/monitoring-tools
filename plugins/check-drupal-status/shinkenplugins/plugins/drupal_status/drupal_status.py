@@ -20,6 +20,7 @@
 
 from __future__ import absolute_import
 import json
+import re
 import subprocess
 
 from shinkenplugins.plugin import ShinkenPlugin
@@ -36,12 +37,20 @@ class CheckDrupalStatus(ShinkenPlugin):
     def __init__(self):
         super(CheckDrupalStatus, self).__init__()
         self.add_warning_critical()
-        self.parser.add_argument('-p', '--drupal-path', required=True,
-                                 help='Drupal installation path'),
+        self.parser.add_argument('-p', '--drupal-path', required=False,
+                                 help='Drupal installation path for local'
+                                      ' drush'),
+        self.parser.add_argument('-a', '--alias', required=False,
+                                 help='Alias to use for remote drush'),
 
     def parse_args(self, args):
         """ Use this function to handle complex conditions """
         args = super(CheckDrupalStatus, self).parse_args(args)
+        if args.alias is None and args.drupal_path is None:
+            self.parser.error('Either --alias or --drupal-path must be set')
+        if args.alias is not None and args.drupal_path is not None:
+            self.parser.error('--alias and --drupal-path can\'t be both set')
+
         return args
 
     def run(self, args):
@@ -49,19 +58,28 @@ class CheckDrupalStatus(ShinkenPlugin):
         # Here is the core of the plugin.
         # After doing your verifications, escape by doing:
         # self.exit(return_code, 'return_message', *performance_data)
+        self.alias = args.alias
         self.path = args.drupal_path
 
-        data, e_msg = self._get_site_audit_result()
-        update_status, e_msg = self._get_update_status()
+        data, e_msg = self._get_drush_result(['--json', '--detail', 'as'])
+        update_status, e_msg = self._get_drush_result(['ups', '--format=csv'])
+
+        if args.alias:
+            try:
+                data = self._extract_json_from_output(data)
+            except Exception, e:
+                self.exit(STATES.UNKNOWN, e.message)
+            update_status = self._extract_csv_from_output(update_status)
+        else:
+            update_status = update_status.strip().split('\n')
 
         if data is None or e_msg is not None:
             self.unknown(e_msg)
 
+        data = json.loads(data)
         info = data['checks']['SiteAuditCheckStatusSystem']['result']
         info = info.split('\n')
         info = {line.split(':')[0]: line.split(':')[1] for line in info}
-
-        update_status = update_status.strip().split('\n')
 
         if len(update_status) == 1 and update_status[0].strip() == '':
             update_status = []
@@ -103,6 +121,7 @@ class CheckDrupalStatus(ShinkenPlugin):
         # To maintain consistency between Drupal plugins, site_audit's levels
         # are used. So, level -1 = info, 0 = critical, 1 = warning and 2 = OK
         for (mod_name, mod_status) in update_status:
+            mod_status = mod_status.strip()
             if mod_status == 'Up to date':
                 level = 2
             elif mod_status == 'Update available':
@@ -127,22 +146,11 @@ class CheckDrupalStatus(ShinkenPlugin):
 
         self.exit(code, '\n'.join(out))
 
-    def _get_site_audit_result(self):
+    def _get_drush_result(self, cmd):
         try:
-            data = self._call_site_audit(['--json', '--detail', 'as'])
-            data = json.loads(data)
+            data = self._call_site_audit(cmd)
         except subprocess.CalledProcessError, e:
-            return None, "Command 'drush --json --detail as' " \
-                         "returned non-zero exit status 1"
-        except OSError, e:
-            return None, e.strerror
-        return data, None
-
-    def _get_update_status(self):
-        try:
-            data = self._call_site_audit(['ups', '--format=csv'])
-        except subprocess.CalledProcessError, e:
-            return None, "Command 'drush ups --format=csv' " \
+            return None, "Command 'drush " + ' '.join(cmd) + "' " \
                          "returned non-zero exit status 1"
         except OSError, e:
             return None, e.strerror
@@ -150,12 +158,40 @@ class CheckDrupalStatus(ShinkenPlugin):
 
     def _call_site_audit(self, args):
         cmd = ['drush']
-        [cmd.append(arg) for arg in args]
+
+        if self.alias is not None:
+            cmd.append(self.alias)
+
+        cmd = cmd + args
 
         with open('/dev/null', 'w') as devnull:
-            out = subprocess.check_output(cmd, cwd=self.path, stderr=devnull)
-
+            out = subprocess.check_output(cmd,
+                                          cwd=self.path,
+                                          stderr=devnull)
         return out
+
+    def _extract_json_from_output(self, output):
+        """ Used to extract a JSON from the dirty remote drush output """
+        json_beg = output.find('{')
+        json_end = output.rfind('}') + 1
+        same_line = False
+
+        # Make sure that the opening curly bracket is on the same line as the
+        # closing one.
+        while not same_line:
+            if json_beg == -1:
+                raise Exception('No JSON found in the output')
+            elif json_end <= output.find('\n', json_beg):
+                same_line = True
+            else:
+                json_beg = output.find('{', json_beg, json_end)
+
+        return output[json_beg:json_end]
+
+    def _extract_csv_from_output(self, output):
+        """ Used to extract a CSV from the dirty remote drush output """
+        regex = re.compile(r'\w+,[0-9x\-\.\w]*,[0-9x\-\.\w]*,[\w ]*\n')
+        return re.findall(regex, output)
 
 
 ############################################################################
