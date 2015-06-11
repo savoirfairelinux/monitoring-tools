@@ -33,6 +33,10 @@ class CheckDrupalViews(ShinkenPlugin):
     DESCRIPTION = 'A plugin to monitor Drupal Views module'
     AUTHOR = 'Frédéric Vachon'
     EMAIL = 'frederic.vachon@savoirfairelinux.com'
+    METRICS = ['SiteAuditCheckViewsEnabled',
+               'SiteAuditCheckViewsCount',
+               'SiteAuditCheckViewsCacheResults',
+               'SiteAuditCheckViewsCacheOutput']
 
     def __init__(self):
         super(CheckDrupalViews, self).__init__()
@@ -126,40 +130,41 @@ class CheckDrupalViews(ShinkenPlugin):
         if status == -1:
             self.ok('Views is not enabled.')
         elif status <= args.critical:
-            message.append('%.2f%%' % status)
+            message.append('%.2f%%\n' % status)
             code = STATES.CRITICAL
         elif status <= args.warning:
-            message.append('%.2f%%' % status)
+            message.append('%.2f%%\n' % status)
             code = STATES.WARNING
         else:
-            message.append('%.2f%%' % status)
+            message.append('%.2f%%\n' % status)
             code = STATES.OK
 
-        message.append(
-            '%s;%d;' %
-            data['checks']['SiteAuditCheckViewsEnabled']['result'],
-            data['checks']['SiteAuditCheckViewsEnabled']['score'],
-        )
+        results = []
+        scores = []
+        actions = []
 
-        message.append(
-            '%s;%d;' %
-            data['checks']['SiteAuditCheckViewsCount']['result'],
-            data['checks']['SiteAuditCheckViewsCount']['score']
-        )
+        for metric in self.METRICS:
+            if metric not in data['checks']:
+                continue
 
-        message.append(
-            '%s;%d;' %
-            data['checks']['SiteAuditCheckViewsCacheResults']['result'],
-            data['checks']['SiteAuditCheckViewsCacheResults']['score']
-        )
+            results.append(data['checks'][metric]['result'])
+            scores.append(data['checks'][metric]['score'])
 
-        message.append(
-            '%s;%d' %
-            data['checks']['SiteAuditCheckViewsCacheOutput']['result'],
-            data['checks']['SiteAuditCheckViewsCacheOutput']['score']
-        )
+            action = data['checks'][metric]['action']
+            action = action if action is not None else ''
+            actions.append(action)
 
-        self.exit(code, '\n'.join(message))
+        for i in range(len(results)):
+            message.append(
+                '%s;%d;%s;' %
+                (
+                    results[i],
+                    scores[i],
+                    actions[i]
+                )
+            )
+
+        self.exit(code, ''.join(message))
 
 
 ############################################################################
