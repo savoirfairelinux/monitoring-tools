@@ -67,7 +67,7 @@ class CheckDrupalStatus(ShinkenPlugin):
         if args.alias:
             try:
                 data = self._extract_json_from_output(data)
-            except Exception, e:
+            except NoJsonFoundError, e:
                 self.exit(STATES.UNKNOWN, e.message)
             update_status = self._extract_csv_from_output(update_status)
         else:
@@ -180,7 +180,7 @@ class CheckDrupalStatus(ShinkenPlugin):
         # closing one.
         while not same_line:
             if json_beg == -1:
-                raise Exception('No JSON found in the output')
+                raise NoJsonFoundError('No JSON found in the output')
             elif json_end <= output.find('\n', json_beg):
                 same_line = True
             else:
@@ -192,6 +192,10 @@ class CheckDrupalStatus(ShinkenPlugin):
         """ Used to extract a CSV from the dirty remote drush output """
         regex = re.compile(r'\w+,[0-9x\-\.\w]*,[0-9x\-\.\w]*,[\w ]*\n')
         return re.findall(regex, output)
+
+
+class NoJsonFoundError(Exception):
+    pass
 
 
 ############################################################################

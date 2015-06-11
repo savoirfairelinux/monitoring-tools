@@ -70,7 +70,7 @@ class CheckDrupalSecurity(ShinkenPlugin):
                          "returned non-zero exit status 1"
         except OSError, e:
             return None, e.strerror
-        except Exception, e:
+        except NoJsonFoundError, e:
             return None, e.message
         return data, None
 
@@ -98,7 +98,7 @@ class CheckDrupalSecurity(ShinkenPlugin):
         # closing one.
         while not same_line:
             if json_beg == -1:
-                raise Exception('No JSON found in the output')
+                raise NoJsonFoundError('No JSON found in the output')
             elif json_end <= output.find('\n', json_beg):
                 same_line = True
             else:
@@ -145,6 +145,10 @@ class CheckDrupalSecurity(ShinkenPlugin):
         )
 
         self.exit(code, ''.join(message))
+
+
+class NoJsonFoundError(Exception):
+    pass
 
 
 ############################################################################
