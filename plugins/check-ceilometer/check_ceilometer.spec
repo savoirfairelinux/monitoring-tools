@@ -1,20 +1,11 @@
-#
-# Example spec file for cdplayer app...
-#
-%define raw_name    check_ceilometer
-%define name        check-ceilometer
-%define version     20140505
-%define release     1
-%define install_folder /usr/lib/
-
-Name:       %{name}
-Version:    %{version}
-Release:    %{release}.%{dist}
-License: GPL v3
-Summary: Shinken plugin from SFL. A Nagios plug-in to use OpenStack Ceilometer API for metering
-Group: Networking/Other
-Source: https://github.com/savoirfairelinux/plugin-%{raw_name}/archive/master.tar.gz
-URL: https://github.com/savoirfairelinux/sfl-shinken-plugins
+Name:		monitoring-plugins-sfl-check-ceilometer
+Version:    	0.3.2
+Release:    	1
+License: 	GPL v3
+Summary: 	Shinken plugin from SFL. A Nagios plug-in to use OpenStack Ceilometer API for metering
+Group: 		Networking/Other
+Source0: 	https://github.com/savoirfairelinux/monitoring-tools/%{name}_%{version}.orig.tar.gz
+URL:            https://github.com/savoirfairelinux/monitoring-tools
 Distribution: Savoir-faire Linux
 Vendor: Savoir-faire Linux
 Packager: Alexandre Viau <alexandre.viau@savoirfairelinux.com>
@@ -51,5 +42,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc
 
 %changelog
+* Fri Jun 12 2015 Flavien Peyre <flavien.peyre@savoirfairelinux.com>
+- Updated to 0.3.2
+
 * Mon May 05 2014 Alexandre Viau <alexandre.viau@savoirfairelinux.com>
 - Initial Release
