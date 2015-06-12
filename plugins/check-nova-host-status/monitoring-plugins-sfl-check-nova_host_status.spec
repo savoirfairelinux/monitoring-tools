@@ -2,13 +2,13 @@
 
 
 Name:           monitoring-plugins-sfl-check-nova-host-status
-Version:        2015.5.29.13.21
-Release:        1%{?dist}
+Version:        0.3.2
+Release:        1
 Summary:        check the current status for a nova host
 
 License:        GPLv3
 URL:            https://github.com/savoirfairelinux/monitoring-tools
-Source0:        https://github.com/savoirfairelinux/monitoring-tools/monitoring-plugins-sfl-check-nova-host-status_%{version}.orig.tar.gz
+Source0:        https://github.com/savoirfairelinux/monitoring-tools/%{name}_%{version}.orig.tar.gz
 
 Requires:       python-shinkenplugins
 BuildRequires:  python-setuptools
@@ -49,5 +49,8 @@ sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man
 %{_mandir}/man1/monitoring/plugins/%{name}
 
 %changelog
+* Fri Jun 12 2015 Vincent Fournier <vincent.fournier@gmail.com> - 0.3.2-1
+- Updated to version 0.3.2
+
 * Fri May 29 2015 Flavien Peyre <peyre.flavien@gmail.com> - 2015.5.29.13.21
 - Initial package
