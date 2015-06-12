@@ -2,7 +2,7 @@
 
 
 Name:           python-shinkenplugins
-Version:        0.2.0
+Version:        0.4.0
 Release:        1%{?dist}
 Summary:        Shinken plugins wrapper library
 
@@ -36,6 +36,9 @@ less code duplication, less headache. More lolz.
 rm -rf %{buildroot}
 %{__python} setup.py install -O1 --skip-build --root %{buildroot} --install-lib=%{python_sitelib}
 
+# Remove useless files
+rm -rf  %{buildroot}/%{python_sitelib}/shinkenplugins*.egg-info*
+rm -rf  %{buildroot}/%{python_sitelib}/shinkenplugins*.pth*
 
 %check
 PYTHONPATH=. %{__python} -c "import shinkenplugins"
@@ -43,11 +46,12 @@ PYTHONPATH=. %{__python} -c "import shinkenplugins"
 
 %files
 %defattr(-,root,root,-)
-%{python_sitelib}/*.egg-info
 %dir %{python_sitelib}/shinkenplugins
 %{python_sitelib}/shinkenplugins/*
 
 
 %changelog
+* Fri Jun 12 2015 Vincent Fournier <vincent.fournier@savoirfairelinux.com> - 0.4.0-1
+- Initial package
 * Wed Dec 24 2014 Thibault Cohen <thibault.cohen@savoirfairelinux.com> - 0.2.0-1
 - Initial package
