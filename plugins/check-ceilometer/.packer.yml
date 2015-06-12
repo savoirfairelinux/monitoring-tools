@@ -1,4 +1,2 @@
 centos_7:
     spec: shinkenplugins.spec
-    deps_pip:
-        - sphinx
