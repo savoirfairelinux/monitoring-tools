@@ -63,8 +63,8 @@ def main(args):
                     shutil.copy(os.path.join(path, file_),
                                 os.path.join(target, current_relative_folder, file_))
 
-    shutil.move(os.path.join(target, 'monitoring-packs-sfl-foo.spec'),
-                os.path.join(target, 'monitoring-packs-sfl-' +  args['name'] + '.spec'))
+    shutil.move(os.path.join(target, 'debian', 'monitoring-packs-sfl-foo.spec'),
+                os.path.join(target, 'debian', 'monitoring-packs-sfl-' +  args['name'] + '.spec'))
 
 
     if not args['update']:
@@ -120,7 +120,7 @@ def main(args):
 def parse_args():
     parser = argparse.ArgumentParser(description='Create a new Shinken pack.')
     required = [
-        {'name': 'system', 'help': 'Type of pack you want', 'choices': ['generic', 'linux', 'windows', 'vmware']},
+        {'name': 'system', 'help': 'Type of pack you want', 'choices': ['generic', 'linux', 'windows', 'vmware', 'openstack']},
         {'name': 'application', 'help': 'Application name you want monitor', 'choices': None},
         {'name': 'protocol', 'help': 'Protocol used in this new pack', 'choices': None},
         {'name': 'desc', 'help': 'The description of your pack', 'choices': None},
