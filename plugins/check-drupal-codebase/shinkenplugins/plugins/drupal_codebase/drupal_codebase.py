@@ -43,6 +43,10 @@ class CheckDrupalCodebase(ShinkenPlugin):
                                       ' drush'),
         self.parser.add_argument('-a', '--alias', required=False,
                                  help='Alias to use for remote drush'),
+        self.parser.add_argument('-d', '--home-dir', required=False,
+                                 help='Home directory where the .drush '
+                                      'containing the alias config can '
+                                      'be found')
 
     def parse_args(self, args):
         """ Use this function to handle complex conditions """
@@ -50,7 +54,11 @@ class CheckDrupalCodebase(ShinkenPlugin):
         if None in (args.warning, args.critical):
             self.parser.error('--warning and --critical are both required')
         if args.alias is None and args.drupal_path is None:
-            self.parser.error('Either --alias or --drupal-path must be set')
+            self.parser.error('Either --alias and --home-dir '
+                              'or --drupal-path must be set')
+        if (args.alias is None and args.home_dir is not None) or \
+           (args.alias is not None and args.home_dir is None):
+            self.parser.error('--home-dir must be used with --alias')
         if args.alias is not None and args.drupal_path is not None:
             self.parser.error('--alias and --drupal-path can\'t be both set')
 
@@ -82,7 +90,8 @@ class CheckDrupalCodebase(ShinkenPlugin):
         with open('/dev/null', 'w') as devnull:
             out = subprocess.check_output(cmd,
                                           cwd=self.path,
-                                          stderr=devnull)
+                                          stderr=devnull,
+                                          env={'HOME': self.home})
         return out
 
     def _extract_json_from_output(self, output):
@@ -110,6 +119,7 @@ class CheckDrupalCodebase(ShinkenPlugin):
         # self.exit(return_code, 'return_message', *performance_data)
         self.alias = args.alias
         self.path = args.drupal_path
+        self.home = args.home_dir
 
         data, e_msg = self._get_site_audit_result()
 
