@@ -27,8 +27,8 @@ from __future__ import with_statement
 from setuptools import setup, find_packages
 
 
-description = 'A plugin to monitor Drupal service'
-long_description = ('''A plugin to monitor Drupal service''')
+description = 'A plugin to monitor Drupal cache service'
+long_description = ('''A plugin to monitor Drupal cache service''')
 
 #############################################################################
 
@@ -57,6 +57,6 @@ setup(
     ],
     entry_points="""
     [console_scripts]
-    check_drupal = shinkenplugins.plugins.drupal_cache:main
+    check_drupal_cache = shinkenplugins.plugins.drupal_cache:main
     """
 )

@@ -1,1 +1,1 @@
-check_drupal /usr/lib/monitoring/plugins/sfl
+check_drupal_cache /usr/lib/monitoring/plugins/sfl

@@ -4,7 +4,7 @@
 Name:           monitoring-plugins-sfl-check-drupal
 Version:        2015.5.12.10.32
 Release:        1%{?dist}
-Summary:        A plugin to monitor Drupal service
+Summary:        A plugin to monitor Drupal cache service
 
 License:        GPLv3
 URL:            https://github.com/savoirfairelinux/monitoring-tools
@@ -31,7 +31,7 @@ https://github.com/savoirfairelinux/sfl-monitoring-tools
 rm -rf %{buildroot}
 %{__python} setup.py install -O1 --skip-build --root %{buildroot} --install-lib=%{python_sitelib}
 %{__mkdir_p} %{buildroot}/%{_libdir}/monitoring/plugins/sfl
-%{__install} -p -m0755 check_drupal %{buildroot}/%{_libdir}/monitoring/plugins/sfl
+%{__install} -p -m0755 check_drupal_cache %{buildroot}/%{_libdir}/monitoring/plugins/sfl
 %{__install} -d -m 755 %{buildroot}/%{_docdir}/monitoring/plugins/%{name}
 %{__cp} -r doc/source/ %{buildroot}/%{_docdir}/monitoring/plugins/%{name}
 %{__install} -d -m 755 %{buildroot}/%{_mandir}/man1/monitoring/plugins/%{name}
@@ -43,7 +43,7 @@ sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man
 %{python_sitelib}/*.egg-info
 %dir %{python_sitelib}/shinkenplugins
 %{python_sitelib}/shinkenplugins/plugins/drupal
-%{_libdir}/monitoring/plugins/sfl/check_drupal
+%{_libdir}/monitoring/plugins/sfl/check_drupal_cache
 %docdir
 %{_docdir}/monitoring/plugins/%{name}
 %{_mandir}/man1/monitoring/plugins/%{name}

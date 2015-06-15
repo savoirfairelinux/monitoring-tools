@@ -1,4 +1,4 @@
-check_drupal
-============
+check_drupal_cache
+==================
 
-A plugin to monitor Drupal service
+A plugin to monitor Drupal cache service
