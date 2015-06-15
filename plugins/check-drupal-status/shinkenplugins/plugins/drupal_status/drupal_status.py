@@ -64,6 +64,9 @@ class CheckDrupalStatus(ShinkenPlugin):
         data, e_msg = self._get_drush_result(['--json', '--detail', 'as'])
         update_status, e_msg = self._get_drush_result(['ups', '--format=csv'])
 
+        if data is None or e_msg is not None:
+            self.unknown(e_msg)
+
         if args.alias:
             try:
                 data = self._extract_json_from_output(data)
@@ -72,9 +75,6 @@ class CheckDrupalStatus(ShinkenPlugin):
             update_status = self._extract_csv_from_output(update_status)
         else:
             update_status = update_status.strip().split('\n')
-
-        if data is None or e_msg is not None:
-            self.unknown(e_msg)
 
         data = json.loads(data)
         info = data['checks']['SiteAuditCheckStatusSystem']['result']
