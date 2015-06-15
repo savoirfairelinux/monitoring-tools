@@ -75,12 +75,7 @@ class CheckDrupalSecurity(ShinkenPlugin):
         return data, None
 
     def _call_site_audit(self, args):
-        cmd = ['drush']
-
-        if self.alias is not None:
-            cmd.append(self.alias)
-
-        [cmd.append(arg) for arg in args]
+        cmd = ['drush'] + args
 
         with open('/dev/null', 'w') as devnull:
             out = subprocess.check_output(cmd,

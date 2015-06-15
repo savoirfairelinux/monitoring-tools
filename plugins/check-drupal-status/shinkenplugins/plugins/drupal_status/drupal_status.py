@@ -58,11 +58,17 @@ class CheckDrupalStatus(ShinkenPlugin):
         # Here is the core of the plugin.
         # After doing your verifications, escape by doing:
         # self.exit(return_code, 'return_message', *performance_data)
-        self.alias = args.alias
         self.path = args.drupal_path
 
-        data, e_msg = self._get_drush_result(['--json', '--detail', 'as'])
-        update_status, e_msg = self._get_drush_result(['ups', '--format=csv'])
+        cmd1 = ['--json', '--detail', 'as']
+        cmd2 = ['ups', '--format=csv']
+
+        if args.alias:
+            cmd1 = [args.alias] + cmd1
+            cmd2 = [args.alias] + cmd2
+
+        data, e_msg = self._get_drush_result(cmd1)
+        update_status, e_msg = self._get_drush_result(cmd2)
 
         if data is None or e_msg is not None:
             self.unknown(e_msg)
@@ -157,12 +163,7 @@ class CheckDrupalStatus(ShinkenPlugin):
         return data, None
 
     def _call_site_audit(self, args):
-        cmd = ['drush']
-
-        if self.alias is not None:
-            cmd.append(self.alias)
-
-        cmd = cmd + args
+        cmd = ['drush'] + args
 
         with open('/dev/null', 'w') as devnull:
             out = subprocess.check_output(cmd,
