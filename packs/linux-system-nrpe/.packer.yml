@@ -1,14 +1,4 @@
-centos_6:
-    spec: debian/monitoring-packs-sfl-linux-system-nrpe.spec
-    deps_pip:
-        - Sphinx==1.2.3
 centos_7:
     spec: debian/monitoring-packs-sfl-linux-system-nrpe.spec
     deps_pip:
         - sphinx
-debian_8:
-    debian: debian
-ubuntu_12.04:
-    debian: debian
-ubuntu_14.04:
-    debian: debian
