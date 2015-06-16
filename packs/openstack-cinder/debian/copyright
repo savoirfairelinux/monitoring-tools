@@ -1,5 +1,5 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: monitoring-packs-sfl-openstack-nova
+Upstream-Name: monitoring-packs-sfl-openstack-cinder
 Source: <https://github.com/savoirfairelinux/monitoring-tools>
 
 Files: *

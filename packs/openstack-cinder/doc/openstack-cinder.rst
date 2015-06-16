@@ -1,5 +1,5 @@
-sfl-openstack-nova
-==================
+sfl-openstack-cinder
+====================
 
 Dependencies
 ************

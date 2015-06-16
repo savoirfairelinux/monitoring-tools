@@ -12,14 +12,14 @@ templates_path = ['_templates']
 source_suffix = '.rst'
 
 # The master toctree document.
-master_doc = 'openstack-nova'
+master_doc = 'openstack-cinder'
 
 # General information about the project.
-project = u'openstack-nova'
+project = u'openstack-cinder'
 copyright = u'2015, Savoir-faire Linux <supervision@savoirfairelinux.com>'
 
 # The short X.Y version.
-version = '2015.6.16.11.8'
+version = '2015.6.16.10.52'
 # The full version, including alpha/beta/rc tags.
 release = '1'
 
@@ -144,7 +144,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'openstack-novadoc'
+htmlhelp_basename = 'openstack-cinderdoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -164,7 +164,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('openstack-nova', 'openstack-nova.tex', u'openstack-nova Documentation',
+  ('openstack-cinder', 'openstack-cinder.tex', u'openstack-cinder Documentation',
    u'Savoir-faire Linux', 'manual'),
 ]
 
@@ -194,7 +194,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('openstack-nova', 'monitoring-packs-sfl-openstack-nova', u'openstack-nova Documentation',
+    ('openstack-cinder', 'monitoring-packs-sfl-openstack-cinder', u'openstack-cinder Documentation',
      [u'Savoir-faire Linux'], 7)
 ]
 
@@ -208,8 +208,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('openstack-nova', 'openstack-nova', u'openstack-nova Documentation',
-   u'Savoir-faire Linux', 'openstack-nova', 'Alignak pack for monitoring OpenStack Nova',
+  ('openstack-cinder', 'openstack-cinder', u'openstack-cinder Documentation',
+   u'Savoir-faire Linux', 'openstack-cinder', 'Alignak pack for monitoring Openstack cinder',
    'Packs'),
 ]
 

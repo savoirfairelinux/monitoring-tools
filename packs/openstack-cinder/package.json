@@ -1,9 +1,10 @@
 {
-    "name": "openstack-nova",
+    "name": "openstack-cinder",
     "types": ["pack"],
+    "version": "1.0",
     "homepage": "https://github.com/savoirfairelinux/monitoring-tools",
     "author": "Savoir-faire Linux",
-    "description": "Alignak pack for monitoring OpenStack Nova",
+    "description": "Alignak pack for monitoring Openstack cinder",
     "contributors": [
         {
         "name": "Savoir-faire Linux",
@@ -12,8 +13,8 @@
     ],
     "repository": "https://github.com/savoirfairelinux/monitoring-tools",
     "keywords": ["pack",
-                 "openstack-nova",
-                 "openstack"," nova"
+                 "openstack-cinder",
+                 "cinder","openstack"
     ],
     "dependencies": { "shinken": ">=1.4" },
     "license": "GPL"

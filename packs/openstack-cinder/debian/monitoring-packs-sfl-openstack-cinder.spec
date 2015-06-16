@@ -1,13 +1,13 @@
-%define raw_name    openstack-nova
+%define raw_name    openstack-cinder
 %define name        monitoring-packs-sfl-%{raw_name}
-%define version     0.3.2
+%define version     0.4.0
 %define release     1
 
 Name:       %{name}
 Version:    %{version}
 Release:    %{release}
 License: GPL v3
-Summary: Alignak pack for monitoring OpenStack Nova
+Summary: Alignak pack for monitoring Openstack cinder
 Group: Networking/Other
 Source: https://github.com/savoirfairelinux/monitoring-tools/%{name}_%{version}.orig.tar.gz
 URL: https://github.com/savoirfairelinux/monitoring-tools/
@@ -20,7 +20,7 @@ BuildRequires: python-sphinx
 
 
 %description
-Alignak pack for monitoring OpenStack Nova
+Alignak pack for monitoring Openstack cinder
 
 %prep
 %setup -q

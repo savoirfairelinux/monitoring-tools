@@ -1,13 +1,13 @@
 {
-"name":"openstack-nova",
+"name":"openstack-cinder",
 
-"description":"Alignak pack for monitoring OpenStack Nova",
+"description":"Alignak pack for monitoring OpenStack Cinder",
 
 "path":"",
 
 "macros":{
         "_OS_AUTH_URL": {"type": "url",
-                     "description": "Keystone Auth URL"
+                     "description": "Auth URL"
                     },
         "_OS_USERNAME": {"type": "string",
                      "description": "OpenStack username"
@@ -18,10 +18,7 @@
         "_OS_TENANT": {"type": "string",
                      "description": "OpenStack tenant name"
                     },
-        "_NOVA_URL": {"type": "string",
-                     "description": "Nova API URL"
-                    },
-        "_NOVA_FLAVORS": {"type": "string",
-                     "description": "Nova flavors to expect"
-                    },
+        "_OS_CINDER_URL": {"type": "string",
+                     "description": "Cinder endpoint url"
+                    }
 }
