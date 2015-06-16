@@ -30,17 +30,17 @@ BuildRoot:  %{_tmppath}/%{name}-%{version}
 
 %install
 %{__rm} -rf %{buildroot}
-%{__install} -d -m 755 %{buildroot}/%{_libdir}/monitoring/packs/sfl/%{raw_name}
-%{__cp} -r pack/* %{buildroot}/%{_libdir}/monitoring/packs/sfl/%{raw_name}
-%{__install} -p -m 755 package.json %{buildroot}/%{_libdir}/monitoring/packs/sfl/%{raw_name}
+%{__install} -d -m 755 %{buildroot}/%{_datadir}/monitoring/packs/sfl/%{raw_name}
+%{__cp} -r pack/* %{buildroot}/%{_datadir}/monitoring/packs/sfl/%{raw_name}
+%{__install} -p -m 755 package.json %{buildroot}/%{_datadir}/monitoring/packs/sfl/%{raw_name}
 sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man7/%{raw_name}
-sphinx-build -b html -d doc/build/doctrees/source doc %{buildroot}/%{_docdir}/monitoring/packs/%{raw_name}
+sphinx-build -b html -d doc/build/doctrees/source doc %{buildroot}/%{_docdir}/monitoring/packs/sfl/%{raw_name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%{_libdir}/monitoring/packs/sfl
+%{_datadir}/monitoring/packs/sfl
 %doc
 %{_docdir}/monitoring/packs/sfl/%{raw_name}
 %{_mandir}/man7/*
