@@ -1,0 +1,16 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@ 
+
+override_dh_installdocs:
+	sphinx-build -b html -d debian/tmp/doc/build/doctrees doc debian/tmp/doc/build/html
+	dh_installdocs
+
+override_dh_installman:
+	sphinx-build -b man -d debian/tmp/doc/build/doctrees doc debian/tmp/doc/build/man
+	dh_installman

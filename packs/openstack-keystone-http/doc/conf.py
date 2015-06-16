@@ -12,14 +12,14 @@ templates_path = ['_templates']
 source_suffix = '.rst'
 
 # The master toctree document.
-master_doc = 'source/linux-keystone'
+master_doc = 'openstack-keystone-http'
 
 # General information about the project.
-project = u'linux-keystone'
-copyright = u'2015, Alexandre Viau <alexandre.viau@savoirfairelinux.com>'
+project = u'openstack-keystone-http'
+copyright = u'2015, Savoir-faire Linux <supervision@savoirfairelinux.com>'
 
 # The short X.Y version.
-version = ''
+version = '2015.6.16.19.33'
 # The full version, including alpha/beta/rc tags.
 release = '1'
 
@@ -95,7 +95,7 @@ html_theme = 'default'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['source/_static']
+html_static_path = ['_static']
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
@@ -144,7 +144,7 @@ html_static_path = ['source/_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'linux-keystonedoc'
+htmlhelp_basename = 'openstack-keystone-httpdoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -164,8 +164,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('source/linux-keystone', 'linux-keystone.tex', u'linux-keystone Documentation',
-   u'Alexandre Viau', 'manual'),
+  ('openstack-keystone-http', 'openstack-keystone-http.tex', u'openstack-keystone-http Documentation',
+   u'Savoir-faire Linux', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -194,8 +194,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('source/linux-keystone', 'linux-keystone', u'linux-keystone Documentation',
-     [u'Alexandre Viau'], 1)
+    ('openstack-keystone-http', 'monitoring-packs-sfl-openstack-keystone-http', u'openstack-keystone-http Documentation',
+     [u'Savoir-faire Linux'], 7)
 ]
 
 # If true, show URL addresses after external links.
@@ -208,8 +208,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('source/linux-keystone', 'linux-keystone', u'linux-keystone Documentation',
-   u'Alexandre Viau', 'linux-keystone', 'Shinken pack for monitoring OpenStack Keystone',
+  ('openstack-keystone-http', 'openstack-keystone-http', u'openstack-keystone-http Documentation',
+   u'Savoir-faire Linux', 'openstack-keystone-http', 'Alignak pack for monitoring OpenStack Keystone',
    'Packs'),
 ]
 

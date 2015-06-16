@@ -1,5 +1,5 @@
-linux-keystone
-==============
+sfl-openstack-keystone-http
+===========================
 
 Dependencies
 ************
