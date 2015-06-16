@@ -1,9 +1,8 @@
 {
-"name":"linux-glance",
+"name":"openstack-glance-http",
 
 "description":"Check Glance service",
 
-# NEXT LINES ARE SAMPLES: YOU CAN DELETE IT
 "macros":{
          "_OS_AUTH_URL":         {"type": "string",
                                      "description": "The Auth API URL",

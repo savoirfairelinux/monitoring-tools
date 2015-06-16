@@ -1,0 +1,5 @@
+monitoring-packs-sfl-openstack-glance-http (2015.6.16.14.43-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Thibault Cohen <thibault.cohen@savoirfairelinux.com>  Tue, 05 Oct 2014 10:15:52 -0400
