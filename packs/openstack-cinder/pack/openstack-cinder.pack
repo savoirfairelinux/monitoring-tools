@@ -1,7 +1,7 @@
 {
-"name":"linux-cinder",
+"name":"openstack-cinder",
 
-"description":"Shinken pack for monitoring OpenStack Cinder",
+"description":"Alignak pack for monitoring OpenStack Cinder",
 
 "path":"",
 

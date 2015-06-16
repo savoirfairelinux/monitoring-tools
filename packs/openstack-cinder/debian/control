@@ -1,0 +1,15 @@
+Source: monitoring-packs-sfl-openstack-cinder
+Section: python
+Priority: optional
+Maintainer: Savoir-faire Linux <supervision@savoirfairelinux.com>
+Build-Depends: debhelper (>= 8.0.0), python-sphinx
+Standards-Version: 3.9.6
+Homepage: https://github.com/savoirfairelinux/monitoring-tools
+Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
+
+Package: monitoring-packs-sfl-openstack-cinder
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Alignak pack for monitoring Openstack cinder
+ More information is available on Github:
+ https://github.com/savoirfairelinux/monitoring-tools
