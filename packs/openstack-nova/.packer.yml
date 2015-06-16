@@ -1,0 +1,4 @@
+centos_7:
+    spec: debian/monitoring-packs-sfl-openstack-nova.spec
+    deps_pip:
+        - sphinx

@@ -1,29 +1,26 @@
-#
-# Example spec file for cdplayer app...
-#
-%define raw_name    {{ name }}
+%define raw_name    openstack-nova
 %define name        monitoring-packs-sfl-%{raw_name}
-%define version     {{ date_long }}
+%define version     0.3.2
 %define release     1
 
 Name:       %{name}
 Version:    %{version}
 Release:    %{release}
 License: GPL v3
-Summary: {{ desc }}
+Summary: Alignak pack for monitoring OpenStack Nova
 Group: Networking/Other
 Source: https://github.com/savoirfairelinux/monitoring-tools/%{name}_%{version}.orig.tar.gz
 URL: https://github.com/savoirfairelinux/monitoring-tools/
 Distribution: Savoir-faire Linux
 Vendor: Savoir-faire Linux
-Packager: {{ author_name }} <{{ author_email }}>
+Packager: Savoir-faire Linux <supervision@savoirfairelinux.com>
 BuildRoot:  %{_tmppath}/%{name}-%{version}
-#%{?el7:BuildRequires: python-sphinx}
+BuildRequires: python-sphinx
 #Requires: python, python-dlnetsnmp
 
 
 %description
-{{ desc }}
+Alignak pack for monitoring OpenStack Nova
 
 %prep
 %setup -q
@@ -34,7 +31,7 @@ BuildRoot:  %{_tmppath}/%{name}-%{version}
 %{__cp} -r pack/* %{buildroot}/%{_datadir}/monitoring/packs/sfl/%{raw_name}
 %{__install} -p -m 755 package.json %{buildroot}/%{_datadir}/monitoring/packs/sfl/%{raw_name}
 sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man7/%{raw_name}
-sphinx-build -b html -d doc/build/doctrees/source doc %{buildroot}/%{_docdir}/monitoring/packs/%{raw_name}
+sphinx-build -b html -d doc/build/doctrees/source doc %{buildroot}/%{_docdir}/monitoring/packs/sfl/%{raw_name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -47,5 +44,5 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* {{ date_rpm }} {{ author_name }} <{{ author_email }}>
+* Tue Jun 16 2015 Savoir-faire Linux <supervision@savoirfairelinux.com>
 - Initial Release
