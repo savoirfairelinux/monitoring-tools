@@ -1,0 +1,21 @@
+{
+    "name": "openstack-glance-http",
+    "types": ["pack"],
+    "version": "1.0",
+    "homepage": "https://github.com/savoirfairelinux/monitoring-tools",
+    "author": "Savoir-faire Linux",
+    "description": "Alignak configuration pack for OpenStack Glance service",
+    "contributors": [
+        {
+        "name": "Savoir-faire Linux",
+        "email": "supervision@savoirfairelinux.com"
+        }
+    ],
+    "repository": "https://github.com/savoirfairelinux/monitoring-tools",
+    "keywords": ["pack",
+                 "openstack-glance-http",
+                 "openstack","glance"
+    ],
+    "dependencies": { "shinken": ">=1.4" },
+    "license": "GPL"
+}
