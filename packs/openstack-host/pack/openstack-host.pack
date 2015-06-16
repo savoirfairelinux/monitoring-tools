@@ -1,0 +1,7 @@
+{
+"name":"openstack-host",
+
+"description":"Alignak pack for monitoring OpenStack hosts based on Ceilometer metrics",
+
+"path":"",
+}
