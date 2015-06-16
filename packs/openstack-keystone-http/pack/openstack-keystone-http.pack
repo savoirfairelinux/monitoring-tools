@@ -1,7 +1,7 @@
 {
-"name":"linux-keystone",
+"name":"openstack-keystone-http",
 
-"description":"Shinken pack for monitoring OpenStack Keystone",
+"description":"Alignak pack for monitoring OpenStack Keystone",
 
 "path":"",
 
