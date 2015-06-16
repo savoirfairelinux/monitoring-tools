@@ -1,9 +1,6 @@
-#
-# Example spec file for cdplayer app...
-#
 %define raw_name    linux-system-nrpe
 %define name        monitoring-packs-sfl-%{raw_name}
-%define version     2015.2.19.17.57
+%define version     0.4.0
 %define release     1
 
 Name:       %{name}
@@ -18,10 +15,8 @@ Distribution: Savoir-faire Linux
 Vendor: Savoir-faire Linux
 Packager: Savoir-faire Linux <supervision@savoirfairelinux.com>
 BuildRoot:  %{_tmppath}/%{name}-%{version}
-#%{?el7:BuildRequires: python-sphinx}
-#Requires: python, python-dlnetsnmp
-BuildRequires:  gcc
-BuildRequires:  python-devel
+BuildRequires: python-sphinx
+
 
 
 %description
@@ -32,9 +27,9 @@ Standard linux NRPE active checks using NRPE, like CPU, RAM and disk space.
 
 %install
 %{__rm} -rf %{buildroot}
-%{__install} -d -m 755 %{buildroot}/%{_libdir}/monitoring/packs/sfl/%{raw_name}
-%{__cp} -r pack/* %{buildroot}/%{_libdir}/monitoring/packs/sfl/%{raw_name}
-%{__install} -p -m 755 package.json %{buildroot}/%{_libdir}/monitoring/packs/sfl/%{raw_name}
+%{__install} -d -m 755 %{buildroot}/%{_datadir}/monitoring/packs/sfl/%{raw_name}
+%{__cp} -r pack/* %{buildroot}/%{_datadir}/monitoring/packs/sfl/%{raw_name}
+%{__install} -p -m 755 package.json %{buildroot}/%{_datadir}/monitoring/packs/sfl/%{raw_name}
 sphinx-build -b html -d doc/build/doctrees/source doc %{buildroot}/%{_docdir}/monitoring/packs/sfl/%{raw_name}
 sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man7/
 
@@ -42,11 +37,14 @@ sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man
 rm -rf 
 
 %files
-%{_libdir}/monitoring/packs/sfl
+%{_datadir}/monitoring/packs/sfl
 %doc
 %{_docdir}/monitoring/packs/sfl/%{raw_name}
 %{_mandir}/man7/*
 
 %changelog
+* Tue Jun 16 2015 Savoir-faire Linux <supervision@savoirfairelinux.com>
+- Packaging for surveil (v 0.4.0)
+
 * Thu Feb 19 2015 Savoir-faire Linux <supervision@savoirfairelinux.com>
 - Initial Release
