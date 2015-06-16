@@ -1,7 +1,7 @@
 {
-"name":"linux-nova",
+"name":"openstack-nova",
 
-"description":"Shinken pack for monitoring OpenStack Nova",
+"description":"Alignak pack for monitoring OpenStack Nova",
 
 "path":"",
 

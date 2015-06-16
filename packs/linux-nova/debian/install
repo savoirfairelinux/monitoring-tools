@@ -1,2 +1,0 @@
-pack /etc/shinken/packs/linux-nova
-package.json /etc/shinken/packs/linux-nova
