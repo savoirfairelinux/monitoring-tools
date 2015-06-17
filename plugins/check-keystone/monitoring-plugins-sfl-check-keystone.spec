@@ -1,7 +1,8 @@
-%define raw_name   check-keystone
-%define name       monitoring-plugins-sfl-%{raw_name}
-%define version    0.4.0
-%define release    1
+%define raw_name       check-keystone
+%define name           monitoring-plugins-sfl-%{raw_name}
+%define version        0.4.0
+%define release        1
+%define command_name   check_keystone
 
 Name:           %{name}
 Version:        %{version}
@@ -34,30 +35,33 @@ https://github.com/savoirfairelinux/sfl-monitoring-tools
 %{__python} setup.py build
 
 %install
+# Install command
 %{__python} setup.py install -O1 --skip-build --root %{buildroot}
 %{__mkdir_p} %{buildroot}/%{_libdir}/monitoring/plugins/sfl
-%{__ln_s} %{_libdir}/monitoring/plugins/sfl/check_keystone  %{buildroot}/%{_libdir}/monitoring/plugins/sfl/check_keystone
+%{__ln_s} %{_bindir}/%{command_name}  %{buildroot}/%{_libdir}/monitoring/plugins/sfl/%{command_name}
 
+# Install documentation
+%{__install} -d -m 755 %{buildroot}/%{_docdir}/monitoring/plugins/sfl/%{raw_name}
+%{__cp} -r doc/ %{buildroot}/%{_docdir}/monitoring/plugins/sfl/%{raw_name}
+%{__install} -d -m 755 %{buildroot}/%{_mandir}/man1/monitoring/plugins/sfl/%{raw_name}
+sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man1/monitoring/plugins/sfl/%{raw_name}
+sphinx-build -b html -d doc/build/doctrees/source doc %{buildroot}/%{_docdir}/monitoring/plugins/sfl/%{raw_name}
 
-%{__install} -d -m 755 %{buildroot}/%{_docdir}/monitoring/plugins/%{name}
-%{__cp} -r doc/ %{buildroot}/%{_docdir}/monitoring/plugins/%{name}
-%{__install} -d -m 755 %{buildroot}/%{_mandir}/man1/monitoring/plugins/%{name}
-sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man1/monitoring/plugins/%{name}
-sphinx-build -b html -d doc/build/doctrees/source doc %{buildroot}/%{_docdir}/monitoring/plugins/%{name}
-
+# Remove useless files
+%{__rm} -rf %{buildroot}/%{python_sitelib}/shinkenplugins.plugins.*egg-info/
+%{__rm} -f %{buildroot}/%{python_sitelib}/shinkenplugins.plugins.*-nspkg.pth
 
 %files
 %defattr(-,root,root,-)
-%{python_sitelib}/*.egg-info
-%{python_sitelib}/shinkenplugins.plugins.keystone-1.0-py2.7-nspkg.pth
+
 %dir %{python_sitelib}/shinkenplugins
-%{python_sitelib}/shinkenplugins/plugins/keystone
-%{_bindir}/check_keystone
-%{_libdir}/monitoring/plugins/sfl/check_keystone
+%{python_sitelib}/shinkenplugins/plugins/
+%{_bindir}/%{command_name}
+%{_libdir}/monitoring/plugins/sfl/%{command_name}
 
 %docdir
-%{_docdir}/monitoring/plugins/%{name}
-%{_mandir}/man1/monitoring/plugins/%{name}
+%{_docdir}/monitoring/plugins/sfl/%{raw_name}
+%{_mandir}/man1/monitoring/plugins/sfl/%{raw_name}
 
 %changelog
 * Wed Jun 17 2015 Vincent Fournier <vincent.fournier@savoirfairelinux.com> 0.4.0-1
