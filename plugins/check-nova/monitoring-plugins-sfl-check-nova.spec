@@ -1,14 +1,21 @@
-%define         command_name check_nova
-Name:           monitoring-plugins-sfl-check-nova
-Version:        0.4.0
-Release:        1
-Summary:        check Openstack nova
+%define raw_name       check-nova
+%define name           monitoring-plugins-sfl-%{raw_name}
+%define version        0.4.0
+%define release        1
+%define command_name   check_nova
+
+Name:           %{name}
+Version:        %{version}
+Release:        %{release}
+Summary:        Alignak plugin to check Nova
+Group:          Networking/Other
+
 License:        GPLv3
 URL:            https://github.com/savoirfairelinux/monitoring-tools
-Source0:        https://github.com/savoirfairelinux/monitoring-tools/monitoring-plugins-sfl-check-nova_%{version}.orig.tar.gz
+Source0:        https://github.com/savoirfairelinux/monitoring-tools/%{name}_%{version}.orig.tar.gz
 
 Requires:       python-shinkenplugins
-Requires:	python-novaclient
+Requires:	    python-novaclient
 
 BuildRequires:  python-setuptools
 BuildRequires:  python-sphinx
@@ -21,36 +28,40 @@ More information is available on Github:
 https://github.com/savoirfairelinux/sfl-monitoring-tools
 
 %prep
-%setup -q 
+%setup -q
 
 
 %build
 %{__python} setup.py build
 
 %install
-rm -rf %{buildroot}
-%{__python} setup.py install -O1 --skip-build --root %{buildroot} 
+# Install command
+%{__python} setup.py install -O1 --skip-build --root %{buildroot}
 %{__mkdir_p} %{buildroot}/%{_libdir}/monitoring/plugins/sfl
-%{__ln_s} %{_bindir}/check_nova %{buildroot}/%{_libdir}/monitoring/plugins/sfl/check_nova
+%{__ln_s} %{_bindir}/%{command_name}  %{buildroot}/%{_libdir}/monitoring/plugins/sfl/%{command_name}
 
-%{__install} -d -m 755 %{buildroot}/%{_docdir}/monitoring/plugins/%{name}
-%{__cp} -r doc/ %{buildroot}/%{_docdir}/monitoring/plugins/%{name}
-%{__install} -d -m 755 %{buildroot}/%{_mandir}/man1/monitoring/plugins/%{name}
-sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man1/monitoring/plugins/%{name}
-sphinx-build -b html -d doc/build/doctrees/source doc %{buildroot}/%{_docdir}/monitoring/plugins/%{name}
+# Install documentation
+%{__install} -d -m 755 %{buildroot}/%{_docdir}/monitoring/plugins/sfl/%{raw_name}
+%{__cp} -r doc/ %{buildroot}/%{_docdir}/monitoring/plugins/sfl/%{raw_name}
+%{__install} -d -m 755 %{buildroot}/%{_mandir}/man1/monitoring/plugins/sfl/%{raw_name}
+sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man1/%{command_name}
+sphinx-build -b html -d doc/build/doctrees/source doc %{buildroot}/%{_docdir}/monitoring/plugins/sfl/%{raw_name}
+
+# Remove useless files
+%{__rm} -rf %{buildroot}/%{python_sitelib}/shinkenplugins.plugins.*egg-info/
+%{__rm} -f %{buildroot}/%{python_sitelib}/shinkenplugins.plugins.*-nspkg.pth
 
 %files
 %defattr(-,root,root,-)
-%{python_sitelib}/*.egg-info
-%{python_sitelib}/shinkenplugins.plugins.*
-%{_bindir}/check_nova
+
 %dir %{python_sitelib}/shinkenplugins
-%{python_sitelib}/shinkenplugins/plugins
+%{python_sitelib}/shinkenplugins/plugins/
+%{_bindir}/%{command_name}
 %{_libdir}/monitoring/plugins/sfl/%{command_name}
 
 %docdir
-%{_docdir}/monitoring/plugins/%{name}
-%{_mandir}/man1/monitoring/plugins/%{name}
+%{_docdir}/monitoring/plugins/sfl/%{raw_name}
+%{_mandir}/man1/monitoring/plugins/sfl/%{raw_name}
 
 %changelog
 * Wed Jun 17 2015 Flavien Peyre <peyre.flavien@gmail.com> - 0.4.0-1
