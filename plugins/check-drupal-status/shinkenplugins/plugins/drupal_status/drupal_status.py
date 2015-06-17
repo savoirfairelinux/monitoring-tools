@@ -157,8 +157,11 @@ class CheckDrupalStatus(ShinkenPlugin):
         # are used. So, level -1 = info, 0 = critical, 1 = warning and 2 = OK
         for (mod_name, mod_status) in update_status:
             mod_status = mod_status.strip()
+            to_add = True
+
             if mod_status == 'Up to date':
                 level = 2
+                to_add = False
             elif mod_status == 'Update available':
                 if code < 1:
                     code = STATES.WARNING
@@ -171,8 +174,10 @@ class CheckDrupalStatus(ShinkenPlugin):
                 level = 0
             else:
                 level = -1
+                to_add = False
 
-            result.append((mod_name, mod_status, level))
+            if to_add:
+                result.append((mod_name, mod_status, level))
 
         out = [msg]
 
