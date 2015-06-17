@@ -44,7 +44,7 @@ https://github.com/savoirfairelinux/sfl-monitoring-tools
 %{__install} -d -m 755 %{buildroot}/%{_docdir}/monitoring/plugins/sfl/%{raw_name}
 %{__cp} -r doc/ %{buildroot}/%{_docdir}/monitoring/plugins/sfl/%{raw_name}
 %{__install} -d -m 755 %{buildroot}/%{_mandir}/man1/monitoring/plugins/sfl/%{raw_name}
-sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man1/monitoring/plugins/sfl/%{raw_name}
+sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man1/%{command_name}
 sphinx-build -b html -d doc/build/doctrees/source doc %{buildroot}/%{_docdir}/monitoring/plugins/sfl/%{raw_name}
 
 # Remove useless files
