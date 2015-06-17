@@ -1,5 +1,5 @@
 {
-    "name": "openstack-nova",
+    "name": "openstack-nova-http",
     "types": ["pack"],
     "homepage": "https://github.com/savoirfairelinux/monitoring-tools",
     "author": "Savoir-faire Linux",
@@ -12,7 +12,7 @@
     ],
     "repository": "https://github.com/savoirfairelinux/monitoring-tools",
     "keywords": ["pack",
-                 "openstack-nova",
+                 "openstack-nova-http",
                  "openstack"," nova"
     ],
     "dependencies": { "shinken": ">=1.4" },

@@ -1,5 +1,5 @@
 {
-"name":"openstack-nova",
+"name":"openstack-nova-http",
 
 "description":"Alignak pack for monitoring OpenStack Nova",
 

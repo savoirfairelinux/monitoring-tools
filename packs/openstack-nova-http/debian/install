@@ -1,2 +1,2 @@
-pack /usr/lib/monitoring/packs/sfl/openstack-nova
-package.json /usr/lib/monitoring/packs/sfl/openstack-nova
+pack /usr/lib/monitoring/packs/sfl/openstack-nova-http
+package.json /usr/lib/monitoring/packs/sfl/openstack-nova-http
