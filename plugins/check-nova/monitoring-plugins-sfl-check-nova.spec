@@ -1,3 +1,4 @@
+%define         command_name check_nova
 Name:           monitoring-plugins-sfl-check-nova
 Version:        0.4.0
 Release:        1
@@ -30,7 +31,7 @@ https://github.com/savoirfairelinux/sfl-monitoring-tools
 rm -rf %{buildroot}
 %{__python} setup.py install -O1 --skip-build --root %{buildroot} 
 %{__mkdir_p} %{buildroot}/%{_libdir}/monitoring/plugins/sfl
-%{__ln_s} %{_libdir}/monitoring/plugins/sfl/check_nova %{buildroot}/%{_libdir}/monitoring/plugins/sfl/check_nova
+%{__ln_s} %{_bindir}/check_nova %{buildroot}/%{_libdir}/monitoring/plugins/sfl/check_nova
 
 %{__install} -d -m 755 %{buildroot}/%{_docdir}/monitoring/plugins/%{name}
 %{__cp} -r doc/ %{buildroot}/%{_docdir}/monitoring/plugins/%{name}
@@ -41,11 +42,11 @@ sphinx-build -b html -d doc/build/doctrees/source doc %{buildroot}/%{_docdir}/mo
 %files
 %defattr(-,root,root,-)
 %{python_sitelib}/*.egg-info
-%{python_sitelib}/shinkenplugins.plugins.nova-1.0-py2.7-nspkg.pth
+%{python_sitelib}/shinkenplugins.plugins.*
 %{_bindir}/check_nova
 %dir %{python_sitelib}/shinkenplugins
-%{python_sitelib}/shinkenplugins/plugins/nova
-%{_libdir}/monitoring/plugins/sfl/check_nova
+%{python_sitelib}/shinkenplugins/plugins
+%{_libdir}/monitoring/plugins/sfl/%{command_name}
 
 %docdir
 %{_docdir}/monitoring/plugins/%{name}
