@@ -1,2 +1,2 @@
-pack /usr/lib/monitoring/packs/sfl/openstack-cinder
-package.json /usr/lib/monitoring/packs/sfl/openstack-cinder
+pack /usr/lib/monitoring/packs/sfl/openstack-cinder-http
+package.json /usr/lib/monitoring/packs/sfl/openstack-cinder-http

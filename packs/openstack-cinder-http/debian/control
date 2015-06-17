@@ -1,4 +1,4 @@
-Source: monitoring-packs-sfl-openstack-cinder
+Source: monitoring-packs-sfl-openstack-cinder-http
 Section: python
 Priority: optional
 Maintainer: Savoir-faire Linux <supervision@savoirfairelinux.com>
@@ -7,7 +7,7 @@ Standards-Version: 3.9.6
 Homepage: https://github.com/savoirfairelinux/monitoring-tools
 Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 
-Package: monitoring-packs-sfl-openstack-cinder
+Package: monitoring-packs-sfl-openstack-cinder-http
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Alignak pack for monitoring Openstack cinder

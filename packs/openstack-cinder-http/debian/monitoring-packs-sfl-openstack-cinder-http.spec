@@ -1,4 +1,4 @@
-%define raw_name    openstack-cinder
+%define raw_name    openstack-cinder-http
 %define name        monitoring-packs-sfl-%{raw_name}
 %define version     0.4.0
 %define release     1

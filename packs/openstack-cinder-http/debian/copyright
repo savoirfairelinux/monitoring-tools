@@ -1,5 +1,5 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: monitoring-packs-sfl-openstack-cinder
+Upstream-Name: monitoring-packs-sfl-openstack-cinder-http
 Source: <https://github.com/savoirfairelinux/monitoring-tools>
 
 Files: *
