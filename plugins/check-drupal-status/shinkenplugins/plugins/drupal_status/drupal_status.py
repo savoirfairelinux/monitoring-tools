@@ -19,6 +19,7 @@
 
 
 from __future__ import absolute_import
+import collections
 import json
 import re
 import subprocess
@@ -33,6 +34,8 @@ class CheckDrupalStatus(ShinkenPlugin):
     DESCRIPTION = 'A plugin to monitor Drupal status'
     AUTHOR = 'Frédéric Vachon'
     EMAIL = 'frederic.vachon@savoirfairelinux.com'
+    REGEX_UPDATE = r'\w+,[0-9x\-\.\w]*,[0-9x\-\.\w]*,[\w ]*\n'
+    REGEX_MODULES = r'[\w() ]+,[\w() ]+,[\w() ]+,[\w() ]+,[0-9x\-\.\w]*'
 
     def __init__(self):
         super(CheckDrupalStatus, self).__init__()
@@ -73,13 +76,16 @@ class CheckDrupalStatus(ShinkenPlugin):
 
         cmd1 = ['--json', '--detail', 'as']
         cmd2 = ['ups', '--format=csv']
+        cmd3 = ['pml', '--format=csv']
 
         if args.alias:
             cmd1 = [args.alias] + cmd1
             cmd2 = [args.alias] + cmd2
+            cmd3 = [args.alias] + cmd3
 
         data, e_msg = self._get_drush_result(cmd1)
         update_status, e_msg = self._get_drush_result(cmd2)
+        modules, e_msg = self._get_drush_result(cmd3)
 
         if data is None or e_msg is not None:
             self.unknown(e_msg)
@@ -89,9 +95,13 @@ class CheckDrupalStatus(ShinkenPlugin):
                 data = self._extract_json_from_output(data)
             except NoJsonFoundError, e:
                 self.exit(STATES.UNKNOWN, e.message)
-            update_status = self._extract_csv_from_output(update_status)
+            update_status = self._extract_csv_from_output(update_status,
+                                                          self.REGEX_UPDATE)
+            modules = self._extract_csv_from_output(modules,
+                                                    self.REGEX_MODULES)
         else:
             update_status = update_status.strip().split('\n')
+            modules = modules.strip().split('\n')
 
         data = json.loads(data)
         info = data['checks']['SiteAuditCheckStatusSystem']['result']
@@ -103,6 +113,8 @@ class CheckDrupalStatus(ShinkenPlugin):
         else:
             update_status = [(update.split(',')[0], update.split(',')[3])
                              for update in update_status]
+
+        nb_mod = self._get_number_of_modules(modules)
 
         result = []
 
@@ -129,6 +141,12 @@ class CheckDrupalStatus(ShinkenPlugin):
         result.append(
             ('PHP version',
              info['PHP'].split('-')[1].strip().split(' ')[0],
+             -1)
+        )
+
+        result.append(
+            ('Enabled modules',
+             nb_mod,
              -1)
         )
 
@@ -201,10 +219,20 @@ class CheckDrupalStatus(ShinkenPlugin):
 
         return output[json_beg:json_end]
 
-    def _extract_csv_from_output(self, output):
+    def _extract_csv_from_output(self, output, regex):
         """ Used to extract a CSV from the dirty remote drush output """
-        regex = re.compile(r'\w+,[0-9x\-\.\w]*,[0-9x\-\.\w]*,[\w ]*\n')
+        regex = re.compile(regex)
         return re.findall(regex, output)
+
+    def _get_number_of_modules(self, modules):
+        total = 0
+
+        for module in modules:
+            mod = module.split(',')
+            if mod[0] != 'Core' and mod[3] == 'Enabled':
+                    total += 1
+
+        return total
 
 
 class NoJsonFoundError(Exception):
