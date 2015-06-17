@@ -86,12 +86,13 @@ class CheckDrupalCodebase(ShinkenPlugin):
 
     def _call_site_audit(self, args):
         cmd = ['drush'] + args
+        env = {'HOME': self.home} if self.home else None
 
         with open('/dev/null', 'w') as devnull:
             out = subprocess.check_output(cmd,
                                           cwd=self.path,
                                           stderr=devnull,
-                                          env={'HOME': self.home})
+                                          env=env)
         return out
 
     def _extract_json_from_output(self, output):
