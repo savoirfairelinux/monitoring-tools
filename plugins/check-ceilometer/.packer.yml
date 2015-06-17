@@ -1,0 +1,4 @@
+centos_7:
+    spec: debian/monitoring-plugins-sfl-check-ceilometer.spec
+    deps_pip:
+        - sphinx
