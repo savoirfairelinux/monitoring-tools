@@ -1,0 +1,5 @@
+monitoring-plugins-sfl-check-drupal-jenkins (2015.6.17.15.7-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Frédéric Vachon <frederic.vachon@savoirfairelinux.com>  Wed, 17 Jun 2015 19:07:03 -0000
