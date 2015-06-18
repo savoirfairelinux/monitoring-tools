@@ -36,6 +36,10 @@ less code duplication, less headache. More lolz.
 rm -rf %{buildroot}
 %{__python} setup.py install -O1 --skip-build --root %{buildroot} --install-lib=%{python_sitelib}
 
+# Remove useless files
+%{__rm} -rf %{buildroot}/%{python_sitelib}/shinkenplugins*egg-info/
+%{__rm} -f %{buildroot}/%{python_sitelib}/shinkenplugins*-nspkg.pth
+
 
 %check
 PYTHONPATH=. %{__python} -c "import shinkenplugins"
@@ -43,7 +47,6 @@ PYTHONPATH=. %{__python} -c "import shinkenplugins"
 
 %files
 %defattr(-,root,root,-)
-%{python_sitelib}/*.egg-info
 %dir %{python_sitelib}/shinkenplugins
 %{python_sitelib}/shinkenplugins/*
 
@@ -51,3 +54,4 @@ PYTHONPATH=. %{__python} -c "import shinkenplugins"
 %changelog
 * Wed Dec 24 2014 Thibault Cohen <thibault.cohen@savoirfairelinux.com> - 0.2.0-1
 - Initial package
+
