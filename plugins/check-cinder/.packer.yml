@@ -1,0 +1,5 @@
+centos_7:
+    spec: monitoring-plugins-sfl-check-cinder.spec
+    deps_pip:
+        - sphinx
+

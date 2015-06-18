@@ -12,14 +12,14 @@ templates_path = ['_templates']
 source_suffix = '.rst'
 
 # The master toctree document.
-master_doc = 'monitoring-plugins-sfl-check-nova-host-status'
+master_doc = 'plugin-check_nova_host_status'
 
 # General information about the project.
-project = u'monitoring-plugins-sfl-check-nova-host-status'
+project = u'plugin-check_nova_host_status'
 copyright = u'2015, Savoir-faire Linux <supervision@savoirfairelinux.com>'
 
 # The short X.Y version.
-version = '2015.5.29.13.21'
+version = '0.4.0'
 # The full version, including alpha/beta/rc tags.
 release = '1'
 
@@ -95,7 +95,7 @@ html_theme = 'default'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['source/_static']
+html_static_path = ['_static']
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
@@ -144,7 +144,7 @@ html_static_path = ['source/_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'monitoring-plugins-sfl-check-nova-host-statusdoc'
+htmlhelp_basename = 'plugin-check_nova_host_status'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -164,8 +164,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('source/monitoring-plugins-sfl-check-nova-host-status', 'monitoring-plugins-sfl-check-nova-host-status.tex',
-   u'monitoring-plugins-sfl-check-nova-host-status Documentation',
+  ('plugin-check_nova_host_status', 'plugin-check_nova_host_status.tex', u'plugin-check_nova_host_status Documentation',
    u'Savoir-faire Linux', 'manual'),
 ]
 
@@ -195,8 +194,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('source/monitoring-plugins-sfl-check-nova-host-status', 'monitoring-plugins-sfl-check-nova-host-status',
-     u'monitoring-plugins-sfl-check-nova-host-status Documentation',
+    ('plugin-check_nova_host_status', 'check_nova_host_status', u'plugin-check_nova_host_status Documentation',
      [u'Savoir-faire Linux'], 1)
 ]
 
@@ -210,9 +208,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('source/monitoring-plugins-sfl-check-nova-host-status', 'monitoring-plugins-sfl-check-nova-host-status',
-   u'monitoring-plugins-sfl-check-nova-host-status Documentation',
-   u'Savoir-faire Linux', 'monitoring-plugins-sfl-check-nova-host-status', "check the current status for a nova host",
+  ('plugin-check_nova_host_status', 'plugin-check_nova_host_status', u'plugin-check_nova_host_status Documentation',
+   u'Savoir-faire Linux', 'plugin-check_nova_host_status', 'Generic pack for all hosts',
    'Packs'),
 ]
 

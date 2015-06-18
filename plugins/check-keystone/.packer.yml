@@ -1,0 +1,4 @@
+centos_7:
+    spec: monitoring-plugins-sfl-check-keystone.spec
+    deps_pip:
+        - sphinx

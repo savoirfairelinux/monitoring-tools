@@ -12,10 +12,10 @@ templates_path = ['_templates']
 source_suffix = '.rst'
 
 # The master toctree document.
-master_doc = 'plugin-check_ceilometer'
+master_doc = 'plugin-check-cinder'
 
 # General information about the project.
-project = u'plugin-check_ceilometer'
+project = u'plugin-check-cinder'
 copyright = u'2015, Savoir-faire Linux <supervision@savoirfairelinux.com>'
 
 # The short X.Y version.
@@ -144,7 +144,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'plugin-check_ceilometer'
+htmlhelp_basename = 'plugin-check-cinder'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -164,7 +164,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('plugin-check_ceilometer', 'plugin-check_ceilometer.tex', u'plugin-check_ceilometer Documentation',
+  ('plugin-check-cinder', 'plugin-check-cinder.tex', u'plugin-check-cinder Documentation',
    u'Savoir-faire Linux', 'manual'),
 ]
 
@@ -194,7 +194,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('plugin-check_ceilometer', 'check_ceilometer', u'plugin-check_ceilometer Documentation',
+    ('plugin-check-cinder', 'check_cinder', u'plugin-check-cinder Documentation',
      [u'Savoir-faire Linux'], 1)
 ]
 
@@ -208,8 +208,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('plugin-check_ceilometer', 'plugin-check_ceilometer', u'plugin-check_ceilometer Documentation',
-   u'Savoir-faire Linux', 'plugin-check_ceilometer', 'Generic pack for all hosts',
+  ('plugin-check-cinder', 'plugin-check-cinder', u'plugin-check-cinder Documentation',
+   u'Savoir-faire Linux', 'plugin-chec-cinder', 'Generic pack for all hosts',
    'Packs'),
 ]
 
