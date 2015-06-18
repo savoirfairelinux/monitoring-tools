@@ -1,4 +1,4 @@
 centos_7:
-    spec: monitoring-packs-sfl-check-nova.spec
+    spec: monitoring-plugins-sfl-check-nova.spec
     deps_pip:
         - sphinx
