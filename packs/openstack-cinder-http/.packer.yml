@@ -1,5 +1,5 @@
 centos_7:
-    spec: monitoring-packs-sfl-openstack-cinder-http.spec
+    spec: debian/monitoring-packs-sfl-openstack-cinder-http.spec
     deps_pip:
         - sphinx
 
