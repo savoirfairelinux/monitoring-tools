@@ -19,7 +19,7 @@ project = u'plugin-check-nova'
 copyright = u'2015, Savoir-faire Linux <supervision@savoirfairelinux.com>'
 
 # The short X.Y version.
-version = '2015.2.19.16.37'
+version = '0.4.0'
 # The full version, including alpha/beta/rc tags.
 release = '1'
 
@@ -194,8 +194,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('plugin-check-nova', 'monitoring-packs-sfl-generic-host', u'plugin-check-nova Documentation',
-     [u'Savoir-faire Linux'], 7)
+    ('plugin-check-nova', 'check_nova', u'plugin-check-nova Documentation',
+     [u'Savoir-faire Linux'], 1)
 ]
 
 # If true, show URL addresses after external links.

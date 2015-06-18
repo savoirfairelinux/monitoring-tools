@@ -15,7 +15,7 @@ URL:            https://github.com/savoirfairelinux/monitoring-tools
 Source0:        https://github.com/savoirfairelinux/monitoring-tools/%{name}_%{version}.orig.tar.gz
 
 Requires:       python-shinkenplugins
-Requires:	    python-novaclient
+Requires:	python-novaclient
 
 BuildRequires:  python-setuptools
 BuildRequires:  python-sphinx
@@ -30,7 +30,6 @@ https://github.com/savoirfairelinux/sfl-monitoring-tools
 %prep
 %setup -q
 
-
 %build
 %{__python} setup.py build
 
@@ -43,8 +42,8 @@ https://github.com/savoirfairelinux/sfl-monitoring-tools
 # Install documentation
 %{__install} -d -m 755 %{buildroot}/%{_docdir}/monitoring/plugins/sfl/%{raw_name}
 %{__cp} -r doc/ %{buildroot}/%{_docdir}/monitoring/plugins/sfl/%{raw_name}
-%{__install} -d -m 755 %{buildroot}/%{_mandir}/man1/monitoring/plugins/sfl/%{raw_name}
-sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man1/%{command_name}
+%{__install} -d -m 755 %{buildroot}/%{_mandir}/man1/
+sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man1/
 sphinx-build -b html -d doc/build/doctrees/source doc %{buildroot}/%{_docdir}/monitoring/plugins/sfl/%{raw_name}
 
 # Remove useless files
@@ -61,7 +60,7 @@ sphinx-build -b html -d doc/build/doctrees/source doc %{buildroot}/%{_docdir}/mo
 
 %docdir
 %{_docdir}/monitoring/plugins/sfl/%{raw_name}
-%{_mandir}/man1/monitoring/plugins/sfl/%{raw_name}
+%{_mandir}/man1/%{command_name}.1.gz
 
 %changelog
 * Wed Jun 17 2015 Flavien Peyre <peyre.flavien@gmail.com> - 0.4.0-1
