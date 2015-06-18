@@ -83,12 +83,9 @@ class CheckDrupalStatus(ShinkenPlugin):
             cmd2 = [args.alias] + cmd2
             cmd3 = [args.alias] + cmd3
 
-        data, e_msg = self._get_drush_result(cmd1)
-        update_status, e_msg = self._get_drush_result(cmd2)
-        modules, e_msg = self._get_drush_result(cmd3)
-
-        if data is None or e_msg is not None:
-            self.unknown(e_msg)
+        data = self._get_drush_result(cmd1)
+        update_status = self._get_drush_result(cmd2)
+        modules = self._get_drush_result(cmd3)
 
         if args.alias:
             try:
@@ -190,11 +187,11 @@ class CheckDrupalStatus(ShinkenPlugin):
         try:
             data = self._call_site_audit(cmd)
         except subprocess.CalledProcessError, e:
-            return None, "Command 'drush " + ' '.join(cmd) + "' " \
-                         "returned non-zero exit status 1"
+            self.unknown("Command 'drush " + ' '.join(cmd) + "' "
+                         "returned non-zero exit status 1")
         except OSError, e:
-            return None, e.strerror
-        return data, None
+            self.unknown(e.strerror)
+        return data
 
     def _call_site_audit(self, args):
         cmd = ['drush'] + args
