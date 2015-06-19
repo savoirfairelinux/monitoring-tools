@@ -1,0 +1,5 @@
+monitoring-plugins-sfl-check-drupal-cron (2015.5.25.10.33-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Frédéric Vachon <frederic.vachon@savoirfairelinux.com>  Mon, 25 May 2015 14:33:31 -0000

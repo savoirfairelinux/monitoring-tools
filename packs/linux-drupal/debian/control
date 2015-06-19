@@ -1,0 +1,15 @@
+Source: monitoring-packs-sfl-{{ name }}
+Section: python
+Priority: optional
+Maintainer: {{ author_name }} <{{ author_email }}>
+Build-Depends: debhelper (>= 8.0.0), python-sphinx
+Standards-Version: 3.9.6
+Homepage: https://github.com/savoirfairelinux/monitoring-tools
+Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
+
+Package: monitoring-packs-sfl-{{ name }}
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: {{ desc }}
+ More information is available on Github:
+ https://github.com/savoirfairelinux/monitoring-tools

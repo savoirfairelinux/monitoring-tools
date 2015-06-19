@@ -1,0 +1,5 @@
+monitoring-plugins-sfl-check-drupal-security (2015.5.25.16.27-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Frédéric Vachon <frederic.vachon@savoirfairelinux.com>  Mon, 25 May 2015 20:27:20 -0000

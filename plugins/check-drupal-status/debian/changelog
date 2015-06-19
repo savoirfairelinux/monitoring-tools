@@ -1,0 +1,5 @@
+monitoring-plugins-sfl-check-drupal-status (2015.5.25.16.50-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Frédéric Vachon <frederic.vachon@savoirfairelinux.com>  Mon, 25 May 2015 20:50:01 -0000
