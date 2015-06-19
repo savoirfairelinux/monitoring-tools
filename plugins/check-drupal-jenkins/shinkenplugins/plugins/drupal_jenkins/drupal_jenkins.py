@@ -35,7 +35,6 @@ class CheckDrupalJenkins(ShinkenPlugin):
 
     def __init__(self):
         super(CheckDrupalJenkins, self).__init__()
-        self.add_warning_critical()
         self.parser.add_argument('-u', '--url', required=True,
                                  help='The Jenkins job URL')
         self.parser.add_argument('-a', '--auth-url', required=False,
@@ -50,8 +49,6 @@ class CheckDrupalJenkins(ShinkenPlugin):
     def parse_args(self, args):
         """ Use this function to handle complex conditions """
         args = super(CheckDrupalJenkins, self).parse_args(args)
-        if None in (args.warning, args.critical):
-            self.parser.error('--warning and --critical are both required')
         if args.auth_url:
             if None in (args.auth_username, args.auth_password):
                 self.parser.error('--auth-username and --auth-password are '
