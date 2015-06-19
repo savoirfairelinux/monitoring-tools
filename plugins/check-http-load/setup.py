@@ -45,6 +45,7 @@ setup(
     platforms=['any'],
     install_requires=[
         'shinkenplugins>0.2',
+        'requests',
     ],
     extras_require={
         'test': [
