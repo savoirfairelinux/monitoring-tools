@@ -44,8 +44,6 @@ class CheckDrupalJenkins(ShinkenPlugin):
         self.parser.add_argument('-p', '--auth-password', required=False,
                                  help='Username for authentication')
 
-        self.session = requests.session()
-
     def parse_args(self, args):
         """ Use this function to handle complex conditions """
         args = super(CheckDrupalJenkins, self).parse_args(args)
@@ -101,7 +99,8 @@ class CheckDrupalJenkins(ShinkenPlugin):
             raise Exception('Authentication Failed')
 
     def _last_build_result(self):
-        resp = self.session.get(self.url + '/lastCompletedBuild/api/json')
+        resp = self.session.get(self.url + '/lastCompletedBuild/api/json',
+                                verify=False)
 
         if resp.status_code is not 200:
             raise Exception('Unexpected Jenkins response')
