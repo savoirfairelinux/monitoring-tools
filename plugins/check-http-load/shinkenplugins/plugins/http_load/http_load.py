@@ -21,7 +21,6 @@
 from __future__ import absolute_import
 
 import ctypes
-import numpy as np
 import requests
 import sys
 import time
@@ -92,11 +91,15 @@ class CheckHttpLoad(ShinkenPlugin):
                 nb_fail += worker.nb_fail.value
 
         if len(resp_time) != 0:
-            mean_time = np.mean(resp_time)
+            total = 0.
+            for value in resp_time:
+                total += value
+
+            mean_time = total / len(resp_time)
         else:
             mean_time = -1
 
-        message = 'Mean time: %fs'
+        message = 'Mean time: %.2f seconds'
 
         if nb_fail > args.max_fail:
             message = 'Too many requests failed'
@@ -109,15 +112,15 @@ class CheckHttpLoad(ShinkenPlugin):
         else:
             self.unknown("Exited in a unknown state")
 
-        perf = None
         if args.perfdata:
             perf = PerfData('meantime', mean_time,
                             warn=args.warning,
                             crit=args.critical,
                             min_=min(resp_time),
                             max_=max(resp_time))
+            self.exit(code, message % mean_time, perf)
 
-        self.exit(code, message % mean_time, perf)
+        self.exit(code, message % mean_time)
 
 
 class Worker(Process):
@@ -167,7 +170,7 @@ class QueryThread(Thread):
         beg = time.time()
 
         try:
-            response = requests.get(self.url)
+            response = requests.get(self.url, verify=False)
         except requests.exceptions.RequestException:
             self.success.value = False
             self.done.value = True
