@@ -22,10 +22,25 @@ from shinkenplugins.test import TestPlugin
 from shinkenplugins.plugins.drupal_codebase import Plugin
 
 
+LOCAL_DRUSH_OUTPUT = r"""{"percent":-1,"label":"Codebase","checks":{"SiteAuditCheckCodebaseSizeFiles":{"label":"Size of sites\/default\/files","description":"Determine the size of sites\/default\/files.","result":"Files: 24kB","action":null,"score":-1},"SiteAuditCheckCodebaseSizeAll":{"label":"Size of entire site","description":"Determine the size of the site root; does not include remote mounts.","result":"Total size: 14.96MB","action":null,"score":-1},"SiteAuditCheckCodebaseManagedFileCount":{"label":"Drupal managed file count","description":"Determine the count of Drupal managed files.","result":"Managed file count: 0","action":null,"score":-1},"SiteAuditCheckCodebaseManagedFileSize":{"label":"Drupal managed file size","description":"Determine the size of Drupal managed files.","result":"Managed file size: 0.00kB","action":null,"score":-1}}}"""
+REMOTE_DRUSH_OUTPUT = r"""Initialized Drupal 7.37 root directory at /var/www/html                 [notice]
+Initialized Drupal site drupal at sites/default                         [notice]
+Executing: mysql --defaults-extra-file=/tmp/drush_qVA8xD --database=drupal --host=mysql --silent  < /tmp/drush_Lyzz1T
+{"percent":-1,"label":"Codebase","checks":{"SiteAuditCheckCodebaseSizeFiles":{"label":"Size of sites\/default\/files","description":"Determine the size of sites\/default\/files.","result":"Files: 24kB","action":null,"score":-1},"SiteAuditCheckCodebaseSizeAll":{"label":"Size of entire site","description":"Determine the size of the site root; does not include remote mounts.","result":"Total size: 14.96MB","action":null,"score":-1},"SiteAuditCheckCodebaseManagedFileCount":{"label":"Drupal managed file count","description":"Determine the count of Drupal managed files.","result":"Managed file count: 0","action":null,"score":-1},"SiteAuditCheckCodebaseManagedFileSize":{"label":"Drupal managed file size","description":"Determine the size of Drupal managed files.","result":"Managed file size: 0.00kB","action":null,"score":-1}}}Command dispatch complete                                               [notice]
+"""
+EXPECTED_OUTPUT = r"""Files: 24kB;-1;;Total size: 14.96MB;-1;;Managed file size: 0.00kB;-1;;"""
+
+
+def _call_site_audit_mock(self, args):
+    if self.home:
+        return REMOTE_DRUSH_OUTPUT
+    else:
+        return LOCAL_DRUSH_OUTPUT
+
+
 class Testdrupal_codebase(TestPlugin):
     def setUp(self):
-        # Make stuff before all tests
-        pass
+        Plugin._call_site_audit = _call_site_audit_mock
 
     def test_version(self):
         args = ["-v"]
@@ -35,14 +50,23 @@ class Testdrupal_codebase(TestPlugin):
         args = ["-h"]
         self.execute(Plugin, args, 0, "usage:")
 
-    # Add your tests here!
-    # They should use
-    # self.execute(Plugin,
-    #              ['your', 'list', 'of', 'arguments'],
-    #              expected_return_value,
-    #              'regex to check against the output')
-    # You can also add debug=True, to get useful information
-    # to debug your plugins
+    def test_local(self):
+        args = ["-p", "/var/www/html/"]
+        self.execute(Plugin, args, 0, EXPECTED_OUTPUT)
+
+    def test_remote(self):
+        args = ["-a", "@drupal", "-d", "/home/alignak"]
+        self.execute(Plugin, args, 0, EXPECTED_OUTPUT)
+
+    def test_incomplete_alias_arguments(self):
+        expected = "--home-dir must be used with --alias"
+        args = ["-a", "@drupal"]
+        self.execute(Plugin, args, 3, stderr_pattern=expected)
+
+    def test_incomplete_arguments(self):
+        expected = "Either --alias and --home-dir or --drupal-path must be set"
+        args = []
+        self.execute(Plugin, args, 3, stderr_pattern=expected)
 
 
 if __name__ == '__main__':
