@@ -274,7 +274,8 @@ class Plugin(BasePlugin):
                 exit_code = STATES.OK
                 message = ("OK: Scenario execution time: "
                            "%0.2f seconds" % self.execution_time)
-
+        # Don't send perf data if scenario is not completed
+        scenario_completed = True
         # Check fails and errors
         # Failures
         if len(result.failures) > 0:
@@ -285,6 +286,7 @@ class Plugin(BasePlugin):
                 # And only the last line of its traceback
                 message = "CRITICAL: " + \
                           result.failures[0][1].strip().split("\n")[-1]
+            scenario_completed = False
             exit_code = STATES.CRITICAL
         # Errors
         if len(result.errors) > 0:
@@ -298,10 +300,14 @@ class Plugin(BasePlugin):
                     if line.find("Message:") != -1:
                         message = "CRITICAL: " + line
                         break
+                    if line.find("Error:") != -1:
+                        message = "CRITICAL: " + line
+                        break
+            scenario_completed = False
             exit_code = STATES.CRITICAL
 
         # Handle perfdata
-        if args['perfdata']:
+        if args['perfdata'] and scenario_completed:
             # Set warning/critical
             if 'warning' not in args:
                 args['warning'] = ''
