@@ -18,6 +18,7 @@
 
 import unittest
 import time
+import socket
 import re
 import sys
 import importlib
@@ -29,22 +30,60 @@ from shinkenplugins.perfdata import PerfData
 from shinkenplugins.states import STATES
 
 from selenium import webdriver
+from selenium import selenium
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
-from xvfbwrapper import Xvfb
+try:
+    from xvfbwrapper import Xvfb
+except ImportError:
+    pass
 
 
 # Create a new class to get execution time
-def make_testclass(super_class, parent):
+def make_testclass(super_class, parent, arguments):
     class testClassWithoutTimer(super_class):
         def __init__(self, *args, **kargs):
             self.parent = parent
             super(testClassWithoutTimer, self).__init__(*args, **kargs)
 
         def setUp(self):
-            super(testClassWithoutTimer, self).setUp()
+            try:
+                # Set window size
+                if not arguments['selenium-remote']:
+                    # For local tests (launch from monitoring server)
+                    super(testClassWithoutTimer, self).setUp()
+                    self.driver.set_window_size(arguments['width'],
+                                                arguments['height'])
+                else:
+                    # For remote tests (launch from remote selenium server)
+                    try:
+                        # launch super class to get browserURL value
+                        super(testClassWithoutTimer, self).setUp()
+                        browser_url = self.selenium.browserURL
+                        # Stop it
+                        self.selenium.stop()
+                    except socket.error:
+                        # Ignore connection refused error
+                        print type(exp)
+
+                    self.selenium = selenium(arguments['selenium-address'],
+                                             arguments['selenium-port'],
+                                             arguments['selenium-browser'],
+                                             browser_url)
+                    self.selenium.start()
+                    self.selenium.get_eval("window.resizeTo(%(width)s, "
+                                           "%(height)s); "
+                                           "window.moveTo(0,0);" % arguments)
+            except Exception as exp:
+                try:
+                    self.selenium.stop()
+                except Exception:
+                    pass
+                message = ("Message: Error during setUp test (%s: %s). Check "
+                           "your command line options" % (type(exp), exp))
+                raise Exception(message)
             # Get start time
             self.startTime = time.time()
 
@@ -52,6 +91,7 @@ def make_testclass(super_class, parent):
             # Get end time
             self.parent.execution_time = time.time() - self.startTime
             super(testClassWithoutTimer, self).tearDown()
+
     return testClassWithoutTimer
 
 
@@ -68,6 +108,10 @@ class Plugin(BasePlugin):
             ('c', 'critical', 'Critical threshold (seconds)', True),
             ('W', 'width', 'Virtual display width', True),
             ('H', 'height', 'Virtual display height', True),
+            ('R', 'selenium-remote', 'Use remote selenium server', False),
+            ('P', 'selenium-port', 'Remote selenium server port', False),
+            ('X', 'selenium-address', 'Remote selenium server IP', False),
+            ('B', 'selenium-browser', 'Remote selenium Browser', False),
             ('d', 'debug', 'Launch firefox in the current display.'
                            'Usefull for scenario debuging', False),
             ('S', 'scenarios-folder', 'Scenarios folder', True),
@@ -95,12 +139,15 @@ class Plugin(BasePlugin):
         # Check int arguments
         int_arguments = ['warning',
                          'critical',
+                         'width',
+                         'height',
+                         'selenium-port',
                          ]
         for argument_name in int_arguments:
             if argument_name in args:
                 try:
                     args[argument_name] = int(args[argument_name])
-                except:
+                except ValueError:
                     return False, "bad format: `%s'" % argument_name
 
         # Set default
@@ -111,6 +158,24 @@ class Plugin(BasePlugin):
         if 'debug' not in args:
             args['debug'] = False
 
+        # Set default
+        if 'width' not in args:
+            args['width'] = 1920
+
+        # Set default
+        if 'height' not in args:
+            args['height'] = 1080
+
+        # Set default
+        if 'selenium-remote' not in args:
+            args['selenium-remote'] = False
+        if 'selenium-address' not in args:
+            args['selenium-address'] = '127.0.0.1'
+        if 'selenium-port' not in args:
+            args['selenium-port'] = 4444
+        if 'selenium-browser' not in args:
+            args['selenium-browser'] = '*chrome'
+
         # Clean scenarios-folder
         if args['scenarios-folder'].endswith("/"):
             args['scenarios-folder'] = args['scenarios-folder'][:-1]
@@ -118,6 +183,7 @@ class Plugin(BasePlugin):
         # Check boolean
         bool_arguments = ['perfdata',
                           'debug',
+                          'selenium-remote',
                           ]
         for argument_name in bool_arguments:
             if args[argument_name] == '':
@@ -144,7 +210,13 @@ class Plugin(BasePlugin):
                       " %s" % (scenario_name, scenario_folder))
 
         # Prepare test
-        test_case_module = getattr(module, scenario_name.capitalize())
+        try:
+            test_case_module = getattr(module, scenario_name.capitalize())
+        except AttributeError:
+            try:
+                test_case_module = getattr(module, scenario_name)
+            except AttributeError:
+                self.exit(STATES.UNKNOWN, "UNKNOWN: Bad scenario file")
 
         # Prepare StringIO to capture unittest output
         output = StringIO()
@@ -152,12 +224,15 @@ class Plugin(BasePlugin):
         self.ttr = unittest.TextTestRunner(stream=output)
 
         # Get tests
-        suite = [unittest.defaultTestLoader.loadTestsFromTestCase(make_testclass(test_case_module, self))]
+        suite = [unittest.defaultTestLoader.loadTestsFromTestCase(make_testclass(test_case_module,
+                                                                                 self,
+                                                                                 args,
+                                                                                 ))]
         testSuite = unittest.TestSuite(suite)
 
         # Start display
-        if not args['debug']:
-            vdisplay = Xvfb(width=1920, height=1080)
+        if not args['debug'] and not args['selenium-remote']:
+            vdisplay = Xvfb(width=args['width'], height=args['height'])
             vdisplay.start()
 
         # launch test
@@ -167,31 +242,32 @@ class Plugin(BasePlugin):
             self.exit(STATES.UNKNOWN, "UNKNOWN: Error running test: %s" % exp)
 
         # Stop display
-        if not args['debug']:
+        if not args['debug'] and not args['selenium-remote']:
             vdisplay.stop()
 
         # Get execution test time
-        self.execution_time = round(self.execution_time, 2)
+        if hasattr(self, 'execution_time') and isinstance(self.execution_time, float):
+            self.execution_time = round(self.execution_time, 2)
 
-        # Prepare output
-        if not {'warning', 'critical'}.issubset(args):
-            exit_code = STATES.OK
-            message = ("OK: Scenario execution time: "
-                       "%0.2f seconds" % self.execution_time)
-        elif self.execution_time > args['critical']:
-            exit_code = STATES.CRITICAL
-            message = ("CRITICAL: Scenario execution time: "
-                       "%0.2f seconds (> %0.2f)" % (self.execution_time,
-                                                    args['critical']))
-        elif self.execution_time > args['warning']:
-            exit_code = STATES.WARNING
-            message = ("WARNING: Scenario execution time: "
-                       "%0.2f seconds (> %0.2f)" % (self.execution_time,
-                                                    args['warning']))
-        else:
-            exit_code = STATES.OK
-            message = ("OK: Scenario execution time: "
-                       "%0.2f seconds" % self.execution_time)
+            # Prepare output
+            if not {'warning', 'critical'}.issubset(args):
+                exit_code = STATES.OK
+                message = ("OK: Scenario execution time: "
+                           "%0.2f seconds" % self.execution_time)
+            elif self.execution_time > args['critical']:
+                exit_code = STATES.CRITICAL
+                message = ("CRITICAL: Scenario execution time: "
+                           "%0.2f seconds (> %0.2f)" % (self.execution_time,
+                                                        args['critical']))
+            elif self.execution_time > args['warning']:
+                exit_code = STATES.WARNING
+                message = ("WARNING: Scenario execution time: "
+                           "%0.2f seconds (> %0.2f)" % (self.execution_time,
+                                                        args['warning']))
+            else:
+                exit_code = STATES.OK
+                message = ("OK: Scenario execution time: "
+                           "%0.2f seconds" % self.execution_time)
 
         # Check fails and errors
         # Failures
