@@ -64,9 +64,15 @@ def make_testclass(super_class, parent, arguments):
                         browser_url = self.selenium.browserURL
                         # Stop it
                         self.selenium.stop()
-                    except socket.error:
+                    except Exception:
+                        browser_url = self.selenium.browserURL
+                        try:
+                            self.selenium.stop()
+                        except:
+                            # Ignore connection refused error
+                            pass
                         # Ignore connection refused error
-                        print type(exp)
+                        pass
 
                     self.selenium = selenium(arguments['selenium-address'],
                                              arguments['selenium-port'],
@@ -203,7 +209,7 @@ class Plugin(BasePlugin):
             sys.path.append(os.path.dirname(scenario_folder))
         try:
             module = importlib.import_module("." + scenario_name,
-                                             os.path.basename(scenario_folder))
+                                             scenario_folder)
         except:
             self.exit(STATES.UNKNOWN,
                       "UNKNOWN: Scenario '%s' not found in"
@@ -250,7 +256,7 @@ class Plugin(BasePlugin):
             self.execution_time = round(self.execution_time, 2)
 
             # Prepare output
-            if not set('warning', 'critical').issubset(args):
+            if not set(('warning', 'critical')).issubset(args):
                 exit_code = STATES.OK
                 message = ("OK: Scenario execution time: "
                            "%0.2f seconds" % self.execution_time)
