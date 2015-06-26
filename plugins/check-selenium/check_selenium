@@ -250,7 +250,7 @@ class Plugin(BasePlugin):
             self.execution_time = round(self.execution_time, 2)
 
             # Prepare output
-            if not {'warning', 'critical'}.issubset(args):
+            if not set('warning', 'critical').issubset(args):
                 exit_code = STATES.OK
                 message = ("OK: Scenario execution time: "
                            "%0.2f seconds" % self.execution_time)
