@@ -1,0 +1,10 @@
+{
+"name":"generic-vraddrupal-http",
+
+"description":"HTTP requests on Drupal servers",
+
+"path":"websites/",
+
+"macros":{
+        }
+}

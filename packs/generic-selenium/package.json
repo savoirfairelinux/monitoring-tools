@@ -1,0 +1,28 @@
+{
+	"name": "sfl-generic-selenium",
+	"types": ["pack"],
+	"version": "1.0",
+	"homepage": "https://github.com/savoirfairelinux/monitoring-tools",
+	"author": "Thibault Cohen",
+	"description": "Execute Selenium Senario",
+	"contributors": [
+	  {
+		"name": "Thibault Cohen",
+		"email": "thibault.cohen@savoirfairelinux.com"
+	  },
+          {
+              "name": "Arthur Deschamps",
+              "email": "arthur.deschamps@savoirfairelinux.com"
+          },
+	],
+	"repository": "https://github.com/savoirfairelinux/monitoring-tools",
+	"keywords": [
+	  "pack",
+	  "generic-selenium"
+	  
+	],
+	"dependencies": {
+	  "shinken": ">=1.4"
+	},
+	"license": "GPL"
+}
