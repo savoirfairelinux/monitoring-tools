@@ -88,7 +88,7 @@ class CheckHttpLoad(ShinkenPlugin):
         for worker in workers:
             while not worker.resp_time.empty():
                 resp_time.append(worker.resp_time.get())
-                nb_fail += worker.nb_fail.value
+            nb_fail += worker.nb_fail.value
 
         if len(resp_time) != 0:
             total = 0.
@@ -101,8 +101,8 @@ class CheckHttpLoad(ShinkenPlugin):
 
         message = 'Mean time: %.2f seconds'
 
-        if nb_fail > args.max_fail:
-            message = 'Too many requests failed'
+        if nb_fail > int(args.max_fail):
+            self.critical('Too many requests failed')
         elif mean_time >= args.critical:
             code = STATES.CRITICAL
         elif mean_time >= args.warning:
