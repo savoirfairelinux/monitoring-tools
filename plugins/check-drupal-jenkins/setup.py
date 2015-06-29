@@ -50,6 +50,7 @@ setup(
     extras_require={
         'test': [
             'nose',
+            'requests-mock',
         ],
     },
     namespace_packages=[
