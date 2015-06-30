@@ -51,8 +51,6 @@ class CheckDrupalCodebase(ShinkenPlugin):
     def parse_args(self, args):
         """ Use this function to handle complex conditions """
         args = super(CheckDrupalCodebase, self).parse_args(args)
-        if None in (args.warning, args.critical):
-            self.parser.error('--warning and --critical are both required')
         if args.alias is None and args.drupal_path is None:
             self.parser.error('Either --alias and --home-dir '
                               'or --drupal-path must be set')

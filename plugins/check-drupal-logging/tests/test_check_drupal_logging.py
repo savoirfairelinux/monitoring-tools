@@ -21,11 +21,25 @@ from shinkenplugins.test import TestPlugin
 
 from shinkenplugins.plugins.drupal_logging import Plugin
 
+LOCAL_DRUSH_OUTPUT = r"""{"percent":100,"label":"Watchdog database logs","checks":{"SiteAuditCheckWatchdogSyslog":{"label":"syslog status","description":"Check to see if syslog logging is enabled","result":"Syslog logging is not enabled.","action":null,"score":-1},"SiteAuditCheckWatchdogEnabled":{"label":"dblog status","description":"Check to see if database logging is enabled","result":"Database logging (dblog) is enabled.","action":null,"score":2},"SiteAuditCheckWatchdogCount":{"label":"Count","description":"Number of dblog entries.","result":"There are 196 log entries.","action":null,"score":-1},"SiteAuditCheckWatchdogAge":{"label":"Date range of log entries","description":"Oldest and newest.","result":"From Thu, 25 Jun 2015 14:59:09 +0000 to Thu, 25 Jun 2015 21:26:43 +0000","action":null,"score":-1},"SiteAuditCheckWatchdog404":{"label":"Number of 404 entries","description":"Count the number of page not found entries.","result":"No 404 entries.","action":null,"score":2}}}"""
+REMOTE_DRUSH_OUTPUT = r"""Initialized Drupal 7.37 root directory at /var/www/html                 [notice]
+Initialized Drupal site drupal at sites/default                         [notice]
+Executing: mysql --defaults-extra-file=/tmp/drush_1ZhwjT --database=drupal --host=mysql --silent  < /tmp/drush_8cgl1k
+{"percent":100,"label":"Watchdog database logs","checks":{"SiteAuditCheckWatchdogSyslog":{"label":"syslog status","description":"Check to see if syslog logging is enabled","result":"Syslog logging is not enabled.","action":null,"score":-1},"SiteAuditCheckWatchdogEnabled":{"label":"dblog status","description":"Check to see if database logging is enabled","result":"Database logging (dblog) is enabled.","action":null,"score":2},"SiteAuditCheckWatchdogCount":{"label":"Count","description":"Number of dblog entries.","result":"There are 196 log entries.","action":null,"score":-1},"SiteAuditCheckWatchdogAge":{"label":"Date range of log entries","description":"Oldest and newest.","result":"From Thu, 25 Jun 2015 14:59:09 +0000 to Thu, 25 Jun 2015 21:26:43 +0000","action":null,"score":-1},"SiteAuditCheckWatchdog404":{"label":"Number of 404 entries","description":"Count the number of page not found entries.","result":"No 404 entries.","action":null,"score":2}}}Command dispatch complete                                               [notice]
+"""
+EXPECTED_OUTPUT = r"""Syslog logging is not enabled.;-1;;Database logging \(dblog\) is enabled.;2;;There are 196 log entries.;-1;;From Thu, 25 Jun 2015 14:59:09 \+0000 to Thu, 25 Jun 2015 21:26:43 \+0000;-1;;No 404 entries.;2;;"""
+
+
+def _call_site_audit_mock(self, args):
+    if self.home:
+        return REMOTE_DRUSH_OUTPUT
+    else:
+        return LOCAL_DRUSH_OUTPUT
+
 
 class Testdrupal_logging(TestPlugin):
     def setUp(self):
-        # Make stuff before all tests
-        pass
+        Plugin._call_site_audit = _call_site_audit_mock
 
     def test_version(self):
         args = ["-v"]
@@ -35,14 +49,42 @@ class Testdrupal_logging(TestPlugin):
         args = ["-h"]
         self.execute(Plugin, args, 0, "usage:")
 
-    # Add your tests here!
-    # They should use
-    # self.execute(Plugin,
-    #              ['your', 'list', 'of', 'arguments'],
-    #              expected_return_value,
-    #              'regex to check against the output')
-    # You can also add debug=True, to get useful information
-    # to debug your plugins
+    def test_critical(self):
+        args = ["-w", "140", "-c", "120", "-p", "/var/www/html/"]
+        self.execute(Plugin, args, 2, EXPECTED_OUTPUT)
+
+    def test_warning(self):
+        args = ["-w", "110", "-c", "90", "-p", "/var/www/html/"]
+        self.execute(Plugin, args, 1, EXPECTED_OUTPUT)
+
+    def test_ok(self):
+        args = ["-w", "70", "-c", "40", "-p", "/var/www/html/"]
+        self.execute(Plugin, args, 0, EXPECTED_OUTPUT)
+
+    def test_remote_critical(self):
+        args = ["-w", "140", "-c", "120", "-a", "@drupal", "-d", "/home/alignak"]
+        self.execute(Plugin, args, 2, EXPECTED_OUTPUT)
+
+    def test_remote_warning(self):
+        args = ["-w", "110", "-c", "90", "-a", "@drupal", "-d", "/home/alignak"]
+        self.execute(Plugin, args, 1, EXPECTED_OUTPUT)
+
+    def test_remote_ok(self):
+        args = ["-w", "60", "-c", "30", "-a", "@drupal", "-d", "/home/alignak"]
+        self.execute(Plugin, args, 0, EXPECTED_OUTPUT)
+
+    def test_incomplete_alias_arguments(self):
+        expected = "--home-dir must be used with --alias"
+        args = ["-w", "50", "-c", "70", "-a", "@drupal"]
+        self.execute(Plugin, args, 3, stderr_pattern=expected)
+
+    def test_incomplete_arguments(self):
+        expected = "Either --alias and --home-dir or --drupal-path must be set"
+        args = ["-w", "50", "-c", "70"]
+        self.execute(Plugin, args, 3, stderr_pattern=expected)
+        expected = "--warning and --critical are both required"
+        args = []
+        self.execute(Plugin, args, 3, stderr_pattern=expected)
 
 
 if __name__ == '__main__':
