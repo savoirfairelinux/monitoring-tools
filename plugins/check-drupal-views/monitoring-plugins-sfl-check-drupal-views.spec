@@ -48,13 +48,13 @@ sphinx-build -b html -d doc/build/doctrees/source doc %{buildroot}/%{_docdir}/mo
 
 # Remove useless files
 %{__rm} -rf %{buildroot}/%{python_sitelib}/shinkenplugins.plugins.*egg-info/
-%{__rm} -f %{buildroot}/%{python_sitelib}/shinkenplugins.plugins.*-nspkg.pth
 
 %files
 %defattr(-,root,root,-)
 
 %dir %{python_sitelib}/shinkenplugins
 %{python_sitelib}/shinkenplugins/plugins/
+%{python_sitelib}/shinkenplugins.plugins.*-nspkg.pth
 %{_bindir}/%{command_name}
 %{_libdir}/monitoring/plugins/sfl/%{command_name}
 

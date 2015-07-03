@@ -1,13 +1,13 @@
-%define raw_name       check-drupal-jenkins
+%define raw_name       check-drupal-codebase
 %define name           monitoring-plugins-sfl-%{raw_name}
 %define version        0.1.0
 %define release        1
-%define command_name   check_drupal_jenkins
+%define command_name   check_drupal_codebase
 
 Name:           %{name}
 Version:        %{version}
 Release:        %{release}
-Summary:        Alignak plugin to check the Drupal jenkins service
+Summary:        Alignak plugin to check the Drupal codebase service
 Group:          Networking/Other
 
 License:        GPLv3
@@ -15,7 +15,6 @@ URL:            https://github.com/savoirfairelinux/monitoring-tools
 Source0:        https://github.com/savoirfairelinux/monitoring-tools/%{name}-%{version}.orig.tar.gz
 
 Requires:       python-shinkenplugins
-Requires:       python-requests
 
 BuildRequires:  python-setuptools
 BuildRequires:  python-sphinx
@@ -23,7 +22,7 @@ BuildRequires:  python-sphinx
 BuildArch:      noarch
 
 %description
-Alignak plugin to check the Drupal jenkins service
+Alignak plugin to check the Drupal codebase service
 More information is available on Github:
 https://github.com/savoirfairelinux/monitoring-tools
 
@@ -54,8 +53,8 @@ sphinx-build -b html -d doc/build/doctrees/source doc %{buildroot}/%{_docdir}/mo
 %defattr(-,root,root,-)
 
 %dir %{python_sitelib}/shinkenplugins
-%{python_sitelib}/shinkenplugins/plugins/
 %{python_sitelib}/shinkenplugins.plugins.*-nspkg.pth
+%{python_sitelib}/shinkenplugins/plugins/
 %{_bindir}/%{command_name}
 %{_libdir}/monitoring/plugins/sfl/%{command_name}
 
@@ -66,5 +65,5 @@ sphinx-build -b html -d doc/build/doctrees/source doc %{buildroot}/%{_docdir}/mo
 
 
 %changelog
-* Tue Jun 30 2015 Frédéric Vachon <frederic.vachon@savoirfairelinux.com> - 2015.6.30.11.11
+* Tue Jun 30 2015 Frédéric Vachon <frederic.vachon@savoirfairelinux.com> - 2015.6.30.12.17
 - Initial package
