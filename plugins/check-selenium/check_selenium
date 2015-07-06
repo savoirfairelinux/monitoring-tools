@@ -209,7 +209,7 @@ class Plugin(BasePlugin):
             sys.path.append(os.path.dirname(scenario_folder))
         try:
             module = importlib.import_module("." + scenario_name,
-                                             scenario_folder)
+                                             os.path.basename(scenario_folder))
         except:
             self.exit(STATES.UNKNOWN,
                       "UNKNOWN: Scenario '%s' not found in"
