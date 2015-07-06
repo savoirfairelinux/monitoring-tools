@@ -6,4 +6,12 @@
 %:
 	dh $@ --with python2 --buildsystem=python_distutils
 
+override_dh_install:
+	dh_install
+	rm -f  ./debian/python-shinkenplugins/usr/lib/python2.7/dist-packages/*.pth
+
+override_dh_clean:
+	rm -rf ./build
+	rm -rf ./*.egg-info
+	dh_clean
 
