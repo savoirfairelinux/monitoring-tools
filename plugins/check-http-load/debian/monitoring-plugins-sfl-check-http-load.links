@@ -1,0 +1,1 @@
+/usr/bin/check_http_load /usr/lib/monitoring/plugins/sfl/check_http_load

@@ -1,4 +1,4 @@
-Source: monitoring-plugins-sfl-check-drupal
+Source: monitoring-plugins-sfl-check-drupal-cache
 Section: python
 Priority: optional
 Maintainer: Frédéric Vachon <frederic.vachon@savoirfairelinux.com>
@@ -7,9 +7,9 @@ Standards-Version: 3.9.5
 Homepage: https://github.com/savoirfairelinux/monitoring-tools
 Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 
-Package: monitoring-plugins-sfl-check-drupal
+Package: monitoring-plugins-sfl-check-drupal-cache
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins
-Description: A plugin to monitor Drupal service
+Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins, python-pkg-resources
+Description: A plugin to monitor Drupal cache service
  More information is available on Github:
  https://github.com/savoirfairelinux/monitoring-tools

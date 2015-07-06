@@ -12,10 +12,10 @@ templates_path = ['_templates']
 source_suffix = '.rst'
 
 # The master toctree document.
-master_doc = 'monitoring-plugins-sfl-check-http-load'
+master_doc = 'plugin-check_http_load'
 
 # General information about the project.
-project = u'monitoring-plugins-sfl-check-http-load'
+project = u'plugin-check_http_load'
 copyright = u'2015, Savoir-faire Linux <supervision@savoirfairelinux.com>'
 
 # The short X.Y version.
@@ -95,7 +95,7 @@ html_theme = 'default'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['source/_static']
+html_static_path = ['_static']
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
@@ -164,8 +164,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('source/monitoring-plugins-sfl-check-http-load', 'monitoring-plugins-sfl-check-http-load.tex',
-   u'monitoring-plugins-sfl-check-http-load Documentation',
+  ('plugin-check_http_load', 'plugin-check_http_load.tex',
+   u'plugin-check_http_load Documentation',
    u'Savoir-faire Linux', 'manual'),
 ]
 
@@ -195,8 +195,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('source/monitoring-plugins-sfl-check-http-load', 'monitoring-plugins-sfl-check-http-load',
-     u'monitoring-plugins-sfl-check-http-load Documentation',
+    ('plugin-check_http_load', 'check_http_load',
+     u'plugin-check_http_load',
      [u'Savoir-faire Linux'], 1)
 ]
 
@@ -210,9 +210,9 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('source/monitoring-plugins-sfl-check-http-load', 'monitoring-plugins-sfl-check-http-load',
-   u'monitoring-plugins-sfl-check-http-load Documentation',
-   u'Savoir-faire Linux', 'monitoring-plugins-sfl-check-http-load', "A plugin to check the average response time of a http service under moderate load",
+  ('plugin-check_http_load', 'plugin-check_http_load',
+   u'plugin-check_http_load Documentation',
+   u'Savoir-faire Linux', 'plugin-check_http_load', "A plugin to check the average response time of a http service under moderate load",
    'Packs'),
 ]
 

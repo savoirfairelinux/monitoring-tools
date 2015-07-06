@@ -9,7 +9,7 @@ Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
 
 Package: monitoring-plugins-sfl-check-drupal-status
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins
+Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins, python-pkg-resources
 Description: A plugin to monitor Drupal status
  More information is available on Github:
  https://github.com/savoirfairelinux/monitoring-tools

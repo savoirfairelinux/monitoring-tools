@@ -8,6 +8,10 @@ override_dh_clean:
 	rm -rf ./*.egg-info
 	dh_clean
 
+override_dh_install:
+	dh_install
+	rm -f  ./debian/monitoring-plugins-sfl-check-drupal-security/usr/lib/python2.7/dist-packages/*.pth
+
 override_dh_installdocs:
 	dh_installdocs
 	sphinx-build -b man -d doc/build/doctrees doc doc/build/man
