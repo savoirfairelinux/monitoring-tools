@@ -1,0 +1,11 @@
+debian_8:
+    debian: debian
+ubuntu_12.04:
+    debian: debian
+ubuntu_14.04:
+    debian: debian
+centos_7:
+    spec: monitoring-plugins-sfl-check-drupal-extensions.spec
+    deps_pip:
+        - sphinx
+
