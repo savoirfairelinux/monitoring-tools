@@ -1,20 +1,20 @@
-%define raw_name       check-drupal-views
+%define raw_name       check-http-load
 %define name           monitoring-plugins-sfl-%{raw_name}
 %define version        0.1.0
 %define release        1
-%define command_name   check_drupal_views
+%define command_name   check_http_load
 
 Name:           %{name}
 Version:        %{version}
 Release:        %{release}
-Summary:        Alignak plugin to check the Drupal views service
+Summary:        Alignak plugin to check the average response time of a http service under moderate load
 Group:          Networking/Other
 
 License:        GPLv3
 URL:            https://github.com/savoirfairelinux/monitoring-tools
 Source0:        https://github.com/savoirfairelinux/monitoring-tools/%{name}-%{version}.orig.tar.gz
 
-Requires:       python-shinkenplugins
+Requires:       python-shinkenplugins, python-requests
 
 BuildRequires:  python-setuptools
 BuildRequires:  python-sphinx
@@ -22,7 +22,7 @@ BuildRequires:  python-sphinx
 BuildArch:      noarch
 
 %description
-Alignak plugin to check the Drupal views service
+Alignak plugin to check the average response time of a http service under moderate load
 More information is available on Github:
 https://github.com/savoirfairelinux/monitoring-tools
 

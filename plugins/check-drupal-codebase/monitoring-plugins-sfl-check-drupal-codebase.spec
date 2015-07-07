@@ -46,14 +46,12 @@ https://github.com/savoirfairelinux/monitoring-tools
 sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man1/
 sphinx-build -b html -d doc/build/doctrees/source doc %{buildroot}/%{_docdir}/monitoring/plugins/sfl/%{raw_name}
 
-# Remove useless files
-%{__rm} -rf %{buildroot}/%{python_sitelib}/shinkenplugins.plugins.*egg-info/
-
 %files
 %defattr(-,root,root,-)
 
 %dir %{python_sitelib}/shinkenplugins
 %{python_sitelib}/shinkenplugins.plugins.*-nspkg.pth
+%{python_sitelib}/shinkenplugins.plugins.*egg-info/*
 %{python_sitelib}/shinkenplugins/plugins/
 %{_bindir}/%{command_name}
 %{_libdir}/monitoring/plugins/sfl/%{command_name}
