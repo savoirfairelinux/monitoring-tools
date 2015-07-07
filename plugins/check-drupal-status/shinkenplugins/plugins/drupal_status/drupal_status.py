@@ -142,7 +142,7 @@ class CheckDrupalStatus(ShinkenPlugin):
         )
 
         result.append(
-            ('Enabled modules',
+            ('Contrib modules',
              nb_mod,
              -1)
         )
