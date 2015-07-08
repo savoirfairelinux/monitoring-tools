@@ -107,9 +107,9 @@ class CheckDrupalViews(ShinkenPlugin):
         # Make sure that the opening curly bracket is on the same line as the
         # closing one.
         while not same_line:
-            if json_beg == -1:
+            if json_beg == -1 or json_end == -1:
                 raise NoJsonFoundError('No JSON found in the output')
-            elif json_end <= output.find('\n', json_beg):
+            elif output.find('\n', json_beg, json_end) == -1:
                 same_line = True
             else:
                 json_beg = output.find('{', json_beg, json_end)
@@ -164,9 +164,9 @@ class CheckDrupalViews(ShinkenPlugin):
             message.append(
                 '%s;%d;%s;' %
                 (
-                    results[i],
+                    results[i].replace(';', ':'),
                     scores[i],
-                    actions[i]
+                    actions[i].replace(';', ':')
                 )
             )
 

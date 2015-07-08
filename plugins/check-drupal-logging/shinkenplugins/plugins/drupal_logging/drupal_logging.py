@@ -108,9 +108,9 @@ class CheckDrupalLogging(ShinkenPlugin):
         # Make sure that the opening curly bracket is on the same line as the
         # closing one.
         while not same_line:
-            if json_beg == -1:
+            if json_beg == -1 or json_end == -1:
                 raise NoJsonFoundError('No JSON found in the output')
-            elif json_end <= output.find('\n', json_beg):
+            elif output.find('\n', json_beg, json_end) == -1:
                 same_line = True
             else:
                 json_beg = output.find('{', json_beg, json_end)
@@ -135,7 +135,10 @@ class CheckDrupalLogging(ShinkenPlugin):
         message = []
         score_format = '%.2f%%\n'
 
-        if status <= args.critical:
+        if status == -1:
+            message.append('Logging OK\n')
+            code = STATES.OK
+        elif status <= args.critical:
             message.append(score_format % status)
             code = STATES.CRITICAL
         elif status <= args.warning:
@@ -150,6 +153,9 @@ class CheckDrupalLogging(ShinkenPlugin):
         actions = []
 
         for metric in self.METRICS:
+            if metric not in data['checks']:
+                continue
+
             results.append(data['checks'][metric]['result'])
             scores.append(data['checks'][metric]['score'])
 
@@ -161,9 +167,9 @@ class CheckDrupalLogging(ShinkenPlugin):
             message.append(
                 '%s;%d;%s;' %
                 (
-                    results[i],
-                    scores[i],
-                    actions[i]
+                    results[i].replace(';', ':'),
+                    -1,
+                    actions[i].replace(';', ':')
                 )
             )
 
