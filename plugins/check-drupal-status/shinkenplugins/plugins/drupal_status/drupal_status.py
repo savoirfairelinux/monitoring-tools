@@ -19,7 +19,6 @@
 
 
 from __future__ import absolute_import
-import collections
 import json
 import re
 import subprocess
@@ -74,44 +73,50 @@ class CheckDrupalStatus(ShinkenPlugin):
         self.path = args.drupal_path
         self.home = args.home_dir
 
-        cmd1 = ['--json', '--detail', 'as']
-        cmd2 = ['ups', '--format=csv']
-        cmd3 = ['pml', '--format=csv']
+        cmd_status = ['--json', '--detail', 'as']
+        cmd_modules = ['pml', '--format=csv']
+        cmd_update = ['ups', '--format=csv']
+
+        drush_version = self._get_drush_major_version(args.alias)
 
         if args.alias:
-            cmd1 = [args.alias] + cmd1
-            cmd2 = [args.alias] + cmd2
-            cmd3 = [args.alias] + cmd3
+            cmd_status = [args.alias] + cmd_status
+            cmd_update = [args.alias] + cmd_update
+            cmd_modules = [args.alias] + cmd_modules
 
-        data = self._get_drush_result(cmd1)
-        update_status = self._get_drush_result(cmd2)
-        modules = self._get_drush_result(cmd3)
+        status = self._get_drush_result(cmd_status)
+
+        if drush_version >= 6:
+            update_status = self._get_drush_result(cmd_update)
+            modules = self._get_drush_result(cmd_modules)
 
         if args.alias:
             try:
-                data = self._extract_json_from_output(data)
+                status = self._extract_json_from_output(status)
             except NoJsonFoundError, e:
                 self.exit(STATES.UNKNOWN, e.message)
-            update_status = self._extract_csv_from_output(update_status,
+
+            if drush_version >= 6:
+                update_status = self._extract_csv_from_output(update_status,
                                                           self.REGEX_UPDATE)
-            modules = self._extract_csv_from_output(modules,
+                modules = self._extract_csv_from_output(modules,
                                                     self.REGEX_MODULES)
         else:
-            update_status = update_status.strip().split('\n')
-            modules = modules.strip().split('\n')
+            if drush_version >= 6:
+                update_status = update_status.strip().split('\n')
+                modules = modules.strip().split('\n')
 
-        data = json.loads(data)
-        info = data['checks']['SiteAuditCheckStatusSystem']['result']
+        status = json.loads(status)
+        info = status['checks']['SiteAuditCheckStatusSystem']['result']
         info = info.split('\n')
         info = {line.split(':')[0]: line.split(':')[1] for line in info}
 
-        if len(update_status) == 1 and update_status[0].strip() == '':
-            update_status = []
-        else:
-            update_status = [(update.split(',')[0], update.split(',')[3])
-                             for update in update_status]
-
-        nb_mod = self._get_number_of_modules(modules)
+        if drush_version >= 6:
+            if len(update_status) == 1 and update_status[0].strip() == '':
+                update_status = []
+            else:
+                update_status = [(update.split(',')[0], update.split(',')[3])
+                                 for update in update_status]
 
         result = []
 
@@ -141,47 +146,32 @@ class CheckDrupalStatus(ShinkenPlugin):
              -1)
         )
 
-        result.append(
-            ('Contrib modules',
-             nb_mod,
-             -1)
-        )
+        if drush_version >= 6:
+            nb_mod = self._get_number_of_modules(modules)
+            result.append(
+                ('Contrib modules',
+                 nb_mod,
+                 -1)
+            )
 
-        code = STATES.OK
-        msg = 'Everything is up to date'
-
-        # To maintain consistency between Drupal plugins, site_audit's levels
-        # are used. So, level -1 = info, 0 = critical, 1 = warning and 2 = OK
-        for (mod_name, mod_status) in update_status:
-            mod_status = mod_status.strip()
-            to_add = True
-
-            if mod_status == 'Up to date':
-                level = 2
-                to_add = False
-            elif mod_status == 'Update available':
-                if code < 1:
-                    code = STATES.WARNING
-                    msg = 'Updates available'
-                level = 1
-            elif mod_status == 'SECURITY UPDATE available':
-                if code < 2:
-                    code = STATES.CRITICAL
-                    msg = 'SECURITY UPDATE available'
-                level = 0
-            else:
-                level = -1
-                to_add = False
-
-            if to_add:
-                result.append((mod_name, mod_status, level))
+            msg, code = self._add_update_status_from_drush(update_status, result)
+        else:
+            msg, code = self._add_update_status_from_site_audit(info, result)
 
         out = [msg]
 
         for (key, value, level) in result:
-            out.append("%s;%s;%d" % (key, value, level))
+            out.append("%s;%s;%d" % (key.replace(';', ':'), value.replace(';', ':'), level))
 
         self.exit(code, '\n'.join(out))
+
+    def _get_drush_major_version(self, alias):
+        cmd = ['version']
+        if alias:
+            cmd = [alias] + cmd
+
+        output = self._get_drush_result(cmd)
+        return int(output.split(' ')[2].split('.')[0])
 
     def _get_drush_result(self, cmd):
         try:
@@ -213,9 +203,9 @@ class CheckDrupalStatus(ShinkenPlugin):
         # Make sure that the opening curly bracket is on the same line as the
         # closing one.
         while not same_line:
-            if json_beg == -1:
+            if json_beg == -1 or json_end == -1:
                 raise NoJsonFoundError('No JSON found in the output')
-            elif json_end <= output.find('\n', json_beg):
+            elif output.find('\n', json_beg, json_end) == -1:
                 same_line = True
             else:
                 json_beg = output.find('{', json_beg, json_end)
@@ -236,6 +226,73 @@ class CheckDrupalStatus(ShinkenPlugin):
                     total += 1
 
         return total
+
+    def _add_update_status_from_drush(self, update_status, result):
+        code = STATES.OK
+        msg = 'Everything is up to date'
+
+        # To maintain consistency between Drupal plugins, site_audit's levels
+        # are used. So, level -1 = info, 0 = critical, 1 = warning and 2 = OK
+        for (mod_name, mod_status) in update_status:
+            mod_status = mod_status.strip()
+            to_add = True
+
+            if mod_status == 'Up to date':
+                level = 2
+                to_add = False
+            elif mod_status == 'Update available':
+                if code < 1:
+                    code = STATES.WARNING
+                    msg = 'Updates available'
+                level = 1
+            elif mod_status == 'SECURITY UPDATE available':
+                if code < 2:
+                    code = STATES.CRITICAL
+                    msg = 'SECURITY UPDATE available'
+                level = 0
+            else:
+                level = -1
+                to_add = False
+
+            if to_add:
+                result.append((mod_name, mod_status, level))
+
+            return msg, code
+
+    def _add_update_status_from_site_audit(self, info, result):
+        code = STATES.OK
+        msg = 'Everything is up to date'
+
+        keys = ['Drupal core update status', 'Module and theme update status']
+
+        for key in keys:
+            mod_status = info[key]
+            to_add = True
+
+            if 'core' in key:
+                mod_name = 'Drupal core'
+            else:
+                mod_name = 'Module and theme'
+
+            if 'Info' in mod_status or 'Ok' in mod_status:
+                level = 2
+                to_add = False
+            elif 'Warning' in mod_status:
+                if code < 1:
+                    code = STATES.WARNING
+                    msg = 'Updates available'
+                level = 1
+            elif 'Error' in mod_status:
+                if code < 2:
+                    code = STATES.CRITICAL
+                    msg = 'SECURITY UPDATE available'
+                level = 0
+
+            if to_add:
+                mod_status = mod_status.split('-')[1]
+                result.append((mod_name, mod_status, level))
+
+        return msg, code
 
 
 class NoJsonFoundError(Exception):
