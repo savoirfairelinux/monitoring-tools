@@ -6,16 +6,37 @@
 "path":"",
 
 "macros":{
-        "_MACRO_1": {"type": "3 comma-separated integer",
-                     "description": "Macro 1 description"
+        "_DRUPAL_OPTIONS": {"type": "command line arguments",
+                     "description": "Pass arguments to drupal plugins. This way, you can choose between remote drush call or local drush"
                     },
-        "_MACRO_2": {"type": "3 comma-separated integer",
-                     "description": "Macro 2 description"
+        "_JENKINS_OPTIONS": {"type": "command line arguments",
+                     "description": "Pass arguments to jenkins plugins to set url, credentials, authentication endpoint, etc."
                     },
-        "_MACRO_3": {"type": "percent",
-                     "description": "Macro 3 description"
+        "_DRUPAL_WARN": {"type": "integer",
+                     "description": "Drupal plugins warning treshold"
                     },
-        "_MACRO_4": {"type": "percent",
-                     "description": "Macro 4 description"
+        "_DRUPAL_CRIT": {"type": "integer",
+                     "description": "Drupal plugins critical treshold"
+                    },
+        "_HTTP_LOAD_WARN": {"type": "float",
+                     "description": "Http load plugins warning treshold"
+                    },
+        "_HTTP_LOAD_CRIT": {"type": "float",
+                     "description": "Http load plugins critical treshold"
+                    },
+        "_HTTP_LOAD_OPTIONS": {"type": "command line arguments",
+                     "description": "Pass arguments to http load plugin."
+                    },
+        "_SELENIUM_WARN": {"type": "integer",
+                     "description": "Check selenium plugin warning treshold"
+                    },
+        "_SELENIUM_CRIT": {"type": "integer",
+                     "description": "Check selenium plugin critical treshold"
+                    },
+        "_SELENIUM_PATH": {"type": "string",
+                     "description": "Check selenium scenario path"
+                    },
+        "_SELENIUM_SCENARIO": {"type": "string",
+                     "description": "Check selenium scenario name without .py"
                     },
 }
