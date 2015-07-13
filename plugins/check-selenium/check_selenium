@@ -50,38 +50,57 @@ def make_testclass(super_class, parent, arguments):
 
         def setUp(self):
             try:
-                # Set window size
                 if not arguments['selenium-remote']:
                     # For local tests (launch from monitoring server)
                     super(testClassWithoutTimer, self).setUp()
+                    # Set window size
                     self.driver.set_window_size(arguments['width'],
                                                 arguments['height'])
                 else:
                     # For remote tests (launch from remote selenium server)
-                    try:
-                        # launch super class to get browserURL value
-                        super(testClassWithoutTimer, self).setUp()
-                        browser_url = self.selenium.browserURL
-                        # Stop it
-                        self.selenium.stop()
-                    except Exception:
-                        browser_url = self.selenium.browserURL
+                    if arguments['selenium-webdriver']:
                         try:
-                            self.selenium.stop()
+                            super(testClassWithoutTimer, self).setUp()
+                            self.driver.close()
                         except:
+                            pass
+                        selenium_url = "http://%(selenium-address)s:%(selenium-port)d/wd/hub/" % arguments
+                        desired_capabilities = {"browserName": "%(selenium-browser)s" % arguments, 
+                                                "version": "",
+                                                "platform": "ANY",
+                                                "javascriptEnabled": arguments.get('selenium-javascript', True)}
+                        self.driver = webdriver.remote.webdriver.WebDriver(selenium_url,
+                                                                           desired_capabilities=desired_capabilities)
+                        self.driver.implicitly_wait(30)
+                        # Set window size
+                        self.driver.set_window_size(arguments['width'],
+                                                    arguments['height'])
+                    else:
+                        try:
+                            # launch super class to get browserURL value
+                            super(testClassWithoutTimer, self).setUp()
+                            browser_url = self.selenium.browserURL
+                            # Stop it
+                            self.selenium.stop()
+                        except Exception:
+                            browser_url = self.selenium.browserURL
+                            try:
+                                self.selenium.stop()
+                            except:
+                                # Ignore connection refused error
+                                pass
                             # Ignore connection refused error
                             pass
-                        # Ignore connection refused error
-                        pass
 
-                    self.selenium = selenium(arguments['selenium-address'],
-                                             arguments['selenium-port'],
-                                             arguments['selenium-browser'],
-                                             browser_url)
-                    self.selenium.start()
-                    self.selenium.get_eval("window.resizeTo(%(width)s, "
-                                           "%(height)s); "
-                                           "window.moveTo(0,0);" % arguments)
+                        self.selenium = selenium(arguments['selenium-address'],
+                                                 arguments['selenium-port'],
+                                                 arguments['selenium-browser'],
+                                                 browser_url)
+                        self.selenium.start()
+                        self.selenium.get_eval("window.resizeTo(%(width)s, "
+                                               "%(height)s); "
+                                               "window.moveTo(0,0);" % arguments)
+                        self.selenium.window_maximize();
             except Exception as exp:
                 try:
                     self.selenium.stop()
@@ -115,9 +134,11 @@ class Plugin(BasePlugin):
             ('W', 'width', 'Virtual display width', True),
             ('H', 'height', 'Virtual display height', True),
             ('R', 'selenium-remote', 'Use remote selenium server', False),
-            ('P', 'selenium-port', 'Remote selenium server port', False),
-            ('X', 'selenium-address', 'Remote selenium server IP', False),
-            ('B', 'selenium-browser', 'Remote selenium Browser', False),
+            ('P', 'selenium-port', 'Remote selenium server port', True),
+            ('X', 'selenium-address', 'Remote selenium server IP', True),
+            ('B', 'selenium-browser', 'Remote selenium Browser', True),
+            ('D', 'selenium-webdriver', 'Use selenium webdriver', False),
+            ('J', 'selenium-javascript', 'Enable javscript in selenium webdriver', False),
             ('d', 'debug', 'Launch firefox in the current display.'
                            'Usefull for scenario debuging', False),
             ('S', 'scenarios-folder', 'Scenarios folder', True),
@@ -173,6 +194,10 @@ class Plugin(BasePlugin):
             args['height'] = 1080
 
         # Set default
+        if 'selenium-javascript' not in args:
+            args['selenium-javascript'] = False
+        if 'selenium-webdriver' not in args:
+            args['selenium-webdriver'] = False
         if 'selenium-remote' not in args:
             args['selenium-remote'] = False
         if 'selenium-address' not in args:
@@ -190,6 +215,8 @@ class Plugin(BasePlugin):
         bool_arguments = ['perfdata',
                           'debug',
                           'selenium-remote',
+                          'selenium-webdriver',
+                          'selenium-javascript',
                           ]
         for argument_name in bool_arguments:
             if args[argument_name] == '':
@@ -206,7 +233,7 @@ class Plugin(BasePlugin):
 
         # Load scenario file
         if os.path.dirname(scenario_folder) not in sys.path:
-            sys.path.append(os.path.dirname(scenario_folder))
+            sys.path.insert(0, os.path.dirname(scenario_folder))
         try:
             module = importlib.import_module("." + scenario_name,
                                              os.path.basename(scenario_folder))
@@ -290,19 +317,28 @@ class Plugin(BasePlugin):
             exit_code = STATES.CRITICAL
         # Errors
         if len(result.errors) > 0:
+            tmp_message = "CRITICAL: Errors detected in webscenario: " + str(result.errors)
+            message = ""
             if args['debug']:
-                message = str(result.errors[0][1])
+                message += str(result.errors[0][1])
             else:
                 # We show only the first error
                 # And only the last line of its traceback
                 error = result.errors[0][1].strip().split("\n")
                 for line in error:
                     if line.find("Message:") != -1:
-                        message = "CRITICAL: " + line
+                        message += line
                         break
                     if line.find("Error:") != -1:
-                        message = "CRITICAL: " + line
+                        message += line
                         break
+                    if line.find("ERROR:") != -1:
+                        message += line
+                        break
+            if message == "":
+                message = tmp_message
+            else:
+                message = "CRITICAL: " + message
             scenario_completed = False
             exit_code = STATES.CRITICAL
 
