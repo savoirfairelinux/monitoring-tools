@@ -45,8 +45,8 @@ setup(
     platforms=['any'],
     install_requires=[
         'shinkenplugins>0.2',
-        'python-ceilometerclient==1.0.10',
-        'python-keystoneclient==0.8.0',
+        'python-ceilometerclient',
+        'python-keystoneclient',
     ],
     extras_require={
         'test': [
