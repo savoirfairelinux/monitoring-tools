@@ -150,7 +150,7 @@ class CheckDrupalStatus(ShinkenPlugin):
             nb_mod = self._get_number_of_modules(modules)
             result.append(
                 ('Contrib modules',
-                 nb_mod,
+                 str(nb_mod),
                  -1)
             )
 
@@ -171,7 +171,10 @@ class CheckDrupalStatus(ShinkenPlugin):
             cmd = [alias] + cmd
 
         output = self._get_drush_result(cmd)
-        return int(output.split(' ')[2].split('.')[0])
+
+        match = re.search(r'(?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)', output)
+
+        return int(match.group('major'))
 
     def _get_drush_result(self, cmd):
         try:
