@@ -1,6 +1,3 @@
-#
-# Example spec file for cdplayer app...
-#
 %define raw_name    generic-host
 %define name        monitoring-packs-sfl-%{raw_name}
 %define version     2015.2.19.16.37
@@ -32,17 +29,17 @@ Generic pack for all hosts
 
 %install
 %{__rm} -rf %{buildroot}
-%{__install} -d -m 755 %{buildroot}/%{_libdir}/monitoring/packs/sfl/%{raw_name}
-%{__cp} -r pack/* %{buildroot}/%{_libdir}/monitoring/packs/sfl/%{raw_name}
-%{__install} -p -m 755 package.json %{buildroot}/%{_libdir}/monitoring/packs/sfl/%{raw_name}
+%{__install} -d -m 755 %{buildroot}/%{_datadir}/monitoring/packs/sfl/%{raw_name}
+%{__cp} -r pack/* %{buildroot}/%{_datadir}/monitoring/packs/sfl/%{raw_name}
+%{__install} -p -m 755 package.json %{buildroot}/%{_datadir}/monitoring/packs/sfl/%{raw_name}
+sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man7/%{raw_name}
 sphinx-build -b html -d doc/build/doctrees/source doc %{buildroot}/%{_docdir}/monitoring/packs/sfl/%{raw_name}
-sphinx-build -b man -d doc/build/doctrees/source doc %{buildroot}/%{_mandir}/man7/
 
 %clean
-rm -rf 
+rm -rf $RPM_BUILD_ROOT
 
 %files
-%{_libdir}/monitoring/packs/sfl
+%{_datadir}/monitoring/packs/sfl
 %doc
 %{_docdir}/monitoring/packs/sfl/%{raw_name}
 %{_mandir}/man7/*
