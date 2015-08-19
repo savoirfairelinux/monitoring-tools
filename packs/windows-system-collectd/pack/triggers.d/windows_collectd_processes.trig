@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import operator
-#try:
-if True:
+try:
     def readable(octets):
         units = ['K', 'M', 'G', 'T', 'P']
         unit = 'B'
@@ -31,46 +30,48 @@ if True:
     max_warn = self.host.customs.get('PROCESSES_MAX_WARN', None)
     max_crit = self.host.customs.get('PROCESSES_MAX_CRIT', None)
 
-    # Get perfs
-    data['process_count'] = float(perf(self, 'ps_count_0'))
-    data['thread_count'] = float(perf(self, 'ps_count_1'))
-
-    # Transform threshold
     if min_warn and min_crit:
-	data['warn'] = int(min_warn)
-	data['crit'] = int(min_crit)
+        data['warn'] = int(min_warn)
+        data['crit'] = int(min_crit)
         operator_name = 'le'
     elif max_warn and max_crit:
-	data['warn'] = int(max_warn)
-	data['crit'] = int(max_crit)
+        data['warn'] = int(max_warn)
+        data['crit'] = int(max_crit)
         operator_name = 'ge'
 
-    # Prepare output
-    if not data['warn'] is None:
-        perf_data = ("process_count=%(process_count)d;%(warn)s;%(crit)s;0; "
-                     "thread_count=%(thread_count)d;%(warn)s;%(crit)s;0;"  % data)
-    else:
-        perf_data = ("process_count=%(process_count)d;;;0; "
-                     "thread_count=%(thread_count)d;;;0; " % data)
+    perf_datas = []
+    outputs = []
+    count_dict = {"process_count": 0, "thread_count": 1}
 
-    for d in data:
-        if not d in ['process_count', 'thread_count', 'warn', 'crit']:
-            perf_data += " %s=%d;;;" % (d, data[d])
+    for count_name, index in count_dict.items():
+        try:
+            # Get data
+            data['name'] = count_name
+            data['count'] = float(perf(self, 'ps_count_%d' % index))
+            data['clean'] = "%s%s" % (count_name[0].upper(), count_name[1:-6])
+            if not data['warn'] is None:
+                perf_datas.append('%(name)s=%(count)d;%(warn)s;%(crit)s;0;' % data)
+                if getattr(operator, operator_name)(data['process_count'], data['crit']):
+                    exit_code = 2
+                elif getattr(operator, operator_name)(data['process_count'], data['warn']):
+                    exit_code = max(exit_code, 1)
+            else:
+                perf_datas.append('%(name)s=%(count)d;;;0' % data)
+        except:
+            # If we get an error, we just pass this data_name (IN and OUT are ignored)
+            bad_data = True
 
-    output = "Process count: %(process_count)d - Thread count: %(thread_count)d" % data
+        if bad_data:
+        # We get an error, so we pass to the next data
+            continue
 
-    # Get status
-    if not data['warn'] is None:
-         if getattr(operator, operator_name)(data['process_count'], data['crit']):
-             exit_code = 2
-         elif getattr(operator, operator_name)(data['process_count'], data['warn']):
-             exit_code = 1
-
-    # Finish output
-    output = " - ".join((exit_code_output[exit_code], output))
+            # Prepare output
+        outputs.append("%(clean)s count: %(count)d" % data)
 
     # Set ouput
+    perf_data = " ".join(perf_datas)
+    output = " # ".join(outputs)
+    output = " - ".join((exit_code_output[exit_code], output))
     set_value(self, output, perf_data, exit_code)
-
-#except Exception, e:
-#    set_value(self, "UNKNOWN: Trigger error: " + str(e), "", 3)
+except Exception, e:
+    set_value(self, "UNKNOWN: Trigger error: " + str(e), "", 3)
