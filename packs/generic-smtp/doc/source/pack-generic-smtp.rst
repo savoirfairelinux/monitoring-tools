@@ -1,4 +1,4 @@
-sfl-generic-vraddrupal-http
+sfl-generic-smtp
 =========================
 
 Dependencies
@@ -11,27 +11,27 @@ Shinken Modules
 Plugins
 ~~~~~~~
 
-check_http
+check_smtp
 ----------
 
 This pack will create services which need the following plugin:
 
 ::
 
-  /usr/lib/nagios/plugins/check_http
+  /usr/lib/nagios/plugins/check_smtp
 
 or
 
 ::
 
-  /usr/lib64/nagios/plugins/check_http
+  /usr/lib64/nagios/plugins/check_smtp
 
 Network
 ~~~~~~~
 
 This pack will create services which need the following protocol :
 
-* TCP 80 and 443 from Poller to monitored client
+* TCP 25
 
 Installation
 ************
@@ -48,19 +48,13 @@ Settings
 
 This is the list of settings which can be redefined in the host definition
 
-_VRADDRUPALURL
--------------
-
-:type:              string
-:description:       The Drupal  path on server. Default: /
-
-_VRADDRUPALWARN
+_SMTPWARN
 --------------
 
 :type:              Integer
 :description:       Warning threshold. Default: 3
 
-_VRADDRUPALCRIT
+_SMTPCRIT
 --------------
 
 :type:              Integer
