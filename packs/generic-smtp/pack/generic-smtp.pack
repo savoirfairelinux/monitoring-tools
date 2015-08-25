@@ -1,0 +1,10 @@
+{
+"name":"generic-smtp",
+
+"description":"check smtp server",
+
+"path":"websites/",
+
+"macros":{
+        }
+}
