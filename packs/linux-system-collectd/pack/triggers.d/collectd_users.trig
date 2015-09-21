@@ -1,39 +1,55 @@
 #!/usr/bin/env python
+try:
+    import logging
+    backend = "Shinken"
+    logger = logging.getLogger(backend)
 
-exit_code_output = {0: 'OK',
-                    1: 'WARNING',
-                    2: 'CRITICAL',
-                    3: 'UNKNOWN',
-                   }
-exit_code = 0
-# Get threshold
-data = {}
+    exit_code_output = {0: 'OK',
+                        1: 'WARNING',
+                        2: 'CRITICAL',
+                        3: 'UNKNOWN',
+                       }
+    exit_code = 0
+    # Get threshold
+    data = {}
 
-data['warn'] = self.host.customs.get('_USER_WARN', None)
-data['crit'] = self.host.customs.get('_USER_CRIT', None)
+    data['warn'] = self.host.customs.get('_USER_WARN', None)
+    data['crit'] = self.host.customs.get('_USER_CRIT', None)
 
-# Get perfs
-data['users'] = int(perf(self, 'users'))
+    error = False
+    try:
+        # Get perfs
+        data['users'] = int(perf(self, 'users'))
+    except ValueError:
+        logger.error("users perf_data is missing for %s" % self.get_full_name())
+        logger.info("Dumping perf_data : %s" % self.perf_data)
+        perf_data = ""
+        output = "Error : A required perf_data is missing to compute trigger"
+        exit_code = 3
+        error = True
 
-# Prepare output
-if data['warn']:
-    data['warn']= int(data['warn'])
-    data['crit']= int(data['crit'])
-    perf_data = ("users=%(users)dusers;%(warn)d;%(crit)d;0;" % data)
-else:
-    perf_data = ("users=%(users)dusers;;;0;" % data)
+    if not error:
+        # Prepare output
+        if data['warn']:
+            data['warn']= int(data['warn'])
+            data['crit']= int(data['crit'])
+            perf_data = ("users=%(users)dusers;%(warn)d;%(crit)d;0;" % data)
+        else:
+            perf_data = ("users=%(users)dusers;;;0;" % data)
 
-output = "Connected users: %(users)d" % data
+        output = "Connected users: %(users)d" % data
 
-# Get status
-if data['warn']:
-    if data['users'] > data['crit']:
-        exit_code = 2
-    elif data['users'] > data['warn']:
-        exit_code = 1
+        # Get status
+        if data['warn']:
+            if data['users'] > data['crit']:
+                exit_code = 2
+            elif data['users'] > data['warn']:
+                exit_code = 1
 
-# Finish output
-output = " - ".join((exit_code_output[exit_code], output))
+    # Finish output
+    output = " - ".join((exit_code_output[exit_code], output))
 
-# Set ouput
-set_value(self, output, perf_data, exit_code)
+    # Set ouput
+    set_value(self, output, perf_data, exit_code)
+except Exception, e:
+    set_value(self, "UNKNOWN: Trigger error: " + str(e), "", 3)

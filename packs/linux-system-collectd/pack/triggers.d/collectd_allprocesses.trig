@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 try:
+    import logging
+    backend = "Shinken"
+    logger = logging.getLogger(backend)
+
     exit_code_output = {0: 'OK',
                         1: 'WARNING',
                         2: 'CRITICAL',
@@ -7,15 +11,17 @@ try:
                        }
     exit_code = 0
 
+
     # Get perfs
     data = {}
-    data['ps_state_stopped'] = float(perf(self, 'ps_state-stopped'))
-    data['ps_state_sleeping'] = float(perf(self, 'ps_state-sleeping'))
-    data['ps_state_paging'] = float(perf(self, 'ps_state-paging'))
-    data['ps_state_zombies'] = float(perf(self, 'ps_state-zombies'))
-    data['ps_state_blocked'] = float(perf(self, 'ps_state-blocked'))
-    data['ps_state_running'] = float(perf(self, 'ps_state-running'))
-    data['fork_rate'] = float(perf(self, 'fork_rate'))
+    for perf_d in ['ps_state-stopped', 'ps_state-sleeping', 'ps_state-paging',
+                   'ps_state-zombies', 'ps_state-blocked', 'ps_state-running',
+                   'fork_rate']:
+        try:
+            data[perf_d] = float(perf(perf_d))
+        except TypeError:
+            logger.warning("%s perf_data is missing for %s" % (perf_d, self.get_full_name()))
+            logger.info("Dumping perf_data : %s" % self.perf_data)
 
     output = []
     perf_data = ""
