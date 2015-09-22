@@ -26,6 +26,7 @@ try:
                'ps_count_0', 'ps_count_1', 'ps_vm', 'ps_stacksize',
                'ps_disk_ops_0', 'ps_disk_ops_1', 'ps_rss', 'ps_cputime_0',
                'ps_cputime_1', 'ps_disk_octets_0', 'ps_disk_octets_1']
+    error = False
     for metric in metrics:
         try:
             data[metric] = float(perf(self, metric))

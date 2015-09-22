@@ -57,6 +57,7 @@ try:
             if metric is None: # some might not always be reported
                 logger.warning("%s perf_data is missing for %s" % (metric, self.get_full_name()))
                 logger.info("Dumping perf_data : %s" % self.perf_data)
+                continue
             value = data[name] = float(metric.value)
             perf_datas.append("{begin}_{name}={value:0.2f}{what};;;0".format(begin=begin, name=name, value=value, what=towhat))
 

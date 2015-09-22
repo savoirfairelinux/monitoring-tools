@@ -75,8 +75,8 @@ try:
             perf_data = ("free=%(free)dbytes;%(free_warn)d;%(free_crit)d;0;%(total)d "
                          "used=%(used)dbytes;%(used_warn)d;%(used_crit)d;0;%(total)d "
                          "cached=%(cached)dbytes;;;0;%(total)d "
-                         "io_out=%(io_out)dbytes/s;;;0;% "
-                         "io_in=%(io_in)dbytes/s;;;0;% " % data)
+                         "io_out=%(io_out)dbytes/s;;;0; "
+                         "io_in=%(io_in)dbytes/s;;;0; " % data)
         else:
             perf_data = ("free=%(free)dbytes;;;0;%(total)d "
                          "used=%(used)dbytes;;;0;%(total)d "
