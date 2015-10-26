@@ -1,0 +1,15 @@
+Source: monitoring-packs-sfl-generic-rabbitmq-http
+Section: python
+Priority: optional
+Maintainer: Sebastien Coavoux <sebastien.coavoux@savoirfairelinux.com>
+Build-Depends: debhelper (>= 8.0.0), python-sphinx
+Standards-Version: 3.9.6
+Homepage: https://github.com/savoirfairelinux/monitoring-tools
+Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
+
+Package: monitoring-packs-sfl-generic-rabbitmq-http
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Pack to monitor rabbitmq server through the HTTP API
+ More information is available on Github:
+ https://github.com/savoirfairelinux/monitoring-tools

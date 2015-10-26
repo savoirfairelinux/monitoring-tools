@@ -1,0 +1,18 @@
+{
+"name":"generic-rabbitmq-http",
+
+"description":"Pack to monitor Rabbitmq server through the HTTP API",
+
+"path":"",
+
+"macros":{
+        "RABBITMQ_USER": {"type": "String",
+                     "description": "Rabbitmq admin user"
+                    },
+        "_RABBITMQ_PASSWORD": {"type": "String",
+                     "description": "Rabbitmq admin password"
+                    },
+        "_QUEUES": {"type": "Comma separated String list",
+                     "description": "List of queues to monitor"
+                    }
+}

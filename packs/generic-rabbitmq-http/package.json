@@ -1,0 +1,21 @@
+{
+    "name": "generic-rabbitmq-http",
+    "types": ["pack"],
+    "version": "1.0",
+    "homepage": "https://github.com/savoirfairelinux/monitoring-tools",
+    "author": "Sebastien Coavoux",
+    "description": "Pack to monitor rabbitmq server through the HTTP API",
+    "contributors": [
+        {
+        "name": "Sebastien Coavoux",
+        "email": "sebastien.coavoux@savoirfairelinux.com"
+        }
+    ],
+    "repository": "https://github.com/savoirfairelinux/monitoring-tools",
+    "keywords": ["pack",
+                 "generic-rabbitmq-http",
+                 "rabbitmq"
+    ],
+    "dependencies": { "shinken": ">=1.4" },
+    "license": "GPL"
+}
