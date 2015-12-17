@@ -86,7 +86,8 @@ class CheckRabbitmq(ShinkenPlugin):
 
         properties = pika.BasicProperties(
                 content_encoding=encoding,
-                headers={'uuid': str_generated_uuid})
+                headers={'uuid': str_generated_uuid,
+                         'ShinkenRabbitMqPlugin': str(42)})
         # properties = None
 
         gotit = []
