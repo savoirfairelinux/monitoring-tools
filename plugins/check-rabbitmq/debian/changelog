@@ -1,0 +1,5 @@
+monitoring-plugins-sfl-check-rabbitmq (2015.12.17.14.35-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Grégory Starck <g.starck@gmail.com>  Thu, 17 Dec 2015 19:35:53 -0000
