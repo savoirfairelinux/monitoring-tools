@@ -189,11 +189,14 @@ def get_data(args):
             sys.exit(STATE_UNKNOWN)
         
         # Save new_data
-        f.write(";".join((str(now),
+        try: 
+            f.write(";".join((str(now),
                           str(raw[ifname]['in_bytes']),
                           str(raw[ifname]['out_bytes'])
                         ))
                 )
+        except: 
+            print "ERROR: cannot write in the \"/tmp\"."
         f.close()
         # Set data in results
         results[ifname] = {}
