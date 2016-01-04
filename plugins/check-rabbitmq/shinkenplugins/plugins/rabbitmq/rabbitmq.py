@@ -25,7 +25,6 @@ import uuid
 
 import pika
 
-from shinkenplugins.perfdata import PerfData
 from shinkenplugins.plugin import ShinkenPlugin
 
 
@@ -36,31 +35,56 @@ class CheckRabbitmq(ShinkenPlugin):
     AUTHOR = 'Grégory Starck'
     EMAIL = 'g.starck@gmail.com'
 
+    DEFAULT_KEY_NAME = "RabbitMqPlugin"
+    DEFAULT_KEY_VALUE = "42"
+
+    DEFAULT_RABBITMQ_HOST = '127.0.0.1'
+    DEFAULT_RABBITMQ_PORT = 5672
+
+    DEFAULT_RABBITMQ_USER = 'guest'
+    DEFAULT_RABBITMQ_PASSWORD = 'guest'
+
+    DEFAULT_RABBITMQ_ROUTING_KEY = ''
+    DEFAULT_RABBITMQ_EXCHANGE = 'monitoring.exchange.x'
+    DEFAULT_RABBITMQ_QUEUE = 'monitoring.queue.q'
+
+    DEFAULT_RABBITMQ_BODY = 'test body'
+    DEFAULT_RABBITMQ_BODY_ENCODING = 'UTF-8'
+
     def __init__(self):
         super(CheckRabbitmq, self).__init__()
         self.add_warning_critical(
                 {'help': "The maximum time to receive the message in the output queue after which "
                          "we consider a WARNING result.",
-                 'default': 1},
+                 'default': 3},
                 {'help': "The maximum time to receive the message in the output queue after which "
                          "we consider a CRITICAL result.",
-                 'default': 3},
+                 'default': 10},
         )
-        self.parser.add_argument('--hostname', '-H', default="127.0.0.1",
-                                 help='The hostname where the RabbitMQ server is running.')
-        self.parser.add_argument('--port', '-P', default=5672, type=int,
-                                 help='The port where the RabbitMQ server is running.')
-        self.parser.add_argument('--user', '-u', default="guest",
-                                 help='The user to use to authenticate.')
-        self.parser.add_argument('--password', '-p', default="guest",
-                                 help='The password to use to authenticate.')
-        self.parser.add_argument('--exchange', '-e', default="monitoring.exchange.x",
-                                 help='The exchange to send a message to.')
-        self.parser.add_argument('--routing-key', '-r', default="")
-        self.parser.add_argument('--queue', '-q', default="monitoring.queue.q",
-                                 help='The queue where the message should arrive.')
-        self.parser.add_argument('--body', '-b', default="test body",
-                                 help='The body to send in the message, will be encoded in UTF-8.')
+        add = self.parser.add_argument
+        add('--hostname', '-H', default=self.DEFAULT_RABBITMQ_HOST,
+            help='The hostname where the RabbitMQ server is running.')
+        add('--port', '-P', default=self.DEFAULT_RABBITMQ_PORT, type=int,
+            help='The port where the RabbitMQ server is running.')
+        add('--user', '-u', default=self.DEFAULT_RABBITMQ_USER,
+            help='The user to use to authenticate.')
+        add('--password', '-p', default=self.DEFAULT_RABBITMQ_PASSWORD,
+            help='The password to use to authenticate.')
+        add('--exchange', '-e', default=self.DEFAULT_RABBITMQ_EXCHANGE,
+            help='The exchange to send a message to.')
+        add('--routing-key', '-r', default=self.DEFAULT_RABBITMQ_ROUTING_KEY)
+        add('--queue', '-q', default=self.DEFAULT_RABBITMQ_QUEUE,
+            help='The queue where the message should arrive.')
+        add('--body', '-b', default=self.DEFAULT_RABBITMQ_BODY,
+            help='The message to be actually sent in the body.')
+        add('--encoding', default=self.DEFAULT_RABBITMQ_BODY_ENCODING,
+            help='The encoding to use for the body message.')
+        add('--key-name', default=self.DEFAULT_KEY_NAME,
+            help='The default header key name to be used to recognize the message that will be '
+                 'published.')
+        add('--key-value', default=self.DEFAULT_KEY_VALUE,
+            help='The default header value to be used to recognize the message that will be '
+                 'published.')
 
     def parse_args(self, args):
         """ Use this function to handle complex conditions """
@@ -73,7 +97,6 @@ class CheckRabbitmq(ShinkenPlugin):
 
     def run(self, args):
         """ Main Plugin function """
-        encoding = 'UTF-8'
         creds = pika.PlainCredentials(args.user, args.password)
         params = pika.ConnectionParameters(host=args.hostname, port=args.port,
                                            credentials=creds, socket_timeout=1 + args.critical)
@@ -85,10 +108,9 @@ class CheckRabbitmq(ShinkenPlugin):
         str_generated_uuid = str(generated_uuid)
 
         properties = pika.BasicProperties(
-                content_encoding=encoding,
+                content_encoding=args.encoding,
                 headers={'uuid': str_generated_uuid,
-                         'ShinkenRabbitMqPlugin': str(42)})
-        # properties = None
+                         args.key_name: args.key_value})
 
         gotit = []
 
@@ -97,18 +119,19 @@ class CheckRabbitmq(ShinkenPlugin):
             if properties.headers and properties.headers.get('uuid') == str_generated_uuid:
                 gotit.append(time.time())
                 channel.basic_ack(method.delivery_tag)
-                conn.close()
+                conn.remove_timeout(timeout_id)
+                channel.stop_consuming()
 
         consumer_tag = channel.basic_consume(callback, args.queue,
                                              no_ack=False, exclusive=True)
         del consumer_tag  # unused
 
-        t_publish = time.time()
-        channel.publish(args.exchange, args.routing_key, args.body.encode(encoding),
+        t_published = time.time()
+        channel.publish(args.exchange, args.routing_key, args.body.encode(args.encoding),
                         mandatory=True, properties=properties)
 
-        # automatically close the connection after args.critical + 1 seconds:
-        conn.add_timeout(1 + args.critical, conn.close)
+        # automatically stop consuming after args.critical + 1 seconds:
+        timeout_id = conn.add_timeout(1 + args.critical, channel.stop_consuming)
         try:
             channel.start_consuming()
         except Exception as err:
@@ -116,14 +139,20 @@ class CheckRabbitmq(ShinkenPlugin):
 
         if gotit:
             t_received = gotit[0]
-            elapsed = t_publish - t_received
+            elapsed = t_received - t_published
+            str_elapsed = '%.3f sec (warn=%s crit=%s)' % (
+                elapsed, args.warning, args.critical)
             if elapsed < args.warning:
-                self.ok("OK")
-            if elapsed < args.critical:
-                self.warning("WARN")
-            self.critical("DAMN")
+                method = self.ok
+            elif elapsed < args.critical:
+                method = self.warning
+            else:
+                method = self.critical
+            method(str_elapsed)
         else:
-            self.critical("Message lost ? No consumer on the destination exchange ?")
+            self.critical("Timeout (%s) waiting message on %r queue ; Message lost ? "
+                          "No consumer on the destination exchange %r ?" % (
+                args.critical, args.queue, args.exchange))
 
 ############################################################################
 
