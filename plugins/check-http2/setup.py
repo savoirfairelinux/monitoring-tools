@@ -44,7 +44,7 @@ setup(
     url="https://github.com/savoirfairelinux/sfl-shinken-plugins",
     platforms=['any'],
     install_requires=[
-        'shinkenplugins>0.2',
+        'shinkenplugins>=0.4',
     ],
     extras_require={
         'test': [
