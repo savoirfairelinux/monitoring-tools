@@ -148,8 +148,8 @@ class Plugin(BasePlugin):
         missing_images = []
         if args.get('req_images'):
             for image in args.get('req_images'):
-                if not next(client.images.list(**{"filters": {"name": image}}), None):
-                        missing_images.append(image)
+                if image not in images:
+                    missing_images.append(image)
             if len(missing_images) > 0:
                 self.exit(
                     STATES.CRITICAL,
