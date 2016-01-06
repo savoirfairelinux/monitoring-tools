@@ -21,14 +21,14 @@ import re
 import urllib2
 import lxml.html
 
-from shinkenplugins import BasePlugin
-from shinkenplugins import PerfData
-from shinkenplugins import STATES
+from shinkenplugins.plugin import ShinkenPlugin
+from shinkenplugins.perfdata import PerfData
+from shinkenplugins.states import STATES
 
 URL = 'http://www.quebecrencontres.com/'
 XPATH = '//div[@id="top"]/h2[@class="txtlarge"]/text()'
 
-class Plugin(BasePlugin):
+class Plugin(ShinkenPlugin):
     NAME = 'check-quebecrencontrescom'
     VERSION = '0.1'
     DESCRIPTION = 'Checks number of lonely hearts on quebecrencontres.com.'
@@ -60,8 +60,8 @@ class Plugin(BasePlugin):
         # Here is the core of the plugin.
         # After doing your verifications, escape by doing:
         # self.exit(return_code, 'return_message', *performance_data)
-
-        html = self.get_html()
+        self.exit(STATES.UNKNOWN, 'Données indisponible suite a des changements sur le site')
+        '''html = self.get_html()
         tree = lxml.html.fromstring(html)
         data = tree.xpath(XPATH)
         if len(data) == 1:
@@ -71,13 +71,17 @@ class Plugin(BasePlugin):
             try:
                 results = [int(x) for x in results[:2]]
             except Exception as e:
-                self.exit(STATES.UNKWOWN, 'Wrong data received: %s' % results)
+                self.exit(STATES.UNKNOWN, 'Wrong data received: %s' % results)
 
             p1 = PerfData('members', results[0], min_=0)
             p2 = PerfData('online', results[1], min_=0)
             self.exit(STATES.OK, 'OK - %d members, %d online' % tuple(results), p1, p2)
         
-        self.exit(STATES.UNKWOWN, 'Wrong data received: %s [...]' % html[:100])
+        self.exit(STATES.UNKNOWN, 'Wrong data received: %s [...]' % html[:100])'''
+
+def main():
+    Plugin()
+
 
 if __name__ == "__main__":
-    Plugin()
+    main()

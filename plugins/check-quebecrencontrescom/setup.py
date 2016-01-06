@@ -46,7 +46,7 @@ setup(
     url="https://github.com/savoirfairelinux/sfl-shinken-plugins",
     platforms=['any'],
     install_requires=[
-        'shinkenplugins>=0.1.4,<0.2.0',
+        'shinkenplugins>=0.4',
         'lxml',
     ],
     extras_require={
@@ -60,6 +60,6 @@ setup(
     ],
     entry_points="""
     [console_scripts]
-    check_quebecrencontrescom = shinkenplugins.plugins.quebecrencontrescom:main
+    quebecrencontrescom = shinkenplugins.plugins.quebecrencontrescom:main
     """,
 )
