@@ -85,6 +85,8 @@ class CheckEnvironmentCanada(ShinkenPlugin):
 
         if args.warning is not None:
             # then we're working with numbers
+            if result is None:
+                self.unknown("No data available for %s (None)" % args.metric)
             try:
                 result = float(result)
             except Exception as e:
