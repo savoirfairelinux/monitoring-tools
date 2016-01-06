@@ -16,20 +16,19 @@
 # Copyright (C) 2014, Savoir-faire Linux, Inc.
 # Author Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
 
-from check_reseaucontactcom import Plugin
+from shinkenplugins.plugins.reseaucontactcom import Plugin
 
 from shinkenplugins.test import TestPlugin
+
 
 class Test(TestPlugin):
     def test_version(self):
         args = ['-v']
-        self.execute(Plugin, args, 3,
-                     'version ' + Plugin.VERSION)
+        self.execute(Plugin, args, 0, stderr_pattern='version ' + Plugin.VERSION)
 
     def test_help(self):
         args = ['-h']
-        self.execute(Plugin, args, 3,
-                     'Usage:')
+        self.execute(Plugin, args, 0, 'usage:')
 
     # Add your tests here!
     # They should use
@@ -45,4 +44,4 @@ class Test(TestPlugin):
 
     def test_wrong_args(self):
         args = ['--ploum']
-        self.execute(Plugin, args, 3, 'option --ploum not recognized')
+        self.execute(Plugin, args, 3, stderr_pattern='error: unrecognized arguments: --ploum')

@@ -21,15 +21,16 @@ import re
 import urllib2
 import lxml.html
 
-from shinkenplugins import BasePlugin
-from shinkenplugins import PerfData
-from shinkenplugins import STATES
+from shinkenplugins.plugin import ShinkenPlugin
+from shinkenplugins.perfdata import PerfData
+from shinkenplugins.states import STATES
 
 URL = 'http://www.reseaucontact.com/'
 XPATH1 = '//section[@id="widget-community-stats"]//h2[@class="totalMembers"]/text()'
 XPATH2 = '//section[@id="widget-community-stats"]//h2[@class="onlineMembers"]/text()'
 
-class Plugin(BasePlugin):
+
+class Plugin(ShinkenPlugin):
     NAME = 'check-reseaucontactcom'
     VERSION = '0.1'
     DESCRIPTION = 'Checks number of lonely hearts on reseaucontact.com.'
@@ -75,8 +76,9 @@ class Plugin(BasePlugin):
 
                 try:
                     result = int(data)
-                except Exception as e:
-                    self.exit(STATES.UNKNOWN, 'Wrong data received: %s' % result)
+                except Exception as err:
+                    self.exit(STATES.UNKNOWN, 'Wrong data received: %s ; err=%s' % (
+                        result, err))
                 
                 stats.append(result)
 
@@ -85,5 +87,10 @@ class Plugin(BasePlugin):
             self.exit(STATES.OK, 'OK - %d members, %d online' % tuple(stats), p1, p2)
 
         self.exit(STATES.UNKNOWN, 'Wrong data received: %s [...]' % html[:100])
+
+
+def main():
+    Plugin().execute()
+
 if __name__ == "__main__":
-    Plugin()
+    main()
