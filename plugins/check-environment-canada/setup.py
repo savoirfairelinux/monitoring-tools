@@ -36,7 +36,7 @@ long_description = 'Checks various environment metrics in Canada.'
 
 setup(
     name='shinkenplugins.plugins.environment_canada',
-    version="1.2",
+    version="1.3",
     packages=find_packages(),
     author="Grégory Starck",
     author_email="gregory.starck@savoirfairelinux.com",
