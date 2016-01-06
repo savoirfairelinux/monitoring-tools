@@ -17,11 +17,10 @@
 # Copyright (C) 2014, Savoir-faire Linux, Inc.
 # Author Matthieu Caneill <matthieu.caneill@savoirfairelinux.com>
 
-import re
 import urllib2
 import lxml.html
 
-from shinkenplugins.old import BasePlugin
+from shinkenplugins.plugin import ShinkenPlugin
 from shinkenplugins.perfdata import PerfData
 from shinkenplugins.states import STATES
 
@@ -30,31 +29,23 @@ STATUS_XPATH = '//div[@id="wrap"]/div[@id="sub-wrap"]//div[contains(@class, "con
 LINES_XPATH = '//div[@id="wrap"]/div[@id="sub-wrap"]//div[contains(@class, "content-services")]//section[contains(@class,"item-line")]/h2/text()'
 LINES_COUNT = 4
 
-class Plugin(BasePlugin):
+
+class STM_Metro_Montreal_Plugin(ShinkenPlugin):
+
     NAME = 'check-stm-metro-montreal'
     VERSION = '0.1'
     DESCRIPTION = 'Checks the current state of the metro in Montreal.'
     AUTHOR = 'Matthieu Caneill'
     EMAIL = 'matthieu.caneill@savoirfairelinux.com'
-    
-    ARGS = [# Can't touch this:
-            ('h', 'help', 'display plugin help', False),
-            ('v', 'version', 'display plugin version number', False),
-            # Hammer time^W^W Add your plugin arguments here:
-            # ('short', 'long', 'description', 'does it expect a value?')
-            ('w', 'warning', 'Limit to result in a warning state', True),
-            ('c', 'critical', 'Limit to result in a critical state', True),
-            ]
-    
-    def check_args(self, args):
-        # You can do your various arguments check here.
-        # If you don't need to check things, you can safely remove the method.
-        
-        if not args.get('help') and not args.get('version'):
-            for arg in ('warning', 'critical'):
-                if not arg in args.keys():
-                    return False, 'argument %s is mandatory' % arg
-        return True, None
+
+    def __init__(self):
+        super(Plugin, self).__init__()
+        self.add_warning_critical(
+                {'help': 'Limit to result in a warning state',
+                 'default': 3},
+                {'help': 'Limit to result in a critical state',
+                 'default': 10},
+        )
 
     def get_html(self):
         try:
@@ -77,21 +68,21 @@ class Plugin(BasePlugin):
 
         if len(status) == len(lines) == LINES_COUNT:
             problems = []
-            for i in range(len(lines)):
+            for i in range(LINES_COUNT):
                 if status[i] != u'Normal métro service':
                     problems.append(lines[i].strip())
 
-            if 0 <= len(problems) < int(args['warning']):
+            if 0 <= len(problems) < args.warning:
                 msg = 'OK'
                 code = STATES.OK
-            elif int(args['warning']) <= len(problems) < int(args['critical']):
+            elif args.warning <= len(problems) < args.critical:
                 msg = 'WARNING'
                 code = STATES.WARNING
             else:
                 msg = 'CRITICAL'
                 code = STATES.CRITICAL
             
-            perfdata = PerfData('problems', len(problems), warn=args['warning'], crit=args['critical'],
+            perfdata = PerfData('problems', len(problems), warn=args.warning, crit=args.critical,
                                 min_=0, max_=LINES_COUNT)
             
             is_problems = len(problems) > 0
@@ -103,7 +94,15 @@ class Plugin(BasePlugin):
 
             self.exit(code, final_msg, perfdata)
 
-        self.exit(STATES.UNKWOWN, 'Wrong data received: %s [...]' % html[:100])
+        self.unknown('Wrong data received: %s [...]' % html[:100])
+
+
+Plugin = STM_Metro_Montreal_Plugin
+
+
+def main():
+    Plugin().execute()
+
 
 if __name__ == "__main__":
-    Plugin()
+    main()
