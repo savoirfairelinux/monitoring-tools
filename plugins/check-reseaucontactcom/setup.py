@@ -23,10 +23,19 @@
 
 from __future__ import with_statement
 
+from os import path
 from setuptools import setup, find_packages
 
-description = 'Check Redis'
-long_description = ''' ... '''
+THIS_DIR = path.abspath(path.dirname(__file__))
+
+ns = {}
+with open(path.join(THIS_DIR, 'shinkenplugins', 'plugins',
+                    'reseaucontactcom', 'version.py')) as fh:
+    exec(fh.read(), ns, ns)
+    VERSION = ns['VERSION']
+
+description = 'Check "ReseauContact.com"'
+long_description = description
 
 #############################################################################
 
@@ -48,7 +57,7 @@ setup(
         ],
     },
     name='shinkenplugins.plugins.reseaucontactcom',
-    version="0.1",
+    version=VERSION,
     packages=find_packages(),
     namespace_packages=[
         'shinkenplugins',
