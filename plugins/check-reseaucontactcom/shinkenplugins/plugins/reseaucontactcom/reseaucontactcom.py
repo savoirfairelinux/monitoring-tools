@@ -26,8 +26,9 @@ from shinkenplugins.perfdata import PerfData
 from shinkenplugins.states import STATES
 
 URL = 'http://www.reseaucontact.com/'
-XPATH1 = '//section[@id="widget-community-stats"]//h2[@class="totalMembers"]/text()'
-XPATH2 = '//section[@id="widget-community-stats"]//h2[@class="onlineMembers"]/text()'
+
+XPATH1 = '//h5[@class="totalMembers"]/text()'
+XPATH2 = '//h5[@class="onlineMembers"]/text()'
 
 
 class Plugin(ShinkenPlugin):
