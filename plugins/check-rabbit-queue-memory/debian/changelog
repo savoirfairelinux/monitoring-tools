@@ -1,0 +1,5 @@
+monitoring-plugins-sfl-check-rabbit-queue-memory (2016.4.28.13.31-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Flavien Peyre <flavien.peyre@savoirfairelinux.com>  Thu, 28 Apr 2016 17:31:33 -0000
