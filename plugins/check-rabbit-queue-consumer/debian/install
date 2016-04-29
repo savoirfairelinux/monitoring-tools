@@ -1,0 +1,1 @@
+check_rabbit_queue_consumer /usr/lib/monitoring/plugins/sfl

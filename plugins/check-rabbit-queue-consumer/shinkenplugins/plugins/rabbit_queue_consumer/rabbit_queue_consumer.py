@@ -31,19 +31,19 @@ import subprocess
 from shinkenplugins.perfdata import PerfData
 from shinkenplugins.plugin import ShinkenPlugin
 
-class CheckRabbitQueueMemory(ShinkenPlugin):
-    NAME = 'rabbit_queue_memory'
+class CheckRabbitQueueConsumer(ShinkenPlugin):
+    NAME = 'rabbit_queue_consumer'
     VERSION = '1.0'
-    DESCRIPTION = 'Check the memory used by a rabbitmq queue'
+    DESCRIPTION = 'check the number of consumer on a rabbitMQ queue'
     AUTHOR = 'Flavien Peyre'
-    EMAIL = 'flavien.peyre@savoirfairelinux.com'
+    EMAIL = 'flavien.peyre@savoirfairelinux.net'
 
 
     def __init__(self):
-        super(CheckRabbitQueueMemory, self).__init__()
-        self.add_warning_critical({'help': "The maximal memory in kB used by the queue to consider a CRITICAL result.",
+        super(CheckRabbitQueueConsumer, self).__init__()
+        self.add_warning_critical({'help': "The minimal number of consummer on the queue to consider a CRITICAL result.",
              'default': None},
-            {'help': "The maximal memory in kB used by the queue to consider a WARNING result."  ,
+            {'help': "The minimal number of consummer on the queue to consider a WARNING result.",
              'default': None},)
         self.parser.add_argument('-q', '--queue', required=True, help='The rabbit queue to check.')
         self.parser.add_argument('-f', '--perfdata', action='store_true',
@@ -52,7 +52,7 @@ class CheckRabbitQueueMemory(ShinkenPlugin):
 
     def parse_args(self, args):
         """ Use this function to handle complex conditions """
-        args = super(CheckRabbitQueueMemory, self).parse_args(args)
+        args = super(CheckRabbitQueueConsumer, self).parse_args(args)
         if not args.queue:
             self.parser.error('--queue required')
         return args
@@ -60,17 +60,17 @@ class CheckRabbitQueueMemory(ShinkenPlugin):
 
     def run(self, args):
         """ Main Plugin function """
-        queue, err = subprocess.Popen("rabbitmqctl list_queues name memory | grep " + args.queue, stdout=subprocess.PIPE,shell = True).communicate()
+        queue, err = subprocess.Popen("rabbitmqctl list_queues name consumers | grep " + args.queue, stdout=subprocess.PIPE,shell = True).communicate()
 
         if not queue:
             self.unknown("Queue name %s does not exist" % args.queue)
         else:
-            memory = int(queue.split()[-1])/1024
-            p = PerfData('Memory of the queue', memory, unit='kB', warn=args.warning, crit=args.critical, min_=0)
+            consumer = int(queue.split()[-1])
+            p = PerfData('Consumer on the queue', memory, unit='consumers', warn=args.warning, crit=args.critical, min_=0)
 
-        if args.critical and memory > args.critical:
+        if args.critical and consumer < args.critical:
             self.critical("Critical", p)
-        elif args.warning and memory > args.warning:
+        elif args.warning and consumer < args.warning:
             self.warning("Warning", p)
         else:
             self.ok("Everything was perfect", p)
@@ -79,12 +79,12 @@ class CheckRabbitQueueMemory(ShinkenPlugin):
 
 ############################################################################
 
-Plugin = CheckRabbitQueueMemory
+Plugin = CheckRabbitQueueConsumer
 
 ############################################################################
 
 def main(argv=None):
-    plugin = CheckRabbitQueueMemory()
+    plugin = CheckRabbitQueueConsumer()
     plugin.execute(argv)
 
 
