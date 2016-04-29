@@ -1,0 +1,15 @@
+Source: monitoring-plugins-sfl-check-rabbit-consumer-utilisation
+Section: python
+Priority: optional
+Maintainer: Flavien Peyre <flavien.peyre@savoirfairelinux.net>
+Build-Depends: debhelper (>= 9), python-setuptools
+Standards-Version: 3.9.5
+Homepage: https://github.com/savoirfairelinux/monitoring-tools
+Vcs-Browser: https://github.com/savoirfairelinux/monitoring-tools.git
+
+Package: monitoring-plugins-sfl-check-rabbit-consumer-utilisation
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, python-shinkenplugins
+Description: check the consumer utilisation on a rabbitmq queue
+ More information is available on Github:
+ https://github.com/savoirfairelinux/monitoring-tools

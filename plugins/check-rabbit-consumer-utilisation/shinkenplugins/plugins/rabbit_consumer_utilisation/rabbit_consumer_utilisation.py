@@ -31,19 +31,19 @@ import subprocess
 from shinkenplugins.perfdata import PerfData
 from shinkenplugins.plugin import ShinkenPlugin
 
-class CheckRabbitQueueConsumer(ShinkenPlugin):
-    NAME = 'rabbit_queue_consumer'
+class CheckRabbitConsumerUtilisation(ShinkenPlugin):
+    NAME = 'rabbit_consumer_utilisation'
     VERSION = '1.0'
-    DESCRIPTION = 'check the number of consumer on a rabbitMQ queue'
+    DESCRIPTION = 'check the consumer utilisation on a rabbitmq queue'
     AUTHOR = 'Flavien Peyre'
     EMAIL = 'flavien.peyre@savoirfairelinux.net'
 
 
     def __init__(self):
-        super(CheckRabbitQueueConsumer, self).__init__()
-        self.add_warning_critical({'help': "The minimal number of consummer on the queue to consider a CRITICAL result.",
+        super(CheckRabbitConsumerUtilisation, self).__init__()
+        self.add_warning_critical({'help': "The minimal percentage of consumer utilisation on a queue to consider a CRITICAL result.",
              'default': None},
-            {'help': "The minimal number of consummer on the queue to consider a WARNING result.",
+            {'help': "The minimal percentage of consumer utilisation on a queue to consider a WARNING result."  ,
              'default': None},)
         self.parser.add_argument('-q', '--queue', required=True, help='The rabbit queue to check.')
         self.parser.add_argument('-f', '--perfdata', action='store_true',
@@ -52,25 +52,27 @@ class CheckRabbitQueueConsumer(ShinkenPlugin):
 
     def parse_args(self, args):
         """ Use this function to handle complex conditions """
-        args = super(CheckRabbitQueueConsumer, self).parse_args(args)
-        if not args.queue:
-            self.parser.error('--queue required')
+        args = super(CheckRabbitConsumerUtilisation, self).parse_args(args)
+        if None in (args.warning, args.critical):
+            self.parser.error('--warning and --critical are both required')
         return args
 
 
     def run(self, args):
         """ Main Plugin function """
-        queue, err = subprocess.Popen("rabbitmqctl list_queues name consumers | grep " + args.queue, stdout=subprocess.PIPE,shell = True).communicate()
+        queue, err = subprocess.Popen("rabbitmqctl list_queues name consumer_utilisation | grep " + args.queue, stdout=subprocess.PIPE,shell = True).communicate()
 
         if not queue:
             self.unknown("Queue name %s does not exist" % args.queue)
+        elif len(queue.split()) == 1:
+            self.unknown("No consumer or percentage available on %s" % args.queue)
         else:
-            consumer = int(queue.split()[-1])
-            p = PerfData('Consumer on the queue', consumer, unit='consumers', warn=args.warning, crit=args.critical, min_=0)
+            percent = int(queue.split()[-1])*100
+            p = PerfData('Consumer utilisation', percent, unit='%', warn=args.warning, crit=args.critical, min_=0)
 
-        if args.critical and consumer < args.critical:
+        if args.critical and percent < args.critical:
             self.critical("Critical", p)
-        elif args.warning and consumer < args.warning:
+        elif args.warning and percent < args.warning:
             self.warning("Warning", p)
         else:
             self.ok("Everything was perfect", p)
@@ -79,12 +81,12 @@ class CheckRabbitQueueConsumer(ShinkenPlugin):
 
 ############################################################################
 
-Plugin = CheckRabbitQueueConsumer
+Plugin = CheckRabbitConsumerUtilisation
 
 ############################################################################
 
 def main(argv=None):
-    plugin = CheckRabbitQueueConsumer()
+    plugin = CheckRabbitConsumerUtilisation()
     plugin.execute(argv)
 
 

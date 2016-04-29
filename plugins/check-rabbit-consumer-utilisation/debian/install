@@ -1,0 +1,1 @@
+check_rabbit_consumer_utilisation /usr/lib/monitoring/plugins/sfl
